@@ -1,7 +1,6 @@
 ---
-import { Image } from 'astro:assets';
+import Logo from './Logo.astro';
 import { site } from '../data/site';
-import heroPhoto from '../assets/photos/modern-woning-airco.jpg';
 
 interface Props {
   title?: string;
@@ -41,16 +40,7 @@ const {
         </div>
       </div>
       <div class="flex justify-center lg:justify-end">
-        <Image
-          src={heroPhoto}
-          alt="Modern wooninterieur met een comfortabel en koel binnenklimaat"
-          width={640}
-          height={480}
-          class="aspect-[4/3] w-full max-w-lg rounded-2xl object-cover shadow-2xl ring-1 ring-white/15"
-          loading="eager"
-          fetchpriority="high"
-          decoding="async"
-        />
+        <Logo size="lg" />
       </div>
     </div>
   </div>
