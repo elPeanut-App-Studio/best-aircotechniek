@@ -3,6 +3,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import CTASection from '../components/CTASection.astro';
 import JourneyInteractive from '../components/JourneyInteractive.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
+import PageHero from '../components/PageHero.astro';
+import montagePhoto from '../assets/photos/montage-dak.jpg';
 import { journeyIntro } from '../data/site';
 ---
 
@@ -10,14 +12,11 @@ import { journeyIntro } from '../data/site';
   title="Hoe het werkt"
   description="Ontdek hoe Best Aircotechniek u begeleidt, van eerste contact en advies aan huis tot vakkundige installatie en oplevering."
 >
-  <section class="page-hero py-16 sm:py-20">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-      <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl">{journeyIntro.title}</h1>
-      <p class="mt-4 max-w-2xl text-lg text-brand-100">
-        {journeyIntro.description}
-      </p>
-    </div>
-  </section>
+  <PageHero
+    title={journeyIntro.title}
+    description={journeyIntro.description}
+    image={montagePhoto}
+  />
 
   <section class="py-16 sm:py-20">
     <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">

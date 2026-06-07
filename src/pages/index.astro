@@ -1,9 +1,11 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import USPGrid from '../components/USPGrid.astro';
 import JourneyPreview from '../components/JourneyPreview.astro';
 import CTASection from '../components/CTASection.astro';
+import aircoPhoto from '../assets/photos/hero-airco-installatie.jpg';
 import { site } from '../data/site';
 ---
 
@@ -22,7 +24,19 @@ import { site } from '../data/site';
               Best Aircotechniek is uw lokale partner voor airconditioning. Wij werken netjes, houden ons aan afspraken en leveren kwaliteit waar u op kunt vertrouwen.
             </p>
           </div>
-          <div class="grid grid-cols-2 gap-6">
+          <div class="grid gap-6 sm:grid-cols-[1.1fr_1fr] sm:items-start">
+            <div class="overflow-hidden rounded-2xl shadow-sm ring-1 ring-slate-200 sm:row-span-2">
+              <Image
+                src={aircoPhoto}
+                alt="Buitenunit van een airconditioningsysteem netjes gemonteerd aan een woning"
+                width={480}
+                height={360}
+                class="aspect-[4/3] h-full w-full object-cover"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="grid grid-cols-2 gap-4 sm:col-start-2 sm:grid-cols-1">
             <div class="rounded-xl border border-brand-100 bg-brand-50 p-6 text-center">
               <p class="text-3xl font-bold text-brand-800">100%</p>
               <p class="mt-1 text-sm text-slate-600">Vakmanschap</p>
@@ -35,9 +49,10 @@ import { site } from '../data/site';
               <p class="text-3xl font-bold text-brand-800">Advies</p>
               <p class="mt-1 text-sm text-slate-600">Gratis en vrijblijvend</p>
             </div>
-            <div class="rounded-xl bg-brand-50 p-6 text-center">
+            <div class="rounded-xl border border-brand-100 bg-brand-50 p-6 text-center">
               <p class="text-3xl font-bold text-brand-800">Garantie</p>
               <p class="mt-1 text-sm text-slate-600">Op installatie</p>
+            </div>
             </div>
           </div>
         </div>

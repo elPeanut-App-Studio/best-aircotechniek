@@ -1,6 +1,10 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CTASection from '../components/CTASection.astro';
+import PageHero from '../components/PageHero.astro';
+import teamPhoto from '../assets/photos/team-monteur.jpg';
+import pageHeroPhoto from '../assets/photos/page-hero-woning.jpg';
 import { site, serviceAreas } from '../data/site';
 ---
 
@@ -8,14 +12,11 @@ import { site, serviceAreas } from '../data/site';
   title="Over ons"
   description="Leer Best Aircotechniek kennen. Uw lokale specialist in airco-installatie met vakmanschap en persoonlijke service."
 >
-  <section class="page-hero py-16 sm:py-20">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-      <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl">Over ons</h1>
-      <p class="mt-4 max-w-2xl text-lg text-brand-100">
-        Best Aircotechniek staat voor kwaliteit, betrouwbaarheid en een koel resultaat waar u jarenlang van geniet.
-      </p>
-    </div>
-  </section>
+  <PageHero
+    title="Over ons"
+    description="Best Aircotechniek staat voor kwaliteit, betrouwbaarheid en een koel resultaat waar u jarenlang van geniet."
+    image={pageHeroPhoto}
+  />
 
   <section class="py-16 sm:py-20">
     <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
@@ -29,16 +30,16 @@ import { site, serviceAreas } from '../data/site';
             Met oog voor detail en respect voor uw woning of pand, zorgen wij voor een nette installatie en duidelijke communicatie van begin tot eind.
           </p>
         </div>
-        <div class="rounded-2xl bg-slate-100 p-12">
-          <div class="flex aspect-video items-center justify-center rounded-xl bg-slate-200">
-            <div class="text-center text-slate-500">
-              <svg class="mx-auto h-16 w-16 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z" />
-              </svg>
-              <p class="mt-2 text-sm">Foto placeholder</p>
-              <p class="text-xs">Voeg later een team- of bedrijfsfoto toe</p>
-            </div>
-          </div>
+        <div class="overflow-hidden rounded-2xl bg-slate-100 shadow-sm ring-1 ring-slate-200">
+          <Image
+            src={teamPhoto}
+            alt="Professionele monteur van Best Aircotechniek in uniform voor een woning"
+            width={640}
+            height={480}
+            class="aspect-[4/3] h-full w-full object-cover"
+            loading="lazy"
+            decoding="async"
+          />
         </div>
       </div>
     </div>

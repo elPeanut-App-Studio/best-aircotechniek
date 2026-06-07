@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ContactForm from '../components/ContactForm.astro';
+import PageHero from '../components/PageHero.astro';
+import contactHeroPhoto from '../assets/photos/modern-woning-airco.jpg';
 import { site } from '../data/site';
 ---
 
@@ -8,14 +10,11 @@ import { site } from '../data/site';
   title="Contact"
   description="Neem contact op met Best Aircotechniek voor een offerte, advies of afspraak. Bel, mail, WhatsApp of gebruik het contactformulier."
 >
-  <section class="page-hero py-16 sm:py-20">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-      <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl">Contact</h1>
-      <p class="mt-4 max-w-2xl text-lg text-brand-100">
-        Heeft u een vraag of wilt u een offerte? Wij reageren zo snel mogelijk op uw bericht.
-      </p>
-    </div>
-  </section>
+  <PageHero
+    title="Contact"
+    description="Heeft u een vraag of wilt u een offerte? Wij reageren zo snel mogelijk op uw bericht."
+    image={contactHeroPhoto}
+  />
 
   <section class="py-16 sm:py-20">
     <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">

@@ -1,0 +1,35 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: ImageMetadata;
+}
+
+const { title, description, image } = Astro.props;
+---
+
+<section class="page-hero relative overflow-hidden py-16 sm:py-20">
+  {
+    image && (
+      <>
+        <Image
+          src={image}
+          alt=""
+          width={1600}
+          height={900}
+          class="absolute inset-0 h-full w-full object-cover"
+          loading="eager"
+        />
+        <div class="absolute inset-0 bg-gradient-to-br from-brand-950/92 via-brand-800/88 to-brand-900/92" />
+      </>
+    )
+  }
+
+  <div class="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl">{title}</h1>
+    <p class="mt-4 max-w-2xl text-lg text-brand-100">{description}</p>
+  </div>
+</section>
