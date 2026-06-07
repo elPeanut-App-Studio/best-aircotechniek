@@ -1,0 +1,28 @@
+---
+import { site } from '../data/site';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'HVACBusiness',
+  name: site.name,
+  description: site.description,
+  url: site.url,
+  telephone: site.phoneHref,
+  email: site.email,
+  areaServed: site.region,
+  address: {
+    '@type': 'PostalAddress',
+    addressRegion: 'Noord-Brabant',
+    addressCountry: 'NL',
+  },
+  taxID: site.btwId,
+  identifier: {
+    '@type': 'PropertyValue',
+    propertyID: 'KVK',
+    value: site.kvk,
+  },
+  priceRange: '€€',
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

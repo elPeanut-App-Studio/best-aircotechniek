@@ -1,0 +1,31 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.png';
+import { site } from '../data/site';
+
+interface Props {
+  size?: 'sm' | 'md' | 'lg';
+  class?: string;
+}
+
+const { size = 'md', class: className = '' } = Astro.props;
+
+const sizes = {
+  sm: { width: 56, height: 56, class: 'h-12 w-12 sm:h-14 sm:w-14' },
+  md: { width: 64, height: 64, class: 'h-16 w-16' },
+  lg: { width: 320, height: 320, class: 'h-56 w-56 sm:h-64 sm:w-64 lg:h-80 lg:w-80 drop-shadow-2xl' },
+} as const;
+
+const { width, height, class: sizeClass } = sizes[size];
+---
+
+<Image
+  src={logo}
+  alt={site.name}
+  width={width}
+  height={height}
+  class:list={['object-contain', sizeClass, className]}
+  loading={size === 'md' ? 'lazy' : 'eager'}
+  fetchpriority={size === 'md' ? 'auto' : 'high'}
+  decoding="async"
+/>

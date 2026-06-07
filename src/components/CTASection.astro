@@ -1,0 +1,32 @@
+---
+import { site } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Klaar voor het beste klimaat?',
+  description = 'Neem vandaag nog contact op voor een vrijblijvend adviesgesprek of offerte.',
+} = Astro.props;
+---
+
+<section class="relative overflow-hidden bg-gradient-to-r from-brand-900 via-brand-800 to-brand-900 py-16 text-white sm:py-20">
+  <div class="absolute inset-0 bg-[radial-gradient(circle_at_80%_50%,rgba(212,175,55,0.15),transparent_45%)]"></div>
+  <div class="relative mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8">
+    <div class="gold-accent-line mx-auto"></div>
+    <h2 class="mt-6 text-3xl font-bold tracking-tight text-white sm:text-4xl">{title}</h2>
+    <p class="mx-auto mt-2 text-sm font-semibold uppercase tracking-wider text-gold-400">{site.slogan}</p>
+    <p class="mx-auto mt-4 max-w-2xl text-lg text-brand-100">{description}</p>
+    <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+      <a href="/contact" class="btn-primary">Contact opnemen</a>
+      <a
+        href={`tel:${site.phoneHref}`}
+        class="inline-flex items-center justify-center rounded-lg border-2 border-gold-500/60 bg-transparent px-6 py-3 text-sm font-semibold text-white transition hover:border-gold-400 hover:bg-gold-500/10"
+      >
+        Bel ons!
+      </a>
+    </div>
+  </div>
+</section>

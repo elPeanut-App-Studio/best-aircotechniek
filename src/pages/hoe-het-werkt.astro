@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTASection from '../components/CTASection.astro';
+import JourneyInteractive from '../components/JourneyInteractive.astro';
+import FaqAccordion from '../components/FaqAccordion.astro';
+import { journeyIntro } from '../data/site';
+---
+
+<BaseLayout
+  title="Hoe het werkt"
+  description="Ontdek hoe Best Aircotechniek u begeleidt, van eerste contact en advies aan huis tot vakkundige installatie en oplevering."
+>
+  <section class="page-hero py-16 sm:py-20">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl">{journeyIntro.title}</h1>
+      <p class="mt-4 max-w-2xl text-lg text-brand-100">
+        {journeyIntro.description}
+      </p>
+    </div>
+  </section>
+
+  <section class="py-16 sm:py-20">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col gap-12">
+        <div class="max-w-3xl">
+          <div class="gold-accent-line"></div>
+          <h2 class="section-heading mt-6">Uw klantreis</h2>
+          <p class="section-subheading">
+            Wij begeleiden u persoonlijk door het hele traject. Geen callcenter en geen onduidelijke afspraken. Wel duidelijke communicatie en vakmanschap.
+          </p>
+          <div class="mt-8 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+            <div class="rounded-2xl border border-brand-100 bg-brand-50 p-6 sm:min-w-[16rem]">
+              <p class="text-sm font-semibold text-brand-900">Gemiddelde doorlooptijd</p>
+              <p class="mt-1 text-2xl font-bold text-brand-800">1 tot 2 weken</p>
+              <p class="mt-2 text-sm text-slate-600">
+                Van offerte tot installatie, afhankelijk van uw situatie en planning.
+              </p>
+            </div>
+            <a href="/contact" class="btn-primary inline-flex shrink-0">Start uw aanvraag</a>
+          </div>
+        </div>
+
+        <JourneyInteractive />
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-slate-200 bg-white py-16 sm:py-20">
+    <div class="mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8">
+      <h2 class="section-heading">Veelgestelde vragen</h2>
+      <div class="mt-10">
+        <FaqAccordion
+          items={[
+            {
+              question: 'Is het adviesgesprek vrijblijvend?',
+              answer:
+                'Ja. Wij komen langs, geven eerlijk advies en sturen een offerte. U beslist zelf of u verder gaat.',
+            },
+            {
+              question: 'Hoe lang duurt een installatie?',
+              answer:
+                'Een standaard split-unit plaatsen wij meestal binnen één dag. Bij meerdere units plannen we extra tijd in.',
+            },
+            {
+              question: 'Helpen jullie ook na de installatie?',
+              answer:
+                'Zeker. Na oplevering blijven wij uw aanspreekpunt voor vragen en kunnen wij onderhoud voor u regelen.',
+            },
+          ]}
+        />
+      </div>
+    </div>
+  </section>
+
+  <CTASection
+    title="Klaar om te starten?"
+    description="Neem contact op en wij nemen u mee in stap 1. Vrijblijvend en zonder verplichtingen."
+  />
+</BaseLayout>
