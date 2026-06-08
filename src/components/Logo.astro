@@ -13,7 +13,7 @@ const { size = 'md', class: className = '' } = Astro.props;
 const sizes = {
   sm: { width: 56, height: 56, class: 'h-12 w-12 sm:h-14 sm:w-14' },
   md: { width: 64, height: 64, class: 'h-16 w-16' },
-  lg: { width: 320, height: 320, class: 'h-56 w-56 sm:h-64 sm:w-64 lg:h-80 lg:w-80 drop-shadow-2xl' },
+  lg: { width: 256, height: 256, class: 'h-48 w-48 sm:h-64 sm:w-64 lg:h-80 lg:w-80 drop-shadow-2xl' },
 } as const;
 
 const { width, height, class: sizeClass } = sizes[size];
@@ -27,5 +27,6 @@ const { width, height, class: sizeClass } = sizes[size];
   class:list={['object-contain', sizeClass, className]}
   loading={size === 'md' ? 'lazy' : 'eager'}
   fetchpriority={size === 'md' ? 'auto' : 'high'}
-  decoding="async"
+  decoding={size === 'lg' ? 'sync' : 'async'}
+  sizes={size === 'lg' ? '(min-width: 1024px) 320px, (min-width: 640px) 256px, 192px' : undefined}
 />
