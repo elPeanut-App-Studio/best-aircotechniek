@@ -41,7 +41,57 @@ PUBLIC_WEB3FORMS_ACCESS_KEY=jouw-access-key
 
 Het `.env` bestand staat in `.gitignore` en mag niet naar GitHub.
 
-## Google Reviews
+## Google Analytics (GA4)
+
+Analytics wordt via **Netlify snippet injection** geladen (Post processing).
+
+1. Netlify → **Site configuration → Build & deploy → Post processing → Snippet injection**
+2. Plak je GA4-snippet (Measurement ID `G-JEL5C68CXV`)
+3. Deploy opnieuw
+
+Geen analytics-code meer in dit project, om dubbele meting te voorkomen.
+
+## Google Business-profiel
+
+Volg deze stappen om vindbaar te worden op Google Maps en reviews te ontvangen.
+
+### 1. Profiel aanmaken
+
+1. [business.google.com](https://business.google.com) → bedrijf toevoegen
+2. Naam: **Best Aircotechniek**
+3. Categorie: *Airconditioningbedrijf* of *Aannemer HVAC*
+4. Telefoon: +31 6 45200605
+5. Website: https://best-aircotechniek.nl
+6. Werkgebied: Noord-Brabant (servicegebied, geen fysiek adres nodig)
+
+### 2. Verificatie
+
+Volg de verificatie (postkaart, telefoon of e-mail). Reviews zijn pas mogelijk na verificatie.
+
+### 3. Profiel invullen
+
+- Logo uploaden (`public/logo.png`)
+- Foto's van montage/werk (minimaal 3)
+- Openingstijden: op afspraak
+- Beschrijving (max. 750 tekens):
+
+```
+Best Aircotechniek plaatst airconditioningsystemen voor particulieren en bedrijven in Noord-Brabant en omgeving. Van advies aan huis tot vakkundige montage en oplevering: wij begeleiden u persoonlijk door het hele traject.
+
+Wij werken in onder meer Best, Eindhoven, Veldhoven, Oirschot, Sint-Oedenrode, Boxtel, Tilburg en Den Bosch. U spreekt direct met ons, zonder callcenter. Eerlijk advies, duidelijke offertes en nette installatie staan bij ons voorop.
+
+Neem vrijblijvend contact op voor advies of een offerte op maat. Altijd het beste klimaat.
+```
+
+### 4. Koppelen aan de website
+
+1. Kopieer je Google Maps-link (Delen → link kopiëren)
+2. Plak in `src/data/site.ts` bij `googleMapsUrl`
+3. Zoek je **Place ID** via [Place ID Finder](https://developers.google.com/maps/documentation/javascript/examples/places-placeid-finder)
+4. Voeg Place ID + Places API key toe (zie Google Reviews hieronder)
+5. Commit, push → reviews verschijnen automatisch op de homepage
+
+## Google Reviews (automatisch op homepage)
 
 1. Zoek je **Place ID** op [Place ID Finder](https://developers.google.com/maps/documentation/javascript/examples/places-placeid-finder)
 2. Maak een project in [Google Cloud Console](https://console.cloud.google.com) en schakel **Places API (New)** in
@@ -60,34 +110,27 @@ npm.cmd run build
 npm.cmd run preview
 ```
 
-## Online zetten (Vercel + STRATO)
+## Online zetten (Netlify + STRATO)
 
-### 1. GitHub
+De site draait op **Netlify**. DNS blijft bij **STRATO**.
 
-```powershell
-git status
-git add -A
-git commit -m "Site klaar voor productie"
-git push -u origin main
-```
+### Environment variables in Netlify
 
-### 2. Vercel
+Voeg toe onder **Site configuration → Environment variables**:
 
-1. Ga naar [vercel.com/new](https://vercel.com/new) en importeer de GitHub-repo
-2. Framework: **Astro**
-3. Environment variable toevoegen (Production, Preview, Development):
-   - Naam: `PUBLIC_WEB3FORMS_ACCESS_KEY`
-   - Waarde: je Web3Forms access key
-4. Deploy
-5. Voeg domeinen toe onder **Settings → Domains**: `best-aircotechniek.nl` en `www.best-aircotechniek.nl`
+| Variable | Verplicht |
+|----------|-----------|
+| `PUBLIC_WEB3FORMS_ACCESS_KEY` | Ja (contactformulier) |
+| `PUBLIC_GOOGLE_PLACE_ID` | Nee (reviews) |
+| `GOOGLE_PLACES_API_KEY` | Nee (reviews) |
 
-### 3. STRATO DNS
+Analytics: via Netlify snippet injection, geen env var nodig.
+
+### STRATO DNS
 
 | Host | Type | Waarde |
 |------|------|--------|
-| `@` (apex) | A | `76.76.21.21` |
-| `www` | CNAME | `cname.vercel-dns.com` |
+| `@` (apex) | A | `75.2.60.5` |
+| `www` | CNAME | `best-aircotechniek.netlify.app` |
 
-Controleer in Vercel of beide domeinen op **Valid Configuration** staan. SSL regelt Vercel automatisch.
-
-DNS-wijzigingen kunnen enkele minuten tot uren duren.
+SSL regelt Netlify automatisch. Zet Force HTTPS aan onder Domain management.

@@ -36,6 +36,10 @@ if (reviewsData && reviewsData.rating > 0 && reviewsData.totalReviews > 0) {
     worstRating: 1,
   };
 }
+
+if (site.googleMapsUrl) {
+  schema.sameAs = [site.googleMapsUrl];
+}
 ---
 
 <script type="application/ld+json" set:html={JSON.stringify(schema)} />
