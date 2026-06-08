@@ -1,7 +1,10 @@
 ---
 import { site } from '../data/site';
+import { getGoogleReviews } from '../lib/google-reviews';
 
-const schema = {
+const reviewsData = await getGoogleReviews();
+
+const schema: Record<string, unknown> = {
   '@context': 'https://schema.org',
   '@type': 'HVACBusiness',
   name: site.name,
@@ -23,6 +26,16 @@ const schema = {
   },
   priceRange: '€€',
 };
+
+if (reviewsData && reviewsData.rating > 0 && reviewsData.totalReviews > 0) {
+  schema.aggregateRating = {
+    '@type': 'AggregateRating',
+    ratingValue: reviewsData.rating,
+    reviewCount: reviewsData.totalReviews,
+    bestRating: 5,
+    worstRating: 1,
+  };
+}
 ---
 
 <script type="application/ld+json" set:html={JSON.stringify(schema)} />

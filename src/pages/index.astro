@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import USPGrid from '../components/USPGrid.astro';
 import JourneyPreview from '../components/JourneyPreview.astro';
+import GoogleReviews from '../components/GoogleReviews.astro';
 import CTASection from '../components/CTASection.astro';
 import aircoPhoto from '../assets/photos/hero-airco-installatie.jpg';
 import { site } from '../data/site';
@@ -17,48 +18,50 @@ import { site } from '../data/site';
   <section class="py-16 sm:py-20">
     <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
       <div class="rounded-2xl border border-slate-200 border-l-4 border-l-gold-500 bg-white p-8 sm:p-12">
-        <div class="grid gap-8 lg:grid-cols-2 lg:items-center">
+        <div class="grid gap-10 lg:grid-cols-2 lg:items-center">
           <div>
             <h2 class="section-heading">Betrouwbaar in {site.region}</h2>
             <p class="section-subheading">
               Best Aircotechniek is uw lokale partner voor airconditioning. Wij werken netjes, houden ons aan afspraken en leveren kwaliteit waar u op kunt vertrouwen.
             </p>
           </div>
-          <div class="grid gap-6 sm:grid-cols-[1.1fr_1fr] sm:items-start">
-            <div class="overflow-hidden rounded-2xl shadow-sm ring-1 ring-slate-200 sm:row-span-2">
+          <div class="flex flex-col gap-5">
+            <div class="overflow-hidden rounded-2xl shadow-sm ring-1 ring-slate-200">
               <Image
                 src={aircoPhoto}
                 alt="Buitenunit van een airconditioningsysteem netjes gemonteerd aan een woning"
-                width={480}
-                height={360}
-                class="aspect-[4/3] h-full w-full object-cover"
+                width={640}
+                height={400}
+                class="aspect-[16/10] w-full object-cover"
                 loading="lazy"
                 decoding="async"
               />
             </div>
-            <div class="grid grid-cols-2 gap-4 sm:col-start-2 sm:grid-cols-1">
-            <div class="rounded-xl border border-brand-100 bg-brand-50 p-6 text-center">
-              <p class="text-3xl font-bold text-brand-800">100%</p>
-              <p class="mt-1 text-sm text-slate-600">Vakmanschap</p>
-            </div>
-            <div class="rounded-xl bg-brand-50 p-6 text-center">
-              <p class="text-3xl font-bold text-brand-800">Snel</p>
-              <p class="mt-1 text-sm text-slate-600">Reactie op aanvragen</p>
-            </div>
-            <div class="rounded-xl bg-brand-50 p-6 text-center">
-              <p class="text-3xl font-bold text-brand-800">Advies</p>
-              <p class="mt-1 text-sm text-slate-600">Gratis en vrijblijvend</p>
-            </div>
-            <div class="rounded-xl border border-brand-100 bg-brand-50 p-6 text-center">
-              <p class="text-3xl font-bold text-brand-800">Garantie</p>
-              <p class="mt-1 text-sm text-slate-600">Op installatie</p>
-            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="rounded-xl border border-brand-100 bg-brand-50 p-5 text-center sm:p-6">
+                <p class="text-2xl font-bold text-brand-800 sm:text-3xl">100%</p>
+                <p class="mt-1 text-sm text-slate-600">Vakmanschap</p>
+              </div>
+              <div class="rounded-xl bg-brand-50 p-5 text-center sm:p-6">
+                <p class="text-2xl font-bold text-brand-800 sm:text-3xl">Snel</p>
+                <p class="mt-1 text-sm text-slate-600">Reactie op aanvragen</p>
+              </div>
+              <div class="rounded-xl bg-brand-50 p-5 text-center sm:p-6">
+                <p class="text-2xl font-bold text-brand-800 sm:text-3xl">Advies</p>
+                <p class="mt-1 text-sm text-slate-600">Gratis en vrijblijvend</p>
+              </div>
+              <div class="rounded-xl border border-brand-100 bg-brand-50 p-5 text-center sm:p-6">
+                <p class="text-2xl font-bold text-brand-800 sm:text-3xl">Garantie</p>
+                <p class="mt-1 text-sm text-slate-600">Op installatie</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </section>
+
+  <GoogleReviews />
 
   <CTASection />
 </BaseLayout>

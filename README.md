@@ -41,6 +41,18 @@ PUBLIC_WEB3FORMS_ACCESS_KEY=jouw-access-key
 
 Het `.env` bestand staat in `.gitignore` en mag niet naar GitHub.
 
+## Google Reviews
+
+1. Zoek je **Place ID** op [Place ID Finder](https://developers.google.com/maps/documentation/javascript/examples/places-placeid-finder)
+2. Maak een project in [Google Cloud Console](https://console.cloud.google.com) en schakel **Places API (New)** in
+3. Maak een API key en beperk deze tot Places API
+4. Voeg toe aan `.env` en Netlify:
+   - `PUBLIC_GOOGLE_PLACE_ID`
+   - `GOOGLE_PLACES_API_KEY`
+5. Optioneel: zet je Google Maps link in `site.ts` bij `googleMapsUrl`
+
+Reviews worden bij elke deploy opgehaald. Zonder API-key tonen de knoppen **Bekijk op Google** en **Schrijf een review**.
+
 ## Build
 
 ```powershell

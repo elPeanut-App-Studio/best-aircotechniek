@@ -13,6 +13,8 @@ export const site = {
   region: 'Noord-Brabant en omgeving',
   kvk: '84577878',
   btwId: 'NL003984507B022',
+  /** Google Maps bedrijfspagina (korte link of maps URL) */
+  googleMapsUrl: '',
 } as const;
 
 export const serviceAreas = [
