@@ -21,7 +21,7 @@ const fullTitle =
 
 const isHome = Astro.url.pathname === '/';
 const heroLogo = isHome
-  ? await getImage({ src: logo, width: 256, height: 256, format: 'webp' })
+  ? await getImage({ src: logo, width: 640, height: 640, format: 'webp' })
   : null;
 ---
 

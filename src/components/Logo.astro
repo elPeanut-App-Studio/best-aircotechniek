@@ -11,9 +11,9 @@ interface Props {
 const { size = 'md', class: className = '' } = Astro.props;
 
 const sizes = {
-  sm: { width: 56, height: 56, class: 'h-12 w-12 sm:h-14 sm:w-14' },
-  md: { width: 64, height: 64, class: 'h-16 w-16' },
-  lg: { width: 256, height: 256, class: 'h-48 w-48 sm:h-64 sm:w-64 lg:h-80 lg:w-80 drop-shadow-2xl' },
+  sm: { width: 128, height: 128, class: 'h-12 w-12 sm:h-14 sm:w-14' },
+  md: { width: 128, height: 128, class: 'h-16 w-16' },
+  lg: { width: 640, height: 640, class: 'h-48 w-48 sm:h-64 sm:w-64 lg:h-80 lg:w-80 drop-shadow-2xl' },
 } as const;
 
 const { width, height, class: sizeClass } = sizes[size];
