@@ -37,14 +37,14 @@ Sluit aan op de website [best-aircotechniek.nl](https://best-aircotechniek.nl).
 
 | Bestand | Wanneer gebruiken |
 |---------|-------------------|
-| `embleem.svg` | Kleding (borst), stickers, klein formaat |
-| `woordmerk.svg` | Grote tekst op bus of gevel |
-| `logo-horizontaal.svg` | Bus, briefpapier, banners |
-| `src/assets/logo.png` | Canva upload (PNG, 2048 px) |
+| `embleem.png` | **Officieel logo** — Canva, social, Google Business, kleding |
+| `logo.png` | Zelfde bestand als `embleem.png` |
+
+Het horizontale logo (embleem + tekst) maakt u in Canva door `embleem.png` te combineren met tekst uit dit document. Zie `brand/CANVA-BANNERS.md`.
 
 ### Canva: logo uploaden
-1. **Merkkit** → **Logos** → upload `logo.png` of `logo-horizontaal.svg`
-2. Stel in als primair logo (horizontaal) en secundair (embleem)
+1. **Merkkit** → **Logos** → upload `brand/embleem.png`
+2. Horizontale variant: embleem + tekstlagen groeperen en opslaan als tweede logo
 
 ### Regels
 - Altijd voldoende witruimte rond het logo (minimaal de hoogte van de letter **B**)
@@ -249,10 +249,10 @@ KVK 84577878 · Btw-id NL003984507B022
 
 ```
 brand/
-  embleem.svg
-  woordmerk.svg
-  logo-horizontaal.svg
-src/assets/logo.png
+  embleem.png        ← officieel logo (Canva, print)
+  logo.png
+  CANVA-BANNERS.md
+src/assets/logo.png  ← bronbestand website
 design-system.md     ← dit document
 VOORTGANG.md         ← projectvoortgang
 ```

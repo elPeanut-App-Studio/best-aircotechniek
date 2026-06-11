@@ -4,11 +4,12 @@ import { getGoogleReviews, getGoogleWriteReviewUrl } from '../lib/google-reviews
 
 const data = await getGoogleReviews();
 const placeId = import.meta.env.PUBLIC_GOOGLE_PLACE_ID ?? '';
+const mapsSearchQuery = `${site.name} ${site.region}`;
 const mapsUrl =
-  data?.mapsUrl ??
-  site.googleMapsUrl ??
-  `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.name)}`;
-const writeReviewUrl = getGoogleWriteReviewUrl(placeId) ?? mapsUrl;
+  data?.mapsUrl ||
+  site.googleMapsUrl ||
+  `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapsSearchQuery)}`;
+const writeReviewUrl = getGoogleWriteReviewUrl(placeId) || mapsUrl;
 const hasReviews = data && data.reviews.length > 0;
 
 function stars(rating: number) {

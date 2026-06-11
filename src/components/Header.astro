@@ -8,7 +8,7 @@ const { pathname } = Astro.url;
 <header class="sticky top-0 z-40 border-b border-brand-100 bg-white/95 backdrop-blur">
   <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
     <a href="/" class="flex min-w-0 items-center gap-2.5 sm:gap-3" aria-label={`${site.name} home`}>
-      <Logo size="sm" />
+      <Logo size="sm" priority />
       <span class="flex min-w-0 flex-col">
         <span class="truncate text-xs font-bold uppercase tracking-wide text-brand-900 sm:text-sm">{site.name}</span>
         <span class="truncate text-[0.7rem] font-medium text-gold-600 sm:text-xs">{site.slogan}</span>

@@ -9,15 +9,17 @@ Repository: [github.com/Best-Aircotechniek/best-aircotechniek](https://github.co
 
 ## Samenvatting
 
-| Onderdeel | Status |
-|-----------|--------|
-| Brochure-website (pagina's, design, formulier) | Klaar |
-| Hosting & DNS (Netlify + STRATO) | Live |
-| Google Search Console & sitemap | Klaar |
-| Google Analytics | Live (via Netlify snippet) |
-| Recente wijzigingen deployen | Nog te pushen |
-| Google Business & live reviews | Nog te doen |
-| SEO-uitbreiding (FAQ, regiopagina) | Gepland |
+
+| Onderdeel                                      | Status                     |
+| ---------------------------------------------- | -------------------------- |
+| Brochure-website (pagina's, design, formulier) | Klaar                      |
+| Hosting & DNS (Netlify + STRATO)               | Live                       |
+| Google Search Console & sitemap                | Klaar                      |
+| Google Analytics                               | Live (via Netlify snippet) |
+| Recente wijzigingen deployen                   | Nog te pushen              |
+| Google Business & live reviews                 | Nog te doen                |
+| SEO-uitbreiding (FAQ, regiopagina)             | Gepland                    |
+
 
 **Geschatte voortgang website:** ~90%  
 **Geschatte voortgang vindbaarheid (SEO/local):** ~40%
@@ -27,6 +29,7 @@ Repository: [github.com/Best-Aircotechniek/best-aircotechniek](https://github.co
 ## Klaar en live
 
 ### Pagina's
+
 - [x] Home (hero, USP's, klantreis, vertrouwensblok, reviews-sectie, CTA)
 - [x] Hoe het werkt (interactieve klantreis, FAQ)
 - [x] Over ons (bedrijfsinfo, werkgebied)
@@ -34,6 +37,7 @@ Repository: [github.com/Best-Aircotechniek/best-aircotechniek](https://github.co
 - [x] Redirect `/diensten` → `/hoe-het-werkt`
 
 ### Design & techniek
+
 - [x] Huisstijl (blauw `#1B4E79`, goud `#D4AF37`, Plus Jakarta Sans)
 - [x] Logo in header, hero en footer
 - [x] Responsive navigatie (desktop + hamburgermenu)
@@ -45,6 +49,7 @@ Repository: [github.com/Best-Aircotechniek/best-aircotechniek](https://github.co
 - [x] PageSpeed-basis (fonts, preconnect, logo-preload)
 
 ### Hosting & domein
+
 - [x] Netlify gekoppeld aan GitHub
 - [x] STRATO DNS (A-record apex, CNAME www)
 - [x] SSL / HTTPS
@@ -52,6 +57,7 @@ Repository: [github.com/Best-Aircotechniek/best-aircotechniek](https://github.co
 - [x] Sitemap ingediend in Search Console (status: succesvol, 4 pagina's)
 
 ### Analytics
+
 - [x] GA4 via Netlify snippet injection (`G-JEL5C68CXV`)
 - [x] Geen dubbele tracking in code (GA verwijderd uit Astro)
 
@@ -91,7 +97,8 @@ Netlify bouwt automatisch (~1–3 minuten).
 ## Nog te doen
 
 ### Prioriteit 1: Google Business (grootste impact op vindbaarheid)
-- [ ] Profiel aanmaken op [business.google.com](https://business.google.com)
+
+- [x] Profiel aanmaken op [business.google.com](https://business.google.com)
 - [ ] Verificatie afronden (postkaart / telefoon / e-mail)
 - [ ] Logo en minimaal 3 werkfoto's uploaden
 - [ ] Beschrijving invullen (tekst staat in `README.md`)
@@ -101,6 +108,7 @@ Netlify bouwt automatisch (~1–3 minuten).
 - [ ] Deploy → live reviews op homepage
 
 ### Prioriteit 2: SEO verder uitbouwen
+
 - [ ] Meta titles en descriptions aanscherpen per pagina
 - [ ] FAQ-pagina met FAQPage structured data
 - [ ] Regiopagina, bijv. `/airco-installateur-noord-brabant`
@@ -108,6 +116,7 @@ Netlify bouwt automatisch (~1–3 minuten).
 - [ ] Search Console: indexering en prestaties monitoren
 
 ### Prioriteit 3: Content & afwerking
+
 - [ ] Echte teamfoto op Over ons (nu stockfoto)
 - [ ] Eventueel extra dienst- of plaatsingspagina's per stad
 - [ ] Ongebruikte env var `PUBLIC_GA_MEASUREMENT_ID` in Netlify opruimen (optioneel)
@@ -116,14 +125,16 @@ Netlify bouwt automatisch (~1–3 minuten).
 
 ## Bedrijfsgegevens (huidige stand)
 
-| Gegeven | Waarde |
-|---------|--------|
-| Telefoon | +31 6 28305341 |
-| E-mail | info@best-aircotechniek.nl |
-| KVK | 84577878 |
-| Btw-id | NL003984507B022 |
-| Werkgebied | Noord-Brabant en omgeving |
-| Google Maps URL | Nog leeg |
+
+| Gegeven         | Waarde                                                          |
+| --------------- | --------------------------------------------------------------- |
+| Telefoon        | +31 6 28305341                                                  |
+| E-mail          | [info@best-aircotechniek.nl](mailto:info@best-aircotechniek.nl) |
+| KVK             | 84577878                                                        |
+| Btw-id          | NL003984507B022                                                 |
+| Werkgebied      | Noord-Brabant en omgeving                                       |
+| Google Maps URL | Nog leeg                                                        |
+
 
 Centrale plek voor wijzigingen: `src/data/site.ts`
 
@@ -150,3 +161,4 @@ git log --oneline -5
 - Wijzigingen batchen en in één keer deployen bespaart tokens en Netlify-builds.
 - Bij wijziging van environment variables in Netlify: **Clear cache and deploy site**.
 - Technische documentatie: `README.md`
+

@@ -1,33 +1,42 @@
-# Best Aircotechniek — merkassets (print)
+# Best Aircotechniek — merkassets
 
-Vectorbestanden voor bedrijfskleding, busbelettering en drukwerk.
-
-## Bestanden
+## Officiële bestanden (gebruik deze)
 
 | Bestand | Gebruik |
 |---------|---------|
-| `embleem.svg` | Ronde badge alleen (borst, helm, sticker) |
-| `woordmerk.svg` | Tekst alleen (buszijkant, groot formaat) |
-| `logo-horizontaal.svg` | Embleem + tekst naast elkaar |
+| `embleem.png` | Ronde badge: Canva, kleding, stickers, Google Business |
+| `logo.png` | Zelfde bestand, alternatieve naam |
 
-SVG is oneindig schaalbaar. Voor druk exporteert u naar PDF of EPS op 300 dpi.
+Bron: `src/assets/logo.png` (2048 px). **Dit is het echte logo.**
+
+## Horizontaal logo in Canva
+
+Het horizontale logo (embleem + tekst naast elkaar) bouwt u in Canva zelf:
+
+1. Upload `embleem.png`
+2. Voeg tekst toe:
+   - **BEST AIRCOTECHNIEK** — Bold, `#1B4E79`, Plus Jakarta Sans
+   - **Altijd het beste klimaat** — SemiBold, `#D4AF37`
+3. Lijn embleem en tekst uit zoals op de website-header
+
+Zie `design-system.md` en `CANVA-BANNERS.md` voor kleuren en formaten.
+
+## Echte vector (SVG) voor bus of borduur
+
+De eerder gegenereerde SVG's waren handgetekende benaderingen en kwamen niet overeen met het origineel. Die zijn verwijderd.
+
+Voor échte vector voor drukwerk of borduur:
+
+1. **Canva:** upload `embleem.png` (werkt voor de meeste toepassingen)
+2. **Illustrator / Inkscape:** open PNG → Image Trace → uitbreiden
+3. **Online:** [vectorizer.ai](https://vectorizer.ai) of drukker laten vectoriseren
+
+Vraag de drukker om vectorisatie op basis van `embleem.png` als u perfecte busbelettering nodig hebt.
 
 ## Kleuren
 
-| Naam | Hex | Gebruik |
-|------|-----|---------|
-| Best Blauw | `#1B4E79` | Tekst, bergen, ring |
-| Best Goud | `#D4AF37` | Slogan, zon |
-| Wit | `#FFFFFF` | Sneeuw, ringtekst |
-
-## Tips voor drukker / beletteraar
-
-1. Open in **Illustrator** of **Inkscape**
-2. Zet tekst om naar **outlines** (lettercontouren) als de drukker geen fonts heeft
-3. Vraag om **Pantone-match** op basis van bovenstaande hex-kleuren
-4. Bus: gebruik `logo-horizontaal.svg` of `embleem.svg` + `woordmerk.svg` apart voor flexibiliteit
-5. Kleding (borduur): `embleem.svg` werkt het beste, minimaal 8 cm diameter
-
-## Bron
-
-Gebaseerd op het officiële logo in `src/assets/logo.png`. Voor pixel-perfect drukwerk kan een drukker het PNG ook handmatig vectoriseren.
+| Naam | Hex |
+|------|-----|
+| Best Blauw | `#1B4E79` |
+| Best Goud | `#D4AF37` |
+| Donkerblauw | `#153D5F` |
