@@ -60,7 +60,7 @@ Volg deze stappen om vindbaar te worden op Google Maps en reviews te ontvangen.
 1. [business.google.com](https://business.google.com) → bedrijf toevoegen
 2. Naam: **Best Aircotechniek**
 3. Categorie: *Airconditioningbedrijf* of *Aannemer HVAC*
-4. Telefoon: +31 6 45200605
+4. Telefoon: +31 6 28305341
 5. Website: https://best-aircotechniek.nl
 6. Werkgebied: Noord-Brabant (servicegebied, geen fysiek adres nodig)
 

@@ -6,10 +6,10 @@ export const site = {
   description:
     'Best Aircotechniek. Altijd het beste klimaat. Vakkundige montage, persoonlijk advies en snelle service voor particulieren en bedrijven.',
   url: 'https://best-aircotechniek.nl',
-  phone: '+31 6 45200605',
-  phoneHref: '+31645200605',
+  phone: '+31 6 28305341',
+  phoneHref: '+31628305341',
   email: 'info@best-aircotechniek.nl',
-  whatsapp: '31645200605',
+  whatsapp: '31628305341',
   region: 'Noord-Brabant en omgeving',
   kvk: '84577878',
   btwId: 'NL003984507B022',
