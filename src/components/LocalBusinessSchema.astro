@@ -44,8 +44,8 @@ if (reviewsData && reviewsData.rating > 0 && reviewsData.totalReviews > 0) {
   };
 }
 
-// sameAs: Google Maps + overige profielen, ontdubbeld en lege waarden eruit.
-const sameAs = [site.googleMapsUrl, ...site.sameAs].filter(Boolean);
+// sameAs: Google Maps + Instagram + overige profielen, ontdubbeld en lege waarden eruit.
+const sameAs = [site.googleMapsUrl, site.instagram, ...site.sameAs].filter(Boolean);
 if (sameAs.length > 0) {
   schema.sameAs = [...new Set(sameAs)];
 }
