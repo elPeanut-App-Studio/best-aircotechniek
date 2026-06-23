@@ -12,7 +12,7 @@ export const site = {
   whatsapp: '31628305341',
   region: 'Noord-Brabant en omgeving',
   kvk: '84577878',
-  btwId: 'NL003984507B022',
+  btwId: 'NL003984507B22',
   /** Open Graph / social preview-afbeelding (1200x630), absoluut t.o.v. url */
   ogImage: '/og-image.jpg',
   /** Google Maps bedrijfspagina (korte link of maps URL) */
