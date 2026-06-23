@@ -5,12 +5,18 @@ import Hero from '../components/Hero.astro';
 import USPGrid from '../components/USPGrid.astro';
 import JourneyPreview from '../components/JourneyPreview.astro';
 import GoogleReviews from '../components/GoogleReviews.astro';
+import FaqAccordion from '../components/FaqAccordion.astro';
+import FaqSchema from '../components/FaqSchema.astro';
 import CTASection from '../components/CTASection.astro';
 import aircoPhoto from '../assets/photos/hero-airco-installatie.jpg';
 import { site } from '../data/site';
+import { generalFaq } from '../data/faq';
 ---
 
-<BaseLayout title={site.name} description={site.description}>
+<BaseLayout
+  title="Airco installatie Best & Eindhoven | Best Aircotechniek"
+  description="Airco laten installeren in Noord-Brabant? Best Aircotechniek verzorgt vakkundige montage, persoonlijk advies en snelle service. Vraag vrijblijvend een offerte aan."
+>
   <Hero />
   <USPGrid />
   <JourneyPreview />
@@ -62,6 +68,23 @@ import { site } from '../data/site';
   </section>
 
   <GoogleReviews />
+
+  <section class="border-t border-slate-200 bg-white py-16 sm:py-20">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-3xl text-center">
+        <div class="gold-accent-line mx-auto"></div>
+        <h2 class="section-heading mt-6">Veelgestelde vragen</h2>
+        <p class="section-subheading mx-auto">
+          Antwoord op de meestgestelde vragen over airco laten installeren in Noord-Brabant.
+        </p>
+      </div>
+      <div class="mt-10">
+        <FaqAccordion items={generalFaq} />
+      </div>
+    </div>
+  </section>
+
+  <FaqSchema items={generalFaq} />
 
   <CTASection />
 </BaseLayout>

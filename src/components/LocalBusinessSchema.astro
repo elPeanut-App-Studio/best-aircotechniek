@@ -1,18 +1,25 @@
 ---
-import { site } from '../data/site';
+import { site, serviceAreas } from '../data/site';
 import { getGoogleReviews } from '../lib/google-reviews';
 
 const reviewsData = await getGoogleReviews();
 
+const logoUrl = new URL(site.logo, site.url).href;
+const imageUrl = new URL(site.ogImage, site.url).href;
+
 const schema: Record<string, unknown> = {
   '@context': 'https://schema.org',
   '@type': 'HVACBusiness',
+  '@id': `${site.url}/#business`,
   name: site.name,
   description: site.description,
   url: site.url,
+  logo: logoUrl,
+  image: imageUrl,
   telephone: site.phoneHref,
   email: site.email,
-  areaServed: site.region,
+  // Concrete plaatsen i.p.v. één vrije tekst — beter voor lokale relevantie.
+  areaServed: serviceAreas.map((place) => ({ '@type': 'City', name: place })),
   address: {
     '@type': 'PostalAddress',
     addressRegion: 'Noord-Brabant',
@@ -37,8 +44,20 @@ if (reviewsData && reviewsData.rating > 0 && reviewsData.totalReviews > 0) {
   };
 }
 
-if (site.googleMapsUrl) {
-  schema.sameAs = [site.googleMapsUrl];
+// sameAs: Google Maps + overige profielen, ontdubbeld en lege waarden eruit.
+const sameAs = [site.googleMapsUrl, ...site.sameAs].filter(Boolean);
+if (sameAs.length > 0) {
+  schema.sameAs = [...new Set(sameAs)];
+}
+
+// Openingstijden alleen tonen als ze bevestigd/ingevuld zijn (zie src/data/site.ts).
+if (site.openingHours.length > 0) {
+  schema.openingHoursSpecification = site.openingHours.map((slot) => ({
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: slot.days,
+    opens: slot.opens,
+    closes: slot.closes,
+  }));
 }
 ---
 

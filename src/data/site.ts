@@ -13,8 +13,22 @@ export const site = {
   region: 'Noord-Brabant en omgeving',
   kvk: '84577878',
   btwId: 'NL003984507B022',
+  /** Open Graph / social preview-afbeelding (1200x630), absoluut t.o.v. url */
+  ogImage: '/og-image.jpg',
   /** Google Maps bedrijfspagina (korte link of maps URL) */
   googleMapsUrl: '',
+  /**
+   * Externe profielen voor schema `sameAs` (Google Business, Facebook, Instagram, LinkedIn).
+   * Vul aan zodra beschikbaar — versterkt entiteitsherkenning bij Google en AI-zoekmachines.
+   */
+  sameAs: [] as string[],
+  /**
+   * Openingstijden voor `openingHoursSpecification` in structured data.
+   * TODO: bevestig de werkelijke openingstijden voordat dit live gaat.
+   * Voorbeeld: [{ days: ['Monday','Tuesday','Wednesday','Thursday','Friday'], opens: '08:00', closes: '17:00' }]
+   * Laat leeg om geen (mogelijk onjuiste) tijden te tonen.
+   */
+  openingHours: [] as { days: string[]; opens: string; closes: string }[],
 } as const;
 
 export const serviceAreas = [
