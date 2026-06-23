@@ -12,9 +12,23 @@ export const site = {
   whatsapp: '31628305341',
   region: 'Noord-Brabant en omgeving',
   kvk: '84577878',
-  btwId: 'NL003984507B022',
+  btwId: 'NL003984507B22',
+  /** Open Graph / social preview-afbeelding (1200x630), absoluut t.o.v. url */
+  ogImage: '/og-image.jpg',
   /** Google Maps bedrijfspagina (korte link of maps URL) */
-  googleMapsUrl: '',
+  googleMapsUrl: 'https://share.google/P0go8dYmyCVAl59WI',
+  /**
+   * Externe profielen voor schema `sameAs` (Google Business, Facebook, Instagram, LinkedIn).
+   * Vul aan zodra beschikbaar — versterkt entiteitsherkenning bij Google en AI-zoekmachines.
+   */
+  sameAs: ['https://www.instagram.com/best_aircotechniek'] as string[],
+  /**
+   * Openingstijden voor `openingHoursSpecification` in structured data.
+   * TODO: bevestig de werkelijke openingstijden voordat dit live gaat.
+   * Voorbeeld: [{ days: ['Monday','Tuesday','Wednesday','Thursday','Friday'], opens: '08:00', closes: '17:00' }]
+   * Laat leeg om geen (mogelijk onjuiste) tijden te tonen.
+   */
+  openingHours: [] as { days: string[]; opens: string; closes: string }[],
 } as const;
 
 export const serviceAreas = [
@@ -31,8 +45,16 @@ export const serviceAreas = [
 export const nav = [
   { href: '/', label: 'Home' },
   { href: '/hoe-het-werkt', label: 'Hoe het werkt' },
+  { href: '/airco-installatie-noord-brabant', label: 'Werkgebied' },
   { href: '/over-ons', label: 'Over ons' },
   { href: '/contact', label: 'Contact' },
+] as const;
+
+/** Dienst- en regiolinks voor de footer (sitewide interne links naar SEO-pagina's). */
+export const dienstenNav = [
+  { href: '/airco-installatie', label: 'Airco installatie' },
+  { href: '/airco-onderhoud', label: 'Airco onderhoud' },
+  { href: '/airco-installatie-noord-brabant', label: 'Werkgebied Noord-Brabant' },
 ] as const;
 
 export const usps = [

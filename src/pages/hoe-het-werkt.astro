@@ -3,14 +3,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import CTASection from '../components/CTASection.astro';
 import JourneyInteractive from '../components/JourneyInteractive.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
+import FaqSchema from '../components/FaqSchema.astro';
 import PageHero from '../components/PageHero.astro';
 import montagePhoto from '../assets/photos/montage-dak.jpg';
 import { journeyIntro } from '../data/site';
+import { processFaq } from '../data/faq';
 ---
 
 <BaseLayout
-  title="Hoe het werkt"
-  description="Ontdek hoe Best Aircotechniek u begeleidt, van eerste contact en advies aan huis tot vakkundige installatie en oplevering."
+  title="Airco laten plaatsen — zo werkt het | Best Aircotechniek"
+  description="In 6 heldere stappen van advies tot montage. Ontdek hoe Best Aircotechniek uw airco vakkundig installeert in Best, Eindhoven en omgeving."
 >
   <PageHero
     title={journeyIntro.title}
@@ -48,28 +50,12 @@ import { journeyIntro } from '../data/site';
     <div class="mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8">
       <h2 class="section-heading">Veelgestelde vragen</h2>
       <div class="mt-10">
-        <FaqAccordion
-          items={[
-            {
-              question: 'Is het adviesgesprek vrijblijvend?',
-              answer:
-                'Ja. Wij komen langs, geven eerlijk advies en sturen een offerte. U beslist zelf of u verder gaat.',
-            },
-            {
-              question: 'Hoe lang duurt een installatie?',
-              answer:
-                'Een standaard split-unit plaatsen wij meestal binnen één dag. Bij meerdere units plannen we extra tijd in.',
-            },
-            {
-              question: 'Helpen jullie ook na de installatie?',
-              answer:
-                'Zeker. Na oplevering blijven wij uw aanspreekpunt voor vragen en kunnen wij onderhoud voor u regelen.',
-            },
-          ]}
-        />
+        <FaqAccordion items={processFaq} />
       </div>
     </div>
   </section>
+
+  <FaqSchema items={processFaq} />
 
   <CTASection
     title="Klaar om te starten?"

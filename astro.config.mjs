@@ -6,7 +6,7 @@ import flattenSitemaps from './integrations/flatten-sitemaps.mjs';
 export default defineConfig({
   site: 'https://best-aircotechniek.nl',
   redirects: {
-    '/diensten': '/hoe-het-werkt',
+    '/diensten': '/airco-installatie',
   },
   integrations: [
     tailwind({ configFile: './tailwind.config.mjs' }),

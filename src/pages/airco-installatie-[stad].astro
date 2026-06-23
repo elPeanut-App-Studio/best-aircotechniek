@@ -1,0 +1,155 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CTASection from '../components/CTASection.astro';
+import FaqAccordion from '../components/FaqAccordion.astro';
+import FaqSchema from '../components/FaqSchema.astro';
+import pageHeroPhoto from '../assets/photos/page-hero-woning.jpg';
+import { locations, buildLocationFaq, type Location } from '../data/locations';
+
+export function getStaticPaths() {
+  return locations.map((loc) => ({
+    params: { stad: loc.slug },
+    props: { loc },
+  }));
+}
+
+interface Props {
+  loc: Location;
+}
+
+const { loc } = Astro.props;
+const faq = buildLocationFaq(loc);
+const others = locations.filter((l) => l.slug !== loc.slug);
+
+const facts = [
+  { label: 'Prijs', value: 'vanaf € 1.299', note: 'basis single-split, incl. montage' },
+  { label: 'Merken', value: 'Daikin · LG · AUX', note: 'betrouwbare A-merken' },
+  { label: 'Garantie', value: '5 jaar', note: 'op de airco' },
+  { label: 'Reactie', value: 'binnen 24 uur', note: 'na uw aanvraag' },
+];
+
+const approach = [
+  {
+    title: 'Advies aan huis',
+    description: `Wij komen bij u langs in ${loc.city} om de ruimte te bekijken en bepalen samen de juiste capaciteit en plek voor de units.`,
+  },
+  {
+    title: 'Vakkundige montage',
+    description:
+      'Onze monteurs plaatsen uw airco netjes, veilig en volgens de regels. Wij laten uw woning schoon achter.',
+  },
+  {
+    title: 'Garantie & nazorg',
+    description:
+      'U krijgt 5 jaar fabrieksgarantie op de airco en 2 jaar op de installatie (bij jaarlijks onderhoud). Wij blijven uw aanspreekpunt.',
+  },
+];
+---
+
+<BaseLayout
+  title={`Airco installatie ${loc.city} | Best Aircotechniek`}
+  description={loc.metaDescription}
+>
+  <PageHero
+    title={`Airco installatie in ${loc.city}`}
+    description={loc.heroDescription}
+    image={pageHeroPhoto}
+  />
+
+  <section class="py-16 sm:py-20">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <nav class="mb-8 text-sm text-slate-500" aria-label="Kruimelpad">
+        <a href="/airco-installatie-noord-brabant" class="hover:text-brand-700">Werkgebied Noord-Brabant</a>
+        <span class="mx-2">/</span>
+        <span class="text-slate-700">{loc.city}</span>
+      </nav>
+
+      <div class="grid gap-12 lg:grid-cols-3">
+        <div class="lg:col-span-2">
+          <div class="gold-accent-line"></div>
+          <h2 class="section-heading mt-6">Airco laten installeren in {loc.city}</h2>
+          {loc.intro.map((p) => <p class="mt-4 text-lg leading-relaxed text-slate-600">{p}</p>)}
+
+          <a href="/contact" class="btn-primary mt-8 inline-flex">Vraag een gratis offerte aan</a>
+        </div>
+
+        <aside class="lg:col-span-1">
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+            <h3 class="text-sm font-semibold uppercase tracking-wider text-gold-600">In het kort</h3>
+            <dl class="mt-4 space-y-4">
+              {
+                facts.map((f) => (
+                  <div class="border-b border-slate-200 pb-3 last:border-0 last:pb-0">
+                    <dt class="text-xs font-medium uppercase tracking-wide text-slate-500">{f.label}</dt>
+                    <dd class="text-lg font-bold text-brand-900">{f.value}</dd>
+                    <dd class="text-sm text-slate-500">{f.note}</dd>
+                  </div>
+                ))
+              }
+            </dl>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-slate-200 bg-white py-16 sm:py-20">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <h2 class="section-heading text-center">Onze aanpak in {loc.city}</h2>
+      <div class="mt-12 grid gap-8 sm:grid-cols-3">
+        {
+          approach.map((step) => (
+            <div class="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+              <h3 class="text-lg font-semibold text-slate-900">{step.title}</h3>
+              <p class="mt-3 text-sm leading-relaxed text-slate-600">{step.description}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 sm:py-20">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="rounded-2xl border border-brand-200 bg-brand-50 p-8 sm:p-12">
+        <div class="gold-accent-line"></div>
+        <h2 class="section-heading mt-6">Ook actief rondom {loc.city}</h2>
+        <p class="section-subheading">
+          Naast {loc.city} zijn wij actief in onder meer {loc.nearby.join(', ')}. Bekijk ook ons volledige
+          <a href="/airco-installatie-noord-brabant" class="font-semibold text-brand-700 underline">werkgebied in Noord-Brabant</a>.
+        </p>
+        <ul class="mt-8 flex flex-wrap gap-3">
+          {
+            others.map((l) => (
+              <li>
+                <a
+                  href={`/airco-installatie-${l.slug}`}
+                  class="inline-flex items-center rounded-full border border-brand-200 bg-white px-4 py-2 text-sm font-semibold text-brand-800 transition hover:border-gold-400 hover:text-brand-900"
+                >
+                  Airco {l.city}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-slate-200 bg-white py-16 sm:py-20">
+    <div class="mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8">
+      <h2 class="section-heading">Veelgestelde vragen — {loc.city}</h2>
+      <div class="mt-10">
+        <FaqAccordion items={faq} />
+      </div>
+    </div>
+  </section>
+
+  <FaqSchema items={faq} />
+
+  <CTASection
+    title={`Airco laten installeren in ${loc.city}?`}
+    description="Neem contact op voor een vrijblijvend advies of een offerte op maat. Wij reageren binnen 24 uur."
+  />
+</BaseLayout>
