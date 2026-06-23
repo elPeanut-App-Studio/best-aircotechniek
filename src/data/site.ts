@@ -17,11 +17,14 @@ export const site = {
   ogImage: '/og-image.jpg',
   /** Google Maps bedrijfspagina (korte link of maps URL) */
   googleMapsUrl: 'https://share.google/P0go8dYmyCVAl59WI',
+  /** Instagram-profiel (getoond in footer én meegenomen in schema sameAs). */
+  instagram: 'https://www.instagram.com/best_aircotechniek',
   /**
-   * Externe profielen voor schema `sameAs` (Google Business, Facebook, Instagram, LinkedIn).
+   * Overige externe profielen voor schema `sameAs` (Facebook, LinkedIn, ...).
+   * Instagram en de Google Maps-link worden automatisch toegevoegd in LocalBusinessSchema.
    * Vul aan zodra beschikbaar — versterkt entiteitsherkenning bij Google en AI-zoekmachines.
    */
-  sameAs: ['https://www.instagram.com/best_aircotechniek'] as string[],
+  sameAs: [] as string[],
   /**
    * Openingstijden voor `openingHoursSpecification` in structured data.
    * TODO: bevestig de werkelijke openingstijden voordat dit live gaat.
