@@ -21,7 +21,7 @@ export const site = {
    * Externe profielen voor schema `sameAs` (Google Business, Facebook, Instagram, LinkedIn).
    * Vul aan zodra beschikbaar — versterkt entiteitsherkenning bij Google en AI-zoekmachines.
    */
-  sameAs: [] as string[],
+  sameAs: ['https://www.instagram.com/best_aircotechniek'] as string[],
   /**
    * Openingstijden voor `openingHoursSpecification` in structured data.
    * TODO: bevestig de werkelijke openingstijden voordat dit live gaat.
