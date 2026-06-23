@@ -16,7 +16,7 @@ export const site = {
   /** Open Graph / social preview-afbeelding (1200x630), absoluut t.o.v. url */
   ogImage: '/og-image.jpg',
   /** Google Maps bedrijfspagina (korte link of maps URL) */
-  googleMapsUrl: '',
+  googleMapsUrl: 'https://share.google/P0go8dYmyCVAl59WI',
   /**
    * Externe profielen voor schema `sameAs` (Google Business, Facebook, Instagram, LinkedIn).
    * Vul aan zodra beschikbaar — versterkt entiteitsherkenning bij Google en AI-zoekmachines.

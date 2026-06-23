@@ -26,14 +26,18 @@ Google. De winst zit vooral in **content + lokale SEO**, niet in techniek.
       met JSON-LD zodat Google rich results en AI-zoekmachines de antwoorden oppikken.
       Content staat centraal in `src/data/faq.ts`.
 
-### ⚠️ Nog door Best Aircotechniek te bevestigen (zie TODO's in `src/data/faq.ts` en `src/data/site.ts`)
-De FAQ-antwoorden zijn nu eerlijk en algemeen. Ze worden concreter en sterker zodra bekend is:
-- Welke **merken** jullie installeren (Daikin, Mitsubishi, LG, Samsung, …) → noem ze.
-- Exacte **garantietermijn** (bv. 5 jaar).
-- Doen jullie ook **reparatie/storingsdienst**, of installatie + onderhoud?
-- Eventuele **richtprijs** ("vanaf € …") — sterk voor klanten én GEO.
-- **Openingstijden** → vul `site.openingHours` in `src/data/site.ts` (nu leeg, dus niet getoond).
-- **Google Maps-URL / socials** → `site.googleMapsUrl` + `site.sameAs`.
+### Bedrijfsgegevens — bevestigd (juni 2026) en verwerkt in de FAQ
+- **Merken**: Daikin, LG, AUX.
+- **Garantie**: 5 jaar op de airco (fabrieksgarantie) + 2 jaar op de installatie, mits jaarlijks onderhoud door een vakman.
+- **Diensten**: alleen installatie; onderhoud uitsluitend op door onszelf geplaatste airco's. Geen losse reparatie/storingsdienst.
+- **Richtprijs**: vanaf € 1.299 (basis single-split, 2,5 kW, incl. montage).
+- **Reactietijd**: contact binnen 24 uur na een bericht.
+- **Google Maps**: `site.googleMapsUrl` ingevuld (`share.google/P0go8dYmyCVAl59WI`).
+
+### ⚠️ Nog open
+- **Openingstijden**: geen vaste openingstijden (bedrijf werkt op 24u-reactiebasis) → `site.openingHours` blijft bewust leeg, geen tijden in schema.
+- **Live Google-reviews**: vereist nog `PUBLIC_GOOGLE_PLACE_ID` + `GOOGLE_PLACES_API_KEY` (los van de Maps-link). Tot dan toont de reviews-sectie de "Bekijk op Google"-knop.
+- **Socials** (Facebook/Instagram/LinkedIn) → toevoegen aan `site.sameAs` zodra beschikbaar.
 
 ---
 

@@ -6,21 +6,13 @@ export interface FaqItem {
 /**
  * Algemene FAQ (homepage). Wordt zowel zichtbaar getoond als uitgelezen door
  * Google en AI-zoekmachines via FAQPage structured data.
- *
- * ⚠️ TE BEVESTIGEN door Best Aircotechniek — de onderstaande antwoorden zijn
- * eerlijk en algemeen geformuleerd, maar worden specifieker (en beter voor SEO)
- * zodra de echte gegevens bekend zijn:
- *  - Merken die jullie installeren (Daikin, Mitsubishi, LG, Samsung, ...?)
- *  - Exacte garantietermijn (bijv. 5 jaar)
- *  - Doen jullie ook reparatie, of alleen installatie + onderhoud?
- *  - Eventuele richtprijs ("vanaf € ...") — sterk voor zowel klanten als GEO.
+ * Antwoorden bevestigd door Best Aircotechniek (juni 2026).
  */
 export const generalFaq: FaqItem[] = [
   {
     question: 'Wat kost het om een airco te laten installeren?',
     answer:
-      'De prijs hangt af van het type airco, het aantal ruimtes en de montagesituatie. Een eenvoudige single-split is voordeliger dan een multi-split voor meerdere kamers. Wij maken altijd een vrijblijvende offerte op maat, zodat u vooraf precies weet waar u aan toe bent.',
-    // TODO: voeg desgewenst een richtprijs toe, bijv. "Een complete single-split installatie start vanaf € ...".
+      'Een complete installatie start vanaf € 1.299. Dit is voor een eenvoudige single-split met het voordeligste 2,5 kW-model, inclusief montage. De uiteindelijke prijs hangt af van het gekozen model, het aantal ruimtes en de montagesituatie. Wij maken altijd een vrijblijvende offerte op maat, zodat u vooraf precies weet waar u aan toe bent.',
   },
   {
     question: 'Hoe lang duurt het installeren van een airco?',
@@ -30,14 +22,12 @@ export const generalFaq: FaqItem[] = [
   {
     question: 'Welke merken airco installeren jullie?',
     answer:
-      'Wij werken met betrouwbare A-merken met een goede prijs-kwaliteitverhouding en langdurige garantie. Tijdens het adviesgesprek kiezen we samen het merk en model dat het beste past bij uw ruimte, wensen en budget.',
-    // TODO: noem hier de concrete merken (bijv. Daikin, Mitsubishi Electric, LG, Samsung). Specifieke merknamen scoren beter in zoekresultaten.
+      'Wij installeren airco’s van Daikin, LG en AUX. Dit zijn betrouwbare merken met een goede prijs-kwaliteitverhouding en langdurige garantie. Tijdens het adviesgesprek kiezen we samen het merk en model dat het beste past bij uw ruimte, wensen en budget.',
   },
   {
-    question: 'Krijg ik garantie op de installatie?',
+    question: 'Welke garantie krijg ik op mijn airco en de installatie?',
     answer:
-      'Ja. U krijgt fabrieksgarantie op de airco zelf en daarnaast garantie op onze montage. De exacte voorwaarden leggen we duidelijk vast in uw offerte, zodat u nooit voor verrassingen komt te staan.',
-    // TODO: vul de exacte garantietermijn in, bijv. "Standaard geven wij 5 jaar garantie op de installatie."
+      'U krijgt 5 jaar fabrieksgarantie op de airco zelf. Daarnaast geven wij 2 jaar garantie op de installatie, op voorwaarde dat de airco elk jaar door een vakman wordt onderhouden. De voorwaarden leggen we duidelijk vast in uw offerte.',
   },
   {
     question: 'In welke plaatsen en regio zijn jullie actief?',
@@ -47,8 +37,12 @@ export const generalFaq: FaqItem[] = [
   {
     question: 'Verzorgen jullie ook onderhoud aan de airco?',
     answer:
-      'Naast installatie kunnen wij ook het onderhoud van uw airco verzorgen. Periodiek onderhoud houdt uw systeem efficiënt, hygiënisch en storingsvrij, en verlengt de levensduur van het apparaat.',
-    // TODO: bevestig of jullie óók reparatie/storingsdienst aanbieden en pas dit antwoord daarop aan.
+      'Wij zijn gespecialiseerd in het installeren van airco’s. Het jaarlijks onderhoud verzorgen wij voor airco’s die wij zelf hebben geplaatst. Zo blijft uw systeem efficiënt en hygiënisch werken én blijft uw installatiegarantie geldig.',
+  },
+  {
+    question: 'Hoe snel reageren jullie op een aanvraag?',
+    answer:
+      'Stuur ons een bericht via het contactformulier, WhatsApp of e-mail, dan nemen wij binnen 24 uur contact met u op om uw wensen te bespreken.',
   },
 ];
 
