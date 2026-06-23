@@ -1,0 +1,55 @@
+name: Deploy to Netlify
+
+# Bouwt de site in GitHub Actions en publiceert naar de bestaande Netlify-site
+# via de Netlify CLI. Zo is er geen Netlify Git-koppeling nodig — handig nu de
+# repo in een GitHub-organisatie staat (Netlify rekent kosten voor private
+# org-repo's via hun eigen Git-integratie; deze route is gratis).
+#
+# Benodigde GitHub-secrets (Settings -> Secrets and variables -> Actions):
+#   NETLIFY_AUTH_TOKEN          Netlify personal access token
+#   NETLIFY_SITE_ID             Site ID / API ID van de Netlify-site
+#   PUBLIC_WEB3FORMS_ACCESS_KEY Web3Forms-sleutel voor het contactformulier
+# Optioneel (live Google-reviews, zodra beschikbaar):
+#   PUBLIC_GOOGLE_PLACE_ID
+#   GOOGLE_PLACES_API_KEY
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: netlify-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+        env:
+          PUBLIC_WEB3FORMS_ACCESS_KEY: ${{ secrets.PUBLIC_WEB3FORMS_ACCESS_KEY }}
+          PUBLIC_GOOGLE_PLACE_ID: ${{ secrets.PUBLIC_GOOGLE_PLACE_ID }}
+          GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
+
+      - name: Deploy to Netlify
+        run: npx --yes netlify-cli@latest deploy --prod --dir=dist --message "Deploy from GitHub Actions ${{ github.sha }}"
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
