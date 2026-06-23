@@ -41,18 +41,24 @@ Google. De winst zit vooral in **content + lokale SEO**, niet in techniek.
 
 ---
 
-## Fase 2 — Locatie- & dienstpagina's (grootste rankingpotentieel) — GEPLAND
+## Fase 2 — Locatie- & dienstpagina's (grootste rankingpotentieel) ✅ KLAAR (branch `seo-improvements`)
 
-- [ ] **Regio-hub** `/airco-installatie-noord-brabant` die naar alle plaatspagina's linkt.
-- [ ] **Plaatspagina's** per werkgebied (uniek geschreven, ~250–350 woorden):
+- [x] **Regio-hub** `/airco-installatie-noord-brabant` die naar alle 8 plaatspagina's linkt.
+- [x] **Plaatspagina's** per werkgebied, met unieke content (eigen intro, wijken, FAQ):
       `/airco-installatie-best`, `…-eindhoven`, `…-veldhoven`, `…-oirschot`,
       `…-sint-oedenrode`, `…-boxtel`, `…-tilburg`, `…-den-bosch`.
-- [ ] **Dienstpagina's**: `/airco-installatie`, `/airco-onderhoud`,
-      `/airco-reparatie` (laatste alleen als jullie dit aanbieden).
-- [ ] **Interne links + navigatie**: "Werkgebied"-menu/footerblok naar de nieuwe pagina's.
+      Data-gedreven via `src/data/locations.ts` + dynamische route `airco-installatie-[stad].astro`.
+- [x] **Dienstpagina's**: `/airco-installatie` en `/airco-onderhoud`.
+      (Geen `/airco-reparatie` — Best Aircotechniek doet alleen installatie + onderhoud op eigen plaatsingen.)
+- [x] **Interne links**: "Werkgebied" in hoofdnavigatie, "Diensten"-kolom in de footer (sitewide),
+      plaatslinks op de Over ons-pagina, en kruislinks tussen alle plaatspagina's.
+- [x] **Elke locatie-/dienstpagina** heeft eigen SEO-titel, meta description en (unieke) FAQPage-schema.
+- [x] `/diensten` redirect aangepast naar `/airco-installatie`.
 
-Aanpak: herbruikbaar Astro-paginatemplate + data-array, zodat content uniek blijft
-(geen dunne/doorway-pagina's) en de sitemap automatisch meegroeit.
+Resultaat: site groeide van 4 naar **15 pagina's**, allemaal in de sitemap.
+
+> Let op: ongebruikte afbeelding `src/assets/photos/page-hero-werkgebied.jpg` is corrupt (29 bytes);
+> locatiepagina's gebruiken daarom `page-hero-woning.jpg`. Eventueel los te vervangen.
 
 ---
 

@@ -5,7 +5,8 @@ import CTASection from '../components/CTASection.astro';
 import PageHero from '../components/PageHero.astro';
 import teamPhoto from '../assets/photos/team-monteur.jpg';
 import pageHeroPhoto from '../assets/photos/page-hero-woning.jpg';
-import { site, serviceAreas } from '../data/site';
+import { site } from '../data/site';
+import { locations } from '../data/locations';
 ---
 
 <BaseLayout
@@ -78,32 +79,38 @@ import { site, serviceAreas } from '../data/site';
           <div class="gold-accent-line"></div>
           <h2 class="section-heading mt-6">Werkgebied</h2>
           <p class="section-subheading">
-            Wij installeren airconditioning in {site.region}. Woont u in de omgeving van een van de volgende plaatsen? Neem dan contact met ons op.
+            Wij installeren airconditioning in {site.region}. Klik op uw plaats voor meer informatie, of bekijk ons
+            <a href="/airco-installatie-noord-brabant" class="font-semibold text-brand-700 underline">volledige werkgebied</a>.
           </p>
         </div>
 
         <ul class="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {
-            serviceAreas.map((place) => (
-              <li class="flex items-center gap-3 rounded-xl border border-brand-100 bg-white px-4 py-3 shadow-sm">
-                <span
-                  class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-800 text-white"
-                  aria-hidden="true"
+            locations.map((loc) => (
+              <li>
+                <a
+                  href={`/airco-installatie-${loc.slug}`}
+                  class="flex items-center gap-3 rounded-xl border border-brand-100 bg-white px-4 py-3 shadow-sm transition hover:border-gold-400 hover:shadow-md"
                 >
-                  <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"
-                    />
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
-                    />
-                  </svg>
-                </span>
-                <span class="font-semibold text-brand-900">{place}</span>
+                  <span
+                    class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-800 text-white"
+                    aria-hidden="true"
+                  >
+                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"
+                      />
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
+                      />
+                    </svg>
+                  </span>
+                  <span class="font-semibold text-brand-900">{loc.city}</span>
+                </a>
               </li>
             ))
           }

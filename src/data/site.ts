@@ -45,8 +45,16 @@ export const serviceAreas = [
 export const nav = [
   { href: '/', label: 'Home' },
   { href: '/hoe-het-werkt', label: 'Hoe het werkt' },
+  { href: '/airco-installatie-noord-brabant', label: 'Werkgebied' },
   { href: '/over-ons', label: 'Over ons' },
   { href: '/contact', label: 'Contact' },
+] as const;
+
+/** Dienst- en regiolinks voor de footer (sitewide interne links naar SEO-pagina's). */
+export const dienstenNav = [
+  { href: '/airco-installatie', label: 'Airco installatie' },
+  { href: '/airco-onderhoud', label: 'Airco onderhoud' },
+  { href: '/airco-installatie-noord-brabant', label: 'Werkgebied Noord-Brabant' },
 ] as const;
 
 export const usps = [

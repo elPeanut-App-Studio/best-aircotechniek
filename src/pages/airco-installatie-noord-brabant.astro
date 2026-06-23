@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CTASection from '../components/CTASection.astro';
+import pageHeroPhoto from '../assets/photos/page-hero-woning.jpg';
+import { locations } from '../data/locations';
+---
+
+<BaseLayout
+  title="Airco installateur Noord-Brabant | Best Aircotechniek"
+  description="Op zoek naar een airco-installateur in Noord-Brabant? Best Aircotechniek installeert airconditioning in Best, Eindhoven, Tilburg, Den Bosch en omgeving. Vanaf € 1.299."
+>
+  <PageHero
+    title="Airco-installateur in Noord-Brabant"
+    description="Vakkundige airco-installatie in heel Noord-Brabant. Kies uw plaats en ontdek wat wij voor u kunnen betekenen."
+    image={pageHeroPhoto}
+  />
+
+  <section class="py-16 sm:py-20">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl">
+        <div class="gold-accent-line"></div>
+        <h2 class="section-heading mt-6">Uw airco-specialist in de regio</h2>
+        <p class="mt-4 text-lg leading-relaxed text-slate-600">
+          Best Aircotechniek installeert airconditioning voor particulieren en bedrijven in heel Noord-Brabant.
+          Vanuit onze thuisbasis in Best zijn wij snel ter plaatse in de hele regio. U krijgt persoonlijk advies,
+          een vakkundige montage en eerlijke prijzen — een complete installatie start vanaf € 1.299.
+        </p>
+        <p class="mt-4 text-lg leading-relaxed text-slate-600">
+          Wij werken met betrouwbare merken als Daikin, LG en AUX, met 5 jaar garantie op de airco en 2 jaar op de
+          installatie. Kies hieronder uw plaats voor meer informatie, of
+          <a href="/contact" class="font-semibold text-brand-700 underline">neem direct contact op</a>.
+        </p>
+      </div>
+
+      <h2 class="section-heading mt-16">Kies uw plaats</h2>
+      <ul class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          locations.map((loc) => (
+            <li>
+              <a
+                href={`/airco-installatie-${loc.slug}`}
+                class="group flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:border-gold-400 hover:shadow-md"
+              >
+                <span class="flex items-center gap-3">
+                  <span
+                    class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-800 text-white"
+                    aria-hidden="true"
+                  >
+                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                    </svg>
+                  </span>
+                  <span class="text-lg font-bold text-brand-900">Airco installatie {loc.city}</span>
+                </span>
+                <span class="mt-3 text-sm leading-relaxed text-slate-600">{loc.heroDescription}</span>
+                <span class="mt-4 text-sm font-semibold text-brand-700 group-hover:text-brand-900">
+                  Bekijk {loc.city} →
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <p class="mt-10 text-slate-600">
+        Staat uw plaats er niet bij? Wij werken in heel Noord-Brabant en omgeving.
+        <a href="/contact" class="font-semibold text-brand-700 underline">Neem contact op</a> en wij kijken wat we voor u kunnen doen.
+      </p>
+    </div>
+  </section>
+
+  <CTASection
+    title="Klaar voor het beste klimaat?"
+    description="Vraag vrijblijvend advies of een offerte aan. Wij reageren binnen 24 uur."
+  />
+</BaseLayout>
