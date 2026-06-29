@@ -22,7 +22,7 @@ export const site = {
   /**
    * Overige externe profielen voor schema `sameAs` (Facebook, LinkedIn, ...).
    * Instagram en de Google Maps-link worden automatisch toegevoegd in LocalBusinessSchema.
-   * Vul aan zodra beschikbaar — versterkt entiteitsherkenning bij Google en AI-zoekmachines.
+   * Vul aan zodra beschikbaar, versterkt entiteitsherkenning bij Google en AI-zoekmachines.
    */
   sameAs: [] as string[],
   /**
