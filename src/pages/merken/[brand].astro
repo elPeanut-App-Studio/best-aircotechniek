@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import CTASection from '../../components/CTASection.astro';
+import { brands } from '../../data/brands';
+import heroPhoto from '../../assets/photos/page-hero-woning.jpg';
+
+export function getStaticPaths() {
+  return brands.map((b) => ({ params: { brand: b.slug }, props: { brand: b } }));
+}
+
+const { brand } = Astro.props;
+---
+
+<BaseLayout
+  title={`${brand.name} airco laten installeren | Best Aircotechniek`}
+  description={`${brand.name} airconditioning laten installeren door Best Aircotechniek in Noord-Brabant. ${brand.tagline}`}
+>
+  <PageHero title={`${brand.name} airconditioning`} description={brand.tagline} image={heroPhoto} />
+
+  <section class="py-16 sm:py-20">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <div class="gold-accent-line"></div>
+      <h2 class="section-heading mt-6">Over {brand.name}</h2>
+      <p class="mt-4 text-lg leading-relaxed text-slate-600">
+        Binnenkort vindt u hier meer informatie over de {brand.name}-modellen die wij installeren, met de
+        kenmerken en voordelen. Wilt u nu al persoonlijk advies of een vrijblijvende offerte? Neem gerust
+        contact met ons op, dan kijken we samen welk model het beste bij uw woning past.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-4">
+        <a href="/contact" class="btn-primary inline-flex">Vraag een offerte aan</a>
+        <a href="/airco-installatie" class="btn-secondary inline-flex">Bekijk airco-installatie</a>
+      </div>
+    </div>
+  </section>
+
+  <CTASection />
+</BaseLayout>
