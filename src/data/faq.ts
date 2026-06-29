@@ -27,7 +27,7 @@ export const generalFaq: FaqItem[] = [
   {
     question: 'Welke garantie krijg ik op mijn airco en de installatie?',
     answer:
-      'U krijgt 5 jaar fabrieksgarantie op de airco zelf. Daarnaast geven wij 2 jaar garantie op de installatie, op voorwaarde dat de airco elk jaar door een vakman wordt onderhouden. De voorwaarden leggen we duidelijk vast in uw offerte.',
+      'U krijgt 2 tot 5 jaar fabrieksgarantie op de airco, afhankelijk van het merk. Daarnaast geven wij 2 jaar garantie op de installatie, op voorwaarde dat de airco elk jaar door een vakman wordt onderhouden. De voorwaarden leggen we duidelijk vast in uw offerte.',
   },
   {
     question: 'In welke plaatsen en regio zijn jullie actief?',
