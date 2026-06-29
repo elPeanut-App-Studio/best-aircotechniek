@@ -22,7 +22,7 @@ export const site = {
   /**
    * Overige externe profielen voor schema `sameAs` (Facebook, LinkedIn, ...).
    * Instagram en de Google Maps-link worden automatisch toegevoegd in LocalBusinessSchema.
-   * Vul aan zodra beschikbaar — versterkt entiteitsherkenning bij Google en AI-zoekmachines.
+   * Vul aan zodra beschikbaar, versterkt entiteitsherkenning bij Google en AI-zoekmachines.
    */
   sameAs: [] as string[],
   /**
@@ -58,6 +58,7 @@ export const dienstenNav = [
   { href: '/airco-installatie', label: 'Airco installatie' },
   { href: '/airco-onderhoud', label: 'Airco onderhoud' },
   { href: '/airco-installatie-noord-brabant', label: 'Werkgebied Noord-Brabant' },
+  { href: '/downloads', label: 'Brochures & downloads' },
 ] as const;
 
 export const usps = [

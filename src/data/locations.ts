@@ -24,12 +24,12 @@ export const locations: Location[] = [
     slug: 'best',
     city: 'Best',
     metaDescription:
-      'Airco laten installeren in Best? Best Aircotechniek is hier gevestigd — vakkundige montage, persoonlijk advies en snelle service. Vanaf € 1.299.',
+      'Airco laten installeren in Best? Best Aircotechniek is hier gevestigd. Vakkundige montage, persoonlijk advies en snelle service. Vanaf € 1.299.',
     heroDescription:
       'Uw lokale airco-installateur in Best. Wij kennen de buurt en zijn snel ter plaatse.',
     intro: [
       'Best is onze thuisbasis. Of u nu in het centrum woont, in Heivelden, Naastenbest of Speelheide, of een nieuwbouwwoning heeft in Dijkstraten: wij kennen de plaats en de woningen hier als geen ander en staan snel bij u op de stoep.',
-      'Veel woningen in Best zijn goed geïsoleerd en warmen in de zomer snel op. Een goed gekozen airco zorgt het hele jaar door voor comfort — koel in de zomer en bijverwarmen in het tussenseizoen. Wij adviseren u ter plaatse over de juiste capaciteit en de beste plek voor de binnen- en buitenunit.',
+      'Veel woningen in Best zijn goed geïsoleerd en warmen in de zomer snel op. Een goed gekozen airco zorgt het hele jaar door voor comfort: koel in de zomer en bijverwarmen in het tussenseizoen. Wij adviseren u ter plaatse over de juiste capaciteit en de beste plek voor de binnen- en buitenunit.',
     ],
     nearby: ['Heivelden', 'Naastenbest', 'Speelheide', 'Dijkstraten', 'Wilhelminadorp'],
   },
@@ -106,7 +106,7 @@ export const locations: Location[] = [
     heroDescription:
       'Vakkundige airco-installatie in Tilburg, van de Reeshof tot Berkel-Enschot.',
     intro: [
-      'Tilburg is een grote stad met veel rijtjeswoningen, jaren-30 wijken en nieuwbouw in onder meer de Reeshof, Berkel-Enschot en Udenhout. In dichtbebouwde wijken kan het binnen in de zomer flink warm worden — een airco maakt daar direct verschil.',
+      'Tilburg is een grote stad met veel rijtjeswoningen, jaren-30 wijken en nieuwbouw in onder meer de Reeshof, Berkel-Enschot en Udenhout. In dichtbebouwde wijken kan het binnen in de zomer flink warm worden. Een airco maakt daar direct verschil.',
       'Wij kiezen samen met u een efficiënt systeem dat past bij uw woning en energieverbruik, en plaatsen het netjes en volgens de regels. Zo blijft het bij u koel in de zomer en aangenaam in het tussenseizoen.',
     ],
     nearby: ['Reeshof', 'Berkel-Enschot', 'Udenhout', 'Goirle'],

@@ -18,7 +18,7 @@ const schema: Record<string, unknown> = {
   image: imageUrl,
   telephone: site.phoneHref,
   email: site.email,
-  // Concrete plaatsen i.p.v. één vrije tekst — beter voor lokale relevantie.
+  // Concrete plaatsen i.p.v. één vrije tekst, beter voor lokale relevantie.
   areaServed: serviceAreas.map((place) => ({ '@type': 'City', name: place })),
   address: {
     '@type': 'PostalAddress',

@@ -32,7 +32,7 @@ export const generalFaq: FaqItem[] = [
   {
     question: 'In welke plaatsen en regio zijn jullie actief?',
     answer:
-      'Wij installeren airconditioning in heel Noord-Brabant, waaronder Best, Eindhoven, Veldhoven, Oirschot, Sint-Oedenrode, Boxtel, Tilburg en Den Bosch. Woont u net buiten dit gebied? Neem gerust contact op — vaak kunnen we u alsnog helpen.',
+      'Wij installeren airconditioning in heel Noord-Brabant, waaronder Best, Eindhoven, Veldhoven, Oirschot, Sint-Oedenrode, Boxtel, Tilburg en Den Bosch. Woont u net buiten dit gebied? Neem gerust contact op, vaak kunnen we u alsnog helpen.',
   },
   {
     question: 'Verzorgen jullie ook onderhoud aan de airco?',
