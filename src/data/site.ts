@@ -58,6 +58,7 @@ export const dienstenNav = [
   { href: '/airco-installatie', label: 'Airco installatie' },
   { href: '/airco-onderhoud', label: 'Airco onderhoud' },
   { href: '/airco-installatie-noord-brabant', label: 'Werkgebied Noord-Brabant' },
+  { href: '/downloads', label: 'Brochures & downloads' },
 ] as const;
 
 export const usps = [
