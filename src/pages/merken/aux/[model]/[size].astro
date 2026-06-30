@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import PageHero from '../../../../components/PageHero.astro';
+import CTASection from '../../../../components/CTASection.astro';
+import { auxModels, auxSizes } from '../../../../data/aux-products';
+import pageHeroPhoto from '../../../../assets/photos/page-hero-woning.jpg';
+
+export function getStaticPaths() {
+  return auxModels.flatMap((model) =>
+    auxSizes.map((size) => ({ params: { model: model.slug, size: size.slug }, props: { model, size } })),
+  );
+}
+
+const { model, size } = Astro.props;
+
+const specRows = [
+  { label: 'Vermogen', value: size.kw },
+  { label: 'Geschikt voor', value: `${size.room} (${size.volume}, ${size.area})` },
+  { label: 'Energielabel koelen', value: model.labelKoelen },
+  { label: 'Energielabel verwarmen', value: model.labelVerwarmen },
+  { label: 'SEER (tot)', value: model.seer },
+  { label: 'SCOP (verwarmen)', value: model.scop },
+  ...model.specs,
+  { label: 'Koudemiddel', value: 'R32' },
+  { label: 'Bediening', value: 'WiFi + app' },
+  { label: 'Garantie', value: '2 jaar' },
+];
+---
+
+<BaseLayout
+  title={`AUX ${model.name} ${size.kw} airco | Best Aircotechniek`}
+  description={`AUX ${model.name} ${size.kw}: geschikt voor ${size.room.toLowerCase()} (${size.volume}). Energielabel ${model.labelKoelen}. Laten installeren door Best Aircotechniek.`}
+>
+  <PageHero
+    title={`AUX ${model.name} ${size.kw}`}
+    description={`${model.tier}. Geschikt voor ${size.room.toLowerCase()} (${size.volume}).`}
+    image={pageHeroPhoto}
+  />
+
+  <section class="py-16 sm:py-20">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <nav class="text-sm text-slate-500" aria-label="Kruimelpad">
+        <a href="/merken/aux" class="hover:text-brand-700">AUX</a>
+        <span class="px-1">/</span>
+        <a href={`/merken/aux/${model.slug}`} class="hover:text-brand-700">{model.name}</a>
+        <span class="px-1">/</span>
+        <span class="text-slate-700">{size.kw}</span>
+      </nav>
+
+      <div class="mt-8 grid gap-10 lg:grid-cols-2 lg:items-start">
+        <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <img src={model.photo} alt={`AUX ${model.name} ${size.kw} airconditioner`} width="800" height="800" loading="eager" class="mx-auto h-auto w-full max-w-md object-contain" />
+        </div>
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-wider text-gold-600">AUX {model.name}</p>
+          <h2 class="section-heading mt-2">Specificaties</h2>
+          <dl class="mt-5 divide-y divide-slate-200 border-y border-slate-200">
+            {
+              specRows.map((r) => (
+                <div class="flex justify-between gap-4 py-2.5">
+                  <dt class="text-slate-500">{r.label}</dt>
+                  <dd class="text-right font-semibold text-brand-900">{r.value}</dd>
+                </div>
+              ))
+            }
+          </dl>
+          <div class="mt-8 flex flex-wrap gap-4">
+            <a href="/contact" class="btn-primary inline-flex">Vraag een offerte aan</a>
+            <a href={`/merken/aux/${model.slug}`} class="btn-secondary inline-flex">Andere vermogens</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTASection
+    title={`AUX ${model.name} ${size.kw} laten installeren?`}
+    description="Best Aircotechniek verzorgt advies, levering en een vakkundige montage. Vraag een vrijblijvende offerte aan."
+  />
+</BaseLayout>
