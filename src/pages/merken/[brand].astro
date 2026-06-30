@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import CTASection from '../../components/CTASection.astro';
 import { brands } from '../../data/brands';
+import { auxModels } from '../../data/aux-products';
 import heroPhoto from '../../assets/photos/page-hero-woning.jpg';
 
 export function getStaticPaths() {
@@ -10,6 +11,9 @@ export function getStaticPaths() {
 }
 
 const { brand } = Astro.props;
+const models = brand.slug === 'aux' ? auxModels : [];
+// highlights shown per model card: luchtstroom, luchtzuivering, verwarmen
+const highlightLabels = ['Luchtstroom & comfort', 'Luchtzuivering', 'Verwarmen bij extreme kou'];
 ---
 
 <BaseLayout
@@ -22,11 +26,20 @@ const { brand } = Astro.props;
     <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
       <div class="gold-accent-line"></div>
       <h2 class="section-heading mt-6">Over {brand.name}</h2>
-      <p class="mt-4 text-lg leading-relaxed text-slate-600">
-        Binnenkort vindt u hier meer informatie over de {brand.name}-modellen die wij installeren, met de
-        kenmerken en voordelen. Wilt u nu al persoonlijk advies of een vrijblijvende offerte? Neem gerust
-        contact met ons op, dan kijken we samen welk model het beste bij uw woning past.
-      </p>
+      {
+        models.length > 0 ? (
+          <p class="mt-4 text-lg leading-relaxed text-slate-600">
+            AUX biedt drie series, elk met eigen kenmerken en comfort. Hieronder vindt u per model de
+            belangrijkste functies. Klik door voor de beschikbare vermogens en alle specificaties.
+          </p>
+        ) : (
+          <p class="mt-4 text-lg leading-relaxed text-slate-600">
+            Binnenkort vindt u hier meer informatie over de {brand.name}-modellen die wij installeren, met de
+            kenmerken en voordelen. Wilt u nu al persoonlijk advies of een vrijblijvende offerte? Neem gerust
+            contact met ons op, dan kijken we samen welk model het beste bij uw woning past.
+          </p>
+        )
+      }
       <div class="mt-8 flex flex-wrap gap-4">
         <a href="/contact" class="btn-primary inline-flex">Vraag een offerte aan</a>
         {
@@ -43,6 +56,51 @@ const { brand } = Astro.props;
       </div>
     </div>
   </section>
+
+  {
+    models.length > 0 && (
+      <section class="border-t border-slate-200 bg-slate-50 py-16 sm:py-20">
+        <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <h2 class="section-heading">De drie AUX-series</h2>
+          <div class="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-3">
+            {models.map((m) => (
+              <a
+                href={`/merken/aux/${m.slug}`}
+                class="group flex flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:border-gold-400 hover:shadow-md"
+              >
+                <img
+                  src={m.photo}
+                  alt={`AUX ${m.name} airconditioner`}
+                  width="600"
+                  height="600"
+                  loading="lazy"
+                  class="mx-auto h-40 w-auto object-contain"
+                />
+                <p class="mt-4 text-xs font-semibold uppercase tracking-wider text-gold-600">{m.tier}</p>
+                <h3 class="mt-1 text-xl font-bold text-brand-900">AUX {m.name}</h3>
+                <p class="mt-2 leading-relaxed text-slate-600">{m.intro}</p>
+                <ul class="mt-4 space-y-2 text-sm">
+                  {highlightLabels.map((label) => {
+                    const spec = m.specs.find((s) => s.label === label);
+                    return (
+                      <li class="flex gap-2">
+                        <span aria-hidden="true" class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-500" />
+                        <span class="text-slate-600">{spec?.value}</span>
+                      </li>
+                    );
+                  })}
+                </ul>
+                <span class="mt-auto pt-5 text-sm font-semibold text-brand-700 transition group-hover:text-brand-900">
+                  Bekijk modellen
+                  <span aria-hidden="true" class="transition group-hover:translate-x-0.5">&rarr;</span>
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
 
   <CTASection />
 </BaseLayout>
