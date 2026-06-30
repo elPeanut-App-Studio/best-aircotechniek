@@ -36,6 +36,8 @@ export default {
       boxShadow: {
         brand: '0 4px 14px rgba(27, 78, 121, 0.15)',
         gold: '0 4px 14px rgba(212, 175, 55, 0.25)',
+        card: '0 1px 2px rgba(15, 45, 71, 0.04), 0 10px 30px -14px rgba(15, 45, 71, 0.16)',
+        'card-hover': '0 2px 6px rgba(15, 45, 71, 0.07), 0 18px 44px -18px rgba(15, 45, 71, 0.28)',
       },
     },
   },
