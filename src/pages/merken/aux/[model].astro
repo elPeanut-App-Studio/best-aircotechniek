@@ -42,13 +42,7 @@ const specIcons = ['swing', 'luchtzuivering', 'zelfreiniging', 'verwarmen', 'des
                 <img src="/spec-icons/rendement.png" alt="" width="24" height="24" class="h-6 w-6 shrink-0" />
                 SEER (tot) / SCOP
               </dt>
-              <dd class="flex flex-wrap items-center justify-end gap-1.5 text-right font-semibold text-brand-900">
-                <span>{model.seer}</span>
-                <span class="rounded bg-[#2f9e44] px-2 py-0.5 text-xs font-bold text-white">{model.labelKoelen}</span>
-                <span class="text-slate-400">/</span>
-                <span>{model.scop}</span>
-                <span class="rounded bg-[#94b820] px-2 py-0.5 text-xs font-bold text-white">{model.labelVerwarmen}</span>
-              </dd>
+              <dd class="text-right font-semibold text-brand-900">{model.seer} / {model.scop}</dd>
             </div>
             {
               model.specs.map((s, i) => (
