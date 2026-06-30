@@ -11,16 +11,8 @@ export function getStaticPaths() {
 
 const { model } = Astro.props;
 
-// Kenmerken met icoon (zelfde stijl als de detailpagina's)
-const kenmerken = [
-  { icon: 'koelen', label: 'Energielabel', value: `${model.labelKoelen} koelen / ${model.labelVerwarmen} verwarmen` },
-  { icon: 'rendement', label: 'SEER (tot) / SCOP', value: `${model.seer} / ${model.scop}` },
-  { icon: 'swing', label: model.specs[0].label, value: model.specs[0].value },
-  { icon: 'luchtzuivering', label: model.specs[1].label, value: model.specs[1].value },
-  { icon: 'zelfreiniging', label: model.specs[2].label, value: model.specs[2].value },
-  { icon: 'verwarmen', label: model.specs[3].label, value: model.specs[3].value },
-  { icon: 'design', label: model.specs[4].label, value: model.specs[4].value },
-];
+// Iconen voor de 5 modelkenmerken (zelfde volgorde als model.specs)
+const specIcons = ['swing', 'luchtzuivering', 'zelfreiniging', 'verwarmen', 'design'];
 ---
 
 <BaseLayout
@@ -45,14 +37,27 @@ const kenmerken = [
           <p class="text-sm font-semibold uppercase tracking-wider text-gold-600">{model.tier}</p>
           <h2 class="section-heading mt-2">Kenmerken</h2>
           <dl class="mt-5 border-t border-slate-200">
+            <div class="flex items-center justify-between gap-4 border-b border-slate-200 py-3">
+              <dt class="flex items-center gap-3 text-slate-600">
+                <img src="/spec-icons/rendement.png" alt="" width="24" height="24" class="h-6 w-6 shrink-0" />
+                SEER (tot) / SCOP
+              </dt>
+              <dd class="flex flex-wrap items-center justify-end gap-1.5 text-right font-semibold text-brand-900">
+                <span>{model.seer}</span>
+                <span class="rounded bg-[#2f9e44] px-2 py-0.5 text-xs font-bold text-white">{model.labelKoelen}</span>
+                <span class="text-slate-400">/</span>
+                <span>{model.scop}</span>
+                <span class="rounded bg-[#94b820] px-2 py-0.5 text-xs font-bold text-white">{model.labelVerwarmen}</span>
+              </dd>
+            </div>
             {
-              kenmerken.map((k) => (
+              model.specs.map((s, i) => (
                 <div class="flex items-center justify-between gap-4 border-b border-slate-200 py-3">
                   <dt class="flex items-center gap-3 text-slate-600">
-                    <img src={`/spec-icons/${k.icon}.png`} alt="" width="24" height="24" class="h-6 w-6 shrink-0" />
-                    {k.label}
+                    <img src={`/spec-icons/${specIcons[i]}.png`} alt="" width="24" height="24" class="h-6 w-6 shrink-0" />
+                    {s.label}
                   </dt>
-                  <dd class="text-right font-semibold text-brand-900">{k.value}</dd>
+                  <dd class="text-right font-semibold text-brand-900">{s.value}</dd>
                 </div>
               ))
             }
