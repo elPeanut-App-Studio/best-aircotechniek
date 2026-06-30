@@ -1,6 +1,7 @@
 /**
  * AUX-productgegevens voor de merkpagina's onder /merken/aux.
- * Bron: de Best Aircotechniek AUX-brochure. Houd dit gelijk aan de brochure.
+ * Kernkenmerken + SEER (tot) uit de Best Aircotechniek-brochure;
+ * per-vermogen specs (koel/verw kW, SEER/SCOP) van airco-webwinkel.nl.
  */
 
 /** Beschikbare vermogens (gelijk voor elke serie). Capaciteit/ruimte uit de brochure. */
@@ -11,7 +12,6 @@ export const auxSizes = [
   { slug: '7-0-kw', kw: '7,0 kW', volume: '± 240 m³', area: '± 92 m²', room: 'Zeer grote of hoge ruimte' },
 ] as const;
 
-/** Specificaties die voor elke AUX-serie gelden. */
 export const auxShared = [
   'Warmtepomp: koelen én verwarmen',
   'WiFi + app (bediening op afstand)',
@@ -19,18 +19,22 @@ export const auxShared = [
   '2 jaar garantie',
 ] as const;
 
+export type SizeSpec = { koel: string; verw: string; seer: string; scop: string };
+
 export type AuxModel = {
   slug: string;
   name: string;
   tier: string;
   intro: string;
   photo: string;
-  seer: string;
+  seer: string; // SEER (tot), modelniveau
   scop: string;
   labelKoelen: string;
   labelVerwarmen: string;
-  /** Kernkenmerken, exact zoals in de brochure-vergelijking. */
+  /** Kernkenmerken op modelniveau, exact zoals in de brochure-vergelijking. */
   specs: { label: string; value: string }[];
+  /** Per-vermogen specs (airco-webwinkel). */
+  sizeSpecs: Record<string, SizeSpec>;
 };
 
 export const auxModels: AuxModel[] = [
@@ -51,6 +55,12 @@ export const auxModels: AuxModel[] = [
       { label: 'Verwarmen bij extreme kou', value: 'Tot -15°C' },
       { label: 'Design & afwerking', value: 'Functioneel, glanzend wit' },
     ],
+    sizeSpecs: {
+      '2-5-kw': { koel: '2,6 kW', verw: '2,6 kW', seer: '6,1', scop: '4,0' },
+      '3-5-kw': { koel: '3,4 kW', verw: '3,5 kW', seer: '6,2', scop: '4,0' },
+      '5-0-kw': { koel: '5,1 kW', verw: '5,2 kW', seer: '6,7', scop: '4,0' },
+      '7-0-kw': { koel: '7,3 kW', verw: '7,3 kW', seer: '6,1', scop: '4,0' },
+    },
   },
   {
     slug: 'q-smart',
@@ -69,6 +79,12 @@ export const auxModels: AuxModel[] = [
       { label: 'Verwarmen bij extreme kou', value: 'Tot -20°C (incl. Heat Belt)' },
       { label: 'Design & afwerking', value: 'Modern & strak, wit' },
     ],
+    sizeSpecs: {
+      '2-5-kw': { koel: '2,7 kW', verw: '3,0 kW', seer: '6,2', scop: '4,0' },
+      '3-5-kw': { koel: '3,5 kW', verw: '3,8 kW', seer: '6,1', scop: '4,0' },
+      '5-0-kw': { koel: '5,3 kW', verw: '5,4 kW', seer: '6,8', scop: '4,0' },
+      '7-0-kw': { koel: '6,7 kW', verw: '7,2 kW', seer: '6,53', scop: '4,09' },
+    },
   },
   {
     slug: 'c-smart',
@@ -87,6 +103,12 @@ export const auxModels: AuxModel[] = [
       { label: 'Verwarmen bij extreme kou', value: 'Tot -25°C (incl. Heat Belt)' },
       { label: 'Design & afwerking', value: 'Premium afwerking, wit of zwart' },
     ],
+    sizeSpecs: {
+      '2-5-kw': { koel: '2,75 kW', verw: '3,2 kW', seer: '7,6', scop: '4,2' },
+      '3-5-kw': { koel: '3,5 kW', verw: '3,85 kW', seer: '7,1', scop: '4,1' },
+      '5-0-kw': { koel: '5,4 kW', verw: '5,6 kW', seer: '7,0', scop: '4,1' },
+      '7-0-kw': { koel: '7,3 kW', verw: '7,3 kW', seer: '6,9', scop: '4,2' },
+    },
   },
 ];
 
