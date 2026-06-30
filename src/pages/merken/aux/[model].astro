@@ -65,9 +65,9 @@ const { model } = Astro.props;
               class="group flex flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:border-gold-400 hover:shadow-md"
             >
               <p class="text-2xl font-bold text-brand-900">{size.kw}</p>
-              <p class="mt-2 text-sm text-slate-600">{size.room}</p>
+              <p class="mt-2 min-h-[2.5rem] text-sm text-slate-600">{size.room}</p>
               <p class="mt-1 text-sm text-slate-500">{size.volume} · {size.area}</p>
-              <span class="mt-4 text-sm font-semibold text-brand-700 transition group-hover:text-brand-900">
+              <span class="mt-auto pt-4 text-sm font-semibold text-brand-700 transition group-hover:text-brand-900">
                 Bekijk details
                 <span aria-hidden="true" class="transition group-hover:translate-x-0.5">&rarr;</span>
               </span>
