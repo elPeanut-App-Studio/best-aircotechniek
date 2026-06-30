@@ -1,9 +1,7 @@
 ---
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
-import PageHero from '../../../../components/PageHero.astro';
 import CTASection from '../../../../components/CTASection.astro';
 import { auxModels, auxSizes } from '../../../../data/aux-products';
-import pageHeroPhoto from '../../../../assets/photos/page-hero-woning.jpg';
 
 export function getStaticPaths() {
   return auxModels.flatMap((model) =>
@@ -46,13 +44,7 @@ const btnInactive = 'border border-slate-300 text-slate-700 hover:border-brand-5
   title={`AUX ${model.name} ${size.kw} airco | Best Aircotechniek`}
   description={`AUX ${model.name} ${size.kw}: ${ss.koel} koelen (${model.labelKoelen}), geschikt voor ${size.room.toLowerCase()}. Laten installeren door Best Aircotechniek.`}
 >
-  <PageHero
-    title={`AUX ${model.name} ${size.kw}`}
-    description={`${model.tier}. Geschikt voor ${size.room.toLowerCase()} (${size.volume}).`}
-    image={pageHeroPhoto}
-  />
-
-  <section class="py-16 sm:py-20">
+  <section class="pt-8 pb-16 sm:pt-10 sm:pb-20">
     <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
       <nav class="text-sm text-slate-500" aria-label="Kruimelpad">
         <a href="/merken/aux" class="hover:text-brand-700">AUX</a>
@@ -61,6 +53,16 @@ const btnInactive = 'border border-slate-300 text-slate-700 hover:border-brand-5
         <span class="px-1">/</span>
         <span id="crumb-size" class="text-slate-700">{size.kw}</span>
       </nav>
+
+      <div class="mt-4">
+        <p class="text-sm font-semibold uppercase tracking-wider text-gold-600">{model.tier}</p>
+        <h1 id="page-title" class="mt-1 text-3xl font-extrabold tracking-tight text-brand-900 sm:text-4xl">
+          AUX {model.name} {size.kw}
+        </h1>
+        <p id="page-sub" class="mt-2 text-slate-600">
+          Geschikt voor {size.room.toLowerCase()} ({size.volume}).
+        </p>
+      </div>
 
       <div class="mt-8 grid gap-10 lg:grid-cols-2 lg:items-start">
         <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-sm lg:sticky lg:top-28">
@@ -137,7 +139,6 @@ const btnInactive = 'border border-slate-300 text-slate-700 hover:border-brand-5
       sizesData,
       modelSlug: model.slug,
       modelName: model.name,
-      tier: model.tier,
       btnBase,
       btnActive,
       btnInactive,
@@ -156,10 +157,8 @@ const btnInactive = 'border border-slate-300 text-slate-700 hover:border-brand-5
       setText('val-ruimte', 'Ruimtes tot ' + d.volume);
       setText('val-rendement', 'SEER ' + d.seer + ' / SCOP ' + d.scop);
       setText('crumb-size', d.kw);
-      const h1 = document.querySelector('.page-hero h1');
-      if (h1) h1.textContent = 'AUX ' + modelName + ' ' + d.kw;
-      const hp = document.querySelector('.page-hero p');
-      if (hp) hp.textContent = tier + '. Geschikt voor ' + d.room.toLowerCase() + ' (' + d.volume + ').';
+      setText('page-title', 'AUX ' + modelName + ' ' + d.kw);
+      setText('page-sub', 'Geschikt voor ' + d.room.toLowerCase() + ' (' + d.volume + ').');
       links.forEach((a) => {
         a.className = btnBase + (a.dataset.size === slug ? btnActive : btnInactive);
       });
