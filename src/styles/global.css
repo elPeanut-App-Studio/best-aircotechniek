@@ -8,7 +8,9 @@
   }
 
   body {
-    @apply bg-white text-slate-800 antialiased;
+    @apply text-slate-800 antialiased;
+    /* faint cool tint so white cards/panels read with depth instead of stark white */
+    background-color: #f6f8fc;
   }
 
   h1,
@@ -29,6 +31,8 @@
 
   .btn-primary:hover {
     background-color: #e8b923;
+    box-shadow: 0 8px 22px rgba(212, 175, 55, 0.34);
+    transform: translateY(-1px);
   }
 
   .btn-secondary {
@@ -51,8 +55,32 @@
     @apply mt-4 text-lg text-slate-600;
   }
 
+  /* Elevated white surface used across cards and panels */
+  .panel {
+    @apply rounded-2xl border border-slate-200/80 bg-white shadow-card;
+  }
+
+  /* Interactive card: subtle lift + gold-tinged border on hover */
+  .card-link {
+    @apply rounded-2xl border border-slate-200/80 bg-white shadow-card transition duration-200;
+  }
+  .card-link:hover {
+    @apply border-gold-300 shadow-card-hover;
+    transform: translateY(-3px);
+  }
+
   .page-hero {
-    @apply bg-gradient-to-br from-brand-950 via-brand-800 to-brand-900 text-white;
+    @apply relative bg-gradient-to-br from-brand-950 via-brand-800 to-brand-900 text-white;
+  }
+
+  /* soft glow for depth on the dark hero */
+  .page-hero::before {
+    content: '';
+    @apply pointer-events-none absolute inset-0;
+    background: radial-gradient(60% 80% at 85% 15%, rgba(212, 175, 55, 0.14), transparent 60%);
+  }
+  .page-hero > * {
+    @apply relative;
   }
 
   .page-hero h1,
