@@ -29,14 +29,14 @@ const specIcons = ['swing', 'luchtzuivering', 'zelfreiniging', 'verwarmen', 'des
         <span class="text-slate-700">{model.name}</span>
       </nav>
 
-      <div class="mt-8 grid gap-10 lg:grid-cols-2 lg:items-center">
-        <div class="panel overflow-hidden p-6">
-          <img src={model.photo} alt={`AUX ${model.name} airconditioner`} width="800" height="800" loading="eager" class="mx-auto h-auto w-full max-w-md object-contain" />
+      <div class="mt-8 grid gap-8 lg:grid-cols-2 lg:items-stretch">
+        <div class="panel flex items-center justify-center overflow-hidden p-6 sm:p-8">
+          <img src={model.photo} alt={`AUX ${model.name} airconditioner`} width="800" height="800" loading="eager" class="h-auto w-full max-w-md object-contain" />
         </div>
-        <div>
+        <div class="panel p-6 sm:p-8">
           <p class="text-sm font-semibold uppercase tracking-wider text-gold-600">{model.tier}</p>
           <h2 class="section-heading mt-2">Kenmerken</h2>
-          <dl class="mt-5 border-t border-slate-200">
+          <dl class="mt-5">
             <div class="flex items-center justify-between gap-4 border-b border-slate-200 py-3">
               <dt class="flex items-center gap-3 text-slate-600">
                 <img src="/spec-icons/rendement.png" alt="" width="24" height="24" class="h-6 w-6 shrink-0" />
@@ -46,7 +46,7 @@ const specIcons = ['swing', 'luchtzuivering', 'zelfreiniging', 'verwarmen', 'des
             </div>
             {
               model.specs.map((s, i) => (
-                <div class="flex items-center justify-between gap-4 border-b border-slate-200 py-3">
+                <div class={`flex items-center justify-between gap-4 py-3 ${i < model.specs.length - 1 ? 'border-b border-slate-200' : ''}`}>
                   <dt class="flex items-center gap-3 text-slate-600">
                     <img src={`/spec-icons/${specIcons[i]}.png`} alt="" width="24" height="24" class="h-6 w-6 shrink-0" />
                     {s.label}
@@ -56,7 +56,7 @@ const specIcons = ['swing', 'luchtzuivering', 'zelfreiniging', 'verwarmen', 'des
               ))
             }
           </dl>
-          <p class="mt-4 text-sm text-slate-500">Standaard bij elke AUX: {auxShared.join(' · ')}.</p>
+          <p class="mt-6 border-t border-slate-200 pt-4 text-sm text-slate-500">Standaard bij elke AUX: {auxShared.join(' · ')}.</p>
         </div>
       </div>
 
