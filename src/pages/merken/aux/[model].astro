@@ -33,10 +33,10 @@ const specIcons = ['swing', 'luchtzuivering', 'zelfreiniging', 'verwarmen', 'des
         <div class="panel flex items-center justify-center overflow-hidden bg-gradient-to-br from-brand-50 via-white to-white p-8 sm:p-10 lg:col-span-7">
           <img src={model.photo} alt={`AUX ${model.name} airconditioner`} width="900" height="900" loading="eager" class="h-auto w-full max-w-lg object-contain" />
         </div>
-        <div class="panel p-6 sm:p-8 lg:col-span-5">
+        <div class="panel flex flex-col p-6 sm:p-8 lg:col-span-5">
           <p class="text-sm font-semibold uppercase tracking-wider text-gold-600">{model.tier}</p>
           <h2 class="section-heading mt-2">Kenmerken</h2>
-          <dl class="mt-6 space-y-4">
+          <dl class="mt-6 flex flex-1 flex-col justify-between gap-4">
             <div class="flex items-start gap-3">
               <img src="/spec-icons/rendement.png" alt="" width="24" height="24" class="mt-0.5 h-6 w-6 shrink-0" />
               <div>
@@ -56,7 +56,24 @@ const specIcons = ['swing', 'luchtzuivering', 'zelfreiniging', 'verwarmen', 'des
               ))
             }
           </dl>
-          <p class="mt-6 border-t border-slate-200 pt-4 text-sm text-slate-500">Standaard bij elke AUX: {auxShared.join(' · ')}.</p>
+        </div>
+      </div>
+
+      <div class="mt-8 overflow-hidden rounded-2xl bg-brand-950 px-6 py-5 text-white shadow-card sm:px-8">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-8">
+          <p class="shrink-0 text-xs font-semibold uppercase tracking-wider text-gold-400">Standaard bij elke AUX</p>
+          <div class="flex flex-wrap gap-x-6 gap-y-2">
+            {
+              auxShared.map((item) => (
+                <span class="inline-flex items-center gap-2 text-sm text-brand-100">
+                  <svg class="h-4 w-4 shrink-0 text-gold-400" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                  </svg>
+                  {item}
+                </span>
+              ))
+            }
+          </div>
         </div>
       </div>
 
