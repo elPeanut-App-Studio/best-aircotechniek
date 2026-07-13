@@ -1,9 +1,7 @@
 ---
-import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CTASection from '../components/CTASection.astro';
 import PageHero from '../components/PageHero.astro';
-import teamPhoto from '../assets/photos/team-monteur.jpg';
 import pageHeroPhoto from '../assets/photos/page-hero-woning.jpg';
 import { site } from '../data/site';
 import { locations } from '../data/locations';
@@ -21,27 +19,14 @@ import { locations } from '../data/locations';
 
   <section class="py-16 sm:py-20">
     <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-      <div class="grid gap-12 lg:grid-cols-2 lg:items-center">
-        <div>
-          <h2 class="section-heading">Wie wij zijn</h2>
-          <p class="mt-6 text-lg leading-relaxed text-slate-600">
-            Best Aircotechniek is een jong en ambitieus bedrijf gespecialiseerd in het plaatsen van airconditioningsystemen voor particulieren en bedrijven. Wij geloven dat iedereen recht heeft op een comfortabel binnenklimaat, zomer én winter.
-          </p>
-          <p class="mt-4 text-lg leading-relaxed text-slate-600">
-            Met oog voor detail en respect voor uw woning of pand, zorgen wij voor een nette installatie en duidelijke communicatie van begin tot eind.
-          </p>
-        </div>
-        <div class="overflow-hidden rounded-2xl bg-slate-100 shadow-sm ring-1 ring-slate-200">
-          <Image
-            src={teamPhoto}
-            alt="Professionele monteur van Best Aircotechniek in uniform voor een woning"
-            width={640}
-            height={480}
-            class="aspect-[4/3] h-full w-full object-cover"
-            loading="lazy"
-            decoding="async"
-          />
-        </div>
+      <div class="max-w-3xl">
+        <h2 class="section-heading">Wie wij zijn</h2>
+        <p class="mt-6 text-lg leading-relaxed text-slate-600">
+          Best Aircotechniek is een jong en ambitieus bedrijf gespecialiseerd in het plaatsen van airconditioningsystemen voor particulieren en bedrijven. Wij geloven dat iedereen recht heeft op een comfortabel binnenklimaat, zomer én winter.
+        </p>
+        <p class="mt-4 text-lg leading-relaxed text-slate-600">
+          Met oog voor detail en respect voor uw woning of pand, zorgen wij voor een nette installatie en duidelijke communicatie van begin tot eind.
+        </p>
       </div>
     </div>
   </section>
