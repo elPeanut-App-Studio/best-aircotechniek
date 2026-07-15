@@ -12,7 +12,7 @@ export const brands = [
     name: 'LG',
     logo: '/brands/lg.svg',
     tagline: 'Moderne airconditioning met slimme bediening en een strak design.',
-    brochure: null,
+    brochure: '/lg-airco-brochure.pdf',
   },
   {
     slug: 'aux',
