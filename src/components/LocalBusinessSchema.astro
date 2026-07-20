@@ -1,8 +1,10 @@
 ---
 import { site, serviceAreas } from '../data/site';
 import { getGoogleReviews } from '../lib/google-reviews';
+import { manualReviewsData } from '../data/reviews';
 
-const reviewsData = await getGoogleReviews();
+// Live Places API-feed indien beschikbaar; anders de handmatige reviews (aggregateRating blijft correct).
+const reviewsData = (await getGoogleReviews()) ?? manualReviewsData;
 
 const logoUrl = new URL(site.logo, site.url).href;
 const imageUrl = new URL(site.ogImage, site.url).href;

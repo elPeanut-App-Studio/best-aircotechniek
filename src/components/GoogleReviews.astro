@@ -1,8 +1,11 @@
 ---
 import { site } from '../data/site';
 import { getGoogleReviews, getGoogleWriteReviewUrl } from '../lib/google-reviews';
+import { manualReviewsData } from '../data/reviews';
 
-const data = await getGoogleReviews();
+// Live Places API-feed indien beschikbaar; anders de handmatige reviews.
+// Zodra PUBLIC_GOOGLE_PLACE_ID + GOOGLE_PLACES_API_KEY zijn ingesteld, wint de live feed vanzelf.
+const data = (await getGoogleReviews()) ?? manualReviewsData;
 const placeId = import.meta.env.PUBLIC_GOOGLE_PLACE_ID ?? '';
 const mapsSearchQuery = `${site.name} ${site.region}`;
 const mapsUrl =
