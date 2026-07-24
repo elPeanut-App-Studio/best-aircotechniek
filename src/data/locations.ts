@@ -17,6 +17,8 @@ export interface Location {
   intro: string[];
   /** Nabijgelegen wijken/plaatsen voor lokale relevantie en interne links. */
   nearby: string[];
+  /** Optionele extra unieke alinea's, o.a. om op "airco <plaats>" te ranken. */
+  localContent?: string[];
 }
 
 export const locations: Location[] = [
@@ -30,6 +32,10 @@ export const locations: Location[] = [
     intro: [
       'Best is onze thuisbasis. Of u nu in het centrum woont, in Heivelden, Naastenbest of Speelheide, of een nieuwbouwwoning heeft in Dijkstraten: wij kennen de plaats en de woningen hier als geen ander en staan snel bij u op de stoep.',
       'Veel woningen in Best zijn goed geïsoleerd en warmen in de zomer snel op. Een goed gekozen airco zorgt het hele jaar door voor comfort: koel in de zomer en bijverwarmen in het tussenseizoen. Wij adviseren u ter plaatse over de juiste capaciteit en de beste plek voor de binnen- en buitenunit.',
+    ],
+    localContent: [
+      'Zoekt u een airco in Best? Dan bent u bij ons letterlijk om de hoek. Best Aircotechniek is gevestigd in Best en verzorgt hier dagelijks airco-installaties voor particulieren en bedrijven. Omdat we uit de buurt komen, zijn de lijnen kort: u spreekt direct met de monteur die het werk uitvoert, geen callcenter ertussen.',
+      'Een airco laten installeren in Best doet u bij een lokale specialist die de omgeving kent. Wij plaatsen airco’s van Daikin, LG en AUX, netjes en volgens de regels, met een complete installatie vanaf € 1.299. Na de montage blijven wij uw aanspreekpunt voor vragen en jaarlijks onderhoud.',
     ],
     nearby: ['Heivelden', 'Naastenbest', 'Speelheide', 'Dijkstraten', 'Wilhelminadorp'],
   },
@@ -69,6 +75,10 @@ export const locations: Location[] = [
     intro: [
       'Oirschot staat bekend om zijn historische centrum en karakteristieke panden. Juist daar is een zorgvuldige, nette montage belangrijk: wij plaatsen de units onopvallend en met respect voor de uitstraling van uw woning of boerderij, ook in Spoordonk en de Beerzen.',
       'Of u nu een vrijstaande woning of een gerenoveerd pand heeft: wij adviseren eerlijk over het systeem dat technisch én esthetisch het beste past. Geen onnodige toeters en bellen, wel een oplossing die werkt.',
+    ],
+    localContent: [
+      'Op zoek naar een airco in Oirschot? Best Aircotechniek is uw lokale airco-installateur voor Oirschot, Spoordonk en de Beerzen. Vanuit onze thuisbasis in Best zijn wij zo bij u ter plaatse, en dat merkt u aan de snelle reactie en de persoonlijke aanpak.',
+      'Wij installeren airco’s van Daikin, LG en AUX in Oirschot, met oog voor de karakteristieke panden die het dorp rijk is. Een complete installatie start vanaf € 1.299, altijd na een gratis adviesgesprek bij u thuis en een heldere offerte vooraf. Zo weet u precies waar u aan toe bent.',
     ],
     nearby: ['Spoordonk', 'Middelbeers', 'Oostelbeers', 'Best'],
   },
@@ -141,6 +151,14 @@ export function buildLocationFaq(loc: Location) {
     {
       question: `Welke merken airco installeren jullie in ${loc.city}?`,
       answer: `Wij installeren airco's van Daikin, LG en AUX: betrouwbare merken met een goede prijs-kwaliteitverhouding en langdurige garantie. Samen kiezen we het model dat het beste past bij uw woning in ${loc.city}.`,
+    },
+    {
+      question: `Hoe snel kunnen jullie een airco plaatsen in ${loc.city}?`,
+      answer: `Wij reageren binnen 24 uur op uw aanvraag. Na akkoord op de offerte plannen we de montage in ${loc.city} vaak al binnen enkele werkdagen in, op een moment dat u uitkomt. Een standaard installatie is meestal binnen één dag klaar.`,
+    },
+    {
+      question: `Kan ik een Daikin, LG of AUX airco laten installeren in ${loc.city}?`,
+      answer: `Ja. Wij zijn installateur van Daikin, LG én AUX in ${loc.city}. Tijdens het gratis adviesgesprek bij u thuis kiezen we samen het merk en model dat het beste past bij uw ruimte, wensen en budget.`,
     },
   ];
 }
