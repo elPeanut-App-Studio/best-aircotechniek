@@ -1,3 +1,5 @@
+import { site } from './site';
+
 export interface FaqItem {
   question: string;
   answer: string;
@@ -12,7 +14,7 @@ export const generalFaq: FaqItem[] = [
   {
     question: 'Wat kost het om een airco te laten installeren?',
     answer:
-      'Een complete installatie start vanaf € 1.299. Dit is voor een eenvoudige single-split met het voordeligste 2,5 kW-model, inclusief montage. De uiteindelijke prijs hangt af van het gekozen model, het aantal ruimtes en de montagesituatie. Wij maken altijd een vrijblijvende offerte op maat, zodat u vooraf precies weet waar u aan toe bent.',
+      `Een complete installatie start vanaf ${site.priceFrom}. Dit is voor een eenvoudige single-split met het voordeligste 2,5 kW-model, inclusief montage. De uiteindelijke prijs hangt af van het gekozen model, het aantal ruimtes en de montagesituatie. Wij maken altijd een vrijblijvende offerte op maat, zodat u vooraf precies weet waar u aan toe bent.`,
   },
   {
     question: 'Hoe lang duurt het installeren van een airco?',

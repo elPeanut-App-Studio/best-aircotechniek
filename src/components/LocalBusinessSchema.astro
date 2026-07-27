@@ -34,6 +34,24 @@ const schema: Record<string, unknown> = {
     value: site.kvk,
   },
   priceRange: '€€',
+  // Vanaf-prijs expliciet in structured data, zodat Google en AI-zoekmachines
+  // de instapprijs kunnen tonen. Bedrag komt uit site.priceFromAmount.
+  makesOffer: {
+    '@type': 'Offer',
+    name: 'Airco installatie (single-split 2,5 kW)',
+    description:
+      'Complete installatie van een single-split airco van 2,5 kW, inclusief btw en montage.',
+    priceSpecification: {
+      '@type': 'PriceSpecification',
+      minPrice: site.priceFromAmount,
+      priceCurrency: 'EUR',
+      valueAddedTaxIncluded: true,
+    },
+    availableAtOrFrom: {
+      '@type': 'Place',
+      name: site.region,
+    },
+  },
 };
 
 if (reviewsData && reviewsData.rating > 0 && reviewsData.totalReviews > 0) {

@@ -5,12 +5,13 @@ import CTASection from '../components/CTASection.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
 import FaqSchema from '../components/FaqSchema.astro';
 import heroPhoto from '../assets/photos/aux-buitenunit-installatie.jpg';
+import { site } from '../data/site';
 
 const types = [
   {
     title: 'Single-split',
     description:
-      'Eén binnenunit gekoppeld aan één buitenunit. Ideaal voor het koelen en verwarmen van één ruimte, zoals de woonkamer of slaapkamer. Een complete installatie start vanaf € 1.299.',
+      `Eén binnenunit gekoppeld aan één buitenunit. Ideaal voor het koelen en verwarmen van één ruimte, zoals de woonkamer of slaapkamer. Een complete installatie start vanaf ${site.priceFrom}.`,
   },
   {
     title: 'Multi-split',
@@ -31,7 +32,7 @@ const faq = [
   {
     question: 'Wat kost het om een airco te laten installeren?',
     answer:
-      'Een complete installatie start vanaf € 1.299 voor een basis single-split met het voordeligste 2,5 kW-model, inclusief montage. De uiteindelijke prijs hangt af van het model, het aantal ruimtes en de montagesituatie. U ontvangt altijd een vrijblijvende offerte op maat.',
+      `Een complete installatie start vanaf ${site.priceFrom} voor een basis single-split met het voordeligste 2,5 kW-model, inclusief btw en montage. De uiteindelijke prijs hangt af van het model, het aantal ruimtes en de montagesituatie. U ontvangt altijd een vrijblijvende offerte op maat.`,
   },
   {
     question: 'Welke merken installeren jullie?',
@@ -52,8 +53,8 @@ const faq = [
 ---
 
 <BaseLayout
-  title="Airco laten installeren | Best Aircotechniek"
-  description="Airco laten installeren door Best Aircotechniek: single- en multi-split van Daikin, LG en AUX. Vakkundige montage in Noord-Brabant, vanaf € 1.299."
+  title={`Airco laten installeren vanaf ${site.priceFrom} | Best Aircotechniek`}
+  description={`Airco laten installeren vanaf ${site.priceFrom} incl. btw en montage. Single- en multi-split van Daikin, LG en AUX, vakkundig gemonteerd in heel Noord-Brabant.`}
 >
   <PageHero
     title="Airco laten installeren"

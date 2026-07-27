@@ -13,6 +13,14 @@ export const site = {
   region: 'Noord-Brabant en omgeving',
   kvk: '84577878',
   btwId: 'NL003984507B22',
+  /**
+   * Vanaf-prijs voor een complete installatie: basis single-split 2,5 kW,
+   * inclusief btw en montage. Permanente prijs (vastgesteld juli 2026).
+   * Wijzig de prijs ALLEEN hier, alle pagina's, titels, meta en schema volgen.
+   */
+  priceFrom: '€ 1.249',
+  /** Numerieke variant van priceFrom, voor structured data (Offer). */
+  priceFromAmount: 1249,
   /** Open Graph / social preview-afbeelding (1200x630), absoluut t.o.v. url */
   ogImage: '/og-image.jpg',
   /** Google Maps bedrijfspagina (korte link of maps URL) */

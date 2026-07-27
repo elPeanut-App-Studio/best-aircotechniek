@@ -4,11 +4,12 @@ import PageHero from '../components/PageHero.astro';
 import CTASection from '../components/CTASection.astro';
 import pageHeroPhoto from '../assets/photos/page-hero-woning.jpg';
 import { locations } from '../data/locations';
+import { site } from '../data/site';
 ---
 
 <BaseLayout
-  title="Airco installateur Noord-Brabant | Best Aircotechniek"
-  description="Op zoek naar een airco-installateur in Noord-Brabant? Best Aircotechniek installeert airconditioning in Best, Eindhoven, Tilburg, Den Bosch en omgeving. Vanaf € 1.299."
+  title={`Airco installateur Noord-Brabant vanaf ${site.priceFrom} | Best Aircotechniek`}
+  description={`Airco laten installeren in Noord-Brabant vanaf ${site.priceFrom} incl. btw en montage. Best Aircotechniek is actief in Best, Eindhoven, Tilburg, Den Bosch en omgeving.`}
 >
   <PageHero
     title="Airco-installateur in Noord-Brabant"
@@ -24,7 +25,7 @@ import { locations } from '../data/locations';
         <p class="mt-4 text-lg leading-relaxed text-slate-600">
           Best Aircotechniek installeert airconditioning voor particulieren en bedrijven in heel Noord-Brabant.
           Vanuit onze thuisbasis in Best zijn wij snel ter plaatse in de hele regio. U krijgt persoonlijk advies,
-          een vakkundige montage en eerlijke prijzen. Een complete installatie start vanaf € 1.299.
+          een vakkundige montage en eerlijke prijzen. Een complete installatie start vanaf {site.priceFrom}, inclusief btw en montage.
         </p>
         <p class="mt-4 text-lg leading-relaxed text-slate-600">
           Wij werken met betrouwbare merken als Daikin, LG en AUX, met 2 tot 5 jaar fabrieksgarantie op de airco (afhankelijk van het merk) en 2 jaar op de

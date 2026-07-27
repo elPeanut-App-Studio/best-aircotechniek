@@ -7,6 +7,7 @@ import FaqSchema from '../components/FaqSchema.astro';
 import pageHeroPhoto from '../assets/photos/page-hero-woning.jpg';
 import { locations, buildLocationFaq, type Location } from '../data/locations';
 import { brands } from '../data/brands';
+import { site } from '../data/site';
 
 export function getStaticPaths() {
   return locations.map((loc) => ({
@@ -24,7 +25,7 @@ const faq = buildLocationFaq(loc);
 const others = locations.filter((l) => l.slug !== loc.slug);
 
 const facts = [
-  { label: 'Prijs', value: 'vanaf € 1.299', note: 'basis single-split, incl. montage' },
+  { label: 'Prijs', value: `vanaf ${site.priceFrom}`, note: 'basis single-split, incl. btw en montage' },
   { label: 'Merken', value: 'Daikin · LG · AUX', note: 'betrouwbare merken' },
   { label: 'Garantie', value: '2-5 jaar', note: 'op de airco, per merk' },
   { label: 'Reactie', value: 'binnen 24 uur', note: 'na uw aanvraag' },
@@ -49,7 +50,7 @@ const approach = [
 ---
 
 <BaseLayout
-  title={`Airco installatie ${loc.city} | Best Aircotechniek`}
+  title={`Airco installatie ${loc.city} vanaf ${site.priceFrom} | Best Aircotechniek`}
   description={loc.metaDescription}
 >
   <PageHero
