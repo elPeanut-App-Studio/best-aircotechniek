@@ -1,0 +1,213 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import CTASection from '../../../../components/CTASection.astro';
+import { lgModels, lgSizes } from '../../../../data/lg-products';
+import { site } from '../../../../data/site';
+
+export function getStaticPaths() {
+  return lgModels.flatMap((model) =>
+    lgSizes.map((size) => ({ params: { model: model.slug, size: size.slug }, props: { model, size } })),
+  );
+}
+
+const { model, size } = Astro.props;
+
+// Data voor de client-side wisselaar (scrollpositie blijft behouden)
+const sizesData = lgSizes.map((s) => ({
+  slug: s.slug,
+  kw: s.kw,
+  volume: s.volume,
+  area: s.area,
+  room: s.room,
+}));
+
+/*
+ * Let op: de LG-brochure geeft SEER/SCOP en energielabels op MODELniveau
+ * ("tot"-waarden), niet per vermogen. Die worden hier dus ook als modelwaarde
+ * gelabeld. Het exacte koel- en verwarmingsvermogen per uitvoering staat niet
+ * in de brochure en wordt daarom niet getoond, maar in de offerte bevestigd.
+ */
+const rows = [
+  { icon: 'ruimte', label: 'Geschikt voor', value: `Ruimtes tot ${size.volume}`, id: 'val-volume' },
+  { icon: 'koelen', label: 'Vloeroppervlak (vuistregel)', value: size.area, id: 'val-area' },
+  { icon: 'swing', label: 'Typische ruimte', value: size.room, id: 'val-room' },
+  { icon: 'rendement', label: 'SEER (tot) / SCOP', value: `${model.seer} / ${model.scop}` },
+  { icon: 'luchtzuivering', label: 'Luchtreiniging', value: model.specs[0].value },
+  { icon: 'wifi', label: 'Bediening', value: 'WiFi + LG ThinQ-app' },
+];
+
+const extra = [
+  { label: 'Slimme functies', value: model.specs[1].value },
+  { label: 'Uitvoering', value: model.specs[3].value },
+  { label: 'Koudemiddel', value: 'R32' },
+  { label: 'Garantie', value: '5 jaar fabrieksgarantie' },
+];
+
+const btnBase = 'size-btn rounded-xl px-5 py-2.5 font-semibold transition ';
+const btnActive = 'border-2 border-brand-700 bg-white text-brand-900 shadow-sm';
+const btnInactive = 'border border-slate-300 bg-white text-slate-700 hover:border-brand-500 hover:text-brand-900';
+---
+
+<BaseLayout
+  title={`LG ${model.name} ${size.kw} airco | Best Aircotechniek`}
+  description={`LG ${model.name} ${size.kw}: geschikt voor ${size.room.toLowerCase()} (${size.volume}), energielabel ${model.labelKoelen}. Laten installeren vanaf ${site.priceFrom} door Best Aircotechniek.`}
+>
+  <section class="pt-8 pb-16 sm:pt-10 sm:pb-20">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <nav class="text-sm text-slate-500" aria-label="Kruimelpad">
+        <a href="/merken/lg" class="hover:text-brand-700">LG</a>
+        <span class="px-1">/</span>
+        <a href={`/merken/lg/${model.slug}`} class="hover:text-brand-700">{model.name}</a>
+        <span class="px-1">/</span>
+        <span id="crumb-size" class="text-slate-700">{size.kw}</span>
+      </nav>
+
+      <div class="mt-4">
+        <p class="text-sm font-semibold uppercase tracking-wider text-gold-600">{model.tier}</p>
+        <h1 id="page-title" class="mt-1 text-3xl font-extrabold tracking-tight text-brand-900 sm:text-4xl">
+          LG {model.name} {size.kw}
+        </h1>
+        <p id="page-sub" class="mt-2 text-slate-600">
+          Geschikt voor {size.room.toLowerCase()} ({size.volume}).
+        </p>
+      </div>
+
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">
+        <span class="text-sm font-semibold text-slate-700">Kies uw vermogen</span>
+        <div class="flex flex-wrap gap-3">
+          {
+            lgSizes.map((s) => (
+              <a
+                href={`/merken/lg/${model.slug}/${s.slug}`}
+                data-size={s.slug}
+                class={btnBase + (s.slug === size.slug ? btnActive : btnInactive)}
+              >
+                {s.kw}
+              </a>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="mt-8 grid gap-8 lg:grid-cols-12 lg:items-stretch">
+        <div class="panel relative min-h-[22rem] overflow-hidden bg-gradient-to-br from-brand-50 via-white to-white lg:col-span-7">
+          <img
+            src={model.photo}
+            alt={`LG ${model.name} airconditioner met binnenunit, buitenunit en afstandsbediening`}
+            width="650"
+            height="650"
+            loading="eager"
+            class="absolute inset-0 h-full w-full object-contain p-6"
+          />
+        </div>
+
+        <div class="panel flex flex-col p-6 sm:p-8 lg:col-span-5">
+          <h2 class="section-heading">Specificaties</h2>
+          <dl class="mt-6 space-y-4">
+            <div class="flex items-start gap-3">
+              <img src="/spec-icons/verwarmen.png" alt="" width="24" height="24" class="mt-0.5 h-6 w-6 shrink-0" />
+              <div>
+                <dt class="text-sm text-slate-500">Energielabel koelen / verwarmen</dt>
+                <dd class="flex items-center gap-2 font-semibold text-brand-900">
+                  <span
+                    class={`rounded px-2 py-0.5 text-xs font-bold text-white ${model.labelKoelen === 'A+++' ? 'bg-[#00a651]' : 'bg-[#2f9e44]'}`}
+                  >
+                    {model.labelKoelen}
+                  </span>
+                  <span
+                    class={`rounded px-2 py-0.5 text-xs font-bold text-white ${model.labelVerwarmen === 'A+++' ? 'bg-[#00a651]' : model.labelVerwarmen === 'A++' ? 'bg-[#2f9e44]' : 'bg-[#94b820]'}`}
+                  >
+                    {model.labelVerwarmen}
+                  </span>
+                </dd>
+              </div>
+            </div>
+            {
+              rows.map((r) => (
+                <div class="flex items-start gap-3">
+                  <img src={`/spec-icons/${r.icon}.png`} alt="" width="24" height="24" class="mt-0.5 h-6 w-6 shrink-0" />
+                  <div>
+                    <dt class="text-sm text-slate-500">{r.label}</dt>
+                    <dd class="font-semibold text-brand-900">
+                      <span id={r.id}>{r.value}</span>
+                    </dd>
+                  </div>
+                </div>
+              ))
+            }
+          </dl>
+          <p class="mt-6 text-sm leading-relaxed text-slate-500">
+            Het exacte koel- en verwarmingsvermogen van deze uitvoering bevestigen wij in uw offerte, samen met een
+            capaciteitsberekening voor uw ruimte.
+          </p>
+        </div>
+      </div>
+
+      <div class="panel mt-8 p-6 sm:p-8">
+        <div class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+          <div class="min-w-0 flex-1">
+            <h3 class="text-lg font-bold text-brand-900">Meer kenmerken</h3>
+            <ul class="mt-4 space-y-2 text-sm">
+              {
+                extra.map((e) => (
+                  <li class="flex gap-2">
+                    <span aria-hidden="true" class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-500" />
+                    <span class="text-slate-600">
+                      <span class="font-semibold text-brand-900">{e.label}:</span> {e.value}
+                    </span>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+          <div class="shrink-0 lg:pl-8">
+            <a href="/contact" class="btn-primary inline-flex w-full justify-center sm:w-auto">Vraag een offerte aan</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTASection
+    title={`LG ${model.name} laten installeren?`}
+    description={`Best Aircotechniek verzorgt advies, levering en een vakkundige montage vanaf ${site.priceFrom}. Vraag een vrijblijvende offerte aan.`}
+  />
+
+  <script
+    define:vars={{
+      sizesData,
+      modelSlug: model.slug,
+      modelName: model.name,
+      btnBase,
+      btnActive,
+      btnInactive,
+    }}
+  >
+    const links = Array.from(document.querySelectorAll('a[data-size]'));
+    function applySize(slug) {
+      const d = sizesData.find((s) => s.slug === slug);
+      if (!d) return;
+      const setText = (id, text) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = text;
+      };
+      setText('val-volume', 'Ruimtes tot ' + d.volume);
+      setText('val-area', d.area);
+      setText('val-room', d.room);
+      setText('crumb-size', d.kw);
+      setText('page-title', 'LG ' + modelName + ' ' + d.kw);
+      setText('page-sub', 'Geschikt voor ' + d.room.toLowerCase() + ' (' + d.volume + ').');
+      links.forEach((a) => {
+        a.className = btnBase + (a.dataset.size === slug ? btnActive : btnInactive);
+      });
+      document.title = 'LG ' + modelName + ' ' + d.kw + ' airco | Best Aircotechniek';
+      history.replaceState(null, '', '/merken/lg/' + modelSlug + '/' + slug);
+    }
+    links.forEach((a) =>
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        applySize(a.dataset.size);
+      }),
+    );
+  </script>
+</BaseLayout>
