@@ -1,3 +1,5 @@
+import { site } from './site';
+
 /**
  * Locatiepagina's per werkgebied. Elke plaats heeft unieke content (geen
  * gedupliceerde tekst) om als waardevolle landingspagina te ranken op
@@ -26,7 +28,7 @@ export const locations: Location[] = [
     slug: 'best',
     city: 'Best',
     metaDescription:
-      'Airco laten installeren in Best? Best Aircotechniek is hier gevestigd. Vakkundige montage, persoonlijk advies en snelle service. Vanaf € 1.299.',
+      `Airco laten installeren in Best? Best Aircotechniek is hier gevestigd. Vakkundige montage, persoonlijk advies en snelle service. Vanaf ${site.priceFrom}.`,
     heroDescription:
       'Uw lokale airco-installateur in Best. Wij kennen de buurt en zijn snel ter plaatse.',
     intro: [
@@ -35,7 +37,7 @@ export const locations: Location[] = [
     ],
     localContent: [
       'Zoekt u een airco in Best? Dan bent u bij ons letterlijk om de hoek. Best Aircotechniek is gevestigd in Best en verzorgt hier dagelijks airco-installaties voor particulieren en bedrijven. Omdat we uit de buurt komen, zijn de lijnen kort: u spreekt direct met de monteur die het werk uitvoert, geen callcenter ertussen.',
-      'Een airco laten installeren in Best doet u bij een lokale specialist die de omgeving kent. Wij plaatsen airco’s van Daikin, LG en AUX, netjes en volgens de regels, met een complete installatie vanaf € 1.299. Na de montage blijven wij uw aanspreekpunt voor vragen en jaarlijks onderhoud.',
+      `Een airco laten installeren in Best doet u bij een lokale specialist die de omgeving kent. Wij plaatsen airco’s van Daikin, LG en AUX, netjes en volgens de regels, met een complete installatie vanaf ${site.priceFrom}. Na de montage blijven wij uw aanspreekpunt voor vragen en jaarlijks onderhoud.`,
     ],
     nearby: ['Heivelden', 'Naastenbest', 'Speelheide', 'Dijkstraten', 'Wilhelminadorp'],
   },
@@ -43,7 +45,7 @@ export const locations: Location[] = [
     slug: 'eindhoven',
     city: 'Eindhoven',
     metaDescription:
-      'Airco installatie in Eindhoven door Best Aircotechniek. Vakkundige montage in Woensel, Strijp, Tongelre en omgeving. Gratis advies, vanaf € 1.299.',
+      `Airco installatie in Eindhoven door Best Aircotechniek. Vakkundige montage in Woensel, Strijp, Tongelre en omgeving. Gratis advies, vanaf ${site.priceFrom}.`,
     heroDescription:
       'Vakkundige airco-installatie in Eindhoven en alle wijken, van Woensel tot Meerhoven.',
     intro: [
@@ -56,7 +58,7 @@ export const locations: Location[] = [
     slug: 'veldhoven',
     city: 'Veldhoven',
     metaDescription:
-      'Airco laten plaatsen in Veldhoven? Best Aircotechniek verzorgt installatie in Meerveldhoven, Zeelst, Oerle en omgeving. Persoonlijk advies, vanaf € 1.299.',
+      `Airco laten plaatsen in Veldhoven? Best Aircotechniek verzorgt installatie in Meerveldhoven, Zeelst, Oerle en omgeving. Persoonlijk advies, vanaf ${site.priceFrom}.`,
     heroDescription:
       'Uw airco-specialist in Veldhoven, van Meerveldhoven tot Oerle en Zeelst.',
     intro: [
@@ -69,7 +71,7 @@ export const locations: Location[] = [
     slug: 'oirschot',
     city: 'Oirschot',
     metaDescription:
-      'Airco installatie in Oirschot door Best Aircotechniek. Zorgvuldige montage, ook bij karakteristieke en monumentale panden. Gratis advies, vanaf € 1.299.',
+      `Airco installatie in Oirschot door Best Aircotechniek. Zorgvuldige montage, ook bij karakteristieke en monumentale panden. Gratis advies, vanaf ${site.priceFrom}.`,
     heroDescription:
       'Airco-installatie in Oirschot en de Beerzen, met respect voor uw woning.',
     intro: [
@@ -78,7 +80,7 @@ export const locations: Location[] = [
     ],
     localContent: [
       'Op zoek naar een airco in Oirschot? Best Aircotechniek is uw lokale airco-installateur voor Oirschot, Spoordonk en de Beerzen. Vanuit onze thuisbasis in Best zijn wij zo bij u ter plaatse, en dat merkt u aan de snelle reactie en de persoonlijke aanpak.',
-      'Wij installeren airco’s van Daikin, LG en AUX in Oirschot, met oog voor de karakteristieke panden die het dorp rijk is. Een complete installatie start vanaf € 1.299, altijd na een gratis adviesgesprek bij u thuis en een heldere offerte vooraf. Zo weet u precies waar u aan toe bent.',
+      `Wij installeren airco’s van Daikin, LG en AUX in Oirschot, met oog voor de karakteristieke panden die het dorp rijk is. Een complete installatie start vanaf ${site.priceFrom}, altijd na een gratis adviesgesprek bij u thuis en een heldere offerte vooraf. Zo weet u precies waar u aan toe bent.`,
     ],
     nearby: ['Spoordonk', 'Middelbeers', 'Oostelbeers', 'Best'],
   },
@@ -86,7 +88,7 @@ export const locations: Location[] = [
     slug: 'sint-oedenrode',
     city: 'Sint-Oedenrode',
     metaDescription:
-      'Airco laten installeren in Sint-Oedenrode? Best Aircotechniek verzorgt vakkundige montage in Nijnsel, Olland en omgeving. Persoonlijk advies, vanaf € 1.299.',
+      `Airco laten installeren in Sint-Oedenrode? Best Aircotechniek verzorgt vakkundige montage in Nijnsel, Olland en omgeving. Persoonlijk advies, vanaf ${site.priceFrom}.`,
     heroDescription:
       'Vakkundige airco-installatie in Sint-Oedenrode en omliggende kernen.',
     intro: [
@@ -99,7 +101,7 @@ export const locations: Location[] = [
     slug: 'boxtel',
     city: 'Boxtel',
     metaDescription:
-      'Airco installatie in Boxtel door Best Aircotechniek. Vakkundige montage in Lennisheuvel, Liempde en omgeving. Gratis advies op maat, vanaf € 1.299.',
+      `Airco installatie in Boxtel door Best Aircotechniek. Vakkundige montage in Lennisheuvel, Liempde en omgeving. Gratis advies op maat, vanaf ${site.priceFrom}.`,
     heroDescription:
       'Uw airco-installateur in Boxtel, Lennisheuvel, Liempde en omgeving.',
     intro: [
@@ -112,7 +114,7 @@ export const locations: Location[] = [
     slug: 'tilburg',
     city: 'Tilburg',
     metaDescription:
-      'Airco laten plaatsen in Tilburg? Best Aircotechniek verzorgt installatie in Reeshof, Berkel-Enschot, Udenhout en omgeving. Persoonlijk advies, vanaf € 1.299.',
+      `Airco laten plaatsen in Tilburg? Best Aircotechniek verzorgt installatie in Reeshof, Berkel-Enschot, Udenhout en omgeving. Persoonlijk advies, vanaf ${site.priceFrom}.`,
     heroDescription:
       'Vakkundige airco-installatie in Tilburg, van de Reeshof tot Berkel-Enschot.',
     intro: [
@@ -125,7 +127,7 @@ export const locations: Location[] = [
     slug: 'den-bosch',
     city: 'Den Bosch',
     metaDescription:
-      "Airco installatie in 's-Hertogenbosch door Best Aircotechniek. Vakkundige montage in Rosmalen, Maaspoort, Empel en omgeving. Gratis advies, vanaf € 1.299.",
+      `Airco installatie in 's-Hertogenbosch door Best Aircotechniek. Vakkundige montage in Rosmalen, Maaspoort, Empel en omgeving. Gratis advies, vanaf ${site.priceFrom}.`,
     heroDescription:
       "Uw airco-specialist in Den Bosch en omgeving, van de binnenstad tot Rosmalen.",
     intro: [
@@ -146,7 +148,7 @@ export function buildLocationFaq(loc: Location) {
     },
     {
       question: `Wat kost een airco laten installeren in ${loc.city}?`,
-      answer: `Een complete installatie start vanaf € 1.299 (een basis single-split met 2,5 kW-model, inclusief montage). De exacte prijs in ${loc.city} hangt af van uw woning en het gekozen model. U ontvangt altijd een vrijblijvende offerte op maat.`,
+      answer: `Een complete installatie start vanaf ${site.priceFrom} (een basis single-split met 2,5 kW-model, inclusief montage). De exacte prijs in ${loc.city} hangt af van uw woning en het gekozen model. U ontvangt altijd een vrijblijvende offerte op maat.`,
     },
     {
       question: `Welke merken airco installeren jullie in ${loc.city}?`,
