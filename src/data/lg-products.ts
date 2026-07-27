@@ -7,12 +7,15 @@
  * de capaciteitstabel hieronder is de vuistregel uit de brochure.
  */
 
-/** Capaciteit en ruimtegrootte, exact zoals de tabel op brochurepagina 4. */
+/**
+ * Capaciteit en ruimtegrootte, exact zoals de tabel op brochurepagina 4.
+ * De slugs vormen de URL: /merken/lg/<model>/<slug>
+ */
 export const lgSizes = [
-  { kw: '2,5 kW', volume: '± 90 m³', area: '± 35 m²', room: 'Slaapkamer of kleine kamer' },
-  { kw: '3,5 kW', volume: '± 120 m³', area: '± 46 m²', room: 'Woonkamer (gemiddeld)' },
-  { kw: '5,0 kW', volume: '± 180 m³', area: '± 70 m²', room: 'Grote woonkamer of open ruimte' },
-  { kw: '7,0 kW', volume: '± 240 m³', area: '± 92 m²', room: 'Zeer grote of hoge ruimte' },
+  { slug: '2-5-kw', kw: '2,5 kW', volume: '± 90 m³', area: '± 35 m²', room: 'Slaapkamer of kleine kamer' },
+  { slug: '3-5-kw', kw: '3,5 kW', volume: '± 120 m³', area: '± 46 m²', room: 'Woonkamer (gemiddeld)' },
+  { slug: '5-0-kw', kw: '5,0 kW', volume: '± 180 m³', area: '± 70 m²', room: 'Grote woonkamer of open ruimte' },
+  { slug: '7-0-kw', kw: '7,0 kW', volume: '± 240 m³', area: '± 92 m²', room: 'Zeer grote of hoge ruimte' },
 ] as const;
 
 /** "Standaard bij élke LG-airco" (brochurepagina 3). */
