@@ -4,6 +4,7 @@ import PageHero from '../../components/PageHero.astro';
 import CTASection from '../../components/CTASection.astro';
 import { brands } from '../../data/brands';
 import { auxModels } from '../../data/aux-products';
+import { lgModels } from '../../data/lg-products';
 import heroPhoto from '../../assets/photos/page-hero-woning.jpg';
 
 export function getStaticPaths() {
@@ -11,9 +12,22 @@ export function getStaticPaths() {
 }
 
 const { brand } = Astro.props;
-const models = brand.slug === 'aux' ? auxModels : [];
-// highlights shown per model card: luchtstroom, luchtzuivering, verwarmen
-const highlightLabels = ['Luchtstroom & comfort', 'Luchtzuivering', 'Verwarmen bij extreme kou'];
+const models =
+  brand.slug === 'aux' ? auxModels : brand.slug === 'lg' ? lgModels : [];
+
+// Welke kenmerken als bullets op de modelkaart komen, per merk (labels verschillen).
+const highlightsByBrand: Record<string, string[]> = {
+  aux: ['Luchtstroom & comfort', 'Luchtzuivering', 'Verwarmen bij extreme kou'],
+  lg: ['Luchtreiniging', 'Slimme functies', 'Bediening'],
+};
+const highlightLabels = highlightsByBrand[brand.slug] ?? [];
+
+const intros: Record<string, string> = {
+  aux: 'AUX biedt drie series, elk met eigen kenmerken en comfort. Hieronder vindt u per model de belangrijkste functies. Klik door voor de beschikbare vermogens en alle specificaties.',
+  lg: 'LG biedt vier wandmodellen, van een voordelig instapmodel tot het zuinigste topmodel. Ze koelen en verwarmen allemaal, werken op R32 en hebben wifi ingebouwd. Hieronder vindt u per model de belangrijkste kenmerken.',
+};
+const modelsHeading =
+  brand.slug === 'lg' ? 'De vier LG-modellen' : `De drie ${brand.name}-series`;
 ---
 
 <BaseLayout
@@ -28,10 +42,7 @@ const highlightLabels = ['Luchtstroom & comfort', 'Luchtzuivering', 'Verwarmen b
       <h2 class="section-heading mt-6">Over {brand.name}</h2>
       {
         models.length > 0 ? (
-          <p class="mt-4 text-lg leading-relaxed text-slate-600">
-            AUX biedt drie series, elk met eigen kenmerken en comfort. Hieronder vindt u per model de
-            belangrijkste functies. Klik door voor de beschikbare vermogens en alle specificaties.
-          </p>
+          <p class="mt-4 text-lg leading-relaxed text-slate-600">{intros[brand.slug]}</p>
         ) : (
           <p class="mt-4 text-lg leading-relaxed text-slate-600">
             Binnenkort vindt u hier meer informatie over de {brand.name}-modellen die wij installeren, met de
@@ -61,23 +72,23 @@ const highlightLabels = ['Luchtstroom & comfort', 'Luchtzuivering', 'Verwarmen b
     models.length > 0 && (
       <section class="border-t border-slate-200 bg-slate-50 py-16 sm:py-20">
         <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <h2 class="section-heading">De drie AUX-series</h2>
-          <div class="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-3">
+          <h2 class="section-heading">{modelsHeading}</h2>
+          <div class="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {models.map((m) => (
               <a
-                href={`/merken/aux/${m.slug}`}
+                href={`/merken/${brand.slug}/${m.slug}`}
                 class="group card-link flex flex-col p-6"
               >
                 <img
                   src={m.photo}
-                  alt={`AUX ${m.name} airconditioner`}
+                  alt={`${brand.name} ${m.name} airconditioner`}
                   width="600"
                   height="600"
                   loading="lazy"
                   class="mx-auto h-40 w-auto object-contain"
                 />
                 <p class="mt-4 text-xs font-semibold uppercase tracking-wider text-gold-600">{m.tier}</p>
-                <h3 class="mt-1 text-xl font-bold text-brand-900">AUX {m.name}</h3>
+                <h3 class="mt-1 text-xl font-bold text-brand-900">{brand.name} {m.name}</h3>
                 <p class="mt-2 leading-relaxed text-slate-600">{m.intro}</p>
                 <ul class="mt-4 space-y-2 text-sm">
                   {highlightLabels.map((label) => {
@@ -91,7 +102,7 @@ const highlightLabels = ['Luchtstroom & comfort', 'Luchtzuivering', 'Verwarmen b
                   })}
                 </ul>
                 <span class="mt-auto pt-5 text-sm font-semibold text-brand-700 transition group-hover:text-brand-900">
-                  Bekijk modellen
+                  {brand.slug === 'lg' ? 'Bekijk model' : 'Bekijk modellen'}
                   <span aria-hidden="true" class="transition group-hover:translate-x-0.5">&rarr;</span>
                 </span>
               </a>
