@@ -117,6 +117,23 @@ export const lgModels: LgModel[] = [
   },
 ];
 
+/**
+ * Officiële typeaanduidingen per uitvoering, aangeleverd door Best Aircotechniek.
+ * Bij LG zit het vermogen in de code zelf (09 / 12 / 18 / 24 = BTU), dus de
+ * aanduiding hoort bij een vermogen en niet bij een serie. Daarom per maat.
+ *
+ * Nog aan te vullen: AI Air Special, Deluxe en Premium. De vermogenspagina toont
+ * de regel alleen als er een code bekend is, dus tot die tijd blijft hij weg.
+ */
+export const lgTypeCodes: Record<string, Record<string, string>> = {
+  'standard-plus': {
+    '2-5-kw': 'PC09ST',
+    '3-5-kw': 'PC12ST',
+    '5-0-kw': 'PC18ST',
+    '7-0-kw': 'PC24ST',
+  },
+};
+
 export function getLgModel(slug: string): LgModel | undefined {
   return lgModels.find((m) => m.slug === slug);
 }

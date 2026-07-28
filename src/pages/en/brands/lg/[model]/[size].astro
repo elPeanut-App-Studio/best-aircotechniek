@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../../../../layouts/BaseLayout.astro';
 import CTASection from '../../../../../components/CTASection.astro';
-import { lgModels, lgSizes } from '../../../../../data/lg-products';
+import { lgModels, lgSizes, lgTypeCodes } from '../../../../../data/lg-products';
 import { site } from '../../../../../data/site';
 import { lgTextEn, sharedEn, sizeRoomEn, num } from '../../../../../i18n/products-en';
 
@@ -40,7 +40,10 @@ const rows = [
   { icon: 'wifi', label: 'Controls', value: 'Remote control and LG ThinQ app' },
 ];
 
+const typeCode = lgTypeCodes[rawModel.slug]?.[size.slug];
+
 const extra = [
+  ...(typeCode ? [{ label: 'Model code', value: typeCode }] : []),
   { label: 'Smart functions', value: model.specs[1].value },
   { label: 'Finish', value: model.specs[3].value },
   { label: 'Refrigerant', value: 'R32' },
