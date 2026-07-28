@@ -127,7 +127,7 @@ export const lgTextEn: Record<string, ModelText> = {
 export const daikinTextEn: Record<string, ModelText> = {
   sensira: {
     tier: 'Entry model',
-    intro: 'The most affordable Daikin: reliable and complete, without the extras.',
+    intro: 'The most affordable Daikin: reliable and complete.',
     specs: [
       { label: 'Positioning', value: "Daikin's entry model" },
 
@@ -176,7 +176,7 @@ export const daikinTextEn: Record<string, ModelText> = {
   },
   emura: {
     tier: 'Premium design',
-    intro: 'The design model with an aluminium front, for when the unit may stand out.',
+    intro: 'For when the unit may stand out in your interior.',
     specs: [
       { label: 'Design', value: 'Premium finish with aluminium front' },
 
