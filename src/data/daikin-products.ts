@@ -14,9 +14,11 @@
  * - Energielabels per uitvoering. Die verschillen per vermogen en staan in de
  *   catalogus als icoon, niet als tekst. SEER en SCOP staan er wel, dus die
  *   tonen we als "tot"-waarde, precies zoals Daikin zelf communiceert.
- * - Comfora 4,2 kW: door Best Aircotechniek opgegeven als leverbaar, maar in de
- *   catalogus staat voor FTXP-M geen 42-uitvoering. Vermogens daarom leeg
- *   gelaten voor die maat; wordt in de offerte bevestigd.
+ *
+ * LEVERBAARHEID
+ * Alleen Perfera, Stylish en Emura hebben een 4,2 kW-uitvoering. Comfora en
+ * Sensira niet (bevestigd door Best Aircotechniek). Voor de twee URL's die
+ * daardoor zijn vervallen staat een redirect in astro.config.mjs.
  */
 
 /**
@@ -104,11 +106,12 @@ export const daikinModels: DaikinModel[] = [
       { label: 'Koudemiddel', value: 'R32' },
       { label: 'Beschikbaar in', value: '2,0 tot 6,0 kW' },
     ],
+    // Geen 4,2 kW: bevestigd door Best Aircotechniek dat die niet leverbaar is
+    // (de catalogus uit 2022 noemt nog wel een 42D-uitvoering).
     sizes: sizes({
       '2-0-kw': ['2,00 kW', '2,40 kW'],
       '2-5-kw': ['2,50 kW', '2,80 kW'],
       '3-5-kw': ['3,30 kW', '3,50 kW'],
-      '4-2-kw': ['4,20 kW', '4,60 kW'],
       '5-0-kw': ['5,00 kW', '6,00 kW'],
       '6-0-kw': ['6,00 kW', '6,40 kW'],
     }),
@@ -127,11 +130,12 @@ export const daikinModels: DaikinModel[] = [
       { label: 'Koudemiddel', value: 'R32' },
       { label: 'Beschikbaar in', value: '2,0 tot 7,1 kW' },
     ],
+    // Geen 4,2 kW: bevestigd door Best Aircotechniek, en ook de catalogus noemt
+    // voor FTXP-M geen 42-uitvoering.
     sizes: sizes({
       '2-0-kw': ['2,00 kW', '2,50 kW'],
       '2-5-kw': ['2,50 kW', '3,00 kW'],
       '3-5-kw': ['3,50 kW', '4,00 kW'],
-      '4-2-kw': null,
       '5-0-kw': ['5,00 kW', '6,00 kW'],
       '6-0-kw': ['6,00 kW', '7,00 kW'],
       '7-1-kw': ['7,10 kW', '8,20 kW'],
