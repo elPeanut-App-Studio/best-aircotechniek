@@ -122,7 +122,7 @@ export const lgModels: LgModel[] = [
  * Bij LG zit het vermogen in de code zelf (09 / 12 / 18 / 24 = BTU), dus de
  * aanduiding hoort bij een vermogen en niet bij een serie. Daarom per maat.
  *
- * Nog aan te vullen: AI Air Special, Deluxe en Premium. De vermogenspagina toont
+ * Nog aan te vullen: Deluxe en Premium. De vermogenspagina toont
  * de regel alleen als er een code bekend is, dus tot die tijd blijft hij weg.
  */
 export const lgTypeCodes: Record<string, Record<string, string>> = {
@@ -131,6 +131,15 @@ export const lgTypeCodes: Record<string, Record<string, string>> = {
     '3-5-kw': 'PC12ST',
     '5-0-kw': 'PC18ST',
     '7-0-kw': 'PC24ST',
+  },
+  // Alleen P09SND is opgegeven; de andere drie volgen het door Best
+  // Aircotechniek aangegeven patroon (prefix + BTU + achtervoegsel), net als bij
+  // Standard Plus. Nog te bevestigen tegen de prijslijst.
+  'ai-air-special': {
+    '2-5-kw': 'P09SND',
+    '3-5-kw': 'P12SND',
+    '5-0-kw': 'P18SND',
+    '7-0-kw': 'P24SND',
   },
 };
 
