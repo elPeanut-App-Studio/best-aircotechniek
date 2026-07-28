@@ -31,7 +31,7 @@ const otherHref = pair?.path ?? (lang === 'nl' ? '/en/' : '/');
       </span>
     </a>
 
-    <nav class="hidden items-center gap-8 md:flex md:pr-16 lg:pr-20" aria-label={lang === 'en' ? 'Main navigation' : 'Hoofdnavigatie'}>
+    <nav class="hidden items-center gap-8 md:flex md:pr-20 lg:pr-24" aria-label={lang === 'en' ? 'Main navigation' : 'Hoofdnavigatie'}>
       {
         nav.map((item) => (
           <a
@@ -51,7 +51,7 @@ const otherHref = pair?.path ?? (lang === 'nl' ? '/en/' : '/');
     <LanguageSwitch
       lang={lang}
       otherHref={otherHref}
-      class="absolute right-2 top-[calc(50%+1.5px)] hidden -translate-y-1/2 md:flex lg:right-3"
+      class="absolute right-4 top-[calc(50%+1.5px)] hidden -translate-y-1/2 md:flex lg:right-6"
     />
 
     <button
