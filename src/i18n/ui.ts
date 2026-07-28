@@ -154,6 +154,7 @@ export function dienstenNavFor(lang: Lang) {
         href: '/en/air-conditioning-installation-noord-brabant',
         label: 'Service area Noord-Brabant',
       },
+      { href: '/en/downloads', label: 'Brochures & downloads' },
     ];
   }
   return [
