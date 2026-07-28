@@ -1,0 +1,134 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import USPGrid from '../../components/USPGrid.astro';
+import JourneyPreview from '../../components/JourneyPreview.astro';
+import GoogleReviews from '../../components/GoogleReviews.astro';
+import FaqAccordion from '../../components/FaqAccordion.astro';
+import FaqSchema from '../../components/FaqSchema.astro';
+import CTASection from '../../components/CTASection.astro';
+import aircoPhoto from '../../assets/photos/hero-airco-installatie.jpg';
+import { site } from '../../data/site';
+import { generalFaqEn } from '../../data/faq-en';
+import { brands } from '../../data/brands';
+---
+
+<BaseLayout
+  lang="en"
+  title={`Air conditioning installation Noord-Brabant from ${site.priceFrom} | Best Aircotechniek`}
+  description={`Have air conditioning installed from ${site.priceFrom} including VAT and installation. Expert installation, personal advice and fast service across Noord-Brabant. We speak English.`}
+>
+  <Hero lang="en" />
+  <USPGrid lang="en" />
+
+  <section class="border-t border-slate-200 bg-slate-50 py-14 sm:py-16">
+    <div class="mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8">
+      <p class="text-sm font-semibold uppercase tracking-wider text-gold-600">Brands we install</p>
+      <h2 class="section-heading mt-2">Air conditioning from reliable brands</h2>
+      <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-3">
+        {
+          brands.map((b) => (
+            <a
+              href={`/merken/${b.slug}`}
+              class="group card-link flex flex-col items-center justify-center gap-5 p-8"
+            >
+              <img
+                src={b.logo}
+                alt={`${b.name} logo`}
+                width="160"
+                height="48"
+                loading="lazy"
+                class="h-11 w-auto object-contain"
+              />
+              <span class="text-sm font-semibold text-brand-700 transition group-hover:text-brand-900">
+                View {b.name}
+                <span aria-hidden="true" class="transition group-hover:translate-x-0.5">&rarr;</span>
+              </span>
+            </a>
+          ))
+        }
+      </div>
+      <p class="mt-6 text-sm text-slate-500">Model and specification pages are in Dutch.</p>
+    </div>
+  </section>
+
+  <JourneyPreview lang="en" />
+
+  <section class="py-16 sm:py-20">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="overflow-hidden rounded-3xl border-l-4 border-l-gold-500 bg-brand-950 p-8 text-white shadow-card sm:p-12">
+        <div class="grid gap-10 lg:grid-cols-2 lg:items-center">
+          <div>
+            <div class="gold-accent-line"></div>
+            <h2 class="mt-6 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+              Trusted across Noord-Brabant
+            </h2>
+            <p class="mt-4 text-lg leading-relaxed text-brand-100">
+              Best Aircotechniek is your local partner for air conditioning. We work neatly, keep to our
+              agreements and deliver quality you can rely on. All communication can be in English.
+            </p>
+            <p class="mt-4 text-lg leading-relaxed text-brand-100">
+              We install in
+              <a href="/en/air-conditioning-installation-eindhoven" class="font-semibold text-gold-300 underline">Eindhoven</a>
+              and across
+              <a href="/en/air-conditioning-installation-noord-brabant" class="font-semibold text-gold-300 underline">Noord-Brabant</a>.
+            </p>
+          </div>
+          <div class="flex flex-col gap-5">
+            <div class="overflow-hidden rounded-2xl ring-1 ring-white/15">
+              <Image
+                src={aircoPhoto}
+                alt="Outdoor unit of an air conditioning system neatly mounted on a house"
+                width={640}
+                height={400}
+                class="aspect-[16/10] w-full object-cover"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="rounded-xl border border-white/10 bg-white/5 p-5 text-center sm:p-6">
+                <p class="text-2xl font-bold text-gold-400 sm:text-3xl">100%</p>
+                <p class="mt-1 text-sm text-brand-100">Craftsmanship</p>
+              </div>
+              <div class="rounded-xl border border-white/10 bg-white/5 p-5 text-center sm:p-6">
+                <p class="text-2xl font-bold text-gold-400 sm:text-3xl">Fast</p>
+                <p class="mt-1 text-sm text-brand-100">Response to requests</p>
+              </div>
+              <div class="rounded-xl border border-white/10 bg-white/5 p-5 text-center sm:p-6">
+                <p class="text-2xl font-bold text-gold-400 sm:text-3xl">Advice</p>
+                <p class="mt-1 text-sm text-brand-100">Free and without obligation</p>
+              </div>
+              <div class="rounded-xl border border-white/10 bg-white/5 p-5 text-center sm:p-6">
+                <p class="text-2xl font-bold text-gold-400 sm:text-3xl">Warranty</p>
+                <p class="mt-1 text-sm text-brand-100">On the installation</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <GoogleReviews lang="en" />
+
+  <section class="border-t border-slate-200 bg-white py-16 sm:py-20">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-3xl text-center">
+        <div class="gold-accent-line mx-auto"></div>
+        <h2 class="section-heading mt-6">Frequently asked questions</h2>
+        <p class="section-subheading mx-auto">
+          Answers to the questions we hear most about having air conditioning installed in Noord-Brabant.
+        </p>
+      </div>
+      <div class="mt-10">
+        <FaqAccordion items={generalFaqEn} />
+      </div>
+    </div>
+  </section>
+
+  <FaqSchema items={generalFaqEn} />
+
+  <CTASection lang="en" />
+</BaseLayout>

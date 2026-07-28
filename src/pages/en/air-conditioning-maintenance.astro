@@ -1,0 +1,122 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import CTASection from '../../components/CTASection.astro';
+import FaqAccordion from '../../components/FaqAccordion.astro';
+import FaqSchema from '../../components/FaqSchema.astro';
+import contactHeroPhoto from '../../assets/photos/modern-woning-airco.jpg';
+
+const benefits = [
+  {
+    title: 'Efficient and economical',
+    description:
+      'A clean, well-adjusted system uses less energy and delivers more comfort. Maintenance lowers your energy costs.',
+  },
+  {
+    title: 'Hygienic and healthy',
+    description:
+      'During maintenance we clean and check the filters and the system, so you keep clean air without unpleasant smells.',
+  },
+  {
+    title: 'Keeps your warranty valid',
+    description:
+      'Your 2 year installation warranty only stays valid if the system is serviced annually by a professional.',
+  },
+  {
+    title: 'Longer lifespan',
+    description:
+      'Periodic maintenance prevents breakdowns and extends the lifespan of your system, so you enjoy it for longer.',
+  },
+];
+
+const faq = [
+  {
+    question: 'Which systems do you service?',
+    answer:
+      'We service the systems we installed ourselves. That way we know your installation and know exactly what to look for. We do not take on repairs or maintenance of units installed by others.',
+  },
+  {
+    question: 'Why is annual maintenance important?',
+    answer:
+      'Annual maintenance keeps your system efficient, hygienic and free of breakdowns. It is also the condition for keeping your 2 year installation warranty valid.',
+  },
+  {
+    question: 'What happens during a maintenance visit?',
+    answer:
+      'We clean and check the filters, inspect the system for leaks and wear, check that everything works and adjust where needed, so the system performs at its best again.',
+  },
+];
+---
+
+<BaseLayout
+  lang="en"
+  title="Air conditioning maintenance | Best Aircotechniek"
+  description="Air conditioning maintenance by Best Aircotechniek for systems we installed ourselves. Keep your system efficient and hygienic and your warranty valid. Active across Noord-Brabant."
+>
+  <PageHero
+    title="Air conditioning maintenance"
+    description="Keep your system efficient, hygienic and free of breakdowns, and keep your installation warranty valid with annual maintenance."
+    image={contactHeroPhoto}
+  />
+
+  <section class="py-16 sm:py-20">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl">
+        <div class="gold-accent-line"></div>
+        <h2 class="section-heading mt-6">Maintenance for your system</h2>
+        <p class="mt-4 text-lg leading-relaxed text-slate-600">
+          An air conditioning system lasts for years, but only with good maintenance does it keep working
+          efficiently and hygienically. Best Aircotechniek takes care of the annual maintenance for systems we
+          installed ourselves, so we know your installation and know what to check.
+        </p>
+        <p class="mt-4 text-lg leading-relaxed text-slate-600">
+          Good maintenance is also the condition for keeping your 2 year installation warranty valid. Did we
+          install your system?
+          <a href="/en/contact" class="font-semibold text-brand-700 underline">Then simply schedule your maintenance visit</a>.
+        </p>
+        <p class="mt-4 text-lg leading-relaxed text-slate-600">
+          To be clear about what we do: we specialise in installation, and we service the systems we installed.
+          We do not take on repairs of units installed by others.
+        </p>
+      </div>
+
+      <h2 class="section-heading mt-16">Why maintenance pays off</h2>
+      <div class="mt-8 grid gap-8 sm:grid-cols-2">
+        {
+          benefits.map((b) => (
+            <div class="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+              <h3 class="text-lg font-semibold text-slate-900">{b.title}</h3>
+              <p class="mt-3 text-sm leading-relaxed text-slate-600">{b.description}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="mt-16 rounded-2xl border border-brand-200 bg-brand-50 p-8 sm:p-12">
+        <p class="text-lg leading-relaxed text-slate-700">
+          No system yet, but interested? We also take care of the complete
+          <a href="/en/air-conditioning-installation" class="font-semibold text-brand-700 underline">installation of your air conditioning</a>,
+          throughout
+          <a href="/en/air-conditioning-installation-noord-brabant" class="font-semibold text-brand-700 underline">Noord-Brabant</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-slate-200 bg-white py-16 sm:py-20">
+    <div class="mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8">
+      <h2 class="section-heading">Frequently asked questions about maintenance</h2>
+      <div class="mt-10">
+        <FaqAccordion items={faq} />
+      </div>
+    </div>
+  </section>
+
+  <FaqSchema items={faq} />
+
+  <CTASection
+    lang="en"
+    title="Schedule your maintenance?"
+    description="Get in touch to book your annual maintenance visit. We respond within 24 hours."
+  />
+</BaseLayout>

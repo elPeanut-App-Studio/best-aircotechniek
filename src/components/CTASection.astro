@@ -1,14 +1,19 @@
 ---
 import { site } from '../data/site';
+import type { Lang } from '../i18n/routes';
+import { t } from '../i18n/ui';
 
 interface Props {
   title?: string;
   description?: string;
+  lang?: Lang;
 }
 
+const { lang = 'nl' } = Astro.props;
+const strings = t(lang);
 const {
-  title = 'Klaar voor het beste klimaat?',
-  description = 'Neem vandaag nog contact op voor een vrijblijvend adviesgesprek of offerte.',
+  title = strings.ctaDefaultTitle,
+  description = strings.ctaDefaultDescription,
 } = Astro.props;
 ---
 
@@ -17,10 +22,10 @@ const {
   <div class="relative mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8">
     <div class="gold-accent-line mx-auto"></div>
     <h2 class="mt-6 text-3xl font-bold tracking-tight text-white sm:text-4xl">{title}</h2>
-    <p class="mx-auto mt-2 text-sm font-semibold uppercase tracking-wider text-gold-400">{site.slogan}</p>
+    <p class="mx-auto mt-2 text-sm font-semibold uppercase tracking-wider text-gold-400">{strings.slogan}</p>
     <p class="mx-auto mt-4 max-w-2xl text-lg text-brand-100">{description}</p>
     <div class="mt-8">
-      <a href="/contact" class="btn-primary">Contact opnemen</a>
+      <a href={strings.contactHref} class="btn-primary">{strings.ctaSectionButton}</a>
     </div>
   </div>
 </section>

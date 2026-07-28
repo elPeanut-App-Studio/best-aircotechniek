@@ -1,19 +1,37 @@
 ---
 import JourneyInteractive from './JourneyInteractive.astro';
+import { journey } from '../data/site';
+import { journeyEn } from '../data/journey-en';
+import type { Lang } from '../i18n/routes';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'nl' } = Astro.props;
+const steps = lang === 'en' ? journeyEn : journey;
+const copy =
+  lang === 'en'
+    ? {
+        heading: 'How it works',
+        sub: 'In a few clear steps from first contact to a working system in your home.',
+      }
+    : {
+        heading: 'Hoe het werkt',
+        sub: 'In een paar duidelijke stappen van eerste contact naar een werkende airco in huis.',
+      };
 ---
 
 <section class="bg-slate-50 py-16 sm:py-20">
   <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
     <div class="max-w-3xl">
       <div class="gold-accent-line"></div>
-      <h2 class="section-heading mt-6">Hoe het werkt</h2>
-      <p class="section-subheading">
-        In een paar duidelijke stappen van eerste contact naar een werkende airco in huis.
-      </p>
+      <h2 class="section-heading mt-6">{copy.heading}</h2>
+      <p class="section-subheading">{copy.sub}</p>
     </div>
 
     <div class="mt-12">
-      <JourneyInteractive />
+      <JourneyInteractive steps={steps} lang={lang} />
     </div>
   </div>
 </section>

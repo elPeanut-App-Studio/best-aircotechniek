@@ -1,0 +1,161 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import CTASection from '../../components/CTASection.astro';
+import FaqAccordion from '../../components/FaqAccordion.astro';
+import FaqSchema from '../../components/FaqSchema.astro';
+import heroPhoto from '../../assets/photos/aux-buitenunit-installatie.jpg';
+import { site } from '../../data/site';
+import { brands } from '../../data/brands';
+
+const types = [
+  {
+    title: 'Single-split',
+    description: `One indoor unit connected to one outdoor unit. Ideal for cooling and heating a single room, such as a living room or bedroom. A complete installation starts at ${site.priceFrom}.`,
+  },
+  {
+    title: 'Multi-split',
+    description:
+      'Several indoor units on one outdoor unit. The solution if you want comfortable cooling and heating in multiple rooms, with a single tidy outdoor unit.',
+  },
+];
+
+const included = [
+  'A home visit with advice on capacity, type and placement',
+  'Supply of the unit from a reliable brand',
+  'Expert installation of the indoor and outdoor unit',
+  'Connecting, vacuuming and testing the system',
+  'An explanation of the controls and the maintenance',
+];
+
+const faq = [
+  {
+    question: 'What does it cost to have air conditioning installed?',
+    answer: `A complete installation starts at ${site.priceFrom}, including VAT and installation, for a basic single-split with the entry-level 2.5 kW model. The final price depends on the model, the number of rooms and the installation situation. You always receive a free quote with no obligation.`,
+  },
+  {
+    question: 'Which brands do you install?',
+    answer:
+      'We install Daikin, LG and AUX: reliable brands with a good price-quality ratio and long manufacturer warranties.',
+  },
+  {
+    question: 'How long does the installation take?',
+    answer:
+      'A standard single-split is usually installed within one working day. For multiple indoor units or a more complex situation we schedule extra time.',
+  },
+  {
+    question: 'What warranty do I get?',
+    answer:
+      'You get 2 to 5 years manufacturer warranty on the unit, depending on the brand, plus 2 years warranty on the installation, on the condition that the system is serviced annually by a professional.',
+  },
+  {
+    question: 'Do you speak English during the installation?',
+    answer:
+      'Yes. From the first phone call to the handover, everything can be handled in English, including the home visit and the installation itself.',
+  },
+];
+---
+
+<BaseLayout
+  lang="en"
+  title={`Air conditioning installation from ${site.priceFrom} | Best Aircotechniek`}
+  description={`Have air conditioning installed by Best Aircotechniek from ${site.priceFrom} including VAT and installation. Single and multi-split from Daikin, LG and AUX, across Noord-Brabant.`}
+>
+  <PageHero
+    title="Having air conditioning installed"
+    description="From personal advice to a tidy, expert installation. We take care of the complete job."
+    image={heroPhoto}
+  />
+
+  <section class="py-16 sm:py-20">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl">
+        <div class="gold-accent-line"></div>
+        <h2 class="section-heading mt-6">Expert air conditioning installation</h2>
+        <p class="mt-4 text-lg leading-relaxed text-slate-600">
+          Air conditioning gives you comfort all year round: cooling in summer and economical additional heating
+          in the shoulder seasons. Best Aircotechniek takes care of the complete installation for homes and
+          businesses, from the first advice to the handover. We think along with you about the right capacity and
+          the best position for the indoor and outdoor unit.
+        </p>
+        <p class="mt-4 text-lg leading-relaxed text-slate-600">
+          Curious how our process works? See
+          <a href="/en/how-it-works" class="font-semibold text-brand-700 underline">how it works</a>, or request a
+          <a href="/en/contact" class="font-semibold text-brand-700 underline">free quote</a> straight away.
+        </p>
+        <p class="mt-4 text-lg leading-relaxed text-slate-600">
+          We install units from <strong>Daikin</strong>, <strong>LG</strong> and <strong>AUX</strong>. Our brochures
+          and detailed model pages are in Dutch, but we are happy to walk you through the options in English.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          {
+            brands.map((b) => (
+              <a href={`/merken/${b.slug}`} class="btn-secondary inline-flex">
+                {b.name} models
+              </a>
+            ))
+          }
+        </div>
+      </div>
+
+      <h2 class="section-heading mt-16">Which type of system suits you?</h2>
+      <div class="mt-8 grid gap-8 md:grid-cols-2">
+        {
+          types.map((t) => (
+            <div class="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+              <h3 class="text-xl font-bold text-brand-900">{t.title}</h3>
+              <p class="mt-3 leading-relaxed text-slate-600">{t.description}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="mt-16 grid gap-12 lg:grid-cols-2 lg:items-center">
+        <div>
+          <h2 class="section-heading">What is included in the installation?</h2>
+          <ul class="mt-6 space-y-3">
+            {
+              included.map((item) => (
+                <li class="flex items-start gap-3 text-slate-600">
+                  <span class="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-800 text-white" aria-hidden="true">
+                    <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                    </svg>
+                  </span>
+                  <span>{item}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div class="rounded-2xl border border-brand-200 bg-brand-50 p-8">
+          <p class="text-sm font-semibold uppercase tracking-wider text-gold-600">Service area</p>
+          <p class="mt-2 text-lg leading-relaxed text-slate-700">
+            We install air conditioning throughout Noord-Brabant, including Best, Eindhoven, Veldhoven, Tilburg
+            and Den Bosch.
+          </p>
+          <a href="/en/air-conditioning-installation-noord-brabant" class="btn-secondary mt-6 inline-flex">
+            Find your town
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-slate-200 bg-white py-16 sm:py-20">
+    <div class="mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8">
+      <h2 class="section-heading">Frequently asked questions about installation</h2>
+      <div class="mt-10">
+        <FaqAccordion items={faq} />
+      </div>
+    </div>
+  </section>
+
+  <FaqSchema items={faq} />
+
+  <CTASection
+    lang="en"
+    title="Ready to have your air conditioning installed?"
+    description="Request a free quote with no obligation. We respond within 24 hours."
+  />
+</BaseLayout>
