@@ -5,8 +5,8 @@ export const brands = [
     name: 'Daikin',
     logo: '/brands/daikin.svg',
     tagline: 'Wereldwijd marktleider in klimaatbeheersing, bekend om betrouwbaarheid en zuinigheid.',
-    brochure: null,
-    brochureEn: null,
+    brochure: '/daikin-airco-brochure.pdf',
+    brochureEn: '/daikin-airco-brochure-en.pdf',
   },
   {
     slug: 'lg',
