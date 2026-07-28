@@ -1,15 +1,27 @@
+import { bestLabelsFrom } from './energy-labels';
+
 /**
  * LG-productgegevens voor de merkpagina's onder /merken/lg.
  *
- * Alle waarden komen uit de eigen brochure
- * (public/lg-airco-brochure.pdf, pagina 3 en 4). Er zijn GEEN specificaties
- * per vermogen bekend voor LG, dus die worden hier ook niet getoond:
- * de capaciteitstabel hieronder is de vuistregel uit de brochure.
+ * BRONNEN
+ * - Modelkenmerken, SEER/SCOP per serie en de vuistregel-capaciteitstabel: de
+ *   eigen brochure (public/lg-airco-brochure.pdf, pagina 3 en 4).
+ * - Koel- en verwarmingsvermogen per uitvoering (nominaal en maximaal), de
+ *   typeaanduidingen en de energielabels: de productpagina's van LG Nederland,
+ *   lg.com/nl/residentiele-airconditioners/<typeaanduiding>/, opgehaald
+ *   29 juli 2026.
+ * - SEER/SCOP per uitvoering voor Deluxe: Airco Webwinkel, dezelfde bron die we
+ *   voor Daikin gebruiken. Die vermogens (2,5/3,2 · 3,5/4,0 · 5,0/5,8 ·
+ *   6,6/7,5 kW) komen exact overeen met wat LG zelf opgeeft.
  */
 
 /**
  * Capaciteit en ruimtegrootte, exact zoals de tabel op brochurepagina 4.
  * De slugs vormen de URL: /merken/lg/<model>/<slug>
+ *
+ * De 7,0 kW-klasse heet in de handel zo (Airco Webwinkel noemt de H24S1D ook
+ * "7,0 kW"), terwijl het nominale vermogen 6,6 kW koelen en 7,5 kW verwarmen is.
+ * Het klasselabel blijft daarom 7,0 kW; de echte vermogens staan in de specs.
  */
 export const lgSizes = [
   { slug: '2-5-kw', kw: '2,5 kW', volume: '± 90 m³', area: '± 35 m²', room: 'Slaapkamer of kleine kamer' },
@@ -36,8 +48,6 @@ export type LgModel = {
   /** SEER (tot) op modelniveau. */
   seer: string;
   scop: string;
-  labelKoelen: string;
-  labelVerwarmen: string;
   /** Kernkenmerken op modelniveau, uit de vergelijking in de brochure. */
   specs: { label: string; value: string }[];
 };
@@ -51,8 +61,6 @@ export const lgModels: LgModel[] = [
     photo: '/lg/standard-plus.jpg',
     seer: '6,4',
     scop: '4,0',
-    labelKoelen: 'A++',
-    labelVerwarmen: 'A+',
     specs: [
       { label: 'Luchtreiniging', value: 'Ionizer+' },
       { label: 'Slimme functies', value: 'Auto Clean, slaapstand vanaf 19 dB(A)' },
@@ -69,8 +77,6 @@ export const lgModels: LgModel[] = [
     photo: '/lg/ai-air-special.jpg',
     seer: '8,3',
     scop: '4,6',
-    labelKoelen: 'A++',
-    labelVerwarmen: 'A++',
     specs: [
       { label: 'Luchtreiniging', value: 'Allergiefilter standaard' },
       { label: 'Slimme functies', value: 'AI Air mode, kW Manager' },
@@ -87,8 +93,6 @@ export const lgModels: LgModel[] = [
     photo: '/lg/deluxe-premium.jpg',
     seer: '8,5',
     scop: '4,6',
-    labelKoelen: 'A+++',
-    labelVerwarmen: 'A++',
     specs: [
       { label: 'Luchtreiniging', value: 'Ionizer++ met allergiefilter' },
       { label: 'Slimme functies', value: 'Soft Air, Dual Vane' },
@@ -105,8 +109,6 @@ export const lgModels: LgModel[] = [
     photo: '/lg/deluxe-premium.jpg',
     seer: '9,5',
     scop: '5,10',
-    labelKoelen: 'A+++',
-    labelVerwarmen: 'A+++',
     specs: [
       { label: 'Luchtreiniging', value: 'Ionizer++ virus, Dual Protection' },
       { label: 'Slimme functies', value: 'Human sensor, Dual Vane, Jet Cool' },
@@ -117,45 +119,93 @@ export const lgModels: LgModel[] = [
   },
 ];
 
+export type LgCapacity = {
+  /** Officiële typeaanduiding; bij LG zit het vermogen in de code (09/12/18/24 = BTU). */
+  code: string;
+  /** Nominaal koelvermogen in kW. */
+  koel: string;
+  /** Maximaal koelvermogen in kW. */
+  koelMax: string;
+  /** Nominaal verwarmingsvermogen in kW. */
+  verw: string;
+  /** Maximaal verwarmingsvermogen in kW. */
+  verwMax: string;
+  seer: string;
+  scop: string;
+};
+
 /**
- * Officiële typeaanduidingen per uitvoering, aangeleverd door Best Aircotechniek.
- * Bij LG zit het vermogen in de code zelf (09 / 12 / 18 / 24 = BTU), dus de
- * aanduiding hoort bij een vermogen en niet bij een serie. Daarom per maat.
+ * Specificaties per uitvoering, per model.
  *
- * LG is hiermee compleet; AUX moet nog. De vermogenspagina toont
- * de regel alleen als er een code bekend is, dus tot die tijd blijft hij weg.
+ * Deze tabel bepaalt ook WELKE uitvoeringen bestaan: LG levert AI Air Special en
+ * Premium alleen als 2,5 en 3,5 kW. De catalogus van LG Nederland bevat precies
+ * deze twaalf wandmodellen, en Airco Webwinkel voert die twee series ook alleen
+ * in die twee vermogens. Eerder stonden hier de codes P18SND, P24SND, H18S1P en
+ * H24S1P, geëxtrapoleerd uit het patroon: die bestaan niet.
+ *
+ * SEER/SCOP is per uitvoering bekend voor Deluxe; bij de andere drie series geeft
+ * LG één waarde voor de hele serie, en die staat hier dan bij elke uitvoering.
+ * Dat mag, want LG publiceert voor die series ook per type hetzelfde energielabel.
+ * De labels worden uit deze SEER/SCOP berekend (zie energy-labels.ts) en komen
+ * voor alle twaalf uitvoeringen exact overeen met het label dat LG zelf noemt.
  */
-export const lgTypeCodes: Record<string, Record<string, string>> = {
+export const lgCapacities: Record<string, Record<string, LgCapacity>> = {
   'standard-plus': {
-    '2-5-kw': 'PC09ST',
-    '3-5-kw': 'PC12ST',
-    '5-0-kw': 'PC18ST',
-    '7-0-kw': 'PC24ST',
+    '2-5-kw': { code: 'PC09ST', koel: '2,5', koelMax: '3,7', verw: '3,3', verwMax: '4,1', seer: '6,4', scop: '4,0' },
+    '3-5-kw': { code: 'PC12ST', koel: '3,5', koelMax: '4,0', verw: '4,0', verwMax: '5,1', seer: '6,4', scop: '4,0' },
+    '5-0-kw': { code: 'PC18ST', koel: '5,0', koelMax: '5,5', verw: '5,8', verwMax: '6,4', seer: '6,4', scop: '4,0' },
+    '7-0-kw': { code: 'PC24ST', koel: '6,6', koelMax: '7,4', verw: '7,5', verwMax: '8,6', seer: '6,4', scop: '4,0' },
   },
-  // Alleen P09SND is opgegeven; de andere drie volgen het door Best
-  // Aircotechniek aangegeven patroon (prefix + BTU + achtervoegsel), net als bij
-  // Standard Plus. Nog te bevestigen tegen de prijslijst.
   'ai-air-special': {
-    '2-5-kw': 'P09SND',
-    '3-5-kw': 'P12SND',
-    '5-0-kw': 'P18SND',
-    '7-0-kw': 'P24SND',
+    '2-5-kw': { code: 'P09SND', koel: '2,5', koelMax: '3,6', verw: '3,2', verwMax: '4,6', seer: '8,3', scop: '4,6' },
+    '3-5-kw': { code: 'P12SND', koel: '3,5', koelMax: '4,0', verw: '3,7', verwMax: '5,0', seer: '8,3', scop: '4,6' },
   },
-  // Opgegeven: H09S1D. De rest volgt hetzelfde patroon (H + BTU + S1 + serieletter).
   deluxe: {
-    '2-5-kw': 'H09S1D',
-    '3-5-kw': 'H12S1D',
-    '5-0-kw': 'H18S1D',
-    '7-0-kw': 'H24S1D',
+    '2-5-kw': { code: 'H09S1D', koel: '2,5', koelMax: '3,8', verw: '3,2', verwMax: '4,9', seer: '8,7', scop: '4,60' },
+    '3-5-kw': { code: 'H12S1D', koel: '3,5', koelMax: '4,2', verw: '4,0', verwMax: '5,4', seer: '8,5', scop: '4,60' },
+    '5-0-kw': { code: 'H18S1D', koel: '5,0', koelMax: '5,5', verw: '5,8', verwMax: '6,4', seer: '7,0', scop: '4,30' },
+    '7-0-kw': { code: 'H24S1D', koel: '6,6', koelMax: '7,4', verw: '7,5', verwMax: '8,6', seer: '6,9', scop: '4,30' },
   },
-  // Opgegeven: H09S1P. Zelfde patroon als Deluxe, met P als serieletter.
   premium: {
-    '2-5-kw': 'H09S1P',
-    '3-5-kw': 'H12S1P',
-    '5-0-kw': 'H18S1P',
-    '7-0-kw': 'H24S1P',
+    '2-5-kw': { code: 'H09S1P', koel: '2,5', koelMax: '4,0', verw: '3,2', verwMax: '5,5', seer: '9,5', scop: '5,10' },
+    '3-5-kw': { code: 'H12S1P', koel: '3,5', koelMax: '4,3', verw: '4,0', verwMax: '6,0', seer: '9,5', scop: '5,10' },
   },
 };
+
+/**
+ * Hoogste energielabel binnen de serie, voor de modelpagina ("tot A+++").
+ * Afgeleid uit lgCapacities, zodat het label niet los kan gaan lopen van de
+ * SEER/SCOP die op de vermogenspagina's staat.
+ */
+export function lgBestLabels(modelSlug: string): { koelen: string; verwarmen: string } | null {
+  const caps = lgCapacities[modelSlug];
+  if (!caps) return null;
+  return bestLabelsFrom(Object.values(caps));
+}
+
+/**
+ * Hoogste SEER/SCOP binnen de serie, voor de "tot"-waarde op de modelpagina.
+ * Ook afgeleid, zodat de modelpagina nooit een lagere waarde claimt dan een
+ * vermogenspagina toont (de Deluxe 2,5 kW haalt 8,7 en niet de 8,5 uit de brochure).
+ */
+export function lgBestEfficiency(modelSlug: string): { seer: string; scop: string } | null {
+  const caps = lgCapacities[modelSlug];
+  if (!caps) return null;
+  const top = (pick: (c: LgCapacity) => string) =>
+    Object.values(caps)
+      .map(pick)
+      .reduce((a, b) => (Number(b.replace(',', '.')) > Number(a.replace(',', '.')) ? b : a));
+  return { seer: top((c) => c.seer), scop: top((c) => c.scop) };
+}
+
+/** De vermogens die dit model daadwerkelijk heeft, in de volgorde van lgSizes. */
+export function lgSizesFor(modelSlug: string) {
+  return lgSizes.filter((s) => lgCapacities[modelSlug]?.[s.slug]);
+}
+
+export function lgCapacity(modelSlug: string, sizeSlug: string): LgCapacity | undefined {
+  return lgCapacities[modelSlug]?.[sizeSlug];
+}
 
 export function getLgModel(slug: string): LgModel | undefined {
   return lgModels.find((m) => m.slug === slug);

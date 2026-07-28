@@ -1,46 +1,55 @@
 ---
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import CTASection from '../../../../components/CTASection.astro';
-import { lgModels, lgSizes, lgTypeCodes } from '../../../../data/lg-products';
+import { lgModels, lgSizesFor, lgCapacity } from '../../../../data/lg-products';
+import { coolingLabel, heatingLabel } from '../../../../data/energy-labels';
 import { site } from '../../../../data/site';
 
 export function getStaticPaths() {
   return lgModels.flatMap((model) =>
-    lgSizes.map((size) => ({ params: { model: model.slug, size: size.slug }, props: { model, size } })),
+    lgSizesFor(model.slug).map((size) => ({ params: { model: model.slug, size: size.slug }, props: { model, size } })),
   );
 }
 
 const { model, size } = Astro.props;
+const cap = lgCapacity(model.slug, size.slug)!;
+const labelKoelen = coolingLabel(cap.seer);
+const labelVerwarmen = heatingLabel(cap.scop);
 
 // Data voor de client-side wisselaar (scrollpositie blijft behouden)
-const sizesData = lgSizes.map((s) => ({
-  slug: s.slug,
-  kw: s.kw,
-  volume: s.volume,
-  area: s.area,
-  room: s.room,
-  typeCode: lgTypeCodes[model.slug]?.[s.slug] ?? '',
-}));
+const sizesData = lgSizesFor(model.slug).map((s) => {
+  const c = lgCapacity(model.slug, s.slug)!;
+  return {
+    slug: s.slug,
+    kw: s.kw,
+    volume: s.volume,
+    area: s.area,
+    room: s.room,
+    typeCode: c.code,
+    koel: `${c.koel} kW`,
+    verw: `${c.verw} kW`,
+    max: `${c.koelMax} kW koelen / ${c.verwMax} kW verwarmen`,
+    seer: c.seer,
+    scop: c.scop,
+    labelKoelen: coolingLabel(c.seer),
+    labelVerwarmen: heatingLabel(c.scop),
+  };
+});
 
-/*
- * Let op: de LG-brochure geeft SEER/SCOP en energielabels op MODELniveau
- * ("tot"-waarden), niet per vermogen. Die worden hier dus ook als modelwaarde
- * gelabeld. Het exacte koel- en verwarmingsvermogen per uitvoering staat niet
- * in de brochure en wordt daarom niet getoond, maar in de offerte bevestigd.
- */
 const rows = [
+  { icon: 'koelen', label: 'Koelvermogen (nominaal)', value: `${cap.koel} kW`, badge: labelKoelen, badgeId: 'val-label-koelen', id: 'val-koel' },
+  { icon: 'verwarmen', label: 'Verwarmingsvermogen (nominaal)', value: `${cap.verw} kW`, badge: labelVerwarmen, badgeId: 'val-label-verwarmen', id: 'val-verw' },
   { icon: 'ruimte', label: 'Geschikt voor', value: `Ruimtes tot ${size.volume}`, id: 'val-volume' },
-  { icon: 'koelen', label: 'Vloeroppervlak (vuistregel)', value: size.area, id: 'val-area' },
-  { icon: 'swing', label: 'Typische ruimte', value: size.room, id: 'val-room' },
-  { icon: 'rendement', label: 'SEER (tot) / SCOP', value: `${model.seer} / ${model.scop}` },
+  { icon: 'swing', label: 'Vloeroppervlak (vuistregel)', value: size.area, id: 'val-area' },
+  { icon: 'rendement', label: 'SEER / SCOP', value: `${cap.seer} / ${cap.scop}`, id: 'val-rendement' },
   { icon: 'luchtzuivering', label: 'Luchtreiniging', value: model.specs[0].value },
   { icon: 'wifi', label: 'Bediening', value: 'Afstandsbediening en LG ThinQ-app' },
 ];
 
-const typeCode = lgTypeCodes[model.slug]?.[size.slug];
-
-const extra = [
-  ...(typeCode ? [{ label: 'Typeaanduiding', value: typeCode }] : []),
+const extra: { label: string; value: string; id?: string }[] = [
+  { label: 'Typeaanduiding', value: cap.code, id: 'val-code' },
+  { label: 'Maximaal vermogen', value: `${cap.koelMax} kW koelen / ${cap.verwMax} kW verwarmen`, id: 'val-max' },
+  { label: 'Typische ruimte', value: size.room, id: 'val-room' },
   { label: 'Slimme functies', value: model.specs[1].value },
   { label: 'Uitvoering', value: model.specs[3].value },
   { label: 'Koudemiddel', value: 'R32' },
@@ -54,7 +63,7 @@ const btnInactive = 'border border-slate-300 bg-white text-slate-700 hover:borde
 
 <BaseLayout
   title={`LG ${model.name} ${size.kw} airco | Best Aircotechniek`}
-  description={`LG ${model.name} ${size.kw}: geschikt voor ${size.room.toLowerCase()} (${size.volume}), energielabel ${model.labelKoelen}. Laten installeren vanaf ${site.priceFrom} door Best Aircotechniek.`}
+  description={`LG ${model.name} ${size.kw} (${cap.code}): ${cap.koel} kW koelen en ${cap.verw} kW verwarmen, energielabel ${labelKoelen}. Laten installeren vanaf ${site.priceFrom} door Best Aircotechniek.`}
 >
   <section class="pt-8 pb-16 sm:pt-10 sm:pb-20">
     <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
@@ -80,7 +89,7 @@ const btnInactive = 'border border-slate-300 bg-white text-slate-700 hover:borde
         <span class="text-sm font-semibold text-slate-700">Kies uw vermogen</span>
         <div class="flex flex-wrap gap-3">
           {
-            lgSizes.map((s) => (
+            lgSizesFor(model.slug).map((s) => (
               <a
                 href={`/merken/lg/${model.slug}/${s.slug}`}
                 data-size={s.slug}
@@ -105,41 +114,29 @@ const btnInactive = 'border border-slate-300 bg-white text-slate-700 hover:borde
           />
           <div class="text-center">
             <p id="panel-title" class="text-3xl font-extrabold text-brand-900">{model.name} {size.kw}</p>
-            {typeCode && (
-              <p class="mt-4 text-sm text-slate-500">Officiële typeaanduiding: <span id="panel-code">{typeCode}</span></p>
-            )}
+            <p class="mt-4 text-sm text-slate-500">Officiële typeaanduiding: <span id="panel-code">{cap.code}</span></p>
           </div>
         </div>
 
         <div class="panel flex flex-col p-6 sm:p-8 lg:col-span-5">
           <h2 class="section-heading">Specificaties</h2>
           <dl class="mt-6 space-y-4">
-            <div class="flex items-start gap-3">
-              <img src="/spec-icons/verwarmen.png" alt="" width="24" height="24" class="mt-0.5 h-6 w-6 shrink-0" />
-              <div>
-                <dt class="text-sm text-slate-500">Energielabel koelen / verwarmen</dt>
-                <dd class="flex items-center gap-2 font-semibold text-brand-900">
-                  <span
-                    class={`rounded px-2 py-0.5 text-xs font-bold text-white ${model.labelKoelen === 'A+++' ? 'bg-[#00a651]' : 'bg-[#2f9e44]'}`}
-                  >
-                    {model.labelKoelen}
-                  </span>
-                  <span
-                    class={`rounded px-2 py-0.5 text-xs font-bold text-white ${model.labelVerwarmen === 'A+++' ? 'bg-[#00a651]' : model.labelVerwarmen === 'A++' ? 'bg-[#2f9e44]' : 'bg-[#94b820]'}`}
-                  >
-                    {model.labelVerwarmen}
-                  </span>
-                </dd>
-              </div>
-            </div>
             {
               rows.map((r) => (
                 <div class="flex items-start gap-3">
                   <img src={`/spec-icons/${r.icon}.png`} alt="" width="24" height="24" class="mt-0.5 h-6 w-6 shrink-0" />
                   <div>
                     <dt class="text-sm text-slate-500">{r.label}</dt>
-                    <dd class="font-semibold text-brand-900">
+                    <dd class="flex items-center gap-2 font-semibold text-brand-900">
                       <span id={r.id}>{r.value}</span>
+                      {r.badge && (
+                        <span
+                          id={r.badgeId}
+                          class={`rounded px-2 py-0.5 text-xs font-bold text-white ${r.badge === 'A+++' ? 'bg-[#00a651]' : r.badge === 'A++' ? 'bg-[#2f9e44]' : 'bg-[#94b820]'}`}
+                        >
+                          {r.badge}
+                        </span>
+                      )}
                     </dd>
                   </div>
                 </div>
@@ -159,7 +156,8 @@ const btnInactive = 'border border-slate-300 bg-white text-slate-700 hover:borde
                   <li class="flex gap-2">
                     <span aria-hidden="true" class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-500" />
                     <span class="text-slate-600">
-                      <span class="font-semibold text-brand-900">{e.label}:</span> {e.value}
+                      <span class="font-semibold text-brand-900">{e.label}:</span>{' '}
+                      <span id={e.id}>{e.value}</span>
                     </span>
                   </li>
                 ))
@@ -197,11 +195,26 @@ const btnInactive = 'border border-slate-300 bg-white text-slate-700 hover:borde
         const el = document.getElementById(id);
         if (el) el.textContent = text;
       };
+      setText('val-koel', d.koel);
+      setText('val-verw', d.verw);
       setText('val-volume', 'Ruimtes tot ' + d.volume);
       setText('val-area', d.area);
       setText('val-room', d.room);
+      setText('val-rendement', d.seer + ' / ' + d.scop);
+      setText('val-max', d.max);
+      setText('val-code', d.typeCode);
+      const paint = (id, v) => {
+        const el = document.getElementById(id);
+        if (!el || !v) return;
+        el.textContent = v;
+        el.className =
+          'rounded px-2 py-0.5 text-xs font-bold text-white ' +
+          (v === 'A+++' ? 'bg-[#00a651]' : v === 'A++' ? 'bg-[#2f9e44]' : 'bg-[#94b820]');
+      };
+      paint('val-label-koelen', d.labelKoelen);
+      paint('val-label-verwarmen', d.labelVerwarmen);
       setText('panel-title', modelName + ' ' + d.kw);
-      if (d.typeCode) setText('panel-code', d.typeCode);
+      setText('panel-code', d.typeCode);
       setText('crumb-size', d.kw);
       setText('page-title', 'LG ' + modelName + ' ' + d.kw);
       setText('page-sub', 'Geschikt voor ' + d.room.toLowerCase() + ' (' + d.volume + ').');
