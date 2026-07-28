@@ -24,6 +24,8 @@ const sizesData = model.sizes.map((s) => ({
   volume: s.volume,
   area: s.area,
   room: s.room,
+  seer: daikinEfficiency[model.slug]?.[s.slug] ? daikinEfficiency[model.slug][s.slug].seer : '',
+  scop: daikinEfficiency[model.slug]?.[s.slug] ? daikinEfficiency[model.slug][s.slug].scop : '',
   labelKoelen: daikinEfficiency[model.slug]?.[s.slug] ? coolingLabel(daikinEfficiency[model.slug][s.slug].seer) : '',
   labelVerwarmen: daikinEfficiency[model.slug]?.[s.slug] ? heatingLabel(daikinEfficiency[model.slug][s.slug].scop) : '',
 }));
@@ -33,7 +35,7 @@ const rows = [
   { icon: 'verwarmen', label: 'Verwarmingsvermogen (nominaal)', value: size.verw ?? 'Op aanvraag', badge: labelVerwarmen, badgeId: 'val-label-verwarmen', id: 'val-verw' },
   { icon: 'ruimte', label: 'Geschikt voor', value: `Ruimtes tot ${size.volume}`, id: 'val-volume' },
   { icon: 'swing', label: 'Vloeroppervlak (vuistregel)', value: size.area, id: 'val-area' },
-  { icon: 'rendement', label: 'SEER / SCOP', value: eff ? `${eff.seer} / ${eff.scop}` : `${model.seer} / ${model.scop}` },
+  { icon: 'rendement', label: 'SEER / SCOP', value: eff ? `${eff.seer} / ${eff.scop}` : `${model.seer} / ${model.scop}`, id: 'val-rendement' },
   { icon: 'wifi', label: 'Bediening', value: 'Afstandsbediening en Onecta-app' },
 ];
 
@@ -195,6 +197,7 @@ const btnInactive = 'border border-slate-300 bg-white text-slate-700 hover:borde
         el.className = 'rounded px-2 py-0.5 text-xs font-bold text-white ' +
           (v === 'A+++' ? 'bg-[#00a651]' : v === 'A++' ? 'bg-[#2f9e44]' : 'bg-[#94b820]');
       };
+      if (d.seer && d.scop) setText('val-rendement', d.seer + ' / ' + d.scop);
       paint('val-label-koelen', d.labelKoelen);
       paint('val-label-verwarmen', d.labelVerwarmen);
       setText('crumb-size', d.kw);
