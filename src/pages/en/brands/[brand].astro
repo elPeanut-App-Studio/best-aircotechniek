@@ -52,7 +52,10 @@ const highlightLabels = highlightsByBrand[brand.slug] ?? [];
  * Zo blijft een kaart nooit met lege bullets achter. De weergave volgt de
  * oorspronkelijke volgorde van het model, want die staat op belangrijkheid.
  */
-function highlightsFor(m: { specs?: { label: string; value: string }[] }) {
+function highlightsFor(m: { specs?: { label: string; value: string }[]; highlights?: string[] }) {
+  // Modellen met een eigen `highlights`-lijst (Daikin) tonen die, zodat de
+  // kaarten op dezelfde assen vergelijkbaar zijn.
+  if (m.highlights?.length) return m.highlights.map((value) => ({ label: '', value }));
   const specs = m.specs ?? [];
   const preferred = specs.filter((s) => highlightLabels.includes(s.label));
   const rest = specs.filter((s) => !preferred.includes(s));

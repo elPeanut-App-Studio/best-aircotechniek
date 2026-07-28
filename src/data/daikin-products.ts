@@ -6,6 +6,8 @@
  *   installateurscatalogus "Split installer catalogue" (ECPEN22-000), de
  *   specificatietabellen per productcode (FTXJ, FTXA, FTXM-R, FTXP-M, FTXF-D).
  * - Kenmerken Perfera: officiële Daikin-productpagina (Perfera wandmodel).
+ * - Geluidsniveau (stille stand): sound pressure level uit dezelfde catalogus,
+ *   de stilste stand van het bereik, zoals Daikin die zelf ook communiceert.
  * - Uitvoeringen/kleuren: af te leiden uit de officiële productcodes
  *   (AW = wit, S/BS = zilver, B/BB = zwart).
  * - Beschikbare vermogens en garantietermijn: aangeleverd door Best Aircotechniek.
@@ -81,6 +83,13 @@ export type DaikinModel = {
   /** Hoogste SCOP binnen het bereik (uit de catalogus). */
   scop: string;
   specs: { label: string; value: string }[];
+  /**
+   * Drie korte, vergelijkbare kenmerken voor de kaart op de merkpagina.
+   * Zelfde assen voor elk model (rendement, geluid, en wat dit model bijzonder
+   * maakt), zodat de kaarten onderling te vergelijken zijn. Zonder deze lijst
+   * valt de kaart terug op de eerste kenmerken uit `specs`.
+   */
+  highlights: string[];
   sizes: DaikinSize[];
 };
 
@@ -103,12 +112,14 @@ export const daikinModels: DaikinModel[] = [
     scop: '4,30',
     specs: [
       { label: 'Positionering', value: 'Instapmodel van Daikin' },
-      { label: 'Uitvoering', value: 'Wit' },
+
+      { label: 'Geluidsniveau (stille stand)', value: 'Vanaf 20 dB(A)' },      { label: 'Uitvoering', value: 'Wit' },
       { label: 'Koudemiddel', value: 'R32' },
       { label: 'Beschikbaar in', value: '2,0 tot 6,0 kW' },
     ],
     // Geen 4,2 kW: bevestigd door Best Aircotechniek dat die niet leverbaar is
     // (de catalogus uit 2022 noemt nog wel een 42D-uitvoering).
+    highlights: ['SEER tot 6,50', 'Vanaf 20 dB(A)', 'Instapmodel, functioneel uitgevoerd'],
     sizes: sizes({
       '2-0-kw': ['2,00 kW', '2,40 kW'],
       '2-5-kw': ['2,50 kW', '2,80 kW'],
@@ -133,6 +144,7 @@ export const daikinModels: DaikinModel[] = [
     ],
     // Geen 4,2 kW: bevestigd door Best Aircotechniek, en ook de catalogus noemt
     // voor FTXP-M geen 42-uitvoering.
+    highlights: ['SEER tot 7,30', 'Vanaf 19 dB(A)', 'Fluisterstil basiscomfort'],
     sizes: sizes({
       '2-0-kw': ['2,00 kW', '2,50 kW'],
       '2-5-kw': ['2,50 kW', '3,00 kW'],
@@ -159,6 +171,7 @@ export const daikinModels: DaikinModel[] = [
       { label: 'Sensor', value: 'Aanwezigheidsdetectie met energiespaarstand' },
       { label: 'Uitvoering', value: 'Wit' },
     ],
+    highlights: ['SEER tot 8,65', 'Vanaf 19 dB(A)', 'Luchtzuivering met Flash Streamer'],
     sizes: sizes({
       '2-0-kw': ['2,00 kW', '2,50 kW'],
       '2-5-kw': ['2,50 kW', '2,80 kW'],
@@ -179,10 +192,12 @@ export const daikinModels: DaikinModel[] = [
     scop: '5,15',
     specs: [
       { label: 'Design', value: 'Compacte behuizing, slechts 189 mm diep' },
-      { label: 'Uitvoering', value: 'Wit, zilver of zwart' },
+
+      { label: 'Geluidsniveau (stille stand)', value: 'Vanaf 21 dB(A)' },      { label: 'Uitvoering', value: 'Wit, zilver of zwart' },
       { label: 'Koudemiddel', value: 'R32' },
       { label: 'Beschikbaar in', value: '2,0 tot 5,0 kW' },
     ],
+    highlights: ['SEER tot 8,75', 'Vanaf 21 dB(A)', 'Compact, slechts 189 mm diep'],
     sizes: sizes({
       '2-0-kw': ['2,00 kW', '2,50 kW'],
       '2-5-kw': ['2,50 kW', '2,80 kW'],
@@ -201,10 +216,12 @@ export const daikinModels: DaikinModel[] = [
     scop: '5,15',
     specs: [
       { label: 'Design', value: 'Premium afwerking met aluminium front' },
-      { label: 'Uitvoering', value: 'Wit, zilver of zwart' },
+
+      { label: 'Geluidsniveau (stille stand)', value: 'Vanaf 19 dB(A)' },      { label: 'Uitvoering', value: 'Wit, zilver of zwart' },
       { label: 'Koudemiddel', value: 'R32' },
       { label: 'Beschikbaar in', value: '2,0 tot 5,0 kW' },
     ],
+    highlights: ['SEER tot 8,75', 'Vanaf 19 dB(A)', 'Designmodel met aluminium front'],
     sizes: sizes({
       '2-0-kw': ['2,00 kW', '2,50 kW'],
       '2-5-kw': ['2,50 kW', '2,80 kW'],

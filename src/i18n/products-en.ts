@@ -37,6 +37,8 @@ type ModelText = {
   intro: string;
   /** Zelfde volgorde en aantal als de `specs` in het Nederlandse productbestand. */
   specs: { label: string; value: string }[];
+  /** Drie vergelijkbare kenmerken voor de kaart op de merkpagina. */
+  highlights?: string[];
 };
 
 export const auxTextEn: Record<string, ModelText> = {
@@ -128,10 +130,12 @@ export const daikinTextEn: Record<string, ModelText> = {
     intro: 'The most affordable Daikin: reliable and complete, without the extras.',
     specs: [
       { label: 'Positioning', value: "Daikin's entry model" },
-      { label: 'Finish', value: 'White' },
+
+      { label: 'Sound level (quiet mode)', value: 'From 20 dB(A)' },      { label: 'Finish', value: 'White' },
       { label: 'Refrigerant', value: 'R32' },
       { label: 'Available in', value: '2.0 to 6.0 kW' },
     ],
+    highlights: ['SEER up to 6.50', 'From 20 dB(A)', 'Entry model, functional build'],
   },
   comfora: {
     tier: 'Basic comfort',
@@ -142,6 +146,7 @@ export const daikinTextEn: Record<string, ModelText> = {
       { label: 'Refrigerant', value: 'R32' },
       { label: 'Available in', value: '2.0 to 7.1 kW' },
     ],
+    highlights: ['SEER up to 7.30', 'From 19 dB(A)', 'Whisper-quiet basic comfort'],
   },
   perfera: {
     tier: 'Most chosen',
@@ -155,26 +160,31 @@ export const daikinTextEn: Record<string, ModelText> = {
       { label: 'Sensor', value: 'Presence detection with energy-saving mode' },
       { label: 'Finish', value: 'White' },
     ],
+    highlights: ['SEER up to 8.65', 'From 19 dB(A)', 'Air purification with Flash Streamer'],
   },
   stylish: {
     tier: 'Design, compact',
     intro: 'Strikingly compact and very efficient, in white, silver or black.',
     specs: [
       { label: 'Design', value: 'Compact casing, only 189 mm deep' },
-      { label: 'Finish', value: 'White, silver or black' },
+
+      { label: 'Sound level (quiet mode)', value: 'From 21 dB(A)' },      { label: 'Finish', value: 'White, silver or black' },
       { label: 'Refrigerant', value: 'R32' },
       { label: 'Available in', value: '2.0 to 5.0 kW' },
     ],
+    highlights: ['SEER up to 8.75', 'From 21 dB(A)', 'Compact, only 189 mm deep'],
   },
   emura: {
     tier: 'Premium design',
     intro: 'The design model with an aluminium front, for when the unit may stand out.',
     specs: [
       { label: 'Design', value: 'Premium finish with aluminium front' },
-      { label: 'Finish', value: 'White, silver or black' },
+
+      { label: 'Sound level (quiet mode)', value: 'From 19 dB(A)' },      { label: 'Finish', value: 'White, silver or black' },
       { label: 'Refrigerant', value: 'R32' },
       { label: 'Available in', value: '2.0 to 5.0 kW' },
     ],
+    highlights: ['SEER up to 8.75', 'From 19 dB(A)', 'Design model with aluminium front'],
   },
 };
 
