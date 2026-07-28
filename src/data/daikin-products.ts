@@ -78,6 +78,8 @@ export type DaikinModel = {
   code: string;
   tier: string;
   intro: string;
+  /** Officiële Daikin-packshot, gedownload van my.daikin.eu. */
+  photo: string;
   /** Hoogste SEER binnen het bereik (uit de catalogus). */
   seer: string;
   /** Hoogste SCOP binnen het bereik (uit de catalogus). */
@@ -108,6 +110,7 @@ export const daikinModels: DaikinModel[] = [
     code: 'FTXF-D',
     tier: 'Instapmodel',
     intro: 'De voordeligste Daikin: betrouwbaar en compleet, zonder extra franje.',
+    photo: '/daikin/sensira.jpg',
     seer: '6,50',
     scop: '4,30',
     specs: [
@@ -134,6 +137,7 @@ export const daikinModels: DaikinModel[] = [
     code: 'FTXP-M',
     tier: 'Basiscomfort',
     intro: 'Comfortabel en zuinig, met een fluisterstille stand vanaf 19 dB(A).',
+    photo: '/daikin/comfora.jpg',
     seer: '7,30',
     scop: '4,65',
     specs: [
@@ -161,6 +165,7 @@ export const daikinModels: DaikinModel[] = [
     tier: 'Meest gekozen',
     intro:
       'Het populairste model: zeer zuinig, fluisterstil vanaf 19 dB(A) en met luchtzuivering.',
+    photo: '/daikin/perfera.jpg',
     seer: '8,65',
     scop: '5,10',
     specs: [
@@ -188,6 +193,7 @@ export const daikinModels: DaikinModel[] = [
     code: 'FTXA-AW/BS/BT/BB',
     tier: 'Design, compact',
     intro: 'Opvallend compact en zeer zuinig, in wit, zilver of zwart.',
+    photo: '/daikin/stylish.jpg',
     seer: '8,75',
     scop: '5,15',
     specs: [
@@ -212,6 +218,7 @@ export const daikinModels: DaikinModel[] = [
     code: 'FTXJ-AW/S/B',
     tier: 'Premium design',
     intro: 'Het designmodel met aluminium front, voor wie de airco mag opvallen.',
+    photo: '/daikin/emura.jpg',
     seer: '8,75',
     scop: '5,15',
     specs: [
