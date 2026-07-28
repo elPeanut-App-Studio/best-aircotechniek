@@ -78,7 +78,12 @@ export type DaikinModel = {
   code: string;
   tier: string;
   intro: string;
-  /** Officiële Daikin-packshot, gedownload van my.daikin.eu. */
+  /**
+   * Productfoto: Daikin's eigen marketingcompositie met binnen- en buitenunit,
+   * afstandsbediening en app, frontaal op wit. Zelfde stijl als de AUX- en
+   * LG-foto's uit de eigen brochures.
+   * Let op: Stylish en Emura zijn de zwarte uitvoering, de overige drie wit.
+   */
   photo: string;
   /** Hoogste SEER binnen het bereik (uit de catalogus). */
   seer: string;
