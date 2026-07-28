@@ -45,6 +45,21 @@ const highlightsByBrand: Record<string, string[]> = {
   daikin: ['Finish', 'Available in', 'Refrigerant'],
 };
 const highlightLabels = highlightsByBrand[brand.slug] ?? [];
+/**
+ * Kiest maximaal 3 kenmerken voor de modelkaart. De voorkeurslabels per merk
+ * gaan voor, maar als een model die niet heeft (de Daikin Perfera heeft
+ * bijvoorbeeld geen "Koudemiddel") vullen we aan met zijn overige kenmerken.
+ * Zo blijft een kaart nooit met lege bullets achter. De weergave volgt de
+ * oorspronkelijke volgorde van het model, want die staat op belangrijkheid.
+ */
+function highlightsFor(m: { specs?: { label: string; value: string }[] }) {
+  const specs = m.specs ?? [];
+  const preferred = specs.filter((s) => highlightLabels.includes(s.label));
+  const rest = specs.filter((s) => !preferred.includes(s));
+  const chosen = new Set([...preferred, ...rest].slice(0, 3));
+  return specs.filter((s) => chosen.has(s));
+}
+
 const tagline = brandTaglinesEn[brand.slug] ?? brand.tagline;
 ---
 
@@ -115,15 +130,12 @@ const tagline = brandTaglinesEn[brand.slug] ?? brand.tagline;
                 <h3 class="mt-1 text-xl font-bold text-brand-900">{brand.name} {m.name}</h3>
                 <p class="mt-2 leading-relaxed text-slate-600">{m.intro}</p>
                 <ul class="mt-4 space-y-2 text-sm">
-                  {highlightLabels.map((label) => {
-                    const spec = m.specs?.find((s) => s.label === label);
-                    return (
-                      <li class="flex gap-2">
-                        <span aria-hidden="true" class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-500" />
-                        <span class="text-slate-600">{spec?.value}</span>
-                      </li>
-                    );
-                  })}
+                  {highlightsFor(m).map((spec) => (
+                    <li class="flex gap-2">
+                      <span aria-hidden="true" class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-500" />
+                      <span class="text-slate-600">{spec.value}</span>
+                    </li>
+                  ))}
                 </ul>
                 <span class="mt-auto pt-5 text-sm font-semibold text-brand-700 transition group-hover:text-brand-900">
                   View model
