@@ -4,7 +4,7 @@ import PageHero from '../../../../components/PageHero.astro';
 import CTASection from '../../../../components/CTASection.astro';
 import { auxModels, auxSizes, auxShared } from '../../../../data/aux-products';
 import pageHeroPhoto from '../../../../assets/photos/page-hero-woning.jpg';
-import { auxTextEn, sharedEn, sizeRoomEn } from '../../../../i18n/products-en';
+import { auxTextEn, sharedEn, sizeRoomEn, num } from '../../../../i18n/products-en';
 
 export function getStaticPaths() {
   return auxModels.map((model) => ({ params: { model: model.slug }, props: { model } }));
@@ -19,7 +19,7 @@ const specIcons = ['swing', 'luchtzuivering', 'zelfreiniging', 'verwarmen', 'des
 
 <BaseLayout
   lang="en"
-  title={`AUX ${model.name} airco laten installeren | Best Aircotechniek`}
+  title={`AUX ${model.name} air conditioning installed | Best Aircotechniek`}
   description={`AUX ${model.name}: ${model.intro} Beschikbaar in 2,5 / 3,5 / 5,0 / 7,0 kW. Laten installeren door Best Aircotechniek.`}
 >
   <PageHero title={`AUX ${model.name}`} description={model.intro} image={pageHeroPhoto} />
@@ -34,7 +34,7 @@ const specIcons = ['swing', 'luchtzuivering', 'zelfreiniging', 'verwarmen', 'des
 
       <div class="mt-8 grid gap-8 lg:grid-cols-12 lg:items-stretch">
         <div class="panel relative min-h-[22rem] overflow-hidden bg-gradient-to-br from-brand-50 via-white to-white lg:col-span-7">
-          <img src={model.photo} alt={`AUX ${model.name} airconditioner`} width="900" height="900" loading="eager" class="absolute inset-0 h-full w-full object-cover" />
+          <img src={model.photo} alt={`AUX ${model.name} air conditioner`} width="900" height="900" loading="eager" class="absolute inset-0 h-full w-full object-cover" />
         </div>
         <div class="panel flex flex-col p-6 sm:p-8 lg:col-span-5">
           <p class="text-sm font-semibold uppercase tracking-wider text-gold-600">{model.tier}</p>
@@ -44,7 +44,7 @@ const specIcons = ['swing', 'luchtzuivering', 'zelfreiniging', 'verwarmen', 'des
               <img src="/spec-icons/rendement.png" alt="" width="24" height="24" class="mt-0.5 h-6 w-6 shrink-0" />
               <div>
                 <dt class="text-sm text-slate-500">SEER (up to) / SCOP</dt>
-                <dd class="font-semibold text-brand-900">{model.seer} / {model.scop}</dd>
+                <dd class="font-semibold text-brand-900">{num(model.seer)} / {num(model.scop)}</dd>
               </div>
             </div>
             {
@@ -87,9 +87,9 @@ const specIcons = ['swing', 'luchtzuivering', 'zelfreiniging', 'verwarmen', 'des
               href={`/en/brands/aux/${model.slug}/${size.slug}`}
               class="group card-link flex flex-col p-6"
             >
-              <p class="text-2xl font-bold text-brand-900">{size.kw}</p>
+              <p class="text-2xl font-bold text-brand-900">{num(size.kw)}</p>
               <p class="mt-2 min-h-[2.5rem] text-sm text-slate-600">{sizeRoomEn[size.slug] ?? size.room}</p>
-              <p class="mt-1 text-sm text-slate-500">{size.volume} · {size.area}</p>
+              <p class="mt-1 text-sm text-slate-500">{num(size.volume)} · {num(size.area)}</p>
               <span class="mt-auto pt-4 text-sm font-semibold text-brand-700 transition group-hover:text-brand-900">
                 View details
                 <span aria-hidden="true" class="transition group-hover:translate-x-0.5">&rarr;</span>

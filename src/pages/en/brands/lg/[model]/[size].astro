@@ -3,7 +3,7 @@ import BaseLayout from '../../../../../layouts/BaseLayout.astro';
 import CTASection from '../../../../../components/CTASection.astro';
 import { lgModels, lgSizes } from '../../../../../data/lg-products';
 import { site } from '../../../../../data/site';
-import { lgTextEn, sharedEn, sizeRoomEn } from '../../../../../i18n/products-en';
+import { lgTextEn, sharedEn, sizeRoomEn, num } from '../../../../../i18n/products-en';
 
 export function getStaticPaths() {
   return lgModels.flatMap((model) =>
@@ -19,9 +19,9 @@ const model = { ...rawModel, ...lgTextEn[rawModel.slug] };
 // Data voor de client-side wisselaar (scrollpositie blijft behouden)
 const sizesData = lgSizes.map((s) => ({
   slug: s.slug,
-  kw: s.kw,
-  volume: s.volume,
-  area: s.area,
+  kw: num(s.kw),
+  volume: num(s.volume),
+  area: num(s.area),
   room: sizeRoomEn[s.slug] ?? s.room,
 }));
 
@@ -32,10 +32,10 @@ const sizesData = lgSizes.map((s) => ({
  * in de brochure en wordt daarom niet getoond, maar in de offerte bevestigd.
  */
 const rows = [
-  { icon: 'ruimte', label: 'Suitable for', value: `Rooms up to ${size.volume}`, id: 'val-volume' },
-  { icon: 'koelen', label: 'Floor area (rule of thumb)', value: size.area, id: 'val-area' },
+  { icon: 'ruimte', label: 'Suitable for', value: `Rooms up to ${num(size.volume)}`, id: 'val-volume' },
+  { icon: 'koelen', label: 'Floor area (rule of thumb)', value: num(size.area), id: 'val-area' },
   { icon: 'swing', label: 'Typical room', value: roomEn, id: 'val-room' },
-  { icon: 'rendement', label: 'SEER (up to) / SCOP', value: `${model.seer} / ${model.scop}` },
+  { icon: 'rendement', label: 'SEER (up to) / SCOP', value: `${num(model.seer)} / ${num(model.scop)}` },
   { icon: 'luchtzuivering', label: 'Air purification', value: model.specs[0].value },
   { icon: 'wifi', label: 'Controls', value: 'Remote control and LG ThinQ app' },
 ];
@@ -54,8 +54,8 @@ const btnInactive = 'border border-slate-300 bg-white text-slate-700 hover:borde
 
 <BaseLayout
   lang="en"
-  title={`LG ${model.name} ${size.kw} airco | Best Aircotechniek`}
-  description={`LG ${model.name} ${size.kw}: geschikt voor ${roomEn.toLowerCase()} (${size.volume}), energielabel ${model.labelKoelen}. Laten installeren vanaf ${site.priceFrom} door Best Aircotechniek.`}
+  title={`LG ${model.name} ${num(size.kw)} air conditioner | Best Aircotechniek`}
+  description={`LG ${model.name} ${num(size.kw)}: geschikt voor ${roomEn.toLowerCase()} (${num(size.volume)}), energielabel ${model.labelKoelen}. Laten installeren vanaf ${site.priceFrom} door Best Aircotechniek.`}
 >
   <section class="pt-8 pb-16 sm:pt-10 sm:pb-20">
     <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
@@ -64,13 +64,13 @@ const btnInactive = 'border border-slate-300 bg-white text-slate-700 hover:borde
         <span class="px-1">/</span>
         <a href={`/en/brands/lg/${model.slug}`} class="hover:text-brand-700">{model.name}</a>
         <span class="px-1">/</span>
-        <span id="crumb-size" class="text-slate-700">{size.kw}</span>
+        <span id="crumb-size" class="text-slate-700">{num(size.kw)}</span>
       </nav>
 
       <div class="mt-4">
         <p class="text-sm font-semibold uppercase tracking-wider text-gold-600">{model.tier}</p>
         <h1 id="page-title" class="mt-1 text-3xl font-extrabold tracking-tight text-brand-900 sm:text-4xl">
-          LG {model.name} {size.kw}
+          LG {model.name} {num(size.kw)}
         </h1>
         <p id="page-sub" class="mt-2 text-slate-600">
           Suitable for {roomEn.toLowerCase()} ({size.volume}).
@@ -87,7 +87,7 @@ const btnInactive = 'border border-slate-300 bg-white text-slate-700 hover:borde
                 data-size={s.slug}
                 class={btnBase + (s.slug === size.slug ? btnActive : btnInactive)}
               >
-                {s.kw}
+                {num(s.kw)}
               </a>
             ))
           }
@@ -98,7 +98,7 @@ const btnInactive = 'border border-slate-300 bg-white text-slate-700 hover:borde
         <div class="panel relative min-h-[22rem] overflow-hidden bg-gradient-to-br from-brand-50 via-white to-white lg:col-span-7">
           <img
             src={model.photo}
-            alt={`LG ${model.name} airconditioner met binnenunit, buitenunit en afstandsbediening`}
+            alt={`LG ${model.name} air conditioner with indoor unit, outdoor unit and remote control`}
             width="650"
             height="650"
             loading="eager"
@@ -141,10 +141,6 @@ const btnInactive = 'border border-slate-300 bg-white text-slate-700 hover:borde
               ))
             }
           </dl>
-          <p class="mt-6 text-sm leading-relaxed text-slate-500">
-            We confirm the exact cooling and heating capacity of this version in your quote, together with a
-            capacity calculation for your room.
-          </p>
         </div>
       </div>
 
@@ -205,7 +201,7 @@ const btnInactive = 'border border-slate-300 bg-white text-slate-700 hover:borde
       links.forEach((a) => {
         a.className = btnBase + (a.dataset.size === slug ? btnActive : btnInactive);
       });
-      document.title = 'LG ' + modelName + ' ' + d.kw + ' airco | Best Aircotechniek';
+      document.title = 'LG ' + modelName + ' ' + d.kw + ' air conditioner | Best Aircotechniek';
       history.replaceState(null, '', '/en/brands/lg/' + modelSlug + '/' + slug);
     }
     links.forEach((a) =>

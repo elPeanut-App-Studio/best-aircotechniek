@@ -2,7 +2,7 @@
 import BaseLayout from '../../../../../layouts/BaseLayout.astro';
 import CTASection from '../../../../../components/CTASection.astro';
 import { auxModels, auxSizes } from '../../../../../data/aux-products';
-import { auxTextEn, sharedEn, sizeRoomEn } from '../../../../../i18n/products-en';
+import { auxTextEn, sharedEn, sizeRoomEn, num } from '../../../../../i18n/products-en';
 
 export function getStaticPaths() {
   return auxModels.flatMap((model) =>
@@ -19,22 +19,22 @@ const ss = model.sizeSpecs[size.slug];
 // Per-vermogen data voor de client-side wisselaar (scrollpositie blijft behouden)
 const sizesData = auxSizes.map((s) => ({
   slug: s.slug,
-  kw: s.kw,
-  volume: s.volume,
+  kw: num(s.kw),
+  volume: num(s.volume),
   room: sizeRoomEn[s.slug] ?? s.room,
-  koel: model.sizeSpecs[s.slug].koel,
-  verw: model.sizeSpecs[s.slug].verw,
-  seer: model.sizeSpecs[s.slug].seer,
-  scop: model.sizeSpecs[s.slug].scop,
+  koel: num(model.sizeSpecs[s.slug].koel),
+  verw: num(model.sizeSpecs[s.slug].verw),
+  seer: num(model.sizeSpecs[s.slug].seer),
+  scop: num(model.sizeSpecs[s.slug].scop),
 }));
 
 // Spec rows met icoon; id op de waardes die per vermogen wisselen
 const rows = [
-  { icon: 'koelen', label: 'Cooling capacity', value: ss.koel, badge: model.labelKoelen, id: 'val-koel' },
-  { icon: 'verwarmen', label: 'Heating capacity', value: ss.verw, badge: model.labelVerwarmen, id: 'val-verw' },
+  { icon: 'koelen', label: 'Cooling capacity', value: num(ss.koel), badge: model.labelKoelen, id: 'val-koel' },
+  { icon: 'verwarmen', label: 'Heating capacity', value: num(ss.verw), badge: model.labelVerwarmen, id: 'val-verw' },
   { icon: 'wifi', label: 'Wifi', value: 'Wifi module built in' },
-  { icon: 'ruimte', label: 'Suitable for', value: `Rooms up to ${size.volume}`, id: 'val-ruimte' },
-  { icon: 'rendement', label: 'Efficiency', value: `SEER ${ss.seer} / SCOP ${ss.scop}`, id: 'val-rendement' },
+  { icon: 'ruimte', label: 'Suitable for', value: `Rooms up to ${num(size.volume)}`, id: 'val-ruimte' },
+  { icon: 'rendement', label: 'Efficiency', value: `SEER ${num(ss.seer)} / SCOP ${num(ss.scop)}`, id: 'val-rendement' },
   { icon: 'swing', label: 'Airflow', value: model.specs[0].value },
 ];
 
@@ -46,8 +46,8 @@ const btnInactive = 'border border-slate-300 bg-white text-slate-700 hover:borde
 
 <BaseLayout
   lang="en"
-  title={`AUX ${model.name} ${size.kw} airco | Best Aircotechniek`}
-  description={`AUX ${model.name} ${size.kw}: ${ss.koel} koelen (${model.labelKoelen}), geschikt voor ${roomEn.toLowerCase()}. Laten installeren door Best Aircotechniek.`}
+  title={`AUX ${model.name} ${num(size.kw)} air conditioner | Best Aircotechniek`}
+  description={`AUX ${model.name} ${num(size.kw)}: ${ss.koel} koelen (${model.labelKoelen}), geschikt voor ${roomEn.toLowerCase()}. Laten installeren door Best Aircotechniek.`}
 >
   <section class="pt-8 pb-16 sm:pt-10 sm:pb-20">
     <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
@@ -56,13 +56,13 @@ const btnInactive = 'border border-slate-300 bg-white text-slate-700 hover:borde
         <span class="px-1">/</span>
         <a href={`/en/brands/aux/${model.slug}`} class="hover:text-brand-700">{model.name}</a>
         <span class="px-1">/</span>
-        <span id="crumb-size" class="text-slate-700">{size.kw}</span>
+        <span id="crumb-size" class="text-slate-700">{num(size.kw)}</span>
       </nav>
 
       <div class="mt-4">
         <p class="text-sm font-semibold uppercase tracking-wider text-gold-600">{model.tier}</p>
         <h1 id="page-title" class="mt-1 text-3xl font-extrabold tracking-tight text-brand-900 sm:text-4xl">
-          AUX {model.name} {size.kw}
+          AUX {model.name} {num(size.kw)}
         </h1>
         <p id="page-sub" class="mt-2 text-slate-600">
           Suitable for {roomEn.toLowerCase()} ({size.volume}).
@@ -79,7 +79,7 @@ const btnInactive = 'border border-slate-300 bg-white text-slate-700 hover:borde
                 data-size={s.slug}
                 class={btnBase + (s.slug === size.slug ? btnActive : btnInactive)}
               >
-                {s.kw}
+                {num(s.kw)}
               </a>
             ))
           }
@@ -88,7 +88,7 @@ const btnInactive = 'border border-slate-300 bg-white text-slate-700 hover:borde
 
       <div class="mt-8 grid gap-8 lg:grid-cols-12 lg:items-stretch">
         <div class="panel relative min-h-[22rem] overflow-hidden bg-gradient-to-br from-brand-50 via-white to-white lg:col-span-7">
-          <img src={model.photo} alt={`AUX ${model.name} airconditioner`} width="900" height="900" loading="eager" class="absolute inset-0 h-full w-full object-cover" />
+          <img src={model.photo} alt={`AUX ${model.name} air conditioner`} width="900" height="900" loading="eager" class="absolute inset-0 h-full w-full object-cover" />
         </div>
 
         <div class="panel flex flex-col p-6 sm:p-8 lg:col-span-5">
@@ -174,7 +174,7 @@ const btnInactive = 'border border-slate-300 bg-white text-slate-700 hover:borde
       links.forEach((a) => {
         a.className = btnBase + (a.dataset.size === slug ? btnActive : btnInactive);
       });
-      document.title = 'AUX ' + modelName + ' ' + d.kw + ' airco | Best Aircotechniek';
+      document.title = 'AUX ' + modelName + ' ' + d.kw + ' air conditioner | Best Aircotechniek';
       history.replaceState(null, '', '/en/brands/aux/' + modelSlug + '/' + slug);
     }
     links.forEach((a) =>

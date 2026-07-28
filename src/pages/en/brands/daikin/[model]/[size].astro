@@ -1,9 +1,9 @@
 ---
 import BaseLayout from '../../../../../layouts/BaseLayout.astro';
 import CTASection from '../../../../../components/CTASection.astro';
-import { daikinModels } from '../../../../../data/daikin-products';
+import { daikinModels, daikinEfficiency } from '../../../../../data/daikin-products';
 import { site } from '../../../../../data/site';
-import { daikinTextEn, sharedEn, sizeRoomEn } from '../../../../../i18n/products-en';
+import { daikinTextEn, sharedEn, sizeRoomEn, num } from '../../../../../i18n/products-en';
 
 export function getStaticPaths() {
   return daikinModels.flatMap((model) =>
@@ -13,26 +13,27 @@ export function getStaticPaths() {
 
 const rawModel = Astro.props.model;
 const size = Astro.props.size;
+const eff = daikinEfficiency[rawModel.slug]?.[size.slug];
 const roomEn = sizeRoomEn[size.slug] ?? size.room;
 const model = { ...rawModel, ...daikinTextEn[rawModel.slug] };
 
 // Data voor de client-side wisselaar (scrollpositie blijft behouden)
 const sizesData = model.sizes.map((s) => ({
   slug: s.slug,
-  kw: s.kw,
-  koel: s.koel ?? 'On request',
-  verw: s.verw ?? 'On request',
-  volume: s.volume,
-  area: s.area,
+  kw: num(s.kw),
+  koel: num(s.koel) || 'On request',
+  verw: num(s.verw) || 'On request',
+  volume: num(s.volume),
+  area: num(s.area),
   room: sizeRoomEn[s.slug] ?? s.room,
 }));
 
 const rows = [
-  { icon: 'koelen', label: 'Cooling capacity (nominal)', value: size.koel ?? 'On request', id: 'val-koel' },
-  { icon: 'verwarmen', label: 'Heating capacity (nominal)', value: size.verw ?? 'On request', id: 'val-verw' },
-  { icon: 'ruimte', label: 'Suitable for', value: `Rooms up to ${size.volume}`, id: 'val-volume' },
-  { icon: 'swing', label: 'Floor area (rule of thumb)', value: size.area, id: 'val-area' },
-  { icon: 'rendement', label: 'SEER (up to) / SCOP (up to)', value: `${model.seer} / ${model.scop}` },
+  { icon: 'koelen', label: 'Cooling capacity (nominal)', value: num(size.koel) || 'On request', id: 'val-koel' },
+  { icon: 'verwarmen', label: 'Heating capacity (nominal)', value: num(size.verw) || 'On request', id: 'val-verw' },
+  { icon: 'ruimte', label: 'Suitable for', value: `Rooms up to ${num(size.volume)}`, id: 'val-volume' },
+  { icon: 'swing', label: 'Floor area (rule of thumb)', value: num(size.area), id: 'val-area' },
+  { icon: 'rendement', label: 'SEER / SCOP', value: eff ? `${num(eff.seer)} / ${num(eff.scop)}` : `${num(model.seer)} / ${num(model.scop)}` },
   { icon: 'wifi', label: 'Controls', value: 'Remote control and Onecta app' },
 ];
 
@@ -50,8 +51,8 @@ const btnInactive = 'border border-slate-300 bg-white text-slate-700 hover:borde
 
 <BaseLayout
   lang="en"
-  title={`Daikin ${model.name} ${size.kw} airco | Best Aircotechniek`}
-  description={`Daikin ${model.name} ${size.kw}: geschikt voor ${roomEn.toLowerCase()} (${size.volume}). Laten installeren vanaf ${site.priceFrom} door Best Aircotechniek.`}
+  title={`Daikin ${model.name} ${num(size.kw)} air conditioner | Best Aircotechniek`}
+  description={`Daikin ${model.name} ${num(size.kw)}: geschikt voor ${roomEn.toLowerCase()} (${num(size.volume)}). Laten installeren vanaf ${site.priceFrom} door Best Aircotechniek.`}
 >
   <section class="pt-8 pb-16 sm:pt-10 sm:pb-20">
     <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
@@ -60,13 +61,13 @@ const btnInactive = 'border border-slate-300 bg-white text-slate-700 hover:borde
         <span class="px-1">/</span>
         <a href={`/en/brands/daikin/${model.slug}`} class="hover:text-brand-700">{model.name}</a>
         <span class="px-1">/</span>
-        <span id="crumb-size" class="text-slate-700">{size.kw}</span>
+        <span id="crumb-size" class="text-slate-700">{num(size.kw)}</span>
       </nav>
 
       <div class="mt-4">
         <p class="text-sm font-semibold uppercase tracking-wider text-gold-600">{model.tier}</p>
         <h1 id="page-title" class="mt-1 text-3xl font-extrabold tracking-tight text-brand-900 sm:text-4xl">
-          Daikin {model.name} {size.kw}
+          Daikin {model.name} {num(size.kw)}
         </h1>
         <p id="page-sub" class="mt-2 text-slate-600">
           Suitable for {roomEn.toLowerCase()} ({size.volume}).
@@ -83,7 +84,7 @@ const btnInactive = 'border border-slate-300 bg-white text-slate-700 hover:borde
                 data-size={s.slug}
                 class={btnBase + (s.slug === size.slug ? btnActive : btnInactive)}
               >
-                {s.kw}
+                {num(s.kw)}
               </a>
             ))
           }
@@ -101,7 +102,7 @@ const btnInactive = 'border border-slate-300 bg-white text-slate-700 hover:borde
             class="w-full max-w-[26rem] object-contain"
           />
           <div class="text-center">
-            <p id="panel-title" class="text-3xl font-extrabold text-brand-900">{model.name} {size.kw}</p>
+            <p id="panel-title" class="text-3xl font-extrabold text-brand-900">{model.name} {num(size.kw)}</p>
             <p class="mt-4 text-sm text-slate-500">Official model code: {model.code}</p>
           </div>
         </div>
@@ -123,10 +124,6 @@ const btnInactive = 'border border-slate-300 bg-white text-slate-700 hover:borde
               ))
             }
           </dl>
-          <p class="mt-6 text-sm leading-relaxed text-slate-500">
-            SEER and SCOP are the highest values within this model range. We confirm the exact values and the
-            energy label of this version in your quote, together with a capacity calculation for your room.
-          </p>
         </div>
       </div>
 
@@ -191,7 +188,7 @@ const btnInactive = 'border border-slate-300 bg-white text-slate-700 hover:borde
       links.forEach((a) => {
         a.className = btnBase + (a.dataset.size === slug ? btnActive : btnInactive);
       });
-      document.title = 'Daikin ' + modelName + ' ' + d.kw + ' airco | Best Aircotechniek';
+      document.title = 'Daikin ' + modelName + ' ' + d.kw + ' air conditioner | Best Aircotechniek';
       history.replaceState(null, '', '/en/brands/daikin/' + modelSlug + '/' + slug);
     }
     links.forEach((a) =>
