@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../../../../layouts/BaseLayout.astro';
 import CTASection from '../../../../../components/CTASection.astro';
-import { daikinModels, daikinEfficiency } from '../../../../../data/daikin-products';
+import { daikinModels, daikinEfficiency, coolingLabel, heatingLabel } from '../../../../../data/daikin-products';
 import { site } from '../../../../../data/site';
 import { daikinTextEn, sharedEn, sizeRoomEn, num } from '../../../../../i18n/products-en';
 
@@ -14,6 +14,8 @@ export function getStaticPaths() {
 const rawModel = Astro.props.model;
 const size = Astro.props.size;
 const eff = daikinEfficiency[rawModel.slug]?.[size.slug];
+const labelKoelen = eff ? coolingLabel(eff.seer) : null;
+const labelVerwarmen = eff ? heatingLabel(eff.scop) : null;
 const roomEn = sizeRoomEn[size.slug] ?? size.room;
 const model = { ...rawModel, ...daikinTextEn[rawModel.slug] };
 
@@ -26,6 +28,8 @@ const sizesData = model.sizes.map((s) => ({
   volume: num(s.volume),
   area: num(s.area),
   room: sizeRoomEn[s.slug] ?? s.room,
+  labelKoelen: daikinEfficiency[rawModel.slug]?.[s.slug] ? coolingLabel(daikinEfficiency[rawModel.slug][s.slug].seer) : '',
+  labelVerwarmen: daikinEfficiency[rawModel.slug]?.[s.slug] ? heatingLabel(daikinEfficiency[rawModel.slug][s.slug].scop) : '',
 }));
 
 const rows = [
@@ -110,6 +114,18 @@ const btnInactive = 'border border-slate-300 bg-white text-slate-700 hover:borde
         <div class="panel flex flex-col p-6 sm:p-8 lg:col-span-5">
           <h2 class="section-heading">Specifications</h2>
           <dl class="mt-6 space-y-4">
+            {labelKoelen && labelVerwarmen && (
+            <div class="flex items-start gap-3">
+              <img src="/spec-icons/verwarmen.png" alt="" width="24" height="24" class="mt-0.5 h-6 w-6 shrink-0" />
+              <div>
+                <dt class="text-sm text-slate-500">Energy label cooling / heating</dt>
+                <dd class="flex items-center gap-2 font-semibold text-brand-900">
+                  <span id="val-label-koelen" class:list={['rounded px-2 py-0.5 text-xs font-bold text-white', labelKoelen === 'A+++' ? 'bg-[#00a651]' : labelKoelen === 'A++' ? 'bg-[#2f9e44]' : 'bg-[#94b820]']}>{labelKoelen}</span>
+                  <span id="val-label-verwarmen" class:list={['rounded px-2 py-0.5 text-xs font-bold text-white', labelVerwarmen === 'A+++' ? 'bg-[#00a651]' : labelVerwarmen === 'A++' ? 'bg-[#2f9e44]' : 'bg-[#94b820]']}>{labelVerwarmen}</span>
+                </dd>
+              </div>
+            </div>
+            )}
             {
               rows.map((r) => (
                 <div class="flex items-start gap-3">
@@ -181,6 +197,15 @@ const btnInactive = 'border border-slate-300 bg-white text-slate-700 hover:borde
       setText('val-volume', 'Rooms up to ' + d.volume);
       setText('val-area', d.area);
       setText('val-room', ' ' + d.room);
+      const paint = (id, v) => {
+        const el = document.getElementById(id);
+        if (!el || !v) return;
+        el.textContent = v;
+        el.className = 'rounded px-2 py-0.5 text-xs font-bold text-white ' +
+          (v === 'A+++' ? 'bg-[#00a651]' : v === 'A++' ? 'bg-[#2f9e44]' : 'bg-[#94b820]');
+      };
+      paint('val-label-koelen', d.labelKoelen);
+      paint('val-label-verwarmen', d.labelVerwarmen);
       setText('crumb-size', d.kw);
       setText('page-title', 'Daikin ' + modelName + ' ' + d.kw);
       setText('panel-title', modelName + ' ' + d.kw);
