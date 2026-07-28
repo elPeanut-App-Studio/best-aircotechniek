@@ -1,0 +1,143 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import PageHero from '../../../../components/PageHero.astro';
+import CTASection from '../../../../components/CTASection.astro';
+import { daikinModels, daikinShared } from '../../../../data/daikin-products';
+import { site } from '../../../../data/site';
+import pageHeroPhoto from '../../../../assets/photos/page-hero-woning.jpg';
+import { daikinTextEn, sharedEn, sizeRoomEn } from '../../../../i18n/products-en';
+
+export function getStaticPaths() {
+  return daikinModels.map((model) => ({ params: { model: model.slug }, props: { model } }));
+}
+
+const rawModel = Astro.props.model;
+const model = { ...rawModel, ...daikinTextEn[rawModel.slug] };
+const others = daikinModels
+  .filter((m) => m.slug !== rawModel.slug)
+  .map((m) => ({ ...m, ...daikinTextEn[m.slug] }));
+const specIcons = ['rendement', 'swing', 'luchtzuivering', 'zelfreiniging', 'ruimte', 'design'];
+---
+
+<BaseLayout
+  lang="en"
+  title={`Daikin ${model.name} airco laten installeren | Best Aircotechniek`}
+  description={`Daikin ${model.name} (${model.code}): ${model.intro} SEER tot ${model.seer}, SCOP tot ${model.scop}. Laten installeren vanaf ${site.priceFrom} door Best Aircotechniek.`}
+>
+  <PageHero title={`Daikin ${model.name}`} description={model.intro} image={pageHeroPhoto} />
+
+  <section class="py-16 sm:py-20">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <nav class="text-sm text-slate-500" aria-label="Breadcrumb">
+        <a href="/en/brands/daikin" class="hover:text-brand-700">Daikin</a>
+        <span class="px-1">/</span>
+        <span class="text-slate-700">{model.name}</span>
+      </nav>
+
+      <div class="mt-8 grid gap-8 lg:grid-cols-12 lg:items-stretch">
+        <div class="panel flex min-h-[18rem] flex-col items-center justify-center gap-6 bg-gradient-to-br from-brand-50 via-white to-white p-8 lg:col-span-7">
+          <img src="/brands/daikin.svg" alt="Daikin logo" width="200" height="60" class="h-12 w-auto" />
+          <div class="text-center">
+            <p class="text-3xl font-extrabold text-brand-900">{model.name}</p>
+            <p class="mt-1 text-sm font-semibold uppercase tracking-wider text-gold-600">{model.tier}</p>
+            <p class="mt-4 text-sm text-slate-500">Official model code: {model.code}</p>
+          </div>
+        </div>
+        <div class="panel flex flex-col p-6 sm:p-8 lg:col-span-5">
+          <h2 class="section-heading">Features</h2>
+          <dl class="mt-6 space-y-4">
+            <div class="flex items-start gap-3">
+              <img src="/spec-icons/rendement.png" alt="" width="24" height="24" class="mt-0.5 h-6 w-6 shrink-0" />
+              <div>
+                <dt class="text-sm text-slate-500">SEER (up to) / SCOP (up to)</dt>
+                <dd class="font-semibold text-brand-900">{model.seer} / {model.scop}</dd>
+              </div>
+            </div>
+            {
+              model.specs.map((s, i) => (
+                <div class="flex items-start gap-3">
+                  <img
+                    src={`/spec-icons/${specIcons[(i + 1) % specIcons.length]}.png`}
+                    alt=""
+                    width="24"
+                    height="24"
+                    class="mt-0.5 h-6 w-6 shrink-0"
+                  />
+                  <div>
+                    <dt class="text-sm text-slate-500">{s.label}</dt>
+                    <dd class="font-semibold text-brand-900">{s.value}</dd>
+                  </div>
+                </div>
+              ))
+            }
+          </dl>
+        </div>
+      </div>
+
+      <div class="mt-8 rounded-2xl bg-brand-950 px-6 py-6 text-white shadow-card sm:px-8">
+        <p class="text-xs font-semibold uppercase tracking-wider text-gold-400">Standard on every Daikin</p>
+        <div class="mt-4 grid grid-cols-2 gap-x-6 gap-y-3 sm:grid-cols-3 lg:grid-cols-5">
+          {
+            sharedEn['daikin'].map((item) => (
+              <span class="flex items-start gap-2 text-sm text-brand-100">
+                <svg class="mt-0.5 h-4 w-4 shrink-0 text-gold-400" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                </svg>
+                {item}
+              </span>
+            ))
+          }
+        </div>
+      </div>
+
+      <h2 class="section-heading mt-16">Available capacities</h2>
+      <p class="mt-3 text-slate-600">
+        The Daikin {model.name} is available in {model.sizes.length} capacities. Choose the one that suits your room and
+        click through for the details. The room guidance is a rule of thumb at around 2.6 m ceiling height and
+        average insulation. With a lot of glazing, high ceilings or a corner or top-floor property we advise a
+        larger capacity.
+      </p>
+      <div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          model.sizes.map((size) => (
+            <a href={`/en/brands/daikin/${model.slug}/${size.slug}`} class="group card-link flex flex-col p-6">
+              <p class="text-2xl font-bold text-brand-900">{size.kw}</p>
+              <p class="mt-2 min-h-[2.5rem] text-sm text-slate-600">{sizeRoomEn[size.slug] ?? size.room}</p>
+              <p class="mt-1 text-sm text-slate-500">{size.volume} · {size.area}</p>
+              <span class="mt-auto pt-4 text-sm font-semibold text-brand-700 transition group-hover:text-brand-900">
+                View details
+                <span aria-hidden="true" class="transition group-hover:translate-x-0.5">&rarr;</span>
+              </span>
+            </a>
+          ))
+        }
+      </div>
+
+      <div class="mt-10">
+        <a href="/en/contact" class="btn-primary inline-flex">Request a quote</a>
+      </div>
+
+      <h2 class="section-heading mt-16">Other Daikin models</h2>
+      <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          others.map((m) => (
+            <a href={`/en/brands/daikin/${m.slug}`} class="group card-link flex flex-col p-6">
+              <p class="text-xs font-semibold uppercase tracking-wider text-gold-600">{m.tier}</p>
+              <h3 class="mt-1 text-lg font-bold text-brand-900">Daikin {m.name}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">{m.intro}</p>
+              <span class="mt-auto pt-4 text-sm font-semibold text-brand-700 transition group-hover:text-brand-900">
+                View model
+                <span aria-hidden="true" class="transition group-hover:translate-x-0.5">&rarr;</span>
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CTASection
+    title={`Daikin ${model.name} laten installeren?`}
+    description={`Best Aircotechniek verzorgt advies, levering en een vakkundige montage vanaf ${site.priceFrom}. Request a free quote with no obligation.`}
+  />
+</BaseLayout>

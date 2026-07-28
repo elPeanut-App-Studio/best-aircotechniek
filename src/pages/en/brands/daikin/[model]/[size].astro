@@ -1,0 +1,197 @@
+---
+import BaseLayout from '../../../../../layouts/BaseLayout.astro';
+import CTASection from '../../../../../components/CTASection.astro';
+import { daikinModels } from '../../../../../data/daikin-products';
+import { site } from '../../../../../data/site';
+import { daikinTextEn, sharedEn, sizeRoomEn } from '../../../../../i18n/products-en';
+
+export function getStaticPaths() {
+  return daikinModels.flatMap((model) =>
+    model.sizes.map((size) => ({ params: { model: model.slug, size: size.slug }, props: { model, size } })),
+  );
+}
+
+const rawModel = Astro.props.model;
+const size = Astro.props.size;
+const roomEn = sizeRoomEn[size.slug] ?? size.room;
+const model = { ...rawModel, ...daikinTextEn[rawModel.slug] };
+
+// Data voor de client-side wisselaar (scrollpositie blijft behouden)
+const sizesData = model.sizes.map((s) => ({
+  slug: s.slug,
+  kw: s.kw,
+  koel: s.koel ?? 'On request',
+  verw: s.verw ?? 'On request',
+  volume: s.volume,
+  area: s.area,
+  room: sizeRoomEn[s.slug] ?? s.room,
+}));
+
+const rows = [
+  { icon: 'koelen', label: 'Cooling capacity (nominal)', value: size.koel ?? 'On request', id: 'val-koel' },
+  { icon: 'verwarmen', label: 'Heating capacity (nominal)', value: size.verw ?? 'On request', id: 'val-verw' },
+  { icon: 'ruimte', label: 'Suitable for', value: `Rooms up to ${size.volume}`, id: 'val-volume' },
+  { icon: 'swing', label: 'Floor area (rule of thumb)', value: size.area, id: 'val-area' },
+  { icon: 'rendement', label: 'SEER (up to) / SCOP (up to)', value: `${model.seer} / ${model.scop}` },
+  { icon: 'wifi', label: 'Controls', value: 'Remote control and Onecta app' },
+];
+
+const extra = [
+  { label: 'Model code', value: model.code },
+  { label: 'Refrigerant', value: 'R32' },
+  { label: 'Typical room', value: roomEn },
+  { label: 'Warranty', value: '5 year manufacturer warranty' },
+];
+
+const btnBase = 'size-btn rounded-xl px-5 py-2.5 font-semibold transition ';
+const btnActive = 'border-2 border-brand-700 bg-white text-brand-900 shadow-sm';
+const btnInactive = 'border border-slate-300 bg-white text-slate-700 hover:border-brand-500 hover:text-brand-900';
+---
+
+<BaseLayout
+  lang="en"
+  title={`Daikin ${model.name} ${size.kw} airco | Best Aircotechniek`}
+  description={`Daikin ${model.name} ${size.kw}: geschikt voor ${roomEn.toLowerCase()} (${size.volume}). Laten installeren vanaf ${site.priceFrom} door Best Aircotechniek.`}
+>
+  <section class="pt-8 pb-16 sm:pt-10 sm:pb-20">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <nav class="text-sm text-slate-500" aria-label="Breadcrumb">
+        <a href="/en/brands/daikin" class="hover:text-brand-700">Daikin</a>
+        <span class="px-1">/</span>
+        <a href={`/en/brands/daikin/${model.slug}`} class="hover:text-brand-700">{model.name}</a>
+        <span class="px-1">/</span>
+        <span id="crumb-size" class="text-slate-700">{size.kw}</span>
+      </nav>
+
+      <div class="mt-4">
+        <p class="text-sm font-semibold uppercase tracking-wider text-gold-600">{model.tier}</p>
+        <h1 id="page-title" class="mt-1 text-3xl font-extrabold tracking-tight text-brand-900 sm:text-4xl">
+          Daikin {model.name} {size.kw}
+        </h1>
+        <p id="page-sub" class="mt-2 text-slate-600">
+          Suitable for {roomEn.toLowerCase()} ({size.volume}).
+        </p>
+      </div>
+
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">
+        <span class="text-sm font-semibold text-slate-700">Choose your capacity</span>
+        <div class="flex flex-wrap gap-3">
+          {
+            model.sizes.map((s) => (
+              <a
+                href={`/en/brands/daikin/${model.slug}/${s.slug}`}
+                data-size={s.slug}
+                class={btnBase + (s.slug === size.slug ? btnActive : btnInactive)}
+              >
+                {s.kw}
+              </a>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="mt-8 grid gap-8 lg:grid-cols-12 lg:items-stretch">
+        <div class="panel flex min-h-[18rem] flex-col items-center justify-center gap-6 bg-gradient-to-br from-brand-50 via-white to-white p-8 lg:col-span-7">
+          <img src="/brands/daikin.svg" alt="Daikin logo" width="200" height="60" class="h-12 w-auto" />
+          <div class="text-center">
+            <p id="panel-title" class="text-3xl font-extrabold text-brand-900">{model.name} {size.kw}</p>
+            <p class="mt-4 text-sm text-slate-500">Official model code: {model.code}</p>
+          </div>
+        </div>
+
+        <div class="panel flex flex-col p-6 sm:p-8 lg:col-span-5">
+          <h2 class="section-heading">Specifications</h2>
+          <dl class="mt-6 space-y-4">
+            {
+              rows.map((r) => (
+                <div class="flex items-start gap-3">
+                  <img src={`/spec-icons/${r.icon}.png`} alt="" width="24" height="24" class="mt-0.5 h-6 w-6 shrink-0" />
+                  <div>
+                    <dt class="text-sm text-slate-500">{r.label}</dt>
+                    <dd class="font-semibold text-brand-900">
+                      <span id={r.id}>{r.value}</span>
+                    </dd>
+                  </div>
+                </div>
+              ))
+            }
+          </dl>
+          <p class="mt-6 text-sm leading-relaxed text-slate-500">
+            SEER and SCOP are the highest values within this model range. We confirm the exact values and the
+            energy label of this version in your quote, together with a capacity calculation for your room.
+          </p>
+        </div>
+      </div>
+
+      <div class="panel mt-8 p-6 sm:p-8">
+        <div class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+          <div class="min-w-0 flex-1">
+            <h3 class="text-lg font-bold text-brand-900">More features</h3>
+            <ul class="mt-4 space-y-2 text-sm">
+              {
+                extra.map((e) => (
+                  <li class="flex gap-2">
+                    <span aria-hidden="true" class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-500" />
+                    <span class="text-slate-600">
+                      <span class="font-semibold text-brand-900">{e.label}:</span>
+                      <span id={e.label === 'Typical room' ? 'val-room' : undefined}>{e.value}</span>
+                    </span>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+          <div class="shrink-0 lg:pl-8">
+            <a href="/en/contact" class="btn-primary inline-flex w-full justify-center sm:w-auto">Request a quote</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTASection
+    title={`Daikin ${model.name} laten installeren?`}
+    description={`Best Aircotechniek verzorgt advies, levering en een vakkundige montage vanaf ${site.priceFrom}. Request a free quote with no obligation.`}
+  />
+
+  <script
+    define:vars={{
+      sizesData,
+      modelSlug: model.slug,
+      modelName: model.name,
+      btnBase,
+      btnActive,
+      btnInactive,
+    }}
+  >
+    const links = Array.from(document.querySelectorAll('a[data-size]'));
+    function applySize(slug) {
+      const d = sizesData.find((s) => s.slug === slug);
+      if (!d) return;
+      const setText = (id, text) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = text;
+      };
+      setText('val-koel', d.koel);
+      setText('val-verw', d.verw);
+      setText('val-volume', 'Rooms up to ' + d.volume);
+      setText('val-area', d.area);
+      setText('val-room', ' ' + d.room);
+      setText('crumb-size', d.kw);
+      setText('page-title', 'Daikin ' + modelName + ' ' + d.kw);
+      setText('panel-title', modelName + ' ' + d.kw);
+      setText('page-sub', 'Suitable for ' + d.room.toLowerCase() + ' (' + d.volume + ').');
+      links.forEach((a) => {
+        a.className = btnBase + (a.dataset.size === slug ? btnActive : btnInactive);
+      });
+      document.title = 'Daikin ' + modelName + ' ' + d.kw + ' airco | Best Aircotechniek';
+      history.replaceState(null, '', '/en/brands/daikin/' + modelSlug + '/' + slug);
+    }
+    links.forEach((a) =>
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        applySize(a.dataset.size);
+      }),
+    );
+  </script>
+</BaseLayout>
