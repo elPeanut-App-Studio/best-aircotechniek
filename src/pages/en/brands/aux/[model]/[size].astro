@@ -1,0 +1,187 @@
+---
+import BaseLayout from '../../../../../layouts/BaseLayout.astro';
+import CTASection from '../../../../../components/CTASection.astro';
+import { auxModels, auxSizes } from '../../../../../data/aux-products';
+import { auxTextEn, sharedEn, sizeRoomEn } from '../../../../../i18n/products-en';
+
+export function getStaticPaths() {
+  return auxModels.flatMap((model) =>
+    auxSizes.map((size) => ({ params: { model: model.slug, size: size.slug }, props: { model, size } })),
+  );
+}
+
+const rawModel = Astro.props.model;
+const size = Astro.props.size;
+const roomEn = sizeRoomEn[size.slug] ?? size.room;
+const model = { ...rawModel, ...auxTextEn[rawModel.slug] };
+const ss = model.sizeSpecs[size.slug];
+
+// Per-vermogen data voor de client-side wisselaar (scrollpositie blijft behouden)
+const sizesData = auxSizes.map((s) => ({
+  slug: s.slug,
+  kw: s.kw,
+  volume: s.volume,
+  room: sizeRoomEn[s.slug] ?? s.room,
+  koel: model.sizeSpecs[s.slug].koel,
+  verw: model.sizeSpecs[s.slug].verw,
+  seer: model.sizeSpecs[s.slug].seer,
+  scop: model.sizeSpecs[s.slug].scop,
+}));
+
+// Spec rows met icoon; id op de waardes die per vermogen wisselen
+const rows = [
+  { icon: 'koelen', label: 'Cooling capacity', value: ss.koel, badge: model.labelKoelen, id: 'val-koel' },
+  { icon: 'verwarmen', label: 'Heating capacity', value: ss.verw, badge: model.labelVerwarmen, id: 'val-verw' },
+  { icon: 'wifi', label: 'Wifi', value: 'Wifi module built in' },
+  { icon: 'ruimte', label: 'Suitable for', value: `Rooms up to ${size.volume}`, id: 'val-ruimte' },
+  { icon: 'rendement', label: 'Efficiency', value: `SEER ${ss.seer} / SCOP ${ss.scop}`, id: 'val-rendement' },
+  { icon: 'swing', label: 'Airflow', value: model.specs[0].value },
+];
+
+const extra = [...model.specs.slice(1), { label: 'Warranty', value: '2 years' }];
+const btnBase = 'size-btn rounded-xl px-5 py-2.5 font-semibold transition ';
+const btnActive = 'border-2 border-brand-700 bg-white text-brand-900 shadow-sm';
+const btnInactive = 'border border-slate-300 bg-white text-slate-700 hover:border-brand-500 hover:text-brand-900';
+---
+
+<BaseLayout
+  lang="en"
+  title={`AUX ${model.name} ${size.kw} airco | Best Aircotechniek`}
+  description={`AUX ${model.name} ${size.kw}: ${ss.koel} koelen (${model.labelKoelen}), geschikt voor ${roomEn.toLowerCase()}. Laten installeren door Best Aircotechniek.`}
+>
+  <section class="pt-8 pb-16 sm:pt-10 sm:pb-20">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <nav class="text-sm text-slate-500" aria-label="Breadcrumb">
+        <a href="/en/brands/aux" class="hover:text-brand-700">AUX</a>
+        <span class="px-1">/</span>
+        <a href={`/en/brands/aux/${model.slug}`} class="hover:text-brand-700">{model.name}</a>
+        <span class="px-1">/</span>
+        <span id="crumb-size" class="text-slate-700">{size.kw}</span>
+      </nav>
+
+      <div class="mt-4">
+        <p class="text-sm font-semibold uppercase tracking-wider text-gold-600">{model.tier}</p>
+        <h1 id="page-title" class="mt-1 text-3xl font-extrabold tracking-tight text-brand-900 sm:text-4xl">
+          AUX {model.name} {size.kw}
+        </h1>
+        <p id="page-sub" class="mt-2 text-slate-600">
+          Suitable for {roomEn.toLowerCase()} ({size.volume}).
+        </p>
+      </div>
+
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">
+        <span class="text-sm font-semibold text-slate-700">Choose your capacity</span>
+        <div class="flex flex-wrap gap-3">
+          {
+            auxSizes.map((s) => (
+              <a
+                href={`/en/brands/aux/${model.slug}/${s.slug}`}
+                data-size={s.slug}
+                class={btnBase + (s.slug === size.slug ? btnActive : btnInactive)}
+              >
+                {s.kw}
+              </a>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="mt-8 grid gap-8 lg:grid-cols-12 lg:items-stretch">
+        <div class="panel relative min-h-[22rem] overflow-hidden bg-gradient-to-br from-brand-50 via-white to-white lg:col-span-7">
+          <img src={model.photo} alt={`AUX ${model.name} airconditioner`} width="900" height="900" loading="eager" class="absolute inset-0 h-full w-full object-cover" />
+        </div>
+
+        <div class="panel flex flex-col p-6 sm:p-8 lg:col-span-5">
+          <h2 class="section-heading">Specifications</h2>
+          <dl class="mt-6 space-y-4">
+            {
+              rows.map((r) => (
+                <div class="flex items-start gap-3">
+                  <img src={`/spec-icons/${r.icon}.png`} alt="" width="24" height="24" class="mt-0.5 h-6 w-6 shrink-0" />
+                  <div>
+                    <dt class="text-sm text-slate-500">{r.label}</dt>
+                    <dd class="flex items-center gap-2 font-semibold text-brand-900">
+                      <span id={r.id}>{r.value}</span>
+                      {r.badge && (
+                        <span class={`rounded px-2 py-0.5 text-xs font-bold text-white ${r.badge === 'A++' ? 'bg-[#2f9e44]' : 'bg-[#94b820]'}`}>
+                          {r.badge}
+                        </span>
+                      )}
+                    </dd>
+                  </div>
+                </div>
+              ))
+            }
+          </dl>
+        </div>
+      </div>
+
+      <div class="panel mt-8 p-6 sm:p-8">
+        <div class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+          <div class="min-w-0 flex-1">
+            <h3 class="text-lg font-bold text-brand-900">More features</h3>
+            <ul class="mt-4 space-y-2 text-sm">
+              {
+                extra.map((e) => (
+                  <li class="flex gap-2">
+                    <span aria-hidden="true" class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-500" />
+                    <span class="text-slate-600">
+                      <span class="font-semibold text-brand-900">{e.label}:</span> {e.value}
+                    </span>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+          <div class="shrink-0 lg:pl-8">
+            <a href="/en/contact" class="btn-primary inline-flex w-full justify-center sm:w-auto">Request a quote</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTASection
+    title={`AUX ${model.name} laten installeren?`}
+    description="Best Aircotechniek verzorgt advies, levering en een vakkundige montage. Request a free quote with no obligation."
+  />
+
+  <script
+    define:vars={{
+      sizesData,
+      modelSlug: model.slug,
+      modelName: model.name,
+      btnBase,
+      btnActive,
+      btnInactive,
+    }}
+  >
+    const links = Array.from(document.querySelectorAll('a[data-size]'));
+    function applySize(slug) {
+      const d = sizesData.find((s) => s.slug === slug);
+      if (!d) return;
+      const setText = (id, text) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = text;
+      };
+      setText('val-koel', d.koel);
+      setText('val-verw', d.verw);
+      setText('val-ruimte', 'Rooms up to ' + d.volume);
+      setText('val-rendement', 'SEER ' + d.seer + ' / SCOP ' + d.scop);
+      setText('crumb-size', d.kw);
+      setText('page-title', 'AUX ' + modelName + ' ' + d.kw);
+      setText('page-sub', 'Suitable for ' + d.room.toLowerCase() + ' (' + d.volume + ').');
+      links.forEach((a) => {
+        a.className = btnBase + (a.dataset.size === slug ? btnActive : btnInactive);
+      });
+      document.title = 'AUX ' + modelName + ' ' + d.kw + ' airco | Best Aircotechniek';
+      history.replaceState(null, '', '/en/brands/aux/' + modelSlug + '/' + slug);
+    }
+    links.forEach((a) =>
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        applySize(a.dataset.size);
+      }),
+    );
+  </script>
+</BaseLayout>

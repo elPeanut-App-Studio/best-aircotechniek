@@ -1,6 +1,42 @@
 import { locations } from '../data/locations';
+import { brands } from '../data/brands';
+import { auxModels, auxSizes } from '../data/aux-products';
+import { lgModels, lgSizes } from '../data/lg-products';
+import { daikinModels } from '../data/daikin-products';
 
 export type Lang = 'nl' | 'en';
+
+/**
+ * Paren voor de merk-, model- en vermogenspagina's.
+ * Nederlands staat onder /merken/..., Engels onder /en/brands/...
+ * De merk-, model- en vermogens-slugs zijn taalneutraal en blijven gelijk.
+ */
+function productPairs(): Record<string, string> {
+  const pairs: Record<string, string> = {};
+
+  for (const b of brands) {
+    pairs[`/merken/${b.slug}`] = `/en/brands/${b.slug}`;
+  }
+
+  const perBrand: { brand: string; models: readonly { slug: string }[]; sizes: readonly { slug: string }[] | null }[] = [
+    { brand: 'aux', models: auxModels, sizes: auxSizes },
+    { brand: 'lg', models: lgModels, sizes: lgSizes },
+    // Daikin heeft per model een eigen maatlijst.
+    { brand: 'daikin', models: daikinModels, sizes: null },
+  ];
+
+  for (const { brand, models, sizes } of perBrand) {
+    for (const m of models) {
+      pairs[`/merken/${brand}/${m.slug}`] = `/en/brands/${brand}/${m.slug}`;
+      const modelSizes = sizes ?? (m as { sizes?: readonly { slug: string }[] }).sizes ?? [];
+      for (const s of modelSizes) {
+        pairs[`/merken/${brand}/${m.slug}/${s.slug}`] = `/en/brands/${brand}/${m.slug}/${s.slug}`;
+      }
+    }
+  }
+
+  return pairs;
+}
 
 /**
  * Vaste paginaparen: Nederlands pad -> Engels pad.
@@ -29,6 +65,7 @@ export const routePairs: Record<string, string> = {
       `/en/air-conditioning-installation-${loc.slug}`,
     ]),
   ),
+  ...productPairs(),
 };
 
 const enToNl: Record<string, string> = Object.fromEntries(

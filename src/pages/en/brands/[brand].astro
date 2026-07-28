@@ -1,0 +1,141 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageHero from '../../../components/PageHero.astro';
+import CTASection from '../../../components/CTASection.astro';
+import { brands } from '../../../data/brands';
+import { auxModels } from '../../../data/aux-products';
+import { lgModels } from '../../../data/lg-products';
+import { daikinModels } from '../../../data/daikin-products';
+import {
+  brandTaglinesEn,
+  brandIntroEn,
+  brandModelsHeadingEn,
+  auxTextEn,
+  lgTextEn,
+  daikinTextEn,
+} from '../../../i18n/products-en';
+import { site } from '../../../data/site';
+import heroPhoto from '../../../assets/photos/page-hero-woning.jpg';
+
+export function getStaticPaths() {
+  return brands.map((b) => ({ params: { brand: b.slug }, props: { brand: b } }));
+}
+
+const { brand } = Astro.props;
+
+const rawByBrand: Record<string, readonly { slug: string; name: string; photo?: string }[]> = {
+  aux: auxModels,
+  lg: lgModels,
+  daikin: daikinModels,
+};
+const textByBrand: Record<string, Record<string, { tier: string; intro: string; specs: { label: string; value: string }[] }>> = {
+  aux: auxTextEn,
+  lg: lgTextEn,
+  daikin: daikinTextEn,
+};
+
+const raw = rawByBrand[brand.slug] ?? [];
+const text = textByBrand[brand.slug] ?? {};
+const models = raw.map((m) => ({ ...m, ...text[m.slug] }));
+
+// Welke kenmerken als bullets op de kaart komen, per merk.
+const highlightsByBrand: Record<string, string[]> = {
+  aux: ['Airflow and comfort', 'Air purification', 'Heating in extreme cold'],
+  lg: ['Air purification', 'Smart functions', 'Controls'],
+  daikin: ['Finish', 'Available in', 'Refrigerant'],
+};
+const highlightLabels = highlightsByBrand[brand.slug] ?? [];
+const tagline = brandTaglinesEn[brand.slug] ?? brand.tagline;
+---
+
+<BaseLayout
+  lang="en"
+  title={`${brand.name} air conditioning installed | Best Aircotechniek`}
+  description={`Have ${brand.name} air conditioning installed by Best Aircotechniek in Noord-Brabant, from ${site.priceFrom}. ${tagline}`}
+>
+  <PageHero title={`${brand.name} air conditioning`} description={tagline} image={heroPhoto} />
+
+  <section class="py-16 sm:py-20">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <div class="gold-accent-line"></div>
+      <h2 class="section-heading mt-6">About {brand.name}</h2>
+      {
+        models.length > 0 ? (
+          <p class="mt-4 text-lg leading-relaxed text-slate-600">{brandIntroEn[brand.slug]}</p>
+        ) : (
+          <p class="mt-4 text-lg leading-relaxed text-slate-600">
+            More information about the {brand.name} models we install will follow here shortly. Would you like
+            personal advice or a free quote now? Get in touch and we will look at which model suits your home
+            best.
+          </p>
+        )
+      }
+      <div class="mt-8 flex flex-wrap gap-4">
+        <a href="/en/contact" class="btn-primary inline-flex">Request a quote</a>
+        {
+          brand.brochure && (
+            <a href={brand.brochure} download class="btn-secondary inline-flex items-center gap-2">
+              <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+              </svg>
+              Download the {brand.name} brochure (Dutch, pdf)
+            </a>
+          )
+        }
+        <a href="/en/air-conditioning-installation" class="btn-secondary inline-flex">See installation</a>
+      </div>
+    </div>
+  </section>
+
+  {
+    models.length > 0 && (
+      <section class="border-t border-slate-200 bg-slate-50 py-16 sm:py-20">
+        <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <h2 class="section-heading">{brandModelsHeadingEn[brand.slug]}</h2>
+          <div class="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {models.map((m) => (
+              <a href={`/en/brands/${brand.slug}/${m.slug}`} class="group card-link flex flex-col p-6">
+                {
+                  m.photo ? (
+                    <img
+                      src={m.photo}
+                      alt={`${brand.name} ${m.name} air conditioner`}
+                      width="600"
+                      height="600"
+                      loading="lazy"
+                      class="mx-auto h-40 w-auto object-contain"
+                    />
+                  ) : (
+                    <span class="flex h-40 items-center justify-center rounded-xl bg-brand-50">
+                      <img src={brand.logo} alt={`${brand.name} logo`} width="160" height="48" loading="lazy" class="h-10 w-auto object-contain" />
+                    </span>
+                  )
+                }
+                <p class="mt-4 text-xs font-semibold uppercase tracking-wider text-gold-600">{m.tier}</p>
+                <h3 class="mt-1 text-xl font-bold text-brand-900">{brand.name} {m.name}</h3>
+                <p class="mt-2 leading-relaxed text-slate-600">{m.intro}</p>
+                <ul class="mt-4 space-y-2 text-sm">
+                  {highlightLabels.map((label) => {
+                    const spec = m.specs?.find((s) => s.label === label);
+                    return (
+                      <li class="flex gap-2">
+                        <span aria-hidden="true" class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-500" />
+                        <span class="text-slate-600">{spec?.value}</span>
+                      </li>
+                    );
+                  })}
+                </ul>
+                <span class="mt-auto pt-5 text-sm font-semibold text-brand-700 transition group-hover:text-brand-900">
+                  View model
+                  <span aria-hidden="true" class="transition group-hover:translate-x-0.5">&rarr;</span>
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <CTASection lang="en" />
+</BaseLayout>
