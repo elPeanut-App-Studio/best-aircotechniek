@@ -18,6 +18,7 @@
 - Klantreviews worden **niet vertaald**. Alleen de omliggende interfacetekst wordt Engels.
 - Geen em-dashes in de teksten op de site.
 - Alle nieuwe Engelse pagina's gebruiken `lang="en"` op `BaseLayout`.
+- Astro zet de drie hreflang-tags op **één regel**. Tel dus met `grep -o ... | wc -l` en niet met `grep -c`, anders lijkt het resultaat altijd 1.
 
 ---
 
@@ -44,7 +45,7 @@ Er bestaat nog geen hreflang. Leg de check vast die straks moet slagen:
 ```bash
 cd /Users/drerrie/.claude/jobs/cfe46854/tmp/best-aircotechniek
 npm run build >/dev/null 2>&1
-grep -c 'hreflang' dist/index.html
+grep -o 'rel="alternate" hreflang' dist/index.html | wc -l
 ```
 
 Verwacht nu: `0`
@@ -173,7 +174,7 @@ Voeg direct na de bestaande `<link rel="canonical" ... />` toe:
 
 ```bash
 npm run build >/dev/null 2>&1 && echo BUILD_OK
-echo "hreflang op home: $(grep -c 'hreflang' dist/index.html)"
+echo "hreflang op home: $(grep -o 'rel="alternate" hreflang' dist/index.html | wc -l)"
 grep -oE '<link rel="alternate" hreflang="[a-z-]+" href="[^"]*"' dist/index.html
 echo "html lang: $(grep -oE '<html lang="[a-z]+"' dist/index.html)"
 echo "merkpagina zonder paar (moet 0 zijn): $(grep -c 'hreflang' dist/merken/aux/index.html)"
