@@ -1,6 +1,17 @@
 ---
-import { site, nav, dienstenNav } from '../data/site';
+import { site } from '../data/site';
 import Logo from './Logo.astro';
+import type { Lang } from '../i18n/routes';
+import { navFor, dienstenNavFor, t } from '../i18n/ui';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'nl' } = Astro.props;
+const nav = navFor(lang);
+const dienstenNav = dienstenNavFor(lang);
+const strings = t(lang);
 ---
 
 <footer class="border-t-4 border-gold-500 bg-brand-950 text-slate-300">
@@ -11,10 +22,10 @@ import Logo from './Logo.astro';
           <Logo size="md" />
           <div>
             <p class="font-bold uppercase tracking-wide text-white">{site.name}</p>
-            <p class="text-sm font-medium text-gold-400">{site.slogan}</p>
+            <p class="text-sm font-medium text-gold-400">{strings.slogan}</p>
           </div>
         </div>
-        <p class="mt-4 text-sm leading-relaxed text-slate-400">{site.description}</p>
+        <p class="mt-4 text-sm leading-relaxed text-slate-400">{strings.siteDescription}</p>
         <div class="mt-5 flex gap-3">
           <a
             href={site.instagram}
@@ -31,7 +42,7 @@ import Logo from './Logo.astro';
       </div>
 
       <div>
-        <h2 class="mb-4 text-sm font-semibold uppercase tracking-wider text-gold-400">Navigatie</h2>
+        <h2 class="mb-4 text-sm font-semibold uppercase tracking-wider text-gold-400">{strings.navigationHeading}</h2>
         <ul class="space-y-2 text-sm">
           {
             nav.map((item) => (
@@ -46,7 +57,7 @@ import Logo from './Logo.astro';
       </div>
 
       <div>
-        <h2 class="mb-4 text-sm font-semibold uppercase tracking-wider text-gold-400">Diensten</h2>
+        <h2 class="mb-4 text-sm font-semibold uppercase tracking-wider text-gold-400">{strings.servicesHeading}</h2>
         <ul class="space-y-2 text-sm">
           {
             dienstenNav.map((item) => (
@@ -61,7 +72,7 @@ import Logo from './Logo.astro';
       </div>
 
       <div>
-        <h2 class="mb-4 text-sm font-semibold uppercase tracking-wider text-gold-400">Contact</h2>
+        <h2 class="mb-4 text-sm font-semibold uppercase tracking-wider text-gold-400">{strings.contactHeading}</h2>
         <ul class="space-y-2 text-sm">
           <li>
             <a href={`tel:${site.phoneHref}`} class="transition hover:text-gold-300">{site.phone}</a>
@@ -69,7 +80,7 @@ import Logo from './Logo.astro';
           <li>
             <a href={`mailto:${site.email}`} class="transition hover:text-gold-300">{site.email}</a>
           </li>
-          <li class="text-slate-400">Werkgebied: {site.region}</li>
+          <li class="text-slate-400">{strings.serviceAreaLabel}: {site.region}</li>
           <li class="text-slate-400">KVK: {site.kvk}</li>
           <li class="text-slate-400">Btw-id: {site.btwId}</li>
         </ul>
@@ -77,7 +88,7 @@ import Logo from './Logo.astro';
     </div>
 
     <div class="mt-10 flex flex-col items-center gap-1 border-t border-brand-800 pt-6 text-center text-sm text-slate-500">
-      <p>&copy; {new Date().getFullYear()} {site.name}. {site.slogan}.</p>
+      <p>&copy; {new Date().getFullYear()} {site.name}. {strings.slogan}.</p>
       <p>Website door elPeanut App Studio</p>
     </div>
   </div>
