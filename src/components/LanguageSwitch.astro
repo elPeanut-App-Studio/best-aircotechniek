@@ -1,0 +1,63 @@
+---
+import type { Lang } from '../i18n/routes';
+
+interface Props {
+  /** Taal van de huidige pagina. */
+  lang: Lang;
+  /** Pad naar de tegenhanger in de andere taal. */
+  otherHref: string;
+  /** Extra klassen voor plaatsing. */
+  class?: string;
+}
+
+const { lang, otherHref, class: className = '' } = Astro.props;
+
+// Vlaggen als inline SVG in plaats van emoji: emoji rendert per besturingssysteem
+// anders en op Windows vaak helemaal niet als vlag.
+const flags = {
+  nl: {
+    label: 'Nederlands',
+    svg: `<rect width="20" height="4.67" y="0" fill="#AE1C28"/><rect width="20" height="4.66" y="4.67" fill="#FFFFFF"/><rect width="20" height="4.67" y="9.33" fill="#21468B"/>`,
+  },
+  en: {
+    label: 'English',
+    svg: `<rect width="20" height="14" fill="#012169"/><path d="M0 0l20 14M20 0L0 14" stroke="#FFFFFF" stroke-width="2.8"/><path d="M0 0l20 14M20 0L0 14" stroke="#C8102E" stroke-width="1.6"/><path d="M10 0v14M0 7h20" stroke="#FFFFFF" stroke-width="4.6"/><path d="M10 0v14M0 7h20" stroke="#C8102E" stroke-width="2.8"/>`,
+  },
+} as const;
+
+const order: Lang[] = ['nl', 'en'];
+---
+
+<div class:list={['flex items-center gap-1.5', className]}>
+  {
+    order.map((l) => {
+      const active = l === lang;
+      const f = flags[l];
+      const aria = active
+        ? `${f.label}, huidige taal`
+        : l === 'en'
+          ? 'Switch to English'
+          : 'Schakel naar Nederlands';
+      return active ? (
+        <span
+          aria-current="true"
+          aria-label={aria}
+          title={f.label}
+          class="inline-flex overflow-hidden rounded-[3px] ring-2 ring-gold-500"
+        >
+          <svg width="22" height="15" viewBox="0 0 20 14" aria-hidden="true" set:html={f.svg} />
+        </span>
+      ) : (
+        <a
+          href={otherHref}
+          hreflang={l}
+          aria-label={aria}
+          title={f.label}
+          class="inline-flex overflow-hidden rounded-[3px] opacity-45 ring-1 ring-slate-300 transition hover:opacity-100 hover:ring-slate-400"
+        >
+          <svg width="22" height="15" viewBox="0 0 20 14" aria-hidden="true" set:html={f.svg} />
+        </a>
+      );
+    })
+  }
+</div>

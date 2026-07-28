@@ -116,14 +116,13 @@ const approach = [
     <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
       <h2 class="section-heading">Brands we install in {loc.city}</h2>
       <p class="section-subheading">
-        We are an installer for Daikin, LG and AUX. The detailed model pages are in Dutch, but we are happy to
-        walk you through the options in English.
+        We are an installer for Daikin, LG and AUX. View the models and specifications per brand.
       </p>
       <div class="mt-8 grid gap-6 sm:grid-cols-3">
         {
           brands.map((b) => (
             <a
-              href={`/merken/${b.slug}`}
+              href={`/en/brands/${b.slug}`}
               class="flex flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:border-gold-400 hover:shadow-md"
             >
               <span class="text-lg font-bold text-brand-900">{b.name} in {loc.city}</span>
