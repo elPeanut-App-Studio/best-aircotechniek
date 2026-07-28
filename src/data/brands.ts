@@ -6,6 +6,7 @@ export const brands = [
     logo: '/brands/daikin.svg',
     tagline: 'Wereldwijd marktleider in klimaatbeheersing, bekend om betrouwbaarheid en zuinigheid.',
     brochure: null,
+    brochureEn: null,
   },
   {
     slug: 'lg',
@@ -13,6 +14,7 @@ export const brands = [
     logo: '/brands/lg.svg',
     tagline: 'Moderne airconditioning met slimme bediening en een strak design.',
     brochure: '/lg-airco-brochure.pdf',
+    brochureEn: '/lg-airco-brochure-en.pdf',
   },
   {
     slug: 'aux',
@@ -20,5 +22,6 @@ export const brands = [
     logo: '/brands/aux.png',
     tagline: 'Veel comfort voor een scherpe prijs, met een uitstekende prijs-kwaliteitverhouding.',
     brochure: '/aux-airco-brochure.pdf',
+    brochureEn: '/aux-airco-brochure-en.pdf',
   },
 ] as const;
