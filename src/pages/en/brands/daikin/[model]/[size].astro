@@ -28,6 +28,8 @@ const sizesData = model.sizes.map((s) => ({
   volume: num(s.volume),
   area: num(s.area),
   room: sizeRoomEn[s.slug] ?? s.room,
+  seer: daikinEfficiency[rawModel.slug]?.[s.slug] ? num(daikinEfficiency[rawModel.slug][s.slug].seer) : '',
+  scop: daikinEfficiency[rawModel.slug]?.[s.slug] ? num(daikinEfficiency[rawModel.slug][s.slug].scop) : '',
   labelKoelen: daikinEfficiency[rawModel.slug]?.[s.slug] ? coolingLabel(daikinEfficiency[rawModel.slug][s.slug].seer) : '',
   labelVerwarmen: daikinEfficiency[rawModel.slug]?.[s.slug] ? heatingLabel(daikinEfficiency[rawModel.slug][s.slug].scop) : '',
 }));
@@ -37,7 +39,7 @@ const rows = [
   { icon: 'verwarmen', label: 'Heating capacity (nominal)', value: num(size.verw) || 'On request', badge: labelVerwarmen, badgeId: 'val-label-verwarmen', id: 'val-verw' },
   { icon: 'ruimte', label: 'Suitable for', value: `Rooms up to ${num(size.volume)}`, id: 'val-volume' },
   { icon: 'swing', label: 'Floor area (rule of thumb)', value: num(size.area), id: 'val-area' },
-  { icon: 'rendement', label: 'SEER / SCOP', value: eff ? `${num(eff.seer)} / ${num(eff.scop)}` : `${num(model.seer)} / ${num(model.scop)}` },
+  { icon: 'rendement', label: 'SEER / SCOP', value: eff ? `${num(eff.seer)} / ${num(eff.scop)}` : `${num(model.seer)} / ${num(model.scop)}`, id: 'val-rendement' },
   { icon: 'wifi', label: 'Controls', value: 'Remote control and Onecta app' },
 ];
 
@@ -200,6 +202,7 @@ const btnInactive = 'border border-slate-300 bg-white text-slate-700 hover:borde
         el.className = 'rounded px-2 py-0.5 text-xs font-bold text-white ' +
           (v === 'A+++' ? 'bg-[#00a651]' : v === 'A++' ? 'bg-[#2f9e44]' : 'bg-[#94b820]');
       };
+      if (d.seer && d.scop) setText('val-rendement', d.seer + ' / ' + d.scop);
       paint('val-label-koelen', d.labelKoelen);
       paint('val-label-verwarmen', d.labelVerwarmen);
       setText('crumb-size', d.kw);
