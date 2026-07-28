@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import CTASection from '../../../../components/CTASection.astro';
-import { lgModels, lgSizes } from '../../../../data/lg-products';
+import { lgModels, lgSizes, lgTypeCodes } from '../../../../data/lg-products';
 import { site } from '../../../../data/site';
 
 export function getStaticPaths() {
@@ -36,7 +36,10 @@ const rows = [
   { icon: 'wifi', label: 'Bediening', value: 'Afstandsbediening en LG ThinQ-app' },
 ];
 
+const typeCode = lgTypeCodes[model.slug]?.[size.slug];
+
 const extra = [
+  ...(typeCode ? [{ label: 'Typeaanduiding', value: typeCode }] : []),
   { label: 'Slimme functies', value: model.specs[1].value },
   { label: 'Uitvoering', value: model.specs[3].value },
   { label: 'Koudemiddel', value: 'R32' },
