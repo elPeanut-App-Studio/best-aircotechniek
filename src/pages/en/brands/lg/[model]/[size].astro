@@ -23,6 +23,7 @@ const sizesData = lgSizes.map((s) => ({
   volume: num(s.volume),
   area: num(s.area),
   room: sizeRoomEn[s.slug] ?? s.room,
+  typeCode: lgTypeCodes[rawModel.slug]?.[s.slug] ?? '',
 }));
 
 /*
@@ -98,15 +99,21 @@ const btnInactive = 'border border-slate-300 bg-white text-slate-700 hover:borde
       </div>
 
       <div class="mt-8 grid gap-8 lg:grid-cols-12 lg:items-stretch">
-        <div class="panel relative min-h-[22rem] overflow-hidden bg-gradient-to-br from-brand-50 via-white to-white lg:col-span-7">
+        <div class="panel flex min-h-[22rem] flex-col items-center justify-center gap-5 bg-gradient-to-br from-brand-50 via-white to-white p-8 lg:col-span-7">
           <img
             src={model.photo}
             alt={`LG ${model.name} air conditioner with indoor unit, outdoor unit and remote control`}
             width="650"
             height="650"
             loading="eager"
-            class="absolute inset-0 h-full w-full object-contain p-6"
+            class="w-full max-w-[26rem] object-contain"
           />
+          <div class="text-center">
+            <p id="panel-title" class="text-3xl font-extrabold text-brand-900">{model.name} {num(size.kw)}</p>
+            {typeCode && (
+              <p class="mt-4 text-sm text-slate-500">Official model code: <span id="panel-code">{typeCode}</span></p>
+            )}
+          </div>
         </div>
 
         <div class="panel flex flex-col p-6 sm:p-8 lg:col-span-5">
@@ -198,6 +205,8 @@ const btnInactive = 'border border-slate-300 bg-white text-slate-700 hover:borde
       setText('val-volume', 'Rooms up to ' + d.volume);
       setText('val-area', d.area);
       setText('val-room', d.room);
+      setText('panel-title', modelName + ' ' + d.kw);
+      if (d.typeCode) setText('panel-code', d.typeCode);
       setText('crumb-size', d.kw);
       setText('page-title', 'LG ' + modelName + ' ' + d.kw);
       setText('page-sub', 'Suitable for ' + d.room.toLowerCase() + ' (' + d.volume + ').');
