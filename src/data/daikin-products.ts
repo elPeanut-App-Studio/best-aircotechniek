@@ -141,7 +141,7 @@ export const daikinModels: DaikinModel[] = [
     name: 'Comfora',
     code: 'FTXP-M',
     tier: 'Basiscomfort',
-    intro: 'Comfortabel en zuinig, met een fluisterstille stand vanaf 19 dB(A).',
+    intro: 'Comfortabel en zuinig, met een fluisterstille nachtstand.',
     photo: '/daikin/comfora.jpg',
     seer: '7,30',
     scop: '4,65',
@@ -169,7 +169,7 @@ export const daikinModels: DaikinModel[] = [
     code: 'FTXM-R',
     tier: 'Meest gekozen',
     intro:
-      'Het populairste model: zeer zuinig, fluisterstil vanaf 19 dB(A) en met luchtzuivering.',
+      'Het populairste model: zeer zuinig, stil en met luchtzuivering.',
     photo: '/daikin/perfera.jpg',
     seer: '8,65',
     scop: '5,10',

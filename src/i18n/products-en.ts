@@ -139,7 +139,7 @@ export const daikinTextEn: Record<string, ModelText> = {
   },
   comfora: {
     tier: 'Basic comfort',
-    intro: 'Comfortable and efficient, with a whisper-quiet mode from 19 dB(A).',
+    intro: 'Comfortable and efficient, with a whisper-quiet night mode.',
     specs: [
       { label: 'Sound level (quiet mode)', value: 'From 19 dB(A)' },
       { label: 'Finish', value: 'White' },
@@ -151,7 +151,7 @@ export const daikinTextEn: Record<string, ModelText> = {
   perfera: {
     tier: 'Most chosen',
     intro:
-      'The most popular model: very efficient, whisper-quiet from 19 dB(A) and with air purification.',
+      'The most popular model: very efficient, quiet and with air purification.',
     specs: [
       { label: 'Energy label', value: 'Up to A+++ for cooling and heating' },
       { label: 'Sound level (quiet mode)', value: 'From 19 dB(A)' },
