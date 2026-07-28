@@ -14,7 +14,7 @@ export const auxSizes = [
 
 export const auxShared = [
   'Warmtepomp: koelen én verwarmen',
-  'WiFi + app (bediening op afstand)',
+  'Afstandsbediening + WiFi en app',
   'R32-koudemiddel',
   '2 jaar garantie',
 ] as const;

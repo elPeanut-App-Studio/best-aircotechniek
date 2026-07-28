@@ -87,7 +87,8 @@ export type DaikinModel = {
 export const daikinShared = [
   'Warmtepomp: koelen én verwarmen',
   'R32-koudemiddel',
-  'Bediening via de Daikin Onecta-app',
+  'Afstandsbediening meegeleverd',
+  'Ook te bedienen met de Onecta-app',
   '5 jaar fabrieksgarantie',
 ] as const;
 
