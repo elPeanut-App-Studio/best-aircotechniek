@@ -22,7 +22,7 @@ export const lgSizes = [
 export const lgShared = [
   'Warmtepomp: koelen én verwarmen',
   'Zuinig tot label A+++',
-  'Wifi + app (LG ThinQ)',
+  'Afstandsbediening + app (LG ThinQ)',
   'R32-koudemiddel',
   '5 jaar fabrieksgarantie',
 ] as const;
@@ -58,7 +58,7 @@ export const lgModels: LgModel[] = [
       { label: 'Slimme functies', value: 'Auto Clean, slaapstand vanaf 19 dB(A)' },
       { label: 'Slim comfort', value: 'Standaard' },
       { label: 'Uitvoering', value: 'Wit' },
-      { label: 'Bediening', value: 'WiFi + LG ThinQ-app' },
+      { label: 'Bediening', value: 'Afstandsbediening en LG ThinQ-app' },
     ],
   },
   {
@@ -76,7 +76,7 @@ export const lgModels: LgModel[] = [
       { label: 'Slimme functies', value: 'AI Air mode, kW Manager' },
       { label: 'Slim comfort', value: 'AI Air mode' },
       { label: 'Uitvoering', value: 'Wit' },
-      { label: 'Bediening', value: 'WiFi + LG ThinQ-app' },
+      { label: 'Bediening', value: 'Afstandsbediening en LG ThinQ-app' },
     ],
   },
   {
@@ -94,7 +94,7 @@ export const lgModels: LgModel[] = [
       { label: 'Slimme functies', value: 'Soft Air, Dual Vane' },
       { label: 'Slim comfort', value: 'Soft Air' },
       { label: 'Uitvoering', value: 'Wit' },
-      { label: 'Bediening', value: 'WiFi + LG ThinQ-app' },
+      { label: 'Bediening', value: 'Afstandsbediening en LG ThinQ-app' },
     ],
   },
   {
@@ -112,7 +112,7 @@ export const lgModels: LgModel[] = [
       { label: 'Slimme functies', value: 'Human sensor, Dual Vane, Jet Cool' },
       { label: 'Slim comfort', value: 'Sensor' },
       { label: 'Uitvoering', value: 'Wit of zwart' },
-      { label: 'Bediening', value: 'WiFi + LG ThinQ-app' },
+      { label: 'Bediening', value: 'Afstandsbediening en LG ThinQ-app' },
     ],
   },
 ];
