@@ -2,7 +2,7 @@
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import PageHero from '../../../../components/PageHero.astro';
 import CTASection from '../../../../components/CTASection.astro';
-import { daikinModels, daikinShared } from '../../../../data/daikin-products';
+import { daikinModels, daikinShared, bestLabels } from '../../../../data/daikin-products';
 import { site } from '../../../../data/site';
 import pageHeroPhoto from '../../../../assets/photos/page-hero-woning.jpg';
 import { daikinTextEn, sharedEn, sizeRoomEn, num } from '../../../../i18n/products-en';
@@ -13,6 +13,7 @@ export function getStaticPaths() {
 
 const rawModel = Astro.props.model;
 const model = { ...rawModel, ...daikinTextEn[rawModel.slug] };
+const labels = bestLabels(rawModel.slug);
 const others = daikinModels
   .filter((m) => m.slug !== rawModel.slug)
   .map((m) => ({ ...m, ...daikinTextEn[m.slug] }));
@@ -60,6 +61,18 @@ const specIcons = ['rendement', 'swing', 'luchtzuivering', 'zelfreiniging', 'rui
                 <dd class="font-semibold text-brand-900">{num(model.seer)} / {num(model.scop)}</dd>
               </div>
             </div>
+            {labels && (
+              <div class="flex items-start gap-3">
+                <img src="/spec-icons/verwarmen.png" alt="" width="24" height="24" class="mt-0.5 h-6 w-6 shrink-0" />
+                <div>
+                  <dt class="text-sm text-slate-500">Energy label (up to) cooling / heating</dt>
+                  <dd class="flex items-center gap-2 font-semibold text-brand-900">
+                    <span class:list={['rounded px-2 py-0.5 text-xs font-bold text-white', labels.koelen === 'A+++' ? 'bg-[#00a651]' : labels.koelen === 'A++' ? 'bg-[#2f9e44]' : 'bg-[#94b820]']}>{labels.koelen}</span>
+                    <span class:list={['rounded px-2 py-0.5 text-xs font-bold text-white', labels.verwarmen === 'A+++' ? 'bg-[#00a651]' : labels.verwarmen === 'A++' ? 'bg-[#2f9e44]' : 'bg-[#94b820]']}>{labels.verwarmen}</span>
+                  </dd>
+                </div>
+              </div>
+            )}
             {
               model.specs.map((s, i) => (
                 <div class="flex items-start gap-3">
