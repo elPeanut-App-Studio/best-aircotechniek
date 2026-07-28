@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import CTASection from '../../../../components/CTASection.astro';
-import { daikinModels } from '../../../../data/daikin-products';
+import { daikinModels, daikinEfficiency } from '../../../../data/daikin-products';
 import { site } from '../../../../data/site';
 
 export function getStaticPaths() {
@@ -11,6 +11,7 @@ export function getStaticPaths() {
 }
 
 const { model, size } = Astro.props;
+const eff = daikinEfficiency[model.slug]?.[size.slug];
 
 // Data voor de client-side wisselaar (scrollpositie blijft behouden)
 const sizesData = model.sizes.map((s) => ({
@@ -28,7 +29,7 @@ const rows = [
   { icon: 'verwarmen', label: 'Verwarmingsvermogen (nominaal)', value: size.verw ?? 'Op aanvraag', id: 'val-verw' },
   { icon: 'ruimte', label: 'Geschikt voor', value: `Ruimtes tot ${size.volume}`, id: 'val-volume' },
   { icon: 'swing', label: 'Vloeroppervlak (vuistregel)', value: size.area, id: 'val-area' },
-  { icon: 'rendement', label: 'SEER (tot) / SCOP (tot)', value: `${model.seer} / ${model.scop}` },
+  { icon: 'rendement', label: 'SEER / SCOP', value: eff ? `${eff.seer} / ${eff.scop}` : `${model.seer} / ${model.scop}` },
   { icon: 'wifi', label: 'Bediening', value: 'Afstandsbediening en Onecta-app' },
 ];
 
@@ -118,10 +119,6 @@ const btnInactive = 'border border-slate-300 bg-white text-slate-700 hover:borde
               ))
             }
           </dl>
-          <p class="mt-6 text-sm leading-relaxed text-slate-500">
-            SEER en SCOP zijn de hoogste waarden binnen dit modelbereik. Wij bevestigen de exacte waarden en het
-            energielabel van deze uitvoering in uw offerte, samen met een capaciteitsberekening voor uw ruimte.
-          </p>
         </div>
       </div>
 

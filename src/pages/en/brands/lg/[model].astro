@@ -5,7 +5,7 @@ import CTASection from '../../../../components/CTASection.astro';
 import { lgModels, lgSizes, lgShared } from '../../../../data/lg-products';
 import { site } from '../../../../data/site';
 import pageHeroPhoto from '../../../../assets/photos/page-hero-woning.jpg';
-import { lgTextEn, sharedEn, sizeRoomEn } from '../../../../i18n/products-en';
+import { lgTextEn, sharedEn, sizeRoomEn, num } from '../../../../i18n/products-en';
 
 export function getStaticPaths() {
   return lgModels.map((model) => ({ params: { model: model.slug }, props: { model } }));
@@ -23,7 +23,7 @@ const others = lgModels
 
 <BaseLayout
   lang="en"
-  title={`LG ${model.name} airco laten installeren | Best Aircotechniek`}
+  title={`LG ${model.name} air conditioning installed | Best Aircotechniek`}
   description={`LG ${model.name}: ${model.intro} SEER tot ${model.seer}, energielabel ${model.labelKoelen}. Laten installeren vanaf ${site.priceFrom} door Best Aircotechniek.`}
 >
   <PageHero title={`LG ${model.name}`} description={model.intro} image={pageHeroPhoto} />
@@ -40,7 +40,7 @@ const others = lgModels
         <div class="panel relative min-h-[22rem] overflow-hidden bg-gradient-to-br from-brand-50 via-white to-white lg:col-span-7">
           <img
             src={model.photo}
-            alt={`LG ${model.name} airconditioner met binnenunit, buitenunit en afstandsbediening`}
+            alt={`LG ${model.name} air conditioner with indoor unit, outdoor unit and remote control`}
             width="650"
             height="650"
             loading="eager"
@@ -55,7 +55,7 @@ const others = lgModels
               <img src="/spec-icons/rendement.png" alt="" width="24" height="24" class="mt-0.5 h-6 w-6 shrink-0" />
               <div>
                 <dt class="text-sm text-slate-500">SEER (up to) / SCOP</dt>
-                <dd class="font-semibold text-brand-900">{model.seer} / {model.scop}</dd>
+                <dd class="font-semibold text-brand-900">{num(model.seer)} / {num(model.scop)}</dd>
               </div>
             </div>
             <div class="flex items-start gap-3">
@@ -118,9 +118,9 @@ const others = lgModels
         {
           lgSizes.map((size) => (
             <a href={`/en/brands/lg/${model.slug}/${size.slug}`} class="group card-link flex flex-col p-6">
-              <p class="text-2xl font-bold text-brand-900">{size.kw}</p>
+              <p class="text-2xl font-bold text-brand-900">{num(size.kw)}</p>
               <p class="mt-2 min-h-[2.5rem] text-sm text-slate-600">{sizeRoomEn[size.slug] ?? size.room}</p>
-              <p class="mt-1 text-sm text-slate-500">{size.volume} · {size.area}</p>
+              <p class="mt-1 text-sm text-slate-500">{num(size.volume)} · {num(size.area)}</p>
               <span class="mt-auto pt-4 text-sm font-semibold text-brand-700 transition group-hover:text-brand-900">
                 View details
                 <span aria-hidden="true" class="transition group-hover:translate-x-0.5">&rarr;</span>

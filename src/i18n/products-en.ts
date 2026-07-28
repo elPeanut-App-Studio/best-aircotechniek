@@ -223,3 +223,12 @@ export const sizeRoomEn: Record<string, string> = {
   '7-0-kw': 'Very large or high-ceilinged room',
   '7-1-kw': 'Very large or high-ceilinged room',
 };
+
+/**
+ * Zet een Nederlandse decimale komma om naar een punt, voor getallen op de
+ * Engelse pagina's ("3,40 kW" -> "3.40 kW"). Vervangt alleen komma's TUSSEN
+ * cijfers, zodat opsommingen als "Daikin, LG and AUX" ongemoeid blijven.
+ */
+export function num(value?: string): string {
+  return (value ?? '').replace(/(\d),(\d)/g, '$1.$2');
+}

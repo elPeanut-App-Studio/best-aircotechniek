@@ -239,6 +239,53 @@ export const daikinModels: DaikinModel[] = [
   },
 ];
 
+/**
+ * SEER en SCOP per uitvoering, uit de per-capaciteit tabellen van de officiële
+ * Daikin installateurscatalogus (ECPEN22-000). Waar de catalogus één waarde
+ * over meerdere capaciteiten samenvoegt, geldt die waarde voor elk van die
+ * capaciteiten; dat is uitgelezen aan de hand van de kolomposities in de tabel.
+ */
+export const daikinEfficiency: Record<string, Record<string, { seer: string; scop: string }>> = {
+  sensira: {
+    '2-0-kw': { seer: '6,50', scop: '4,11' },
+    '2-5-kw': { seer: '6,50', scop: '4,11' },
+    '3-5-kw': { seer: '6,50', scop: '4,11' },
+    '5-0-kw': { seer: '6,21', scop: '4,06' },
+    '6-0-kw': { seer: '6,15', scop: '4,06' },
+  },
+  comfora: {
+    '2-0-kw': { seer: '6,79', scop: '4,65' },
+    '2-5-kw': { seer: '6,92', scop: '4,61' },
+    '3-5-kw': { seer: '6,62', scop: '4,64' },
+    '5-0-kw': { seer: '7,30', scop: '4,40' },
+    '6-0-kw': { seer: '6,82', scop: '4,10' },
+    '7-1-kw': { seer: '6,20', scop: '4,01' },
+  },
+  perfera: {
+    '2-0-kw': { seer: '8,65', scop: '5,10' },
+    '2-5-kw': { seer: '8,65', scop: '5,10' },
+    '3-5-kw': { seer: '8,65', scop: '5,10' },
+    '4-2-kw': { seer: '7,85', scop: '4,71' },
+    '5-0-kw': { seer: '7,41', scop: '4,71' },
+    '6-0-kw': { seer: '6,90', scop: '4,30' },
+    '7-1-kw': { seer: '6,20', scop: '4,10' },
+  },
+  stylish: {
+    '2-0-kw': { seer: '8,75', scop: '5,15' },
+    '2-5-kw': { seer: '8,74', scop: '5,15' },
+    '3-5-kw': { seer: '8,73', scop: '5,15' },
+    '4-2-kw': { seer: '7,50', scop: '4,60' },
+    '5-0-kw': { seer: '7,33', scop: '4,60' },
+  },
+  emura: {
+    '2-0-kw': { seer: '8,75', scop: '5,15' },
+    '2-5-kw': { seer: '8,74', scop: '5,15' },
+    '3-5-kw': { seer: '8,73', scop: '5,15' },
+    '4-2-kw': { seer: '7,50', scop: '4,60' },
+    '5-0-kw': { seer: '7,33', scop: '4,60' },
+  },
+};
+
 export function getDaikinModel(slug: string): DaikinModel | undefined {
   return daikinModels.find((m) => m.slug === slug);
 }
