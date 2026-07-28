@@ -5,6 +5,7 @@ import CTASection from '../../components/CTASection.astro';
 import { brands } from '../../data/brands';
 import { auxModels } from '../../data/aux-products';
 import { lgModels } from '../../data/lg-products';
+import { daikinModels } from '../../data/daikin-products';
 import heroPhoto from '../../assets/photos/page-hero-woning.jpg';
 
 export function getStaticPaths() {
@@ -12,22 +13,33 @@ export function getStaticPaths() {
 }
 
 const { brand } = Astro.props;
-const models =
-  brand.slug === 'aux' ? auxModels : brand.slug === 'lg' ? lgModels : [];
+const modelsByBrand: Record<string, any[]> = {
+  aux: auxModels,
+  lg: lgModels,
+  daikin: daikinModels,
+};
+const models = modelsByBrand[brand.slug] ?? [];
 
 // Welke kenmerken als bullets op de modelkaart komen, per merk (labels verschillen).
 const highlightsByBrand: Record<string, string[]> = {
   aux: ['Luchtstroom & comfort', 'Luchtzuivering', 'Verwarmen bij extreme kou'],
   lg: ['Luchtreiniging', 'Slimme functies', 'Bediening'],
+  daikin: ['Uitvoering', 'Beschikbaar in', 'Koudemiddel'],
 };
 const highlightLabels = highlightsByBrand[brand.slug] ?? [];
 
 const intros: Record<string, string> = {
   aux: 'AUX biedt drie series, elk met eigen kenmerken en comfort. Hieronder vindt u per model de belangrijkste functies. Klik door voor de beschikbare vermogens en alle specificaties.',
   lg: 'LG biedt vier wandmodellen, van een voordelig instapmodel tot het zuinigste topmodel. Ze koelen en verwarmen allemaal, werken op R32 en hebben wifi ingebouwd. Hieronder vindt u per model de belangrijkste kenmerken.',
+  daikin:
+    'Daikin biedt vijf wandmodellen, van het voordelige instapmodel Sensira tot de designmodellen Stylish en Emura. Ze koelen en verwarmen allemaal, werken op R32 en zijn te bedienen met de Onecta-app. Hieronder vindt u per model de belangrijkste kenmerken en de beschikbare vermogens.',
 };
-const modelsHeading =
-  brand.slug === 'lg' ? 'De vier LG-modellen' : `De drie ${brand.name}-series`;
+const modelsHeadings: Record<string, string> = {
+  aux: 'De drie AUX-series',
+  lg: 'De vier LG-modellen',
+  daikin: 'De vijf Daikin-modellen',
+};
+const modelsHeading = modelsHeadings[brand.slug] ?? `De ${brand.name}-modellen`;
 ---
 
 <BaseLayout
@@ -79,14 +91,22 @@ const modelsHeading =
                 href={`/merken/${brand.slug}/${m.slug}`}
                 class="group card-link flex flex-col p-6"
               >
-                <img
-                  src={m.photo}
-                  alt={`${brand.name} ${m.name} airconditioner`}
-                  width="600"
-                  height="600"
-                  loading="lazy"
-                  class="mx-auto h-40 w-auto object-contain"
-                />
+                {
+                  m.photo ? (
+                    <img
+                      src={m.photo}
+                      alt={`${brand.name} ${m.name} airconditioner`}
+                      width="600"
+                      height="600"
+                      loading="lazy"
+                      class="mx-auto h-40 w-auto object-contain"
+                    />
+                  ) : (
+                    <span class="flex h-40 items-center justify-center rounded-xl bg-brand-50">
+                      <img src={brand.logo} alt={`${brand.name} logo`} width="160" height="48" loading="lazy" class="h-10 w-auto object-contain" />
+                    </span>
+                  )
+                }
                 <p class="mt-4 text-xs font-semibold uppercase tracking-wider text-gold-600">{m.tier}</p>
                 <h3 class="mt-1 text-xl font-bold text-brand-900">{brand.name} {m.name}</h3>
                 <p class="mt-2 leading-relaxed text-slate-600">{m.intro}</p>
