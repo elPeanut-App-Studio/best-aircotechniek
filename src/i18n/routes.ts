@@ -50,6 +50,7 @@ const staticPairs: Record<string, string> = {
   '/airco-installatie': '/en/air-conditioning-installation',
   '/airco-onderhoud': '/en/air-conditioning-maintenance',
   '/airco-installatie-noord-brabant': '/en/air-conditioning-installation-noord-brabant',
+  '/downloads': '/en/downloads',
 };
 
 /**
