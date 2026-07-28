@@ -1,6 +1,7 @@
 ---
 import { site } from '../data/site';
 import Logo from './Logo.astro';
+import LanguageSwitch from './LanguageSwitch.astro';
 import { counterpart, type Lang } from '../i18n/routes';
 import { navFor, t } from '../i18n/ui';
 
@@ -44,24 +45,8 @@ const otherHref = pair?.path ?? (lang === 'nl' ? '/en/' : '/');
           </a>
         ))
       }
-      <span class="flex items-center gap-1 text-sm font-semibold" aria-label={strings.languageLabel}>
-        {
-          lang === 'nl' ? (
-            <>
-              <span class="text-brand-800">NL</span>
-              <span class="text-slate-300" aria-hidden="true">|</span>
-              <a href={otherHref} hreflang="en" aria-label="Switch to English" class="text-slate-400 transition hover:text-brand-800">EN</a>
-            </>
-          ) : (
-            <>
-              <a href={otherHref} hreflang="nl" aria-label="Schakel naar Nederlands" class="text-slate-400 transition hover:text-brand-800">NL</a>
-              <span class="text-slate-300" aria-hidden="true">|</span>
-              <span class="text-brand-800">EN</span>
-            </>
-          )
-        }
-      </span>
       <a href={strings.contactHref} class="btn-primary !py-2.5 !px-5">{strings.ctaContact}</a>
+      <LanguageSwitch lang={lang} otherHref={otherHref} class="ml-1" />
     </nav>
 
     <button
@@ -93,24 +78,8 @@ const otherHref = pair?.path ?? (lang === 'nl' ? '/en/' : '/');
           </a>
         ))
       }
-      <span class="mt-3 flex items-center gap-2 px-3 text-sm font-semibold" aria-label={strings.languageLabel}>
-        {
-          lang === 'nl' ? (
-            <>
-              <span class="text-brand-800">NL</span>
-              <span class="text-slate-300" aria-hidden="true">|</span>
-              <a href={otherHref} hreflang="en" aria-label="Switch to English" class="text-slate-500">EN</a>
-            </>
-          ) : (
-            <>
-              <a href={otherHref} hreflang="nl" aria-label="Schakel naar Nederlands" class="text-slate-500">NL</a>
-              <span class="text-slate-300" aria-hidden="true">|</span>
-              <span class="text-brand-800">EN</span>
-            </>
-          )
-        }
-      </span>
       <a href={strings.contactHref} class="btn-primary mt-2 text-center">{strings.ctaContact}</a>
+      <LanguageSwitch lang={lang} otherHref={otherHref} class="mt-3 justify-center" />
     </nav>
   </div>
 </header>

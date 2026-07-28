@@ -84,13 +84,12 @@ const faq = [
           <a href="/en/contact" class="font-semibold text-brand-700 underline">free quote</a> straight away.
         </p>
         <p class="mt-4 text-lg leading-relaxed text-slate-600">
-          We install units from <strong>Daikin</strong>, <strong>LG</strong> and <strong>AUX</strong>. Our brochures
-          and detailed model pages are in Dutch, but we are happy to walk you through the options in English.
+          We install units from <strong>Daikin</strong>, <strong>LG</strong> and <strong>AUX</strong>. View the models and specifications per brand, or let us walk you through the options.
         </p>
         <div class="mt-6 flex flex-wrap gap-3">
           {
             brands.map((b) => (
-              <a href={`/merken/${b.slug}`} class="btn-secondary inline-flex">
+              <a href={`/en/brands/${b.slug}`} class="btn-secondary inline-flex">
                 {b.name} models
               </a>
             ))
