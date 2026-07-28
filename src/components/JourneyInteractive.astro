@@ -1,11 +1,15 @@
 ---
 import { journey } from '../data/site';
+import type { Lang } from '../i18n/routes';
 
 interface Props {
-  steps?: typeof journey;
+  steps?: readonly { title: string; description: string }[];
+  lang?: Lang;
 }
 
-const { steps = journey } = Astro.props;
+const { steps = journey, lang = 'nl' } = Astro.props;
+const stepWord = lang === 'en' ? 'Step' : 'Stap';
+const tablistLabel = lang === 'en' ? 'Customer journey steps' : 'Stappen klantreis';
 
 const icons = [
   `<path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />`,
@@ -95,7 +99,7 @@ const icons = [
 
   <!-- Desktop: stappen links, detail rechts -->
   <div class="hidden gap-6 lg:grid lg:grid-cols-5 lg:items-stretch lg:gap-8" data-journey-desktop>
-    <div class="flex flex-col gap-2 lg:col-span-2 lg:h-full" role="tablist" aria-label="Stappen klantreis">
+    <div class="flex flex-col gap-2 lg:col-span-2 lg:h-full" role="tablist" aria-label={tablistLabel}>
       {
         steps.map((step, index) => (
           <button
@@ -156,7 +160,7 @@ const icons = [
                 </svg>
               </div>
               <div class="min-w-0 flex-1">
-                <p class="text-sm font-semibold uppercase tracking-wide text-gold-600">Stap {index + 1}</p>
+                <p class="text-sm font-semibold uppercase tracking-wide text-gold-600">{stepWord} {index + 1}</p>
                 <h3 class="mt-2 text-2xl font-bold text-brand-900 sm:text-3xl">{step.title}</h3>
                 <p class="mt-4 text-lg leading-relaxed text-slate-600">{step.description}</p>
               </div>

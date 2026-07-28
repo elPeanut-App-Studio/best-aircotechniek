@@ -2,6 +2,40 @@
 import { site } from '../data/site';
 import { getGoogleReviews, getGoogleWriteReviewUrl } from '../lib/google-reviews';
 import { manualReviewsData } from '../data/reviews';
+import type { Lang } from '../i18n/routes';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'nl' } = Astro.props;
+
+// De reviewteksten zelf worden NIET vertaald: dat zijn echte citaten van klanten.
+// Alleen de omliggende interfacetekst is taalafhankelijk.
+const copy = {
+  nl: {
+    heading: 'Wat klanten zeggen',
+    subWith: 'Echte reviews van onze klanten op Google.',
+    subWithout: 'Bekijk onze reviews op Google of deel uw ervaring met ons.',
+    reviewsOnGoogle: 'reviews op Google',
+    starsOf: 'van 5 sterren',
+    viewOnGoogle: 'Bekijk op Google',
+    writeReview: 'Schrijf een review',
+    empty: 'Bekijk wat klanten over ons zeggen op Google.',
+    note: '',
+  },
+  en: {
+    heading: 'What our customers say',
+    subWith: 'Real reviews from our customers on Google.',
+    subWithout: 'See our reviews on Google or share your own experience.',
+    reviewsOnGoogle: 'reviews on Google',
+    starsOf: 'out of 5 stars',
+    viewOnGoogle: 'View on Google',
+    writeReview: 'Write a review',
+    empty: 'See what our customers say about us on Google.',
+    note: 'Our customers left these reviews in Dutch.',
+  },
+}[lang];
 
 // Live Places API-feed indien beschikbaar; anders de handmatige reviews.
 // Zodra PUBLIC_GOOGLE_PLACE_ID + GOOGLE_PLACES_API_KEY zijn ingesteld, wint de live feed vanzelf.
@@ -25,12 +59,13 @@ function stars(rating: number) {
     <div class="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
       <div>
         <div class="gold-accent-line"></div>
-        <h2 class="section-heading mt-6">Wat klanten zeggen</h2>
+        <h2 class="section-heading mt-6">{copy.heading}</h2>
         <p class="section-subheading max-w-2xl">
           {hasReviews
-            ? 'Echte reviews van onze klanten op Google.'
-            : 'Bekijk onze reviews op Google of deel uw ervaring met ons.'}
+            ? copy.subWith
+            : copy.subWithout}
         </p>
+        {copy.note && <p class="mt-2 text-sm text-slate-500">{copy.note}</p>}
       </div>
 
       {
@@ -38,7 +73,7 @@ function stars(rating: number) {
           <div class="flex shrink-0 items-center gap-4 rounded-2xl border border-slate-200 bg-white px-6 py-4 shadow-sm">
             <div class="text-center">
               <p class="text-4xl font-bold text-brand-900">{data.rating.toFixed(1)}</p>
-              <div class="mt-1 flex justify-center gap-0.5" aria-label={`${data.rating} van 5 sterren`}>
+              <div class="mt-1 flex justify-center gap-0.5" aria-label={`${data.rating} ${copy.starsOf}`}>
                 {
                   stars(data.rating).map((filled) => (
                     <svg
@@ -52,7 +87,7 @@ function stars(rating: number) {
                   ))
                 }
               </div>
-              <p class="mt-1 text-sm text-slate-500">{data.totalReviews} reviews op Google</p>
+              <p class="mt-1 text-sm text-slate-500">{data.totalReviews} {copy.reviewsOnGoogle}</p>
             </div>
             <svg class="h-8 w-8 shrink-0" viewBox="0 0 24 24" aria-label="Google" role="img">
               <path
@@ -109,7 +144,7 @@ function stars(rating: number) {
                     <p class="text-xs text-slate-500">{review.relativeTime}</p>
                   </div>
                 </div>
-                <div class="mt-3 flex gap-0.5" aria-label={`${review.rating} van 5 sterren`}>
+                <div class="mt-3 flex gap-0.5" aria-label={`${review.rating} ${copy.starsOf}`}>
                   {
                     stars(review.rating).map((filled) => (
                       <svg
@@ -148,9 +183,7 @@ function stars(rating: number) {
               d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
             />
           </svg>
-          <p class="mt-4 text-lg text-slate-600">
-            Bekijk wat klanten over ons zeggen op Google.
-          </p>
+          <p class="mt-4 text-lg text-slate-600">{copy.empty}</p>
         </div>
       )
     }
@@ -162,7 +195,7 @@ function stars(rating: number) {
         rel="noopener noreferrer"
         class="btn-secondary"
       >
-        Bekijk op Google
+        {copy.viewOnGoogle}
       </a>
       <a
         href={writeReviewUrl}
@@ -170,7 +203,7 @@ function stars(rating: number) {
         rel="noopener noreferrer"
         class="btn-primary"
       >
-        Schrijf een review
+        {copy.writeReview}
       </a>
     </div>
   </div>

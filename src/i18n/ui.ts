@@ -82,7 +82,7 @@ export const ui = {
 
     uspsHeading: 'Why Best Aircotechniek?',
     uspsSubheading:
-      'We combine craftsmanship with personal service, so you enjoy a perfectly working system for years. And yes, we speak English.',
+      'We combine craftsmanship with personal service, so you enjoy a perfectly working system for years to come.',
 
     ctaDefaultTitle: 'Ready for the best climate?',
     ctaDefaultDescription: 'Get in touch today for free advice or a quote with no obligation.',
