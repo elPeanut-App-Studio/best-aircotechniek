@@ -29,8 +29,8 @@ const sizesData = model.sizes.map((s) => ({
 }));
 
 const rows = [
-  { icon: 'koelen', label: 'Koelvermogen (nominaal)', value: size.koel ?? 'Op aanvraag', id: 'val-koel' },
-  { icon: 'verwarmen', label: 'Verwarmingsvermogen (nominaal)', value: size.verw ?? 'Op aanvraag', id: 'val-verw' },
+  { icon: 'koelen', label: 'Koelvermogen (nominaal)', value: size.koel ?? 'Op aanvraag', badge: labelKoelen, badgeId: 'val-label-koelen', id: 'val-koel' },
+  { icon: 'verwarmen', label: 'Verwarmingsvermogen (nominaal)', value: size.verw ?? 'Op aanvraag', badge: labelVerwarmen, badgeId: 'val-label-verwarmen', id: 'val-verw' },
   { icon: 'ruimte', label: 'Geschikt voor', value: `Ruimtes tot ${size.volume}`, id: 'val-volume' },
   { icon: 'swing', label: 'Vloeroppervlak (vuistregel)', value: size.area, id: 'val-area' },
   { icon: 'rendement', label: 'SEER / SCOP', value: eff ? `${eff.seer} / ${eff.scop}` : `${model.seer} / ${model.scop}` },
@@ -109,26 +109,22 @@ const btnInactive = 'border border-slate-300 bg-white text-slate-700 hover:borde
         <div class="panel flex flex-col p-6 sm:p-8 lg:col-span-5">
           <h2 class="section-heading">Specificaties</h2>
           <dl class="mt-6 space-y-4">
-            {labelKoelen && labelVerwarmen && (
-            <div class="flex items-start gap-3">
-              <img src="/spec-icons/verwarmen.png" alt="" width="24" height="24" class="mt-0.5 h-6 w-6 shrink-0" />
-              <div>
-                <dt class="text-sm text-slate-500">Energielabel koelen / verwarmen</dt>
-                <dd class="flex items-center gap-2 font-semibold text-brand-900">
-                  <span id="val-label-koelen" class:list={['rounded px-2 py-0.5 text-xs font-bold text-white', labelKoelen === 'A+++' ? 'bg-[#00a651]' : labelKoelen === 'A++' ? 'bg-[#2f9e44]' : 'bg-[#94b820]']}>{labelKoelen}</span>
-                  <span id="val-label-verwarmen" class:list={['rounded px-2 py-0.5 text-xs font-bold text-white', labelVerwarmen === 'A+++' ? 'bg-[#00a651]' : labelVerwarmen === 'A++' ? 'bg-[#2f9e44]' : 'bg-[#94b820]']}>{labelVerwarmen}</span>
-                </dd>
-              </div>
-            </div>
-            )}
             {
               rows.map((r) => (
                 <div class="flex items-start gap-3">
                   <img src={`/spec-icons/${r.icon}.png`} alt="" width="24" height="24" class="mt-0.5 h-6 w-6 shrink-0" />
                   <div>
                     <dt class="text-sm text-slate-500">{r.label}</dt>
-                    <dd class="font-semibold text-brand-900">
+                    <dd class="flex items-center gap-2 font-semibold text-brand-900">
                       <span id={r.id}>{r.value}</span>
+                      {r.badge && (
+                        <span
+                          id={r.badgeId}
+                          class={`rounded px-2 py-0.5 text-xs font-bold text-white ${r.badge === 'A+++' ? 'bg-[#00a651]' : r.badge === 'A++' ? 'bg-[#2f9e44]' : 'bg-[#94b820]'}`}
+                        >
+                          {r.badge}
+                        </span>
+                      )}
                     </dd>
                   </div>
                 </div>
