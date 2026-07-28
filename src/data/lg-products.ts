@@ -122,7 +122,7 @@ export const lgModels: LgModel[] = [
  * Bij LG zit het vermogen in de code zelf (09 / 12 / 18 / 24 = BTU), dus de
  * aanduiding hoort bij een vermogen en niet bij een serie. Daarom per maat.
  *
- * Nog aan te vullen: Deluxe en Premium. De vermogenspagina toont
+ * LG is hiermee compleet; AUX moet nog. De vermogenspagina toont
  * de regel alleen als er een code bekend is, dus tot die tijd blijft hij weg.
  */
 export const lgTypeCodes: Record<string, Record<string, string>> = {
@@ -140,6 +140,20 @@ export const lgTypeCodes: Record<string, Record<string, string>> = {
     '3-5-kw': 'P12SND',
     '5-0-kw': 'P18SND',
     '7-0-kw': 'P24SND',
+  },
+  // Opgegeven: H09S1D. De rest volgt hetzelfde patroon (H + BTU + S1 + serieletter).
+  deluxe: {
+    '2-5-kw': 'H09S1D',
+    '3-5-kw': 'H12S1D',
+    '5-0-kw': 'H18S1D',
+    '7-0-kw': 'H24S1D',
+  },
+  // Opgegeven: H09S1P. Zelfde patroon als Deluxe, met P als serieletter.
+  premium: {
+    '2-5-kw': 'H09S1P',
+    '3-5-kw': 'H12S1P',
+    '5-0-kw': 'H18S1P',
+    '7-0-kw': 'H24S1P',
   },
 };
 
