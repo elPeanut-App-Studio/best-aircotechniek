@@ -2,7 +2,7 @@
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import PageHero from '../../../../components/PageHero.astro';
 import CTASection from '../../../../components/CTASection.astro';
-import { lgModels, lgSizes, lgShared } from '../../../../data/lg-products';
+import { lgModels, lgSizesFor, lgShared, lgBestLabels, lgBestEfficiency } from '../../../../data/lg-products';
 import { site } from '../../../../data/site';
 import pageHeroPhoto from '../../../../assets/photos/page-hero-woning.jpg';
 import { lgTextEn, sharedEn, sizeRoomEn, num } from '../../../../i18n/products-en';
@@ -19,12 +19,15 @@ const specIcons = ['luchtzuivering', 'zelfreiniging', 'swing', 'design', 'wifi']
 const others = lgModels
   .filter((m) => m.slug !== rawModel.slug)
   .map((m) => ({ ...m, ...lgTextEn[m.slug] }));
+const modelSizes = lgSizesFor(model.slug);
+const bestLabels = lgBestLabels(model.slug);
+const bestEff = lgBestEfficiency(model.slug);
 ---
 
 <BaseLayout
   lang="en"
   title={`LG ${model.name} air conditioning installed | Best Aircotechniek`}
-  description={`LG ${model.name}: ${model.intro} SEER tot ${model.seer}, energielabel ${model.labelKoelen}. Laten installeren vanaf ${site.priceFrom} door Best Aircotechniek.`}
+  description={`LG ${model.name}: ${model.intro} SEER up to ${num(bestEff?.seer ?? '')}, energy label up to ${bestLabels?.koelen}. Installed from ${site.priceFrom} by Best Aircotechniek.`}
 >
   <PageHero title={`LG ${model.name}`} description={model.intro} image={pageHeroPhoto} />
 
@@ -55,7 +58,7 @@ const others = lgModels
               <img src="/spec-icons/rendement.png" alt="" width="24" height="24" class="mt-0.5 h-6 w-6 shrink-0" />
               <div>
                 <dt class="text-sm text-slate-500">SEER (up to) / SCOP</dt>
-                <dd class="font-semibold text-brand-900">{num(model.seer)} / {num(model.scop)}</dd>
+                <dd class="font-semibold text-brand-900">{num(bestEff?.seer ?? '')} / {num(bestEff?.scop ?? '')}</dd>
               </div>
             </div>
             <div class="flex items-start gap-3">
@@ -64,14 +67,14 @@ const others = lgModels
                 <dt class="text-sm text-slate-500">Energy label cooling / heating</dt>
                 <dd class="flex items-center gap-2 font-semibold text-brand-900">
                   <span
-                    class={`rounded px-2 py-0.5 text-xs font-bold text-white ${model.labelKoelen === 'A+++' ? 'bg-[#00a651]' : 'bg-[#2f9e44]'}`}
+                    class={`rounded px-2 py-0.5 text-xs font-bold text-white ${bestLabels?.koelen === 'A+++' ? 'bg-[#00a651]' : 'bg-[#2f9e44]'}`}
                   >
-                    {model.labelKoelen}
+                    {bestLabels?.koelen}
                   </span>
                   <span
-                    class={`rounded px-2 py-0.5 text-xs font-bold text-white ${model.labelVerwarmen === 'A+++' ? 'bg-[#00a651]' : model.labelVerwarmen === 'A++' ? 'bg-[#2f9e44]' : 'bg-[#94b820]'}`}
+                    class={`rounded px-2 py-0.5 text-xs font-bold text-white ${bestLabels?.verwarmen === 'A+++' ? 'bg-[#00a651]' : bestLabels?.verwarmen === 'A++' ? 'bg-[#2f9e44]' : 'bg-[#94b820]'}`}
                   >
-                    {model.labelVerwarmen}
+                    {bestLabels?.verwarmen}
                   </span>
                 </dd>
               </div>
@@ -114,9 +117,13 @@ const others = lgModels
         corner or top-floor property we advise a larger capacity. We are happy to calculate it exactly for your
         home.
       </p>
-      <div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <div
+        class={`mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 ${
+          modelSizes.length === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-2'
+        }`}
+      >
         {
-          lgSizes.map((size) => (
+          modelSizes.map((size) => (
             <a href={`/en/brands/lg/${model.slug}/${size.slug}`} class="group card-link flex flex-col p-6">
               <p class="text-2xl font-bold text-brand-900">{num(size.kw)}</p>
               <p class="mt-2 min-h-[2.5rem] text-sm text-slate-600">{sizeRoomEn[size.slug] ?? size.room}</p>

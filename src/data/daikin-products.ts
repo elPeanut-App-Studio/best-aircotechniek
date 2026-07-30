@@ -48,6 +48,8 @@ const kwLabels: Record<string, string> = {
   '7-1-kw': '7,1 kW',
 };
 
+import { bestLabelsFrom } from './energy-labels';
+
 export type DaikinSize = {
   slug: string;
   kw: string;
@@ -291,52 +293,16 @@ export const daikinEfficiency: Record<string, Record<string, { seer: string; sco
 };
 
 /**
- * Energielabel afgeleid uit SEER en SCOP volgens de officiële grenswaarden in
- * EU-verordening 626/2011, bijlage II, tabel 1 (airco's anders dan single- en
- * double-duct, gemiddeld stookseizoen).
- *
- * Bewust berekend en niet los ingevoerd: zo kan het label nooit uit de pas lopen
- * met de gepubliceerde SEER/SCOP. Controle: Perfera 2,0 tot 3,5 kW heeft
- * SEER 8,65 en SCOP 5,10, wat A+++ / A+++ oplevert, en dat is precies wat Daikin
- * zelf op de Perfera-productpagina vermeldt.
+ * De labeldrempels staan in src/data/energy-labels.ts, omdat LG ze ook gebruikt.
+ * Hier alleen doorgegeven, zodat bestaande imports blijven werken.
  */
-function asNumber(value: string): number {
-  return Number(value.replace(',', '.'));
-}
-
-export function coolingLabel(seer: string): string {
-  const v = asNumber(seer);
-  if (v >= 8.5) return 'A+++';
-  if (v >= 6.1) return 'A++';
-  if (v >= 5.6) return 'A+';
-  if (v >= 5.1) return 'A';
-  if (v >= 4.6) return 'B';
-  if (v >= 4.1) return 'C';
-  return 'D';
-}
-
-export function heatingLabel(scop: string): string {
-  const v = asNumber(scop);
-  if (v >= 5.1) return 'A+++';
-  if (v >= 4.6) return 'A++';
-  if (v >= 4.0) return 'A+';
-  if (v >= 3.4) return 'A';
-  if (v >= 3.1) return 'B';
-  if (v >= 2.8) return 'C';
-  return 'D';
-}
+export { coolingLabel, heatingLabel } from './energy-labels';
 
 /** Beste label binnen een modelbereik, voor de modelpagina ("tot A+++"). */
 export function bestLabels(modelSlug: string): { koelen: string; verwarmen: string } | null {
   const eff = daikinEfficiency[modelSlug];
   if (!eff) return null;
-  const seers = Object.values(eff).map((e) => asNumber(e.seer));
-  const scops = Object.values(eff).map((e) => asNumber(e.scop));
-  const fmt = (n: number) => n.toFixed(2).replace('.', ',');
-  return {
-    koelen: coolingLabel(fmt(Math.max(...seers))),
-    verwarmen: heatingLabel(fmt(Math.max(...scops))),
-  };
+  return bestLabelsFrom(Object.values(eff));
 }
 
 export function getDaikinModel(slug: string): DaikinModel | undefined {
