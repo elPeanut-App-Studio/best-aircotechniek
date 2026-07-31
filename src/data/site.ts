@@ -21,6 +21,11 @@ export const site = {
   priceFrom: '€ 1.249',
   /** Numerieke variant van priceFrom, voor structured data (Offer). */
   priceFromAmount: 1249,
+  /**
+   * Engelse notatie: duizendscheiding is een komma en geen punt. Zonder dit
+   * leest een Engelstalige "€ 1.249" als een euro vijfentwintig.
+   */
+  priceFromEn: '€ 1,249',
   /** Open Graph / social preview-afbeelding (1200x630), absoluut t.o.v. url */
   ogImage: '/og-image.jpg',
   /** Google Maps bedrijfspagina (korte link of maps URL) */
@@ -130,3 +135,12 @@ export const journeyIntro = {
   description:
     'Een airco laten plaatsen hoeft niet ingewikkeld te zijn. In zes overzichtelijke stappen begeleiden wij u persoonlijk, transparant en vakkundig.',
 } as const;
+
+/**
+ * Prijsweergave met de juiste duizendscheiding per taal.
+ * Nederlands: € 1.249. Engels: € 1,249.
+ */
+export function formatPrice(amount: number, lang: 'nl' | 'en' = 'nl'): string {
+  const sep = lang === 'nl' ? '.' : ',';
+  return `€ ${String(amount).replace(/\B(?=(\d{3})+(?!\d))/g, sep)}`;
+}

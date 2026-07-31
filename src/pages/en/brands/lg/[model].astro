@@ -27,7 +27,7 @@ const bestEff = lgBestEfficiency(model.slug);
 <BaseLayout
   lang="en"
   title={`LG ${model.name} air conditioning installed | Best Aircotechniek`}
-  description={`LG ${model.name}: ${model.intro} SEER up to ${num(bestEff?.seer ?? '')}, energy label up to ${bestLabels?.koelen}. Installed from ${site.priceFrom} by Best Aircotechniek.`}
+  description={`LG ${model.name}: ${model.intro} SEER up to ${num(bestEff?.seer ?? '')}, energy label up to ${bestLabels?.koelen}. Installed from ${site.priceFromEn} by Best Aircotechniek.`}
 >
   <PageHero title={`LG ${model.name}`} description={model.intro} image={pageHeroPhoto} />
 
@@ -168,6 +168,6 @@ const bestEff = lgBestEfficiency(model.slug);
 
   <CTASection
     title={`LG ${model.name} laten installeren?`}
-    description={`Best Aircotechniek verzorgt advies, levering en een vakkundige montage vanaf ${site.priceFrom}. Request a free quote with no obligation.`}
+    description={`Best Aircotechniek verzorgt advies, levering en een vakkundige montage vanaf ${site.priceFromEn}. Request a free quote with no obligation.`}
   />
 </BaseLayout>

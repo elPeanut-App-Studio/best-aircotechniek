@@ -1,3 +1,5 @@
+import { site } from './site';
+
 /**
  * AUX-productgegevens voor de merkpagina's onder /merken/aux.
  * Kernkenmerken + SEER (tot) uit de Best Aircotechniek-brochure;
@@ -35,11 +37,19 @@ export type AuxModel = {
   specs: { label: string; value: string }[];
   /** Per-vermogen specs (airco-webwinkel). */
   sizeSpecs: Record<string, SizeSpec>;
+  /**
+   * Vanaf-prijs in euro's voor een complete installatie van de kleinste
+   * uitvoering (2,5 kW), inclusief btw en montage. Aangeleverd door Best
+   * Aircotechniek, juli 2026. De laagste waarde hier MOET gelijk zijn aan
+   * site.priceFromAmount; de controle onderaan dit bestand dwingt dat af.
+   */
+  priceFrom: number;
 };
 
 export const auxModels: AuxModel[] = [
   {
     slug: 'freedom',
+    priceFrom: 1249,
     name: 'Freedom',
     tier: 'Instapmodel',
     intro: 'De voordelige no-nonsense keuze, betrouwbaar uitgevoerd.',
@@ -64,6 +74,7 @@ export const auxModels: AuxModel[] = [
   },
   {
     slug: 'q-smart',
+    priceFrom: 1299,
     name: 'Q-smart',
     tier: 'Middenklasse',
     intro: 'Meer comfort en schonere lucht dankzij UV-LED en 4D-luchtverdeling.',
@@ -88,6 +99,7 @@ export const auxModels: AuxModel[] = [
   },
   {
     slug: 'c-smart',
+    priceFrom: 1349,
     name: 'C-smart',
     tier: 'Premium',
     intro: 'Het topmodel: hoogste efficiëntie, tochtvrije luchtstroom en strak design.',
@@ -114,4 +126,17 @@ export const auxModels: AuxModel[] = [
 
 export function getAuxModel(slug: string): AuxModel | undefined {
   return auxModels.find((m) => m.slug === slug);
+}
+
+/**
+ * De site belooft overal "vanaf <site.priceFrom>". Als het goedkoopste
+ * AUX-model duurder wordt dan die belofte, is de site ergens misleidend.
+ * Deze controle laat de build dan falen in plaats van stil te verschuiven.
+ */
+const laagsteAuxPrijs = Math.min(...auxModels.map((m) => m.priceFrom));
+if (laagsteAuxPrijs !== site.priceFromAmount) {
+  throw new Error(
+    `De laagste AUX-vanafprijs is € ${laagsteAuxPrijs} maar site.priceFromAmount staat op € ${site.priceFromAmount}. ` +
+      'Pas beide aan, anders klopt de vanaf-prijs in titels, meta en schema niet meer.',
+  );
 }

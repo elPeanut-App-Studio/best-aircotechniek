@@ -28,7 +28,7 @@ export const generalFaqEn: FaqItem[] = [
   },
   {
     question: 'What does it cost to have air conditioning installed?',
-    answer: `A complete installation starts at ${site.priceFrom}, including VAT and installation. That price is for a basic single-split system with the entry-level 2.5 kW model. The final price depends on the model, the number of rooms and the installation situation. You always receive a free quote with no obligation.`,
+    answer: `A complete installation starts at ${site.priceFromEn}, including VAT and installation. That price is for a basic single-split system with the entry-level 2.5 kW model. The final price depends on the model, the number of rooms and the installation situation. You always receive a free quote with no obligation.`,
   },
   {
     question: 'How long does the installation take?',

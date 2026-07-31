@@ -16,6 +16,7 @@ import {
 } from '../../../i18n/products-en';
 import { site } from '../../../data/site';
 import heroPhoto from '../../../assets/photos/page-hero-woning.jpg';
+import PriceSticker from '../../../components/PriceSticker.astro';
 
 export function getStaticPaths() {
   return brands.map((b) => ({ params: { brand: b.slug }, props: { brand: b } }));
@@ -69,7 +70,7 @@ const tagline = brandTaglinesEn[brand.slug] ?? brand.tagline;
 <BaseLayout
   lang="en"
   title={`${brand.name} air conditioning installed | Best Aircotechniek`}
-  description={`Have ${brand.name} air conditioning installed by Best Aircotechniek in Noord-Brabant, from ${site.priceFrom}. ${tagline}`}
+  description={`Have ${brand.name} air conditioning installed by Best Aircotechniek in Noord-Brabant, from ${site.priceFromEn}. ${tagline}`}
 >
   <PageHero title={`${brand.name} air conditioning`} description={tagline} image={heroPhoto} />
 
@@ -115,14 +116,17 @@ const tagline = brandTaglinesEn[brand.slug] ?? brand.tagline;
               <a href={`/en/brands/${brand.slug}/${m.slug}`} class="group card-link flex flex-col p-6">
                 {
                   m.photo ? (
-                    <img
-                      src={m.photo}
-                      alt={`${brand.name} ${m.name} air conditioner`}
-                      width="600"
-                      height="600"
-                      loading="lazy"
-                      class="mx-auto h-40 w-auto object-contain"
-                    />
+                    <span class="relative mx-auto block w-fit">
+                      <img
+                        src={m.photo}
+                        alt={`${brand.name} ${m.name} air conditioner`}
+                        width="600"
+                        height="600"
+                        loading="lazy"
+                        class="h-40 w-auto object-contain"
+                      />
+                      {m.priceFrom && <PriceSticker amount={m.priceFrom} lang="en" class="-right-3 -top-3" />}
+                    </span>
                   ) : (
                     <span class="flex h-40 items-center justify-center rounded-xl bg-brand-50">
                       <img src={brand.logo} alt={`${brand.name} logo`} width="160" height="48" loading="lazy" class="h-10 w-auto object-contain" />

@@ -21,20 +21,20 @@ export const locationsEn: LocationEn[] = [
   {
     slug: 'best',
     city: 'Best',
-    metaDescription: `Air conditioning installation in Best from ${site.priceFrom}. Best Aircotechniek is based here: expert installation, personal advice and fast service. We speak English.`,
+    metaDescription: `Air conditioning installation in Best from ${site.priceFromEn}. Best Aircotechniek is based here: expert installation, personal advice and fast service. We speak English.`,
     heroDescription: 'Your local air conditioning installer in Best. We know the area and are quick to arrive.',
     intro: [
       'Best is our home base. Whether you live in the centre, in Heivelden, Naastenbest or Speelheide, or you have a newly built home in Dijkstraten, we know this town and its houses better than anyone and we are on your doorstep quickly.',
       'Many homes in Best are well insulated and heat up fast in summer. A well chosen system gives you comfort all year round: cooling in summer and economical additional heating in the shoulder seasons. We advise you on site about the right capacity and the best position for the indoor and outdoor unit.',
       'Because we are based here, the lines are short. You speak directly with the installer who does the work, with no call centre in between. A complete installation starts at ' +
-        `${site.priceFrom}, including VAT and installation.`,
+        `${site.priceFromEn}, including VAT and installation.`,
     ],
     nearby: ['Heivelden', 'Naastenbest', 'Speelheide', 'Dijkstraten', 'Wilhelminadorp'],
   },
   {
     slug: 'eindhoven',
     city: 'Eindhoven',
-    metaDescription: `Air conditioning installation in Eindhoven from ${site.priceFrom}. Expert installation in Woensel, Strijp, Tongelre and beyond. We speak English.`,
+    metaDescription: `Air conditioning installation in Eindhoven from ${site.priceFromEn}. Expert installation in Woensel, Strijp, Tongelre and beyond. We speak English.`,
     heroDescription:
       'Expert air conditioning installation across Eindhoven, from Woensel to Meerhoven.',
     intro: [
@@ -47,7 +47,7 @@ export const locationsEn: LocationEn[] = [
   {
     slug: 'veldhoven',
     city: 'Veldhoven',
-    metaDescription: `Air conditioning installation in Veldhoven from ${site.priceFrom}. Expert installation in Meerveldhoven, Zeelst, Oerle and beyond. We speak English.`,
+    metaDescription: `Air conditioning installation in Veldhoven from ${site.priceFromEn}. Expert installation in Meerveldhoven, Zeelst, Oerle and beyond. We speak English.`,
     heroDescription: 'Your air conditioning specialist in Veldhoven, from Meerveldhoven to Oerle and Zeelst.',
     intro: [
       'Veldhoven is growing fast and has many spacious family homes, in Meerveldhoven, Zeelst, Oerle, Heikant and d’Ekker among others. For all of these homes we supply and install the system that suits the space and your wishes.',
@@ -59,19 +59,19 @@ export const locationsEn: LocationEn[] = [
   {
     slug: 'oirschot',
     city: 'Oirschot',
-    metaDescription: `Air conditioning installation in Oirschot from ${site.priceFrom}. Careful installation, also on characteristic and listed properties. We speak English.`,
+    metaDescription: `Air conditioning installation in Oirschot from ${site.priceFromEn}. Careful installation, also on characteristic and listed properties. We speak English.`,
     heroDescription: 'Air conditioning installation in Oirschot and the Beerzen, with respect for your home.',
     intro: [
       'Oirschot is known for its historic centre and characteristic properties. That is exactly where careful, tidy installation matters: we position the units discreetly and with respect for the appearance of your home or farmhouse, including in Spoordonk and the Beerzen.',
       'Whether you have a detached house or a renovated property, we advise honestly about the system that fits best both technically and visually. No unnecessary bells and whistles, just a solution that works.',
-      `From our base in Best we are in Oirschot in minutes, which shows in our response time and our personal approach. A complete installation starts at ${site.priceFrom}, always after a free home visit and a clear quote up front.`,
+      `From our base in Best we are in Oirschot in minutes, which shows in our response time and our personal approach. A complete installation starts at ${site.priceFromEn}, always after a free home visit and a clear quote up front.`,
     ],
     nearby: ['Spoordonk', 'Middelbeers', 'Oostelbeers', 'Best'],
   },
   {
     slug: 'sint-oedenrode',
     city: 'Sint-Oedenrode',
-    metaDescription: `Air conditioning installation in Sint-Oedenrode from ${site.priceFrom}. Expert installation in Nijnsel, Olland and beyond. We speak English.`,
+    metaDescription: `Air conditioning installation in Sint-Oedenrode from ${site.priceFromEn}. Expert installation in Nijnsel, Olland and beyond. We speak English.`,
     heroDescription: 'Expert air conditioning installation in Sint-Oedenrode and the surrounding villages.',
     intro: [
       'Sint-Oedenrode, part of the Meierijstad municipality, has many spacious and detached homes, including in Nijnsel, Olland and Boskant. These larger properties benefit most from a well matched system that keeps several rooms comfortable.',
@@ -83,7 +83,7 @@ export const locationsEn: LocationEn[] = [
   {
     slug: 'boxtel',
     city: 'Boxtel',
-    metaDescription: `Air conditioning installation in Boxtel from ${site.priceFrom}. Expert installation in Lennisheuvel, Liempde and beyond. We speak English.`,
+    metaDescription: `Air conditioning installation in Boxtel from ${site.priceFromEn}. Expert installation in Lennisheuvel, Liempde and beyond. We speak English.`,
     heroDescription: 'Your air conditioning installer in Boxtel, Lennisheuvel, Liempde and the surrounding area.',
     intro: [
       'Boxtel sits centrally between Eindhoven and Den Bosch and has a varied housing stock, from homes around the centre and the station to rural properties in Lennisheuvel and Liempde. For every type we find a fitting solution.',
@@ -95,7 +95,7 @@ export const locationsEn: LocationEn[] = [
   {
     slug: 'tilburg',
     city: 'Tilburg',
-    metaDescription: `Air conditioning installation in Tilburg from ${site.priceFrom}. Expert installation in Reeshof, Berkel-Enschot, Udenhout and beyond. We speak English.`,
+    metaDescription: `Air conditioning installation in Tilburg from ${site.priceFromEn}. Expert installation in Reeshof, Berkel-Enschot, Udenhout and beyond. We speak English.`,
     heroDescription: 'Expert air conditioning installation in Tilburg, from the Reeshof to Berkel-Enschot.',
     intro: [
       'Tilburg is a large city with many terraced houses, 1930s neighbourhoods and newer developments in the Reeshof, Berkel-Enschot and Udenhout. In densely built areas it can get very warm indoors in summer, and a system makes an immediate difference there.',
@@ -107,7 +107,7 @@ export const locationsEn: LocationEn[] = [
   {
     slug: 'den-bosch',
     city: 'Den Bosch',
-    metaDescription: `Air conditioning installation in Den Bosch from ${site.priceFrom}. Expert installation in Rosmalen, Maaspoort, Empel and beyond. We speak English.`,
+    metaDescription: `Air conditioning installation in Den Bosch from ${site.priceFromEn}. Expert installation in Rosmalen, Maaspoort, Empel and beyond. We speak English.`,
     heroDescription: 'Your air conditioning specialist in Den Bosch, from the old town to Rosmalen.',
     intro: [
       "In 's-Hertogenbosch we install air conditioning across the whole city: from listed and townhouse properties in the historic centre to spacious newer homes in Rosmalen, Maaspoort and Empel. We approach every situation with the same care.",
@@ -128,7 +128,7 @@ export function buildLocationFaqEn(loc: LocationEn): FaqItem[] {
     },
     {
       question: `What does air conditioning cost in ${loc.city}?`,
-      answer: `A complete installation starts at ${site.priceFrom}, including VAT and installation, for a basic single-split with the 2.5 kW model. The exact price in ${loc.city} depends on your home and the model you choose. You always receive a free quote with no obligation.`,
+      answer: `A complete installation starts at ${site.priceFromEn}, including VAT and installation, for a basic single-split with the 2.5 kW model. The exact price in ${loc.city} depends on your home and the model you choose. You always receive a free quote with no obligation.`,
     },
     {
       question: `Which brands do you install in ${loc.city}?`,
