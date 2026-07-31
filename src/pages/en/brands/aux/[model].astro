@@ -5,6 +5,7 @@ import CTASection from '../../../../components/CTASection.astro';
 import { auxModels, auxSizes, auxShared } from '../../../../data/aux-products';
 import pageHeroPhoto from '../../../../assets/photos/page-hero-woning.jpg';
 import { auxTextEn, sharedEn, sizeRoomEn, num } from '../../../../i18n/products-en';
+import PriceSticker from '../../../../components/PriceSticker.astro';
 
 export function getStaticPaths() {
   return auxModels.map((model) => ({ params: { model: model.slug }, props: { model } }));
@@ -35,6 +36,7 @@ const specIcons = ['swing', 'luchtzuivering', 'zelfreiniging', 'verwarmen', 'des
       <div class="mt-8 grid gap-8 lg:grid-cols-12 lg:items-stretch">
         <div class="panel relative min-h-[22rem] overflow-hidden bg-gradient-to-br from-brand-50 via-white to-white lg:col-span-7">
           <img src={model.photo} alt={`AUX ${model.name} air conditioner`} width="900" height="900" loading="eager" class="absolute inset-0 h-full w-full object-cover" />
+          <PriceSticker amount={model.priceFrom} lang="en" size="lg" class="right-5 top-5 sm:right-7 sm:top-7" />
         </div>
         <div class="panel flex flex-col p-6 sm:p-8 lg:col-span-5">
           <p class="text-sm font-semibold uppercase tracking-wider text-gold-600">{model.tier}</p>

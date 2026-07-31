@@ -22,7 +22,7 @@ const faq = buildLocationFaqEn(loc);
 const others = locationsEn.filter((l) => l.slug !== loc.slug);
 
 const facts = [
-  { label: 'Price', value: `from ${site.priceFrom}`, note: 'basic single-split, incl. VAT and installation' },
+  { label: 'Price', value: `from ${site.priceFromEn}`, note: 'basic single-split, incl. VAT and installation' },
   { label: 'Brands', value: 'Daikin · LG · AUX', note: 'reliable brands' },
   { label: 'Warranty', value: '2 to 5 years', note: 'on the unit, by brand' },
   { label: 'Response', value: 'within 24 hours', note: 'after your request' },
@@ -48,7 +48,7 @@ const approach = [
 
 <BaseLayout
   lang="en"
-  title={`Air conditioning installation ${loc.city} from ${site.priceFrom} | Best Aircotechniek`}
+  title={`Air conditioning installation ${loc.city} from ${site.priceFromEn} | Best Aircotechniek`}
   description={loc.metaDescription}
 >
   <PageHero

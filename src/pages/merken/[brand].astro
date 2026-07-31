@@ -7,6 +7,7 @@ import { auxModels } from '../../data/aux-products';
 import { lgModels } from '../../data/lg-products';
 import { daikinModels } from '../../data/daikin-products';
 import heroPhoto from '../../assets/photos/page-hero-woning.jpg';
+import PriceSticker from '../../components/PriceSticker.astro';
 
 export function getStaticPaths() {
   return brands.map((b) => ({ params: { brand: b.slug }, props: { brand: b } }));
@@ -111,14 +112,17 @@ const modelsHeading = modelsHeadings[brand.slug] ?? `De ${brand.name}-modellen`;
               >
                 {
                   m.photo ? (
-                    <img
-                      src={m.photo}
-                      alt={`${brand.name} ${m.name} airconditioner`}
-                      width="600"
-                      height="600"
-                      loading="lazy"
-                      class="mx-auto h-40 w-auto object-contain"
-                    />
+                    <span class="relative mx-auto block w-fit">
+                      <img
+                        src={m.photo}
+                        alt={`${brand.name} ${m.name} airconditioner`}
+                        width="600"
+                        height="600"
+                        loading="lazy"
+                        class="h-40 w-auto object-contain"
+                      />
+                      {m.priceFrom && <PriceSticker amount={m.priceFrom} class="-right-3 -top-3" />}
+                    </span>
                   ) : (
                     <span class="flex h-40 items-center justify-center rounded-xl bg-brand-50">
                       <img src={brand.logo} alt={`${brand.name} logo`} width="160" height="48" loading="lazy" class="h-10 w-auto object-contain" />

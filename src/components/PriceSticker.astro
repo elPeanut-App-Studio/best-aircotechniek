@@ -1,0 +1,38 @@
+---
+/**
+ * Ronde vanaf-prijssticker, bedoeld om over een productfoto te liggen.
+ * De ouder moet `relative` zijn; deze sticker positioneert zichzelf absoluut.
+ *
+ * De tekst is opzettelijk kort: "vanaf" plus bedrag plus waar het bedrag voor
+ * geldt. De volledige voorwaarde (2,5 kW, inclusief btw en montage) staat in de
+ * lopende tekst op de pagina, niet in de sticker.
+ */
+import { formatPrice } from '../data/site';
+
+interface Props {
+  amount: number;
+  lang?: 'nl' | 'en';
+  /** 'sm' voor de modelkaarten, 'lg' voor de grote foto op een modelpagina. */
+  size?: 'sm' | 'lg';
+  class?: string;
+}
+
+const { amount, lang = 'nl', size = 'sm', class: extraClass = '' } = Astro.props;
+
+const t =
+  lang === 'en'
+    ? { from: 'from', note: 'incl. install' }
+    : { from: 'vanaf', note: 'incl. montage' };
+
+const box = size === 'lg' ? 'h-28 w-28 sm:h-32 sm:w-32' : 'h-[5.5rem] w-[5.5rem]';
+const bedrag = size === 'lg' ? 'text-xl sm:text-2xl' : 'text-base';
+const klein = size === 'lg' ? 'text-[0.65rem]' : 'text-[0.55rem]';
+---
+
+<span
+  class={`pointer-events-none absolute z-10 flex flex-col items-center justify-center rounded-full bg-gold-500 text-center leading-none text-brand-950 shadow-gold ring-2 ring-white/70 -rotate-[8deg] ${box} ${extraClass}`}
+>
+  <span class={`${klein} font-semibold uppercase tracking-wider`}>{t.from}</span>
+  <span class={`${bedrag} mt-0.5 font-extrabold tracking-tight`}>{formatPrice(amount, lang)}</span>
+  <span class={`${klein} mt-0.5 font-medium`}>{t.note}</span>
+</span>

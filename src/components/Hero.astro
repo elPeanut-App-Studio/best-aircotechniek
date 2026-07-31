@@ -1,6 +1,6 @@
 ---
 import Logo from './Logo.astro';
-import { site } from '../data/site';
+import { site, formatPrice } from '../data/site';
 import type { Lang } from '../i18n/routes';
 import { t } from '../i18n/ui';
 
@@ -38,7 +38,7 @@ const {
         <p class="mt-6 text-lg leading-relaxed text-brand-100 sm:text-xl">{subtitle}</p>
         <p class="mt-6 text-lg text-brand-100">
           {strings.priceLead}
-          <strong class="text-2xl font-bold text-gold-300">{strings.priceFromWord} {site.priceFrom}</strong>
+          <strong class="text-2xl font-bold text-gold-300">{strings.priceFromWord} {formatPrice(site.priceFromAmount, lang)}</strong>
           <span class="block text-sm text-brand-200">{strings.priceSuffix}</span>
         </p>
         <div class="mt-10">
