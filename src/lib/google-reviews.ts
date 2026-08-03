@@ -61,6 +61,31 @@ export function getGoogleReviews(): Promise<GoogleReviewsData | null> {
   return cached;
 }
 
+/**
+ * De weergavedata voor de reviewsectie en de schema-markup.
+ *
+ * Google indexeert een profiel in stappen: eerst de plaats met een cijfer en een
+ * aantal beoordelingen, en pas later de reviewTEKSTEN via de API. Zolang de
+ * teksten er niet zijn, nemen we alleen het cijfer en het aantal van Google over
+ * en houden we de handmatige citaten. Zonder deze samenvoeging zou het
+ * aanzetten van de feed de reviewkaarten van de pagina laten verdwijnen.
+ *
+ * Zodra Google de teksten wél levert, wint de live feed volledig, zonder dat
+ * hier iets aangepast hoeft te worden.
+ */
+export async function getReviewsForDisplay(fallback: GoogleReviewsData): Promise<GoogleReviewsData> {
+  const live = await getGoogleReviews();
+  if (!live) return fallback;
+  if (live.reviews.length > 0) return live;
+
+  return {
+    ...fallback,
+    rating: live.rating > 0 ? live.rating : fallback.rating,
+    totalReviews: live.totalReviews > 0 ? live.totalReviews : fallback.totalReviews,
+    mapsUrl: live.mapsUrl ?? fallback.mapsUrl,
+  };
+}
+
 export function getGoogleWriteReviewUrl(placeId?: string): string | null {
   if (!placeId) return null;
   return `https://search.google.com/local/writereview?placeid=${encodeURIComponent(placeId)}`;

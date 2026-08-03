@@ -1,16 +1,17 @@
 import type { GoogleReviewsData } from '../lib/google-reviews';
 
 /**
- * Handmatig ingevoerde Google-reviews.
+ * Handmatig ingevoerde Google-reviews: alleen de TEKSTEN.
  *
- * Waarom handmatig: het Google Business Profile is een service-area business
- * zonder openbaar adres. Zulke profielen verschijnen (voorlopig) niet in de
- * Places API, waardoor de automatische feed geen data teruggeeft. Deze lijst
- * toont de echte reviews toch op de site.
+ * Stand 3 augustus 2026: het profiel staat sinds kort in de Places API
+ * (Place ID ChIJ17zZpgkseywRD-alnOSxPNI), nadat er een adres aan het Google
+ * Business Profile is toegevoegd. Het cijfer en het aantal beoordelingen komen
+ * daardoor nu live van Google. De reviewTEKSTEN geeft Google via de API nog
+ * niet vrij, ook niet met een volledige field mask, dus die staan hier.
  *
- * Zodra de Places API het profiel wél indexeert en PUBLIC_GOOGLE_PLACE_ID +
- * GOOGLE_PLACES_API_KEY zijn ingesteld, neemt de live feed het automatisch
- * over (zie GoogleReviews.astro) en hoeft deze lijst niet meer bijgewerkt.
+ * Zodra Google de teksten wél levert, neemt de live feed het volledig over
+ * zonder codewijziging (zie getReviewsForDisplay in lib/google-reviews.ts) en
+ * hoeft deze lijst niet meer bijgehouden te worden.
  *
  * Nieuwe review toevoegen = één object toevoegen aan de array hieronder.
  * Bron: https://share.google/P0go8dYmyCVAl59WI
