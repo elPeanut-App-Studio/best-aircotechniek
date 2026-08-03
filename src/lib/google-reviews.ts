@@ -15,11 +15,25 @@ export interface GoogleReviewsData {
 
 let cached: Promise<GoogleReviewsData | null> | null = null;
 
-async function fetchGoogleReviews(): Promise<GoogleReviewsData | null> {
-  const apiKey = import.meta.env.GOOGLE_PLACES_API_KEY;
-  const placeId = import.meta.env.PUBLIC_GOOGLE_PLACE_ID;
+/**
+ * Leest een variabele uit de buildomgeving. Astro zet ze op import.meta.env,
+ * maar bij een build via een CI-runner is process.env de betrouwbaarste bron.
+ * Beide proberen, zodat het lokaal en in GitHub Actions hetzelfde werkt.
+ */
+function env(name: string): string | undefined {
+  const fromAstro = (import.meta.env as Record<string, string | undefined>)[name];
+  if (fromAstro) return fromAstro;
+  return typeof process !== 'undefined' ? process.env?.[name] : undefined;
+}
 
-  if (!apiKey || !placeId) return null;
+async function fetchGoogleReviews(): Promise<GoogleReviewsData | null> {
+  const apiKey = env('GOOGLE_PLACES_API_KEY');
+  const placeId = env('PUBLIC_GOOGLE_PLACE_ID');
+
+  if (!apiKey || !placeId) {
+    // Geen sleutels ingesteld: dit is een geldige situatie (lokale build).
+    return null;
+  }
 
   try {
     const response = await fetch(`https://places.googleapis.com/v1/places/${placeId}`, {
@@ -30,9 +44,20 @@ async function fetchGoogleReviews(): Promise<GoogleReviewsData | null> {
       },
     });
 
-    if (!response.ok) return null;
+    if (!response.ok) {
+      const body = await response.text().catch(() => '');
+      console.warn(
+        `[google-reviews] Places API gaf HTTP ${response.status}. De site valt terug op de handmatige reviews. ${body.slice(0, 300)}`,
+      );
+      return null;
+    }
 
     const data = await response.json();
+    if (!data.reviews?.length) {
+      console.info(
+        `[google-reviews] Google geeft ${data.userRatingCount ?? 0} beoordelingen en cijfer ${data.rating ?? '-'}, maar levert geen reviewteksten via de API. Cijfer en aantal komen live, de citaten blijven handmatig.`,
+      );
+    }
 
     return {
       rating: data.rating ?? 0,
@@ -51,7 +76,10 @@ async function fetchGoogleReviews(): Promise<GoogleReviewsData | null> {
         };
       }),
     };
-  } catch {
+  } catch (error) {
+    console.warn(
+      `[google-reviews] Places API onbereikbaar (${error instanceof Error ? error.message : String(error)}). De site valt terug op de handmatige reviews.`,
+    );
     return null;
   }
 }
