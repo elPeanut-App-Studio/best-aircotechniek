@@ -28,6 +28,14 @@ export const site = {
   priceFromEn: '€ 1,249',
   /** Open Graph / social preview-afbeelding (1200x630), absoluut t.o.v. url */
   ogImage: '/og-image.jpg',
+  /**
+   * Google Place ID van het Business Profile. Dit is PUBLIEKE informatie (het
+   * staat in elke Maps-link) en hoort dus niet in een secret: als config werkt
+   * het in elke build, ook lokaal en in previews. Alleen de API-sleutel is
+   * geheim en blijft een env-variabele.
+   * Gevonden 3 augustus 2026, nadat het profiel in de Places API verscheen.
+   */
+  googlePlaceId: 'ChIJ17zZpgkseywRD-alnOSxPNI',
   /** Google Maps bedrijfspagina (korte link of maps URL) */
   googleMapsUrl: 'https://share.google/P0go8dYmyCVAl59WI',
   /** Instagram-profiel (getoond in footer én meegenomen in schema sameAs). */
