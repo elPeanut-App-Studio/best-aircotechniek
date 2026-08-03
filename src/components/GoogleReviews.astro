@@ -39,7 +39,7 @@ const copy = {
 
 // Cijfer en aantal komen van Google zodra die beschikbaar zijn; de citaten
 // blijven handmatig tot Google de reviewteksten via de API vrijgeeft.
-const data = await getReviewsForDisplay(manualReviewsData);
+const data = getReviewsForDisplay(manualReviewsData);
 const placeId = site.googlePlaceId || import.meta.env.PUBLIC_GOOGLE_PLACE_ID || '';
 const mapsSearchQuery = `${site.name} ${site.region}`;
 const mapsUrl =
