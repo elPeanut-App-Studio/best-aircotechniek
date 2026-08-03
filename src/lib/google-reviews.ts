@@ -1,3 +1,5 @@
+import { site } from '../data/site';
+
 export interface GoogleReview {
   authorName: string;
   authorPhoto?: string;
@@ -16,19 +18,24 @@ export interface GoogleReviewsData {
 let cached: Promise<GoogleReviewsData | null> | null = null;
 
 /**
- * Leest een variabele uit de buildomgeving. Astro zet ze op import.meta.env,
- * maar bij een build via een CI-runner is process.env de betrouwbaarste bron.
- * Beide proberen, zodat het lokaal en in GitHub Actions hetzelfde werkt.
+ * Leest een variabele uit de buildomgeving.
+ *
+ * process.env EERST: Vite vervangt `import.meta.env.NAAM` tijdens de build
+ * statisch, en voor een variabele zonder PUBLIC_-prefix die niet in een
+ * .env-bestand staat wordt dat `undefined`. In GitHub Actions komen de waarden
+ * uit de omgeving van de stap en niet uit een .env-bestand, waardoor de
+ * import.meta.env-route daar niets oplevert.
  */
 function env(name: string): string | undefined {
-  const fromAstro = (import.meta.env as Record<string, string | undefined>)[name];
-  if (fromAstro) return fromAstro;
-  return typeof process !== 'undefined' ? process.env?.[name] : undefined;
+  const fromProcess = typeof process !== 'undefined' ? process.env?.[name] : undefined;
+  if (fromProcess) return fromProcess;
+  return (import.meta.env as Record<string, string | undefined>)[name];
 }
 
 async function fetchGoogleReviews(): Promise<GoogleReviewsData | null> {
   const apiKey = env('GOOGLE_PLACES_API_KEY');
-  const placeId = env('PUBLIC_GOOGLE_PLACE_ID');
+  // Uit de config: publieke informatie, dus niet afhankelijk van de omgeving.
+  const placeId = site.googlePlaceId || env('PUBLIC_GOOGLE_PLACE_ID');
 
   if (!apiKey || !placeId) {
     // Geen sleutels ingesteld: dit is een geldige situatie (lokale build).
