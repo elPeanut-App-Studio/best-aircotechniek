@@ -3,6 +3,8 @@ import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import CTASection from '../../../../components/CTASection.astro';
 import { daikinModels, daikinEfficiency, coolingLabel, heatingLabel } from '../../../../data/daikin-products';
 import { site } from '../../../../data/site';
+import ProductSchema from '../../../../components/ProductSchema.astro';
+import { acSpecs } from '../../../../lib/schema-specs';
 
 export function getStaticPaths() {
   return daikinModels.flatMap((model) =>
@@ -49,6 +51,10 @@ const extra = [
 const btnBase = 'size-btn rounded-xl px-5 py-2.5 font-semibold transition ';
 const btnActive = 'border-2 border-brand-700 bg-white text-brand-900 shadow-sm';
 const btnInactive = 'border border-slate-300 bg-white text-slate-700 hover:border-brand-500 hover:text-brand-900';
+const schemaSpecs = acSpecs({
+  koel: size.koel, verw: size.verw, seer: eff?.seer, scop: eff?.scop,
+  labelKoelen, labelVerwarmen, refrigerant: 'R32', warranty: '5 jaar fabrieksgarantie',
+});
 ---
 
 <BaseLayout
@@ -217,4 +223,12 @@ const btnInactive = 'border border-slate-300 bg-white text-slate-700 hover:borde
       }),
     );
   </script>
+  <ProductSchema
+    name={`Daikin ${model.name} ${size.kw} airconditioner`}
+    brand="Daikin"
+    sku={model.code}
+    description={`Daikin ${model.name} ${size.kw} (${model.code}) wandmodel${size.koel ? `: ${size.koel} koelvermogen en ${size.verw} verwarmingsvermogen` : ''}${eff ? `, SEER ${eff.seer} en SCOP ${eff.scop}` : ''}. Geschikt voor ${size.room.toLowerCase()} tot ${size.volume}, inclusief montage door Best Aircotechniek.`}
+    image={model.photo}
+    specs={schemaSpecs}
+  />
 </BaseLayout>

@@ -5,6 +5,8 @@ import { lgModels, lgSizesFor, lgCapacity } from '../../../../../data/lg-product
 import { coolingLabel, heatingLabel } from '../../../../../data/energy-labels';
 import { site } from '../../../../../data/site';
 import { lgTextEn, sharedEn, sizeRoomEn, num } from '../../../../../i18n/products-en';
+import ProductSchema from '../../../../../components/ProductSchema.astro';
+import { acSpecs } from '../../../../../lib/schema-specs';
 
 export function getStaticPaths() {
   return lgModels.flatMap((model) =>
@@ -63,6 +65,11 @@ const extra: { label: string; value: string; id?: string }[] = [
 const btnBase = 'size-btn rounded-xl px-5 py-2.5 font-semibold transition ';
 const btnActive = 'border-2 border-brand-700 bg-white text-brand-900 shadow-sm';
 const btnInactive = 'border border-slate-300 bg-white text-slate-700 hover:border-brand-500 hover:text-brand-900';
+const schemaSpecs = acSpecs({
+  lang: 'en', koel: cap.koel, verw: cap.verw, koelMax: cap.koelMax, verwMax: cap.verwMax,
+  seer: cap.seer, scop: cap.scop, labelKoelen, labelVerwarmen,
+  refrigerant: 'R32', warranty: '5 year manufacturer warranty',
+});
 ---
 
 <BaseLayout
@@ -236,4 +243,13 @@ const btnInactive = 'border border-slate-300 bg-white text-slate-700 hover:borde
       }),
     );
   </script>
+  <ProductSchema
+    lang="en"
+    name={`LG ${model.name} ${num(size.kw)} air conditioner`}
+    brand="LG"
+    sku={cap.code}
+    description={`LG ${model.name} ${num(size.kw)} (${cap.code}) wall-mounted unit: ${num(cap.koel)} kW cooling capacity and ${num(cap.verw)} kW heating capacity, SEER ${num(cap.seer)} and SCOP ${num(cap.scop)}, energy label ${labelKoelen} for cooling and ${labelVerwarmen} for heating. Installation included by Best Aircotechniek.`}
+    image={model.photo}
+    specs={schemaSpecs}
+  />
 </BaseLayout>

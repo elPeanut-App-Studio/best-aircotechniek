@@ -5,6 +5,8 @@ import CTASection from '../../../components/CTASection.astro';
 import { lgModels, lgSizesFor, lgShared, lgBestLabels, lgBestEfficiency } from '../../../data/lg-products';
 import { site } from '../../../data/site';
 import pageHeroPhoto from '../../../assets/photos/page-hero-woning.jpg';
+import ProductSchema from '../../../components/ProductSchema.astro';
+import { acSpecs } from '../../../lib/schema-specs';
 
 export function getStaticPaths() {
   return lgModels.map((model) => ({ params: { model: model.slug }, props: { model } }));
@@ -18,6 +20,11 @@ const others = lgModels.filter((m) => m.slug !== model.slug);
 const modelSizes = lgSizesFor(model.slug);
 const bestLabels = lgBestLabels(model.slug);
 const bestEff = lgBestEfficiency(model.slug);
+const schemaSpecs = acSpecs({
+  seer: bestEff?.seer, scop: bestEff?.scop,
+  labelKoelen: bestLabels?.koelen, labelVerwarmen: bestLabels?.verwarmen,
+  refrigerant: 'R32', warranty: '5 jaar fabrieksgarantie',
+});
 ---
 
 <BaseLayout
@@ -163,5 +170,12 @@ const bestEff = lgBestEfficiency(model.slug);
   <CTASection
     title={`LG ${model.name} laten installeren?`}
     description={`Best Aircotechniek verzorgt advies, levering en een vakkundige montage vanaf ${site.priceFrom}. Vraag een vrijblijvende offerte aan.`}
+  />
+  <ProductSchema
+    name={`LG ${model.name} airconditioner`}
+    brand="LG"
+    description={`LG ${model.name}: ${model.intro} Leverbaar in ${modelSizes.length} vermogens, SEER tot ${bestEff?.seer} en SCOP tot ${bestEff?.scop}, energielabel tot ${bestLabels?.koelen} koelen en ${bestLabels?.verwarmen} verwarmen.`}
+    image={model.photo}
+    specs={schemaSpecs}
   />
 </BaseLayout>

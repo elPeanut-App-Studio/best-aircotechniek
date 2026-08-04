@@ -1,0 +1,102 @@
+---
+/**
+ * Product-schema (JSON-LD) voor de merk-, model- en vermogenspagina's.
+ *
+ * WAAROM
+ * De specificaties staan al in de tabel op de pagina, maar alleen als opgemaakte
+ * HTML. Hiermee staan dezelfde feiten machineleesbaar in de pagina: merk,
+ * typeaanduiding, koel- en verwarmingsvermogen, SEER/SCOP en energielabel.
+ *
+ * WAT ER BEWUST NIET IN ZIT
+ * 1. Geen aggregateRating. De 5,0 uit 4 beoordelingen gaat over het
+ *    installatiewerk van Best Aircotechniek, niet over een specifieke airco.
+ *    Datzelfde cijfer op 134 producten zetten is in strijd met het beleid van
+ *    Google voor reviewfragmenten. De beoordeling blijft in het HVACBusiness-
+ *    blok staan, waar hij thuishoort.
+ * 2. Geen prijs op vermogenspagina's. De vanaf-prijs geldt voor de kleinste
+ *    uitvoering; een Offer met dat bedrag op een 5,0 kW-pagina zou dezelfde
+ *    onjuiste prijsbelofte doen als de prijssticker die daar is teruggedraaid,
+ *    maar dan in de vorm die Google letterlijk kan overnemen. Alleen pagina's
+ *    met een echte vanaf-prijs krijgen een Offer, met minPrice.
+ * 3. Geen hasEnergyConsumptionDetails. Een airco heeft twee labels, voor koelen
+ *    en voor verwarmen, en dat veld kent maar één waarde. Beide labels staan
+ *    daarom expliciet benoemd in additionalProperty, waar ze niet verkeerd
+ *    gelezen kunnen worden.
+ *
+ * Zonder Offer meldt de Rich Results Test "missing field offers". Dat is een
+ * waarschuwing, geen fout: de markup is geldig.
+ */
+import { site } from '../data/site';
+
+export type SpecProp = { name: string; value: string; unitCode?: string };
+
+interface Props {
+  /** Volledige productnaam, inclusief merk en vermogen. */
+  name: string;
+  /** Merknaam van de fabrikant, niet van de installateur. */
+  brand: string;
+  description: string;
+  /** Pad naar de productfoto, relatief of absoluut. */
+  image: string;
+  /** Officiële typeaanduiding, als die bekend is. */
+  sku?: string;
+  specs?: SpecProp[];
+  /** Vanaf-prijs in euro's; alleen zetten waar die echt geldt. */
+  priceFrom?: number;
+  lang?: 'nl' | 'en';
+}
+
+const { name, brand, description, image, sku, specs = [], priceFrom, lang = 'nl' } = Astro.props;
+
+const pageUrl = new URL(Astro.url.pathname, site.url).href;
+const category =
+  lang === 'en' ? 'Air conditioning > Wall-mounted split unit' : 'Airconditioning > Wandmodel split-unit';
+
+const schema: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  '@id': `${pageUrl}#product`,
+  name,
+  description,
+  url: pageUrl,
+  image: new URL(image, site.url).href,
+  category,
+  brand: { '@type': 'Brand', name: brand },
+  inLanguage: lang,
+};
+
+if (sku) {
+  schema.sku = sku;
+  schema.mpn = sku;
+}
+
+if (specs.length > 0) {
+  schema.additionalProperty = specs.map((s) => ({
+    '@type': 'PropertyValue',
+    name: s.name,
+    value: s.value,
+    ...(s.unitCode ? { unitCode: s.unitCode } : {}),
+  }));
+}
+
+if (priceFrom) {
+  schema.offers = {
+    '@type': 'Offer',
+    priceCurrency: 'EUR',
+    availability: 'https://schema.org/InStock',
+    itemCondition: 'https://schema.org/NewCondition',
+    // Vanaf-prijs: inclusief btw en montage van de kleinste uitvoering.
+    priceSpecification: {
+      '@type': 'PriceSpecification',
+      minPrice: priceFrom,
+      priceCurrency: 'EUR',
+      valueAddedTaxIncluded: true,
+    },
+    seller: { '@id': `${site.url}/#business` },
+    areaServed: { '@type': 'AdministrativeArea', name: site.region },
+    url: pageUrl,
+  };
+}
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
