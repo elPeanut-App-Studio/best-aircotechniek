@@ -41,7 +41,7 @@ const schemaSpecs = acSpecs({
   <section class="py-16 sm:py-20">
     <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
       <nav class="text-sm text-slate-500" aria-label="Breadcrumb">
-        <a href="/en/brands/lg" class="hover:text-brand-700">LG</a>
+        <a href="/en/brands/lg/" class="hover:text-brand-700">LG</a>
         <span class="px-1">/</span>
         <span class="text-slate-700">{model.name}</span>
       </nav>
@@ -131,7 +131,7 @@ const schemaSpecs = acSpecs({
       >
         {
           modelSizes.map((size) => (
-            <a href={`/en/brands/lg/${model.slug}/${size.slug}`} class="group card-link flex flex-col p-6">
+            <a href={`/en/brands/lg/${model.slug}/${size.slug}/`} class="group card-link flex flex-col p-6">
               <p class="text-2xl font-bold text-brand-900">{num(size.kw)}</p>
               <p class="mt-2 min-h-[2.5rem] text-sm text-slate-600">{sizeRoomEn[size.slug] ?? size.room}</p>
               <p class="mt-1 text-sm text-slate-500">{num(size.volume)} · {num(size.area)}</p>
@@ -145,7 +145,7 @@ const schemaSpecs = acSpecs({
       </div>
 
       <div class="mt-10 flex flex-wrap gap-4">
-        <a href="/en/contact" class="btn-primary inline-flex">Request a quote</a>
+        <a href="/en/contact/" class="btn-primary inline-flex">Request a quote</a>
         <a href="/lg-airco-brochure.pdf" download class="btn-secondary inline-flex items-center gap-2">
           <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
@@ -158,7 +158,7 @@ const schemaSpecs = acSpecs({
       <div class="mt-8 grid gap-6 sm:grid-cols-3">
         {
           others.map((m) => (
-            <a href={`/en/brands/lg/${m.slug}`} class="group card-link flex flex-col p-6">
+            <a href={`/en/brands/lg/${m.slug}/`} class="group card-link flex flex-col p-6">
               <p class="text-xs font-semibold uppercase tracking-wider text-gold-600">{m.tier}</p>
               <h3 class="mt-1 text-lg font-bold text-brand-900">LG {m.name}</h3>
               <p class="mt-2 text-sm leading-relaxed text-slate-600">{m.intro}</p>

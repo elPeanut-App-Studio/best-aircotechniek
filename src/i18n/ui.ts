@@ -24,7 +24,7 @@ export const ui = {
     /** Knop onderaan in het CTA-blok. Bewust korter dan de headerknop. */
     ctaSectionButton: 'Contact opnemen',
     ctaQuote: 'Vraag een offerte aan',
-    contactHref: '/contact',
+    contactHref: '/contact/',
 
     // Footer
     navigationHeading: 'Navigatie',
@@ -67,7 +67,7 @@ export const ui = {
     ctaContact: 'Get in touch',
     ctaSectionButton: 'Contact us',
     ctaQuote: 'Request a quote',
-    contactHref: '/en/contact',
+    contactHref: '/en/contact/',
 
     navigationHeading: 'Navigation',
     servicesHeading: 'Services',
@@ -129,18 +129,18 @@ export function navFor(lang: Lang) {
   if (lang === 'en') {
     return [
       { href: '/en/', label: ui.en.navHome },
-      { href: '/en/how-it-works', label: ui.en.navHowItWorks },
-      { href: '/en/air-conditioning-installation-noord-brabant', label: ui.en.navServiceArea },
-      { href: '/en/about-us', label: ui.en.navAbout },
-      { href: '/en/contact', label: ui.en.navContact },
+      { href: '/en/how-it-works/', label: ui.en.navHowItWorks },
+      { href: '/en/air-conditioning-installation-noord-brabant/', label: ui.en.navServiceArea },
+      { href: '/en/about-us/', label: ui.en.navAbout },
+      { href: '/en/contact/', label: ui.en.navContact },
     ];
   }
   return [
     { href: '/', label: ui.nl.navHome },
-    { href: '/hoe-het-werkt', label: ui.nl.navHowItWorks },
-    { href: '/airco-installatie-noord-brabant', label: ui.nl.navServiceArea },
-    { href: '/over-ons', label: ui.nl.navAbout },
-    { href: '/contact', label: ui.nl.navContact },
+    { href: '/hoe-het-werkt/', label: ui.nl.navHowItWorks },
+    { href: '/airco-installatie-noord-brabant/', label: ui.nl.navServiceArea },
+    { href: '/over-ons/', label: ui.nl.navAbout },
+    { href: '/contact/', label: ui.nl.navContact },
   ];
 }
 
@@ -148,19 +148,19 @@ export function navFor(lang: Lang) {
 export function dienstenNavFor(lang: Lang) {
   if (lang === 'en') {
     return [
-      { href: '/en/air-conditioning-installation', label: 'Air conditioning installation' },
-      { href: '/en/air-conditioning-maintenance', label: 'Air conditioning maintenance' },
+      { href: '/en/air-conditioning-installation/', label: 'Air conditioning installation' },
+      { href: '/en/air-conditioning-maintenance/', label: 'Air conditioning maintenance' },
       {
-        href: '/en/air-conditioning-installation-noord-brabant',
+        href: '/en/air-conditioning-installation-noord-brabant/',
         label: 'Service area Noord-Brabant',
       },
-      { href: '/en/downloads', label: 'Brochures & downloads' },
+      { href: '/en/downloads/', label: 'Brochures & downloads' },
     ];
   }
   return [
-    { href: '/airco-installatie', label: 'Airco installatie' },
-    { href: '/airco-onderhoud', label: 'Airco onderhoud' },
-    { href: '/airco-installatie-noord-brabant', label: 'Werkgebied Noord-Brabant' },
-    { href: '/downloads', label: 'Brochures & downloads' },
+    { href: '/airco-installatie/', label: 'Airco installatie' },
+    { href: '/airco-onderhoud/', label: 'Airco onderhoud' },
+    { href: '/airco-installatie-noord-brabant/', label: 'Werkgebied Noord-Brabant' },
+    { href: '/downloads/', label: 'Brochures & downloads' },
   ];
 }

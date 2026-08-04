@@ -83,7 +83,7 @@ const modelsHeading = modelsHeadings[brand.slug] ?? `De ${brand.name}-modellen`;
         )
       }
       <div class="mt-8 flex flex-wrap gap-4">
-        <a href="/contact" class="btn-primary inline-flex">Vraag een offerte aan</a>
+        <a href="/contact/" class="btn-primary inline-flex">Vraag een offerte aan</a>
         {
           brand.brochure && (
             <a href={brand.brochure} download class="btn-secondary inline-flex items-center gap-2">
@@ -94,7 +94,7 @@ const modelsHeading = modelsHeadings[brand.slug] ?? `De ${brand.name}-modellen`;
             </a>
           )
         }
-        <a href="/airco-installatie" class="btn-secondary inline-flex">Bekijk airco-installatie</a>
+        <a href="/airco-installatie/" class="btn-secondary inline-flex">Bekijk airco-installatie</a>
       </div>
     </div>
   </section>
@@ -107,7 +107,7 @@ const modelsHeading = modelsHeadings[brand.slug] ?? `De ${brand.name}-modellen`;
           <div class="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {models.map((m) => (
               <a
-                href={`/merken/${brand.slug}/${m.slug}`}
+                href={`/merken/${brand.slug}/${m.slug}/`}
                 class="group card-link flex flex-col p-6"
               >
                 {

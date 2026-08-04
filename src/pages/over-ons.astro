@@ -65,7 +65,7 @@ import { locations } from '../data/locations';
           <h2 class="section-heading mt-6">Werkgebied</h2>
           <p class="section-subheading">
             Wij installeren airconditioning in {site.region}. Klik op uw plaats voor meer informatie, of bekijk ons
-            <a href="/airco-installatie-noord-brabant" class="font-semibold text-brand-700 underline">volledige werkgebied</a>.
+            <a href="/airco-installatie-noord-brabant/" class="font-semibold text-brand-700 underline">volledige werkgebied</a>.
           </p>
         </div>
 
@@ -74,7 +74,7 @@ import { locations } from '../data/locations';
             locations.map((loc) => (
               <li>
                 <a
-                  href={`/airco-installatie-${loc.slug}`}
+                  href={`/airco-installatie-${loc.slug}/`}
                   class="flex items-center gap-3 rounded-xl border border-brand-100 bg-white px-4 py-3 shadow-sm transition hover:border-gold-400 hover:shadow-md"
                 >
                   <span

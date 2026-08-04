@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "prebuild": "node scripts/fetch-google-reviews.mjs"
+    "prebuild": "node scripts/fetch-google-reviews.mjs",
+    "postbuild": "node scripts/check-internal-links.mjs"
   },
   "dependencies": {
     "astro": "^5.7.0",

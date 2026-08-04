@@ -80,6 +80,18 @@ const enToNl: Record<string, string> = Object.fromEntries(
   Object.entries(routePairs).map(([nl, en]) => [en, nl]),
 );
 
+/**
+ * De routekaart bewaart paden ZONDER afsluitende slash, want normalizePath
+ * haalt die weg om te kunnen opzoeken. De site levert pagina's uit MET slash;
+ * de slash-loze variant geeft een 301. Wie een pad uit deze module in een href
+ * of een link-tag zet, moet dus deze functie gebruiken.
+ */
+export function withTrailingSlash(path: string): string {
+  if (path.startsWith('http')) return path;
+  const [pad, rest] = [path.split(/[?#]/)[0], path.slice(path.split(/[?#]/)[0].length)];
+  return (pad.endsWith('/') ? pad : `${pad}/`) + rest;
+}
+
 /** Haalt de trailing slash weg, behalve bij de twee homepages. */
 export function normalizePath(pathname: string): string {
   if (pathname === '/' || pathname === '/en/') return pathname;

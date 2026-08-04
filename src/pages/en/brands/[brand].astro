@@ -90,7 +90,7 @@ const tagline = brandTaglinesEn[brand.slug] ?? brand.tagline;
         )
       }
       <div class="mt-8 flex flex-wrap gap-4">
-        <a href="/en/contact" class="btn-primary inline-flex">Request a quote</a>
+        <a href="/en/contact/" class="btn-primary inline-flex">Request a quote</a>
         {
           brand.brochureEn && (
             <a href={brand.brochureEn} download class="btn-secondary inline-flex items-center gap-2">
@@ -101,7 +101,7 @@ const tagline = brandTaglinesEn[brand.slug] ?? brand.tagline;
             </a>
           )
         }
-        <a href="/en/air-conditioning-installation" class="btn-secondary inline-flex">See installation</a>
+        <a href="/en/air-conditioning-installation/" class="btn-secondary inline-flex">See installation</a>
       </div>
     </div>
   </section>
@@ -113,7 +113,7 @@ const tagline = brandTaglinesEn[brand.slug] ?? brand.tagline;
           <h2 class="section-heading">{brandModelsHeadingEn[brand.slug]}</h2>
           <div class="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {models.map((m) => (
-              <a href={`/en/brands/${brand.slug}/${m.slug}`} class="group card-link flex flex-col p-6">
+              <a href={`/en/brands/${brand.slug}/${m.slug}/`} class="group card-link flex flex-col p-6">
                 {
                   m.photo ? (
                     <span class="relative mx-auto block w-fit">

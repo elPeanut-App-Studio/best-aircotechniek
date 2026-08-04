@@ -62,7 +62,7 @@ const approach = [
   <section class="py-16 sm:py-20">
     <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
       <nav class="mb-8 text-sm text-slate-500" aria-label="Kruimelpad">
-        <a href="/airco-installatie-noord-brabant" class="hover:text-brand-700">Werkgebied Noord-Brabant</a>
+        <a href="/airco-installatie-noord-brabant/" class="hover:text-brand-700">Werkgebied Noord-Brabant</a>
         <span class="mx-2">/</span>
         <span class="text-slate-700">{loc.city}</span>
       </nav>
@@ -74,7 +74,7 @@ const approach = [
           {loc.intro.map((p) => <p class="mt-4 text-lg leading-relaxed text-slate-600">{p}</p>)}
           {loc.localContent?.map((p) => <p class="mt-4 text-lg leading-relaxed text-slate-600">{p}</p>)}
 
-          <a href="/contact" class="btn-primary mt-8 inline-flex">Vraag een gratis offerte aan</a>
+          <a href="/contact/" class="btn-primary mt-8 inline-flex">Vraag een gratis offerte aan</a>
         </div>
 
         <aside class="lg:col-span-1">
@@ -121,7 +121,7 @@ const approach = [
         {
           brands.map((b) => (
             <a
-              href={`/merken/${b.slug}`}
+              href={`/merken/${b.slug}/`}
               class="flex flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:border-gold-400 hover:shadow-md"
             >
               <span class="text-lg font-bold text-brand-900">{b.name} airco in {loc.city}</span>
@@ -141,14 +141,14 @@ const approach = [
         <h2 class="section-heading mt-6">Ook actief rondom {loc.city}</h2>
         <p class="section-subheading">
           Naast {loc.city} zijn wij actief in onder meer {loc.nearby.join(', ')}. Bekijk ook ons volledige
-          <a href="/airco-installatie-noord-brabant" class="font-semibold text-brand-700 underline">werkgebied in Noord-Brabant</a>.
+          <a href="/airco-installatie-noord-brabant/" class="font-semibold text-brand-700 underline">werkgebied in Noord-Brabant</a>.
         </p>
         <ul class="mt-8 flex flex-wrap gap-3">
           {
             others.map((l) => (
               <li>
                 <a
-                  href={`/airco-installatie-${l.slug}`}
+                  href={`/airco-installatie-${l.slug}/`}
                   class="inline-flex items-center rounded-full border border-brand-200 bg-white px-4 py-2 text-sm font-semibold text-brand-800 transition hover:border-gold-400 hover:text-brand-900"
                 >
                   Airco {l.city}

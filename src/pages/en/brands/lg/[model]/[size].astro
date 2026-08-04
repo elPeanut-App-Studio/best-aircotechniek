@@ -80,9 +80,9 @@ const schemaSpecs = acSpecs({
   <section class="pt-8 pb-16 sm:pt-10 sm:pb-20">
     <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
       <nav class="text-sm text-slate-500" aria-label="Breadcrumb">
-        <a href="/en/brands/lg" class="hover:text-brand-700">LG</a>
+        <a href="/en/brands/lg/" class="hover:text-brand-700">LG</a>
         <span class="px-1">/</span>
-        <a href={`/en/brands/lg/${model.slug}`} class="hover:text-brand-700">{model.name}</a>
+        <a href={`/en/brands/lg/${model.slug}/`} class="hover:text-brand-700">{model.name}</a>
         <span class="px-1">/</span>
         <span id="crumb-size" class="text-slate-700">{num(size.kw)}</span>
       </nav>
@@ -103,7 +103,7 @@ const schemaSpecs = acSpecs({
           {
             lgSizesFor(rawModel.slug).map((s) => (
               <a
-                href={`/en/brands/lg/${model.slug}/${s.slug}`}
+                href={`/en/brands/lg/${model.slug}/${s.slug}/`}
                 data-size={s.slug}
                 class={btnBase + (s.slug === size.slug ? btnActive : btnInactive)}
               >
@@ -177,7 +177,7 @@ const schemaSpecs = acSpecs({
             </ul>
           </div>
           <div class="shrink-0 lg:pl-8">
-            <a href="/en/contact" class="btn-primary inline-flex w-full justify-center sm:w-auto">Request a quote</a>
+            <a href="/en/contact/" class="btn-primary inline-flex w-full justify-center sm:w-auto">Request a quote</a>
           </div>
         </div>
       </div>
