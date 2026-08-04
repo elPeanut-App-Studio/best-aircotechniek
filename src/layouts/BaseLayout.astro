@@ -72,13 +72,18 @@ const heroLogo = isHome
       )
     }
     {/*
-      Faviconset uit scripts/make-favicons.py. Verwees eerder naar site.logo,
-      en dat bestand was 2048x2048 en 5 MB: elke bezoeker downloadde 5 MB voor
-      een icoontje van 32 pixels. site.logo blijft in gebruik als logo in de
-      schema-markup, waar een groter formaat wel zin heeft.
+      Faviconset uit scripts/make-favicons.py: een uitsnede van het binnenwerk
+      van het echte logo. Verwees eerder naar site.logo, en dat bestand was
+      2048x2048 en 5 MB: elke bezoeker downloadde 5 MB voor een icoontje van 32
+      pixels. site.logo blijft in gebruik als logo in de schema-markup, waar een
+      groter formaat wel zin heeft.
+
+      Geen favicon.svg: de SVG die in de repo stond was een vereenvoudigde
+      natekening en geen echt logo, en browsers geven een SVG voorrang boven de
+      PNG. Zodra er een echte vector van het logo is, komt die hier terug.
     */}
-    <link rel="icon" href="/favicon.ico" sizes="32x32" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="canonical" href={`${site.url}${withSlash(Astro.url.pathname)}`} />
     {
