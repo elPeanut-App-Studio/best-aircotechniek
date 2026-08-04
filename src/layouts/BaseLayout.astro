@@ -71,7 +71,15 @@ const heroLogo = isHome
         <link rel="preload" as="image" href={heroLogo.src} type="image/webp" fetchpriority="high" />
       )
     }
-    <link rel="icon" type="image/png" href={site.logo} />
+    {/*
+      Faviconset uit scripts/make-favicons.py. Verwees eerder naar site.logo,
+      en dat bestand was 2048x2048 en 5 MB: elke bezoeker downloadde 5 MB voor
+      een icoontje van 32 pixels. site.logo blijft in gebruik als logo in de
+      schema-markup, waar een groter formaat wel zin heeft.
+    */}
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="canonical" href={`${site.url}${withSlash(Astro.url.pathname)}`} />
     {
       hasPair && (
