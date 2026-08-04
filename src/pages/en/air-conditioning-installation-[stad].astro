@@ -60,7 +60,7 @@ const approach = [
   <section class="py-16 sm:py-20">
     <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
       <nav class="mb-8 text-sm text-slate-500" aria-label="Breadcrumb">
-        <a href="/en/air-conditioning-installation-noord-brabant" class="hover:text-brand-700">
+        <a href="/en/air-conditioning-installation-noord-brabant/" class="hover:text-brand-700">
           Service area Noord-Brabant
         </a>
         <span class="mx-2">/</span>
@@ -73,7 +73,7 @@ const approach = [
           <h2 class="section-heading mt-6">Having air conditioning installed in {loc.city}</h2>
           {loc.intro.map((p) => <p class="mt-4 text-lg leading-relaxed text-slate-600">{p}</p>)}
 
-          <a href="/en/contact" class="btn-primary mt-8 inline-flex">Request a free quote</a>
+          <a href="/en/contact/" class="btn-primary mt-8 inline-flex">Request a free quote</a>
         </div>
 
         <aside class="lg:col-span-1">
@@ -122,7 +122,7 @@ const approach = [
         {
           brands.map((b) => (
             <a
-              href={`/en/brands/${b.slug}`}
+              href={`/en/brands/${b.slug}/`}
               class="flex flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:border-gold-400 hover:shadow-md"
             >
               <span class="text-lg font-bold text-brand-900">{b.name} in {loc.city}</span>
@@ -143,14 +143,14 @@ const approach = [
         <h2 class="section-heading mt-6">Also working around {loc.city}</h2>
         <p class="section-subheading">
           Besides {loc.city} we are active in {loc.nearby.join(', ')} among others. You can also view our full
-          <a href="/en/air-conditioning-installation-noord-brabant" class="font-semibold text-brand-700 underline">service area in Noord-Brabant</a>.
+          <a href="/en/air-conditioning-installation-noord-brabant/" class="font-semibold text-brand-700 underline">service area in Noord-Brabant</a>.
         </p>
         <ul class="mt-8 flex flex-wrap gap-3">
           {
             others.map((l) => (
               <li>
                 <a
-                  href={`/en/air-conditioning-installation-${l.slug}`}
+                  href={`/en/air-conditioning-installation-${l.slug}/`}
                   class="inline-flex items-center rounded-full border border-brand-200 bg-white px-4 py-2 text-sm font-semibold text-brand-800 transition hover:border-gold-400 hover:text-brand-900"
                 >
                   {l.city}

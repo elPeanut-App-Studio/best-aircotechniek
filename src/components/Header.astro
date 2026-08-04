@@ -2,7 +2,7 @@
 import { site } from '../data/site';
 import Logo from './Logo.astro';
 import LanguageSwitch from './LanguageSwitch.astro';
-import { counterpart, type Lang } from '../i18n/routes';
+import { counterpart, withTrailingSlash, type Lang } from '../i18n/routes';
 import { navFor, t } from '../i18n/ui';
 
 interface Props {
@@ -17,7 +17,7 @@ const homeHref = lang === 'en' ? '/en/' : '/';
 
 // Tegenhanger voor de taalknop. Zonder paar linken we naar de homepage.
 const pair = counterpart(pathname);
-const otherHref = pair?.path ?? (lang === 'nl' ? '/en/' : '/');
+const otherHref = withTrailingSlash(pair?.path ?? (lang === 'nl' ? '/en/' : '/'));
 ---
 
 <header class="sticky top-0 z-40 border-b border-brand-100 bg-white/95 shadow-[0_4px_20px_-12px_rgba(15,45,71,0.25)] backdrop-blur">

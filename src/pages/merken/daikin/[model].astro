@@ -30,7 +30,7 @@ const schemaSpecs = acSpecs({
   <section class="py-16 sm:py-20">
     <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
       <nav class="text-sm text-slate-500" aria-label="Kruimelpad">
-        <a href="/merken/daikin" class="hover:text-brand-700">Daikin</a>
+        <a href="/merken/daikin/" class="hover:text-brand-700">Daikin</a>
         <span class="px-1">/</span>
         <span class="text-slate-700">{model.name}</span>
       </nav>
@@ -108,7 +108,7 @@ const schemaSpecs = acSpecs({
       <div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {
           model.sizes.map((size) => (
-            <a href={`/merken/daikin/${model.slug}/${size.slug}`} class="group card-link flex flex-col p-6">
+            <a href={`/merken/daikin/${model.slug}/${size.slug}/`} class="group card-link flex flex-col p-6">
               <p class="text-2xl font-bold text-brand-900">{size.kw}</p>
               <p class="mt-2 min-h-[2.5rem] text-sm text-slate-600">{size.room}</p>
               <p class="mt-1 text-sm text-slate-500">{size.volume} · {size.area}</p>
@@ -122,14 +122,14 @@ const schemaSpecs = acSpecs({
       </div>
 
       <div class="mt-10">
-        <a href="/contact" class="btn-primary inline-flex">Vraag een offerte aan</a>
+        <a href="/contact/" class="btn-primary inline-flex">Vraag een offerte aan</a>
       </div>
 
       <h2 class="section-heading mt-16">Andere Daikin-modellen</h2>
       <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {
           others.map((m) => (
-            <a href={`/merken/daikin/${m.slug}`} class="group card-link flex flex-col p-6">
+            <a href={`/merken/daikin/${m.slug}/`} class="group card-link flex flex-col p-6">
               <p class="text-xs font-semibold uppercase tracking-wider text-gold-600">{m.tier}</p>
               <h3 class="mt-1 text-lg font-bold text-brand-900">Daikin {m.name}</h3>
               <p class="mt-2 text-sm leading-relaxed text-slate-600">{m.intro}</p>

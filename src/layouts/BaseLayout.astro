@@ -7,7 +7,7 @@ import LocalBusinessSchema from '../components/LocalBusinessSchema.astro';
 import { getImage } from 'astro:assets';
 import logo from '../assets/logo.png';
 import { site } from '../data/site';
-import { counterpart, normalizePath, type Lang } from '../i18n/routes';
+import { counterpart, normalizePath, type Lang, withTrailingSlash } from '../i18n/routes';
 
 interface Props {
   /**
@@ -30,7 +30,6 @@ const { title, description = site.description, lang = 'nl' } = Astro.props;
 // slash-loze variant geeft een 301. hreflang moet naar de canonieke URL wijzen,
 // dus zetten we de slash hier terug. Zonder dat wees elke hreflang-tag naar een
 // redirect, wat Google aanleiding geeft de taalkoppeling te negeren.
-const withSlash = (path: string) => (path.endsWith('/') ? path : `${path}/`);
 const selfPath = normalizePath(Astro.url.pathname);
 const pair = counterpart(Astro.url.pathname);
 const nlHref = lang === 'nl' ? selfPath : (pair?.path ?? null);
@@ -85,13 +84,13 @@ const heroLogo = isHome
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="canonical" href={`${site.url}${withSlash(Astro.url.pathname)}`} />
+    <link rel="canonical" href={`${site.url}${withTrailingSlash(Astro.url.pathname)}`} />
     {
       hasPair && (
         <>
-          <link rel="alternate" hreflang="nl" href={new URL(withSlash(nlHref!), site.url).href} />
-          <link rel="alternate" hreflang="en" href={new URL(withSlash(enHref!), site.url).href} />
-          <link rel="alternate" hreflang="x-default" href={new URL(withSlash(nlHref!), site.url).href} />
+          <link rel="alternate" hreflang="nl" href={new URL(withTrailingSlash(nlHref!), site.url).href} />
+          <link rel="alternate" hreflang="en" href={new URL(withTrailingSlash(enHref!), site.url).href} />
+          <link rel="alternate" hreflang="x-default" href={new URL(withTrailingSlash(nlHref!), site.url).href} />
         </>
       )
     }
