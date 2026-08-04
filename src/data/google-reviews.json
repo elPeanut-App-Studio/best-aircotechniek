@@ -1,7 +1,15 @@
 {
-  "fetchedAt": "2026-08-03",
+  "fetchedAt": "2026-08-04",
   "rating": 5,
-  "totalReviews": 4,
+  "totalReviews": 5,
   "mapsUrl": "https://maps.google.com/?cid=15149178842006283791&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA",
-  "reviews": []
+  "reviews": [
+    {
+      "authorName": "Mike Visser",
+      "authorPhoto": "https://lh3.googleusercontent.com/a-/ALV-UjUvJQvvGKlDA8K5d1G-TADic5cBcIadPplSE7CAj09qQvQEfc4=s128-c0x00000000-cc-rp-mo",
+      "rating": 5,
+      "text": "Ik ben ontzettend tevreden over Best Airco Techniek! De installatie is vakkundig en netjes uitgevoerd. Installateur Niels heeft echt topwerk geleverd: hij werkte zorgvuldig, dacht mee, gaf duidelijke uitleg en liet alles keurig schoon achter. De airco werkt perfect en het hele proces verliep soepel en professioneel. Absoluut een aanrader voor iedereen die op zoek is naar kwaliteit en uitstekende service. Bedankt, Niels!",
+      "relativeTime": "in de afgelopen week"
+    }
+  ]
 }
