@@ -6,6 +6,8 @@ import { auxModels, auxSizes, auxShared } from '../../../../data/aux-products';
 import pageHeroPhoto from '../../../../assets/photos/page-hero-woning.jpg';
 import { auxTextEn, sharedEn, sizeRoomEn, num } from '../../../../i18n/products-en';
 import PriceSticker from '../../../../components/PriceSticker.astro';
+import ProductSchema from '../../../../components/ProductSchema.astro';
+import { acSpecs } from '../../../../lib/schema-specs';
 
 export function getStaticPaths() {
   return auxModels.map((model) => ({ params: { model: model.slug }, props: { model } }));
@@ -16,6 +18,10 @@ const model = { ...rawModel, ...auxTextEn[rawModel.slug] };
 
 // Iconen voor de 5 modelkenmerken (zelfde volgorde als model.specs)
 const specIcons = ['swing', 'luchtzuivering', 'zelfreiniging', 'verwarmen', 'design'];
+const schemaSpecs = acSpecs({
+  lang: 'en', seer: model.seer, scop: model.scop,
+  labelKoelen: model.labelKoelen, labelVerwarmen: model.labelVerwarmen, warranty: '2 years',
+});
 ---
 
 <BaseLayout
@@ -106,5 +112,14 @@ const specIcons = ['swing', 'luchtzuivering', 'zelfreiniging', 'verwarmen', 'des
   <CTASection
     title={`Interesse in de AUX ${model.name}?`}
     description="We are happy to advise you on the right capacity and take care of the complete installation. Request a free quote with no obligation."
+  />
+  <ProductSchema
+    lang="en"
+    name={`AUX ${model.name} air conditioner`}
+    brand="AUX"
+    description={`AUX ${model.name}: ${model.intro} Available in ${auxSizes.length} capacities, SEER up to ${num(model.seer)} and SCOP ${num(model.scop)}, energy label ${model.labelKoelen} for cooling and ${model.labelVerwarmen} for heating.`}
+    image={model.photo}
+    specs={schemaSpecs}
+    priceFrom={rawModel.priceFrom}
   />
 </BaseLayout>

@@ -2,6 +2,8 @@
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import CTASection from '../../../../components/CTASection.astro';
 import { auxModels, auxSizes } from '../../../../data/aux-products';
+import ProductSchema from '../../../../components/ProductSchema.astro';
+import { acSpecs } from '../../../../lib/schema-specs';
 
 export function getStaticPaths() {
   return auxModels.flatMap((model) =>
@@ -38,6 +40,10 @@ const extra = [...model.specs.slice(1), { label: 'Garantie', value: '2 jaar' }];
 const btnBase = 'size-btn rounded-xl px-5 py-2.5 font-semibold transition ';
 const btnActive = 'border-2 border-brand-700 bg-white text-brand-900 shadow-sm';
 const btnInactive = 'border border-slate-300 bg-white text-slate-700 hover:border-brand-500 hover:text-brand-900';
+const schemaSpecs = acSpecs({
+  koel: ss.koel, verw: ss.verw, seer: ss.seer, scop: ss.scop,
+  labelKoelen: model.labelKoelen, labelVerwarmen: model.labelVerwarmen, warranty: '2 jaar',
+});
 ---
 
 <BaseLayout
@@ -179,4 +185,11 @@ const btnInactive = 'border border-slate-300 bg-white text-slate-700 hover:borde
       }),
     );
   </script>
+  <ProductSchema
+    name={`AUX ${model.name} ${size.kw} airconditioner`}
+    brand="AUX"
+    description={`AUX ${model.name} ${size.kw} wandmodel: ${ss.koel} koelvermogen en ${ss.verw} verwarmingsvermogen, SEER ${ss.seer} en SCOP ${ss.scop}. Geschikt voor ${size.room.toLowerCase()} tot ${size.volume}, inclusief montage door Best Aircotechniek.`}
+    image={model.photo}
+    specs={schemaSpecs}
+  />
 </BaseLayout>

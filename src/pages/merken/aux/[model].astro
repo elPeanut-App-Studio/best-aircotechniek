@@ -5,6 +5,8 @@ import CTASection from '../../../components/CTASection.astro';
 import { auxModels, auxSizes, auxShared } from '../../../data/aux-products';
 import pageHeroPhoto from '../../../assets/photos/page-hero-woning.jpg';
 import PriceSticker from '../../../components/PriceSticker.astro';
+import ProductSchema from '../../../components/ProductSchema.astro';
+import { acSpecs } from '../../../lib/schema-specs';
 
 export function getStaticPaths() {
   return auxModels.map((model) => ({ params: { model: model.slug }, props: { model } }));
@@ -14,6 +16,10 @@ const { model } = Astro.props;
 
 // Iconen voor de 5 modelkenmerken (zelfde volgorde als model.specs)
 const specIcons = ['swing', 'luchtzuivering', 'zelfreiniging', 'verwarmen', 'design'];
+const schemaSpecs = acSpecs({
+  seer: model.seer, scop: model.scop,
+  labelKoelen: model.labelKoelen, labelVerwarmen: model.labelVerwarmen, warranty: '2 jaar',
+});
 ---
 
 <BaseLayout
@@ -103,5 +109,13 @@ const specIcons = ['swing', 'luchtzuivering', 'zelfreiniging', 'verwarmen', 'des
   <CTASection
     title={`Interesse in de AUX ${model.name}?`}
     description="Wij adviseren u graag over het juiste vermogen en verzorgen de complete installatie. Vraag een vrijblijvende offerte aan."
+  />
+  <ProductSchema
+    name={`AUX ${model.name} airconditioner`}
+    brand="AUX"
+    description={`AUX ${model.name}: ${model.intro} Leverbaar in ${auxSizes.length} vermogens, SEER tot ${model.seer} en SCOP ${model.scop}, energielabel ${model.labelKoelen} koelen en ${model.labelVerwarmen} verwarmen.`}
+    image={model.photo}
+    specs={schemaSpecs}
+    priceFrom={model.priceFrom}
   />
 </BaseLayout>

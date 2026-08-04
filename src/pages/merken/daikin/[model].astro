@@ -5,6 +5,8 @@ import CTASection from '../../../components/CTASection.astro';
 import { daikinModels, daikinShared } from '../../../data/daikin-products';
 import { site } from '../../../data/site';
 import pageHeroPhoto from '../../../assets/photos/page-hero-woning.jpg';
+import ProductSchema from '../../../components/ProductSchema.astro';
+import { acSpecs } from '../../../lib/schema-specs';
 
 export function getStaticPaths() {
   return daikinModels.map((model) => ({ params: { model: model.slug }, props: { model } }));
@@ -13,6 +15,10 @@ export function getStaticPaths() {
 const { model } = Astro.props;
 const others = daikinModels.filter((m) => m.slug !== model.slug);
 const specIcons = ['rendement', 'swing', 'luchtzuivering', 'zelfreiniging', 'ruimte', 'design'];
+const schemaSpecs = acSpecs({
+  seer: model.seer, scop: model.scop,
+  refrigerant: 'R32', warranty: '5 jaar fabrieksgarantie',
+});
 ---
 
 <BaseLayout
@@ -141,5 +147,13 @@ const specIcons = ['rendement', 'swing', 'luchtzuivering', 'zelfreiniging', 'rui
   <CTASection
     title={`Daikin ${model.name} laten installeren?`}
     description={`Best Aircotechniek verzorgt advies, levering en een vakkundige montage vanaf ${site.priceFrom}. Vraag een vrijblijvende offerte aan.`}
+  />
+  <ProductSchema
+    name={`Daikin ${model.name} airconditioner`}
+    brand="Daikin"
+    sku={model.code}
+    description={`Daikin ${model.name} (${model.code}): ${model.intro} Leverbaar in ${model.sizes.length} vermogens, SEER tot ${model.seer} en SCOP ${model.scop}.`}
+    image={model.photo}
+    specs={schemaSpecs}
   />
 </BaseLayout>

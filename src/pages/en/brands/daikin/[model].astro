@@ -6,6 +6,8 @@ import { daikinModels, daikinShared } from '../../../../data/daikin-products';
 import { site } from '../../../../data/site';
 import pageHeroPhoto from '../../../../assets/photos/page-hero-woning.jpg';
 import { daikinTextEn, sharedEn, sizeRoomEn, num } from '../../../../i18n/products-en';
+import ProductSchema from '../../../../components/ProductSchema.astro';
+import { acSpecs } from '../../../../lib/schema-specs';
 
 export function getStaticPaths() {
   return daikinModels.map((model) => ({ params: { model: model.slug }, props: { model } }));
@@ -17,6 +19,10 @@ const others = daikinModels
   .filter((m) => m.slug !== rawModel.slug)
   .map((m) => ({ ...m, ...daikinTextEn[m.slug] }));
 const specIcons = ['rendement', 'swing', 'luchtzuivering', 'zelfreiniging', 'ruimte', 'design'];
+const schemaSpecs = acSpecs({
+  lang: 'en', seer: model.seer, scop: model.scop,
+  refrigerant: 'R32', warranty: '5 year manufacturer warranty',
+});
 ---
 
 <BaseLayout
@@ -146,5 +152,14 @@ const specIcons = ['rendement', 'swing', 'luchtzuivering', 'zelfreiniging', 'rui
   <CTASection
     title={`Daikin ${model.name} laten installeren?`}
     description={`Best Aircotechniek verzorgt advies, levering en een vakkundige montage vanaf ${site.priceFromEn}. Request a free quote with no obligation.`}
+  />
+  <ProductSchema
+    lang="en"
+    name={`Daikin ${model.name} air conditioner`}
+    brand="Daikin"
+    sku={rawModel.code}
+    description={`Daikin ${model.name} (${rawModel.code}): ${model.intro} Available in ${rawModel.sizes.length} capacities, SEER up to ${num(model.seer)} and SCOP ${num(model.scop)}.`}
+    image={model.photo}
+    specs={schemaSpecs}
   />
 </BaseLayout>
