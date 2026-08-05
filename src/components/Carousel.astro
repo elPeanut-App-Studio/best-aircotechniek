@@ -1,0 +1,158 @@
+---
+/**
+ * Horizontale carrousel met scroll-snap.
+ *
+ * WAAROM
+ * Op twee plekken viel de laatste kaart alleen op een tweede regel: de reviews
+ * (4 kaarten in een grid van 3) en de Daikin-merkpagina (5 modellen in een grid
+ * van 4). AUX en LG hebben er 3 en 4, die vullen het grid wel.
+ *
+ * PROGRESSIEVE VERBETERING
+ * Zonder JavaScript blijft dit een gewone schuifbare strip. De bediening staat
+ * standaard op hidden en wordt pas zichtbaar als er echt iets te schuiven is, dus
+ * bij AUX en LG blijft de sectie eruitzien zoals een grid.
+ *
+ * GEBRUIK
+ * De items komen via de slot. Geef ze zelf de breedteklassen mee, want die
+ * verschillen per gebruik: reviews staan 3 naast elkaar, modelkaarten 4. Elk item
+ * hoort te beginnen met `shrink-0 snap-start basis-...`.
+ *
+ * Het script staat één keer per pagina in de bundel en bedient alle carrousels
+ * via [data-carousel]. Labels gaan daarom via data-attributen en niet via
+ * define:vars, want dat zou het script per instantie opnieuw meesturen.
+ */
+interface Props {
+  /** Voorleesnaam van het gebied, bijvoorbeeld de kop van de sectie. */
+  label: string;
+  prevLabel: string;
+  nextLabel: string;
+  /** Voorvoegsel voor de stipjes: "Ga naar reviews 2". */
+  gotoLabel: string;
+  class?: string;
+}
+
+const { label, prevLabel, nextLabel, gotoLabel, class: className = '' } = Astro.props;
+
+const arrow =
+  'flex h-10 w-10 items-center justify-center rounded-full border border-slate-300 bg-white text-brand-800 transition hover:border-brand-500 hover:text-brand-900 disabled:opacity-30';
+---
+
+<div class={`relative ${className}`} data-carousel data-goto-label={gotoLabel}>
+  <div
+    role="region"
+    aria-label={label}
+    tabindex="0"
+    data-carousel-track
+    class="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+  >
+    <slot />
+  </div>
+
+  <div hidden data-carousel-controls class="mt-6 flex items-center justify-center gap-4">
+    <button type="button" data-carousel-dir="-1" aria-label={prevLabel} class={arrow}>
+      <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+        <path
+          fill-rule="evenodd"
+          d="M12.79 5.23a.75.75 0 01-.02 1.06L9.06 10l3.71 3.71a.75.75 0 11-1.06 1.06l-4.24-4.24a.75.75 0 010-1.06l4.24-4.24a.75.75 0 011.08 0z"
+          clip-rule="evenodd"
+        />
+      </svg>
+    </button>
+    <div data-carousel-dots class="flex items-center gap-2"></div>
+    <button type="button" data-carousel-dir="1" aria-label={nextLabel} class={arrow}>
+      <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+        <path
+          fill-rule="evenodd"
+          d="M7.21 14.77a.75.75 0 01.02-1.06L10.94 10 7.23 6.29a.75.75 0 111.06-1.06l4.24 4.24a.75.75 0 010 1.06l-4.24 4.24a.75.75 0 01-1.08 0z"
+          clip-rule="evenodd"
+        />
+      </svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  // Eén script voor alle carrousels op de pagina.
+  document.querySelectorAll('[data-carousel]').forEach((root) => {
+    const track = root.querySelector('[data-carousel-track]');
+    const controls = root.querySelector('[data-carousel-controls]');
+    const dots = root.querySelector('[data-carousel-dots]');
+    if (!(track instanceof HTMLElement) || !(controls instanceof HTMLElement) || !(dots instanceof HTMLElement)) return;
+
+    const arrows = Array.from(root.querySelectorAll('[data-carousel-dir]')).filter(
+      (b) => b instanceof HTMLButtonElement,
+    );
+    if (arrows.length < 2) return;
+    const gotoLabel = root.getAttribute('data-goto-label') ?? '';
+    const soepel = () => (window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth');
+
+    // Aantal pagina's uit het AANTAL ITEMS, niet uit scrollWidth gedeeld door
+    // clientWidth: de tussenruimtes tellen in die deling mee en dan komt er bij
+    // vier kaarten op mobiel vijf uit in plaats van vier.
+    const items = Array.from(track.children);
+    const perPagina = () => {
+      if (!items.length) return 1;
+      const breedte = items[0].getBoundingClientRect().width;
+      const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+      return Math.max(1, Math.round((track.clientWidth + gap) / (breedte + gap)));
+    };
+    const pages = () => Math.max(1, Math.ceil(items.length / perPagina()));
+
+    // Niet scrollLeft delen door de paginabreedte: bij vijf kaarten met vier in
+    // beeld schuift de strip maar een kwart van een pagina, waardoor het laatste
+    // stipje nooit zou oplichten. Daarom de voortgang over het hele schuifbereik
+    // verdelen over het aantal pagina's.
+    const huidig = () => {
+      const max = track.scrollWidth - track.clientWidth;
+      const n = pages();
+      if (max <= 0 || n < 2) return 0;
+      return Math.min(n - 1, Math.round((track.scrollLeft / max) * (n - 1)));
+    };
+
+    function bouwStipjes() {
+      const n = pages();
+      dots.textContent = '';
+      if (n < 2) return;
+      for (let i = 0; i < n; i++) {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.setAttribute('aria-label', `${gotoLabel} ${i + 1}`);
+        b.className = 'h-2.5 w-2.5 rounded-full transition';
+        b.addEventListener('click', () => {
+          track.scrollTo({ left: i * track.clientWidth, behavior: soepel() });
+        });
+        dots.appendChild(b);
+      }
+    }
+
+    function verversen() {
+      const schuifbaar = track.scrollWidth > track.clientWidth + 4;
+      controls.hidden = !schuifbaar;
+      if (!schuifbaar) return;
+      const actief = huidig();
+      arrows[0].disabled = track.scrollLeft <= 4;
+      arrows[1].disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 4;
+      Array.from(dots.children).forEach((d, i) => {
+        d.className = `h-2.5 w-2.5 rounded-full transition ${
+          i === actief ? 'bg-brand-700' : 'bg-slate-300 hover:bg-slate-400'
+        }`;
+        if (i === actief) d.setAttribute('aria-current', 'true');
+        else d.removeAttribute('aria-current');
+      });
+    }
+
+    arrows.forEach((b) =>
+      b.addEventListener('click', () => {
+        track.scrollBy({ left: Number(b.getAttribute('data-carousel-dir')) * track.clientWidth, behavior: soepel() });
+      }),
+    );
+
+    track.addEventListener('scroll', () => window.requestAnimationFrame(verversen), { passive: true });
+    window.addEventListener('resize', () => {
+      bouwStipjes();
+      verversen();
+    });
+    bouwStipjes();
+    verversen();
+  });
+</script>
