@@ -43,10 +43,12 @@ interface Props {
   specs?: SpecProp[];
   /** Vanaf-prijs in euro's; alleen zetten waar die echt geldt. */
   priceFrom?: number;
+  /** Aantal uitvoeringen waarop de vanaf-prijs betrekking heeft. */
+  offerCount?: number;
   lang?: 'nl' | 'en';
 }
 
-const { name, brand, description, image, sku, specs = [], priceFrom, lang = 'nl' } = Astro.props;
+const { name, brand, description, image, sku, specs = [], priceFrom, offerCount, lang = 'nl' } = Astro.props;
 
 const pageUrl = new URL(Astro.url.pathname, site.url).href;
 const category =
@@ -80,18 +82,21 @@ if (specs.length > 0) {
 }
 
 if (priceFrom) {
+  /*
+   * AggregateOffer met lowPrice, niet Offer met priceSpecification.minPrice.
+   * Search Console meldde op 5 augustus 2026 "'price' of
+   * 'priceSpecification.price' moet worden opgegeven (in 'offers')": binnen een
+   * Offer verwacht Google een vaste prijs, en minPrice telt daar niet mee.
+   * AggregateOffer is bovendien semantisch juister voor een vanaf-prijs: het
+   * beschrijft een reeks uitvoeringen waarvan dit de laagste is.
+   */
   schema.offers = {
-    '@type': 'Offer',
+    '@type': 'AggregateOffer',
     priceCurrency: 'EUR',
+    lowPrice: priceFrom,
+    ...(offerCount ? { offerCount } : {}),
     availability: 'https://schema.org/InStock',
     itemCondition: 'https://schema.org/NewCondition',
-    // Vanaf-prijs: inclusief btw en montage van de kleinste uitvoering.
-    priceSpecification: {
-      '@type': 'PriceSpecification',
-      minPrice: priceFrom,
-      priceCurrency: 'EUR',
-      valueAddedTaxIncluded: true,
-    },
     seller: { '@id': `${site.url}/#business` },
     areaServed: { '@type': 'AdministrativeArea', name: site.region },
     url: pageUrl,
