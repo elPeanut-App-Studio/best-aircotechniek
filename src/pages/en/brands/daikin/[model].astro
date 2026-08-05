@@ -27,8 +27,8 @@ const schemaSpecs = acSpecs({
 
 <BaseLayout
   lang="en"
-  title={`Daikin ${model.name} air conditioning installed | Best Aircotechniek`}
-  description={`Daikin ${model.name} (${model.code}): ${model.intro} SEER tot ${model.seer}, SCOP tot ${model.scop}. Laten installeren vanaf ${site.priceFromEn} door Best Aircotechniek.`}
+  title={`Daikin ${model.name} air conditioner | Best Aircotechniek`}
+  description={`Daikin ${model.name} (${model.code}): ${model.intro} SEER up to ${num(model.seer)}. Installed from ${site.priceFromEn} including VAT.`}
 >
   <PageHero title={`Daikin ${model.name}`} description={model.intro} image={pageHeroPhoto} />
 
@@ -150,8 +150,8 @@ const schemaSpecs = acSpecs({
   </section>
 
   <CTASection
-    title={`Daikin ${model.name} laten installeren?`}
-    description={`Best Aircotechniek verzorgt advies, levering en een vakkundige montage vanaf ${site.priceFromEn}. Request a free quote with no obligation.`}
+    title={`Have the Daikin ${model.name} installed`}
+    description={`Best Aircotechniek handles advice, supply and expert installation from ${site.priceFromEn}. Request a free quote with no obligation.`}
   />
   <ProductSchema
     lang="en"
