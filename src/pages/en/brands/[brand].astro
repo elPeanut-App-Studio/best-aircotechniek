@@ -2,6 +2,7 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import PageHero from '../../../components/PageHero.astro';
 import CTASection from '../../../components/CTASection.astro';
+import Carousel from '../../../components/Carousel.astro';
 import { brands } from '../../../data/brands';
 import { auxModels } from '../../../data/aux-products';
 import { lgModels } from '../../../data/lg-products';
@@ -111,9 +112,18 @@ const tagline = brandTaglinesEn[brand.slug] ?? brand.tagline;
       <section class="border-t border-slate-200 bg-slate-50 py-16 sm:py-20">
         <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <h2 class="section-heading">{brandModelsHeadingEn[brand.slug]}</h2>
-          <div class="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          <Carousel
+            class="mt-10"
+            label={brandModelsHeadingEn[brand.slug]}
+            prevLabel="Previous models"
+            nextLabel="Next models"
+            gotoLabel="Go to models"
+          >
             {models.map((m) => (
-              <a href={`/en/brands/${brand.slug}/${m.slug}/`} class="group card-link flex flex-col p-6">
+              <a
+                href={`/en/brands/${brand.slug}/${m.slug}/`}
+                class="group card-link flex shrink-0 basis-full snap-start flex-col p-6 sm:basis-[calc((100%-2rem)/2)] lg:basis-[calc((100%-6rem)/4)]"
+              >
                 {
                   m.photo ? (
                     <span class="relative mx-auto block w-fit">
@@ -150,7 +160,7 @@ const tagline = brandTaglinesEn[brand.slug] ?? brand.tagline;
                 </span>
               </a>
             ))}
-          </div>
+          </Carousel>
         </div>
       </section>
     )

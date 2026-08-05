@@ -1,5 +1,6 @@
 ---
 import { site } from '../data/site';
+import Carousel from './Carousel.astro';
 import { getReviewsForDisplay, getGoogleWriteReviewUrl } from '../lib/google-reviews';
 import { manualReviewsData } from '../data/reviews';
 import type { Lang } from '../i18n/routes';
@@ -120,21 +121,13 @@ function stars(rating: number) {
 
     {
       hasReviews && data ? (
-        <div class="relative mt-10">
-          {/*
-            Carrousel in plaats van een grid: met vier reviews viel de vierde
-            kaart op een tweede regel. De strip schuift met scroll-snap, dus
-            swipen werkt op mobiel en zonder JavaScript blijft het een gewone
-            schuifbare strip. De pijlen en stipjes worden door het script
-            hieronder pas zichtbaar gemaakt als er iets te schuiven is.
-          */}
-          <div
-            id="reviews-track"
-            role="region"
-            aria-label={copy.heading}
-            tabindex="0"
-            class="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-          >
+        <Carousel
+          class="mt-10"
+          label={copy.heading}
+          prevLabel={copy.prev}
+          nextLabel={copy.next}
+          gotoLabel={copy.goTo}
+        >
           {
             data.reviews.map((review) => (
               <article class="flex shrink-0 basis-full snap-start flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:basis-[calc((100%-1.5rem)/2)] lg:basis-[calc((100%-3rem)/3)]">
@@ -182,34 +175,7 @@ function stars(rating: number) {
               </article>
             ))
           }
-          </div>
-
-          <div id="reviews-controls" hidden class="mt-6 flex items-center justify-center gap-4">
-            <button
-              type="button"
-              data-dir="-1"
-              aria-controls="reviews-track"
-              aria-label={copy.prev}
-              class="review-arrow flex h-10 w-10 items-center justify-center rounded-full border border-slate-300 bg-white text-brand-800 transition hover:border-brand-500 hover:text-brand-900 disabled:opacity-30"
-            >
-              <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                <path fill-rule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L9.06 10l3.71 3.71a.75.75 0 11-1.06 1.06l-4.24-4.24a.75.75 0 010-1.06l4.24-4.24a.75.75 0 011.08 0z" clip-rule="evenodd" />
-              </svg>
-            </button>
-            <div id="reviews-dots" class="flex items-center gap-2"></div>
-            <button
-              type="button"
-              data-dir="1"
-              aria-controls="reviews-track"
-              aria-label={copy.next}
-              class="review-arrow flex h-10 w-10 items-center justify-center rounded-full border border-slate-300 bg-white text-brand-800 transition hover:border-brand-500 hover:text-brand-900 disabled:opacity-30"
-            >
-              <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L10.94 10 7.23 6.29a.75.75 0 111.06-1.06l4.24 4.24a.75.75 0 010 1.06l-4.24 4.24a.75.75 0 01-1.08 0z" clip-rule="evenodd" />
-              </svg>
-            </button>
-          </div>
-        </div>
+        </Carousel>
       ) : (
         <div class="mt-10 rounded-2xl border border-slate-200 bg-white p-8 text-center shadow-sm sm:p-12">
           <svg class="mx-auto h-10 w-10" viewBox="0 0 24 24" aria-hidden="true">
@@ -255,85 +221,4 @@ function stars(rating: number) {
     </div>
   </div>
 
-<script define:vars={{ goToLabel: copy.goTo }}>
-  // Carrousel voor de reviews. Progressieve verbetering: zonder dit script
-  // blijft de strip een gewone schuifbare rij, alleen zonder pijlen en stipjes.
-  const track = document.getElementById('reviews-track');
-  const controls = document.getElementById('reviews-controls');
-  const dots = document.getElementById('reviews-dots');
-  if (track && controls && dots) {
-    const arrows = Array.from(controls.querySelectorAll('.review-arrow'));
-    const soepel = () => (window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth');
-
-    // Eén "pagina" is de zichtbare breedte, dus het aantal pagina's verandert
-    // mee met het schermformaat: 1 kaart op mobiel, 2 op tablet, 3 op desktop.
-    // Aantal pagina's uit het AANTAL KAARTEN, niet uit scrollWidth gedeeld door
-    // clientWidth: de tussenruimtes tellen in die deling mee en dan komt er bij
-    // vier kaarten op mobiel vijf uit in plaats van vier.
-    const kaarten = Array.from(track.children);
-    const perPagina = () => {
-      if (!kaarten.length) return 1;
-      const breedte = kaarten[0].getBoundingClientRect().width;
-      const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
-      return Math.max(1, Math.round((track.clientWidth + gap) / (breedte + gap)));
-    };
-    const pages = () => Math.max(1, Math.ceil(kaarten.length / perPagina()));
-
-    // Niet scrollLeft delen door de paginabreedte: bij vier kaarten met drie in
-    // beeld schuift de strip maar een derde van een pagina, waardoor het laatste
-    // stipje nooit zou oplichten. Daarom de voortgang over het hele
-    // schuifbereik verdelen over het aantal pagina's.
-    const huidig = () => {
-      const max = track.scrollWidth - track.clientWidth;
-      const n = pages();
-      if (max <= 0 || n < 2) return 0;
-      return Math.min(n - 1, Math.round((track.scrollLeft / max) * (n - 1)));
-    };
-
-    function bouwStipjes() {
-      const n = pages();
-      dots.textContent = '';
-      if (n < 2) return;
-      for (let i = 0; i < n; i++) {
-        const b = document.createElement('button');
-        b.type = 'button';
-        b.setAttribute('aria-label', `${goToLabel} ${i + 1}`);
-        b.className = 'h-2.5 w-2.5 rounded-full transition';
-        b.addEventListener('click', () => {
-          track.scrollTo({ left: i * track.clientWidth, behavior: soepel() });
-        });
-        dots.appendChild(b);
-      }
-    }
-
-    function verversen() {
-      const schuifbaar = track.scrollWidth > track.clientWidth + 4;
-      controls.hidden = !schuifbaar;
-      if (!schuifbaar) return;
-      const actief = huidig();
-      arrows[0].disabled = track.scrollLeft <= 4;
-      arrows[1].disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 4;
-      Array.from(dots.children).forEach((d, i) => {
-        d.className = `h-2.5 w-2.5 rounded-full transition ${i === actief ? 'bg-brand-700' : 'bg-slate-300 hover:bg-slate-400'}`;
-        if (i === actief) d.setAttribute('aria-current', 'true');
-        else d.removeAttribute('aria-current');
-      });
-    }
-
-    arrows.forEach((b) =>
-      b.addEventListener('click', () => {
-        const richting = Number(b.dataset.dir);
-        track.scrollBy({ left: richting * track.clientWidth, behavior: soepel() });
-      }),
-    );
-
-    track.addEventListener('scroll', () => window.requestAnimationFrame(verversen), { passive: true });
-    window.addEventListener('resize', () => {
-      bouwStipjes();
-      verversen();
-    });
-    bouwStipjes();
-    verversen();
-  }
-</script>
 </section>
