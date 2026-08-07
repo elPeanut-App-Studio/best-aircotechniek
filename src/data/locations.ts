@@ -98,6 +98,23 @@ export const locations: Location[] = [
     nearby: ['Nijnsel', 'Olland', 'Boskant', 'Meierijstad'],
   },
   {
+    slug: 'son-en-breugel',
+    city: 'Son en Breugel',
+    metaDescription:
+      `Airco installatie in Son en Breugel door Best Aircotechniek. Van Sonniuspark tot Breugel en Ekkersrijt. Gratis advies aan huis, vanaf ${site.priceFrom}.`,
+    heroDescription:
+      'Airco-installatie in Son en Breugel, vanuit de buurgemeente Best.',
+    intro: [
+      'Son en Breugel is onze buurgemeente, dus wij zijn er zo. Dat merkt u aan de korte lijnen: een adviesgesprek plannen we snel in, en als er na de installatie iets is, staan we niet dagen later voor de deur.',
+      'De woningen verschillen sterk per wijk, en dat bepaalt welk systeem past. In Sonniuspark en De Gentiaan staan veel recente woningen die goed geïsoleerd zijn; daar gaat het meestal om koelen in de zomer en is een compacte unit vaak genoeg. In het oudere deel van Son en in Breugel kijken we juist naar de indeling en de gevel, zodat de leidingen netjes weggewerkt worden.',
+    ],
+    localContent: [
+      'Op zoek naar een airco in Son en Breugel? Best Aircotechniek installeert in het hele dorp: van Sonniuspark en De Gentiaan tot het centrum van Son, Breugel en de buurtschappen eromheen. Veel bewoners hier hebben hun woning zelf laten bouwen of grondig verbouwd, en willen dat een airco daar niet uit springt. Daar houden wij rekening mee bij het bepalen van de plek van de binnen- en buitenunit.',
+      `Ook op Ekkersrijt zijn wij actief. Voor een showroom, kantoor of bedrijfsruimte kijken we naar de gebruikstijden en het aantal mensen, want dat vraagt iets anders dan een slaapkamer. Wij installeren Daikin, LG en AUX, en een complete installatie start vanaf ${site.priceFrom} inclusief btw en montage, altijd na een gratis adviesgesprek en een heldere offerte vooraf.`,
+    ],
+    nearby: ['Breugel', 'Sonniuspark', 'Ekkersrijt', 'Best', 'Nuenen'],
+  },
+  {
     slug: 'boxtel',
     city: 'Boxtel',
     metaDescription:
