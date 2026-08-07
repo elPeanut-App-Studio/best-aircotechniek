@@ -81,6 +81,18 @@ export const locationsEn: LocationEn[] = [
     nearby: ['Nijnsel', 'Olland', 'Boskant', 'Meierijstad'],
   },
   {
+    slug: 'son-en-breugel',
+    city: 'Son en Breugel',
+    metaDescription: `Air conditioning installation in Son en Breugel from ${site.priceFromEn}. From Sonniuspark to Breugel and Ekkersrijt. We speak English.`,
+    heroDescription: 'Air conditioning installation in Son en Breugel, from neighbouring Best.',
+    intro: [
+      'Son en Breugel is our neighbouring municipality, so we are there in minutes. You notice that in the short lines: we schedule a consultation quickly, and if something comes up after the installation we are not days away.',
+      'Homes differ a lot per neighbourhood, and that decides which system fits. Sonniuspark and De Gentiaan have many recent, well-insulated houses; there it is usually about cooling in summer and a compact unit is often enough. In older Son and in Breugel we look closely at the layout and the facade, so the pipework is tucked away neatly.',
+      `Many residents here had their home built or thoroughly renovated and do not want an air conditioner to stand out, which we take into account when choosing where the indoor and outdoor units go. We also work on the Ekkersrijt business park, where a showroom or office needs a different approach than a bedroom. A complete installation starts at ${site.priceFromEn}, always after a free home visit and a clear quote up front.`,
+    ],
+    nearby: ['Breugel', 'Sonniuspark', 'Ekkersrijt', 'Best', 'Nuenen'],
+  },
+  {
     slug: 'boxtel',
     city: 'Boxtel',
     metaDescription: `Air conditioning installation in Boxtel from ${site.priceFromEn}. Expert installation in Lennisheuvel, Liempde and beyond. We speak English.`,

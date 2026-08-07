@@ -61,6 +61,7 @@ export const serviceAreas = [
   'Veldhoven',
   'Oirschot',
   'Sint-Oedenrode',
+  'Son en Breugel',
   'Boxtel',
   'Tilburg',
   'Den Bosch',

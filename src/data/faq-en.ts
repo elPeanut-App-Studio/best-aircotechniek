@@ -48,7 +48,7 @@ export const generalFaqEn: FaqItem[] = [
   {
     question: 'Which areas do you cover?',
     answer:
-      'We install air conditioning throughout Noord-Brabant, including Best, Eindhoven, Veldhoven, Oirschot, Sint-Oedenrode, Boxtel, Tilburg and Den Bosch. Live just outside this area? Get in touch, we can often still help.',
+      'We install air conditioning throughout Noord-Brabant, including Best, Eindhoven, Veldhoven, Oirschot, Sint-Oedenrode, Son en Breugel, Boxtel, Tilburg and Den Bosch. Live just outside this area? Get in touch, we can often still help.',
   },
   {
     question: 'Do you also service air conditioning?',
