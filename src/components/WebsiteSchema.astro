@@ -1,0 +1,34 @@
+---
+/**
+ * WebSite-schema voor de sitenaam in de zoekresultaten.
+ *
+ * Boven een zoekresultaat toont Google een sitenaam. Zonder dit blok leidt hij
+ * die af uit het domein, en stond er "best-aircotechniek.nl" in plaats van
+ * "Best Aircotechniek".
+ *
+ * Google bepaalt de sitenaam in de eerste plaats uit WebSite-gestructureerde
+ * gegevens OP DE HOMEPAGE. Andere signalen (og:site_name, de titel, koppen)
+ * wegen mee maar zijn zwakker; og:site_name stond hier al goed en dat was
+ * kennelijk niet genoeg.
+ *
+ * Daarom staat dit component alleen op de homepage en niet in de layout: op
+ * andere pagina's negeert Google het toch, en het zou de markup nodeloos
+ * verzwaren.
+ *
+ * Geen potentialAction/SearchAction: dat hoort er alleen in als de site een
+ * eigen zoekfunctie heeft, en die is er niet.
+ */
+import { site } from '../data/site';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${site.url}/#website`,
+  name: site.name,
+  url: `${site.url}/`,
+  inLanguage: 'nl-NL',
+  publisher: { '@id': `${site.url}/#business` },
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
