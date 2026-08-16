@@ -10,6 +10,27 @@ const { lang = 'nl' } = Astro.props;
 const accessKey = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY ?? '';
 const isConfigured = accessKey && accessKey !== 'your-access-key-here';
 
+/*
+ * De sleutel MOET de vorm van een UUID hebben. Op 16 augustus 2026 bleek het
+ * formulier al weken stuk omdat er "****************6a10" in het GitHub-secret
+ * stond: iemand had de gemaskeerde weergave uit een logregel gekopieerd in
+ * plaats van de sleutel zelf. Web3Forms weigerde elke inzending, en de
+ * bestaande controle hierboven liet dat door omdat de waarde niet leeg was en
+ * niet de placeholder.
+ *
+ * Een verkeerde sleutel is erger dan geen sleutel: zonder sleutel toont de
+ * pagina zichtbaar dat het formulier niet gekoppeld is, met een verkeerde
+ * sleutel lijkt alles in orde en verdwijnen aanvragen in het niets. Daarom
+ * stopt de build hier, in plaats van een kapot formulier te publiceren.
+ */
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+if (isConfigured && !UUID.test(accessKey)) {
+  throw new Error(
+    `PUBLIC_WEB3FORMS_ACCESS_KEY heeft niet de vorm van een Web3Forms-sleutel (verwacht een UUID van 36 tekens, kreeg ${accessKey.length} tekens eindigend op "${accessKey.slice(-4)}"). ` +
+      'Staat er een gemaskeerde waarde met sterretjes in het secret? Zet dan de echte sleutel uit je Web3Forms-dashboard.',
+  );
+}
+
 const copy = {
   nl: {
     notConfigured: 'Het contactformulier is nog niet gekoppeld. Voeg je Web3Forms access key toe in',
