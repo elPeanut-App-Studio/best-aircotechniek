@@ -1,0 +1,19 @@
+# De site wordt gebouwd door GitHub Actions (.github/workflows/deploy.yml) en als
+# kant-en-klare map geupload met `netlify deploy --prod --dir=dist`.
+#
+# WAAROM DIT BESTAND BESTAAT
+# Zonder dit bestand draait de Netlify CLI alsnog een TWEEDE build, met het
+# buildcommando dat in de Netlify-UI staat. Die build haalt de
+# omgevingsvariabelen op bij Netlify in plaats van uit de GitHub-secrets, en
+# overschrijft daarmee het resultaat van de eerste build.
+#
+# Dat is op 16 augustus 2026 aan het licht gekomen: het contactformulier stond
+# live met access_key="****************6a10", een gemaskeerde waarde uit de
+# Netlify-omgeving, terwijl de GitHub-build de juiste sleutel invulde. Dezelfde
+# oorzaak zat achter reviewcijfers die achterliepen op wat de eerste build ophaalde.
+#
+# Het buildcommando hieronder doet expres niets: de map dist is dan al gevuld
+# door GitHub Actions en wordt ongewijzigd gepubliceerd.
+[build]
+  command = "echo 'dist is al gebouwd door GitHub Actions; hier wordt niet opnieuw gebouwd'"
+  publish = "dist"
