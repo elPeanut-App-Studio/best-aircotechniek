@@ -12,12 +12,14 @@ import aircoPhoto from '../assets/photos/hero-airco-installatie.jpg';
 import { site } from '../data/site';
 import { generalFaq } from '../data/faq';
 import { brands } from '../data/brands';
+import WebsiteSchema from '../components/WebsiteSchema.astro';
 ---
 
 <BaseLayout
   title="Airco installatie Noord-Brabant | Best Aircotechniek"
   description={`Airco laten installeren vanaf ${site.priceFrom} incl. btw en montage. Persoonlijk advies en snelle service in heel Noord-Brabant. Vraag een vrijblijvende offerte aan.`}
 >
+  <WebsiteSchema />
   <Hero />
   <USPGrid />
 
