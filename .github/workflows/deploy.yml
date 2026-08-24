@@ -9,14 +9,26 @@ name: Deploy to Netlify
 #   NETLIFY_AUTH_TOKEN          Netlify personal access token
 #   NETLIFY_SITE_ID             Site ID / API ID van de Netlify-site
 #   PUBLIC_WEB3FORMS_ACCESS_KEY Web3Forms-sleutel voor het contactformulier
-# Optioneel (live Google-reviews, zodra beschikbaar):
-#   PUBLIC_GOOGLE_PLACE_ID
-#   GOOGLE_PLACES_API_KEY
+# Voor de live Google-reviews:
+#   GOOGLE_PLACES_API_KEY       (het Place ID staat als googlePlaceId in site.ts)
+#
+# Deze workflow draait ook wekelijks volgens schema, zodat nieuwe reviews zonder
+# codewijziging op de site komen.
 
 on:
   push:
     branches: [main]
+  # Handmatig starten via het tabblad Actions, bijvoorbeeld direct na een nieuwe
+  # review in plaats van tot maandag te wachten.
   workflow_dispatch:
+  schedule:
+    # Maandag 06:00 UTC (08:00 Nederlandse zomertijd). De reviews worden tijdens
+    # de build opgehaald en in de HTML gebakken, dus zonder deploy blijven nieuwe
+    # reviews onzichtbaar. Deze wekelijkse run haalt ze op zonder codewijziging.
+    #
+    # LET OP: GitHub zet geplande workflows uit na 60 dagen zonder activiteit in
+    # de repo. Zolang er af en toe gepusht wordt, blijft dit lopen.
+    - cron: '0 6 * * 1'
 
 permissions:
   contents: read
