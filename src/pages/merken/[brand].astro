@@ -105,6 +105,12 @@ const modelsHeading = modelsHeadings[brand.slug] ?? `De ${brand.name}-modellen`;
       <section class="border-t border-slate-200 bg-slate-50 py-16 sm:py-20">
         <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <h2 class="section-heading">{modelsHeading}</h2>
+          <p class="mt-4">
+            <a href="/merken/vergelijken/" class="text-sm font-semibold text-brand-700 transition hover:text-brand-900">
+              Vergelijk {brand.name} met de andere merken
+              <span aria-hidden="true">&rarr;</span>
+            </a>
+          </p>
           <Carousel
             class="mt-10"
             label={modelsHeading}
