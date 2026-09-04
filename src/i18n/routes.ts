@@ -3,6 +3,7 @@ import { brands } from '../data/brands';
 import { auxModels, auxSizes } from '../data/aux-products';
 import { lgModels, lgSizesFor } from '../data/lg-products';
 import { daikinModels } from '../data/daikin-products';
+import { mhiModels, mhiSizesFor } from '../data/mhi-products';
 
 export type Lang = 'nl' | 'en';
 
@@ -28,6 +29,8 @@ function productPairs(): Record<string, string> {
     { brand: 'lg', models: lgModels, sizesFor: lgSizesFor },
     // Daikin heeft per model een eigen maatlijst op het model zelf.
     { brand: 'daikin', models: daikinModels, sizesFor: null },
+    // MHI: ZSX heeft vijf vermogens, ZS en ZT vier.
+    { brand: 'mitsubishi-heavy-industries', models: mhiModels, sizesFor: mhiSizesFor },
   ];
 
   for (const { brand, models, sizesFor } of perBrand) {

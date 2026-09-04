@@ -1,5 +1,5 @@
 /**
- * Vergelijkingsgegevens voor de drie merken, AFGELEID uit de productdata.
+ * Vergelijkingsgegevens voor de vier merken, AFGELEID uit de productdata.
  *
  * Niets hier is met de hand ingevoerd: de bereiken worden berekend uit
  * aux-products.ts, lg-products.ts en daikin-products.ts. Zo kan de
@@ -16,6 +16,7 @@
 import { auxModels, auxSizes } from './aux-products';
 import { lgModels, lgCapacities, lgSizes } from './lg-products';
 import { daikinModels, daikinEfficiency } from './daikin-products';
+import { mhiModels, mhiCapacities, mhiSizes } from './mhi-products';
 import { coolingLabel, heatingLabel } from './energy-labels';
 import { brands } from './brands';
 import { formatPrice } from './site';
@@ -63,6 +64,11 @@ const lgScop = lgCaps.map((c) => getal(c.scop));
 const dkEff = Object.values(daikinEfficiency).flatMap((perMaat) => Object.values(perMaat));
 const dkSeer = dkEff.map((e) => getal(e.seer));
 const dkScop = dkEff.map((e) => getal(e.scop));
+
+// ---- MHI: SEER/SCOP per uitvoering in mhiCapacities ----------------------
+const mhiCaps = Object.values(mhiCapacities).flatMap((perMaat) => Object.values(perMaat));
+const mhiSeer = mhiCaps.map((c) => getal(c.seer));
+const mhiScop = mhiCaps.map((c) => getal(c.scop));
 
 /** Alle unieke vermogens van een merk, oplopend, als "2,0 tot 7,1 kW". */
 function vermogensBereik(kws: string[]): string {
@@ -139,15 +145,15 @@ export const merkVergelijking: MerkVergelijking[] = [
       auxSeer,
       'koelen',
     )} for cooling.`,
-    keerzijde: `Twee jaar fabrieksgarantie in plaats van vijf. Aan de top halen LG en Daikin ${besteLabel(
-      lgSeer.concat(dkSeer),
+    keerzijde: `Twee jaar fabrieksgarantie in plaats van vijf. Aan de top halen de andere merken ${besteLabel(
+      lgSeer.concat(dkSeer, mhiSeer),
       'koelen',
     )} voor koelen en verwarmen, waar AUX op ${besteLabel(auxSeer, 'koelen')} en ${besteLabel(
       auxScop,
       'verwarmen',
     )} blijft.`,
-    keerzijdeEn: `Two years of manufacturer warranty instead of five. At the top LG and Daikin reach ${besteLabel(
-      lgSeer.concat(dkSeer),
+    keerzijdeEn: `Two years of manufacturer warranty instead of five. At the top the other brands reach ${besteLabel(
+      lgSeer.concat(dkSeer, mhiSeer),
       'koelen',
     )} for cooling and heating, where AUX stays at ${besteLabel(auxSeer, 'koelen')} and ${besteLabel(
       auxScop,
@@ -158,8 +164,8 @@ export const merkVergelijking: MerkVergelijking[] = [
     slug: 'lg',
     naam: 'LG',
     logo: logoVan('lg'),
-    rol: 'Zuinigst',
-    rolEn: 'Most efficient',
+    rol: 'Zuinig en slim',
+    rolEn: 'Efficient and smart',
     modellen: lgModels.length,
     uitvoeringen: lgCaps.length,
     vermogens: vermogensBereik(lgSizes.map((s) => s.kw)),
@@ -172,8 +178,8 @@ export const merkVergelijking: MerkVergelijking[] = [
     garantie: '5 jaar',
     koudemiddel: 'R32',
     vanafPrijs: null,
-    sterk: 'Het hoogste rendement in dit aanbod, met luchtreiniging en bediening via de app.',
-    sterkEn: 'The highest efficiency in this range, with air purification and app control.',
+    sterk: `Zuinig én slim: SEER tot ${komma(Math.max(...lgSeer))}, luchtreiniging met Ionizer+ en bediening via de ThinQ-app.`,
+    sterkEn: `Efficient and smart: SEER up to ${komma(Math.max(...lgSeer)).replace(',', '.')}, air purification with Ionizer+ and control through the ThinQ app.`,
     keerzijde: 'De AI Air Special en Premium bestaan alleen als 2,5 en 3,5 kW, dus niet voor grote ruimtes.',
     keerzijdeEn: 'The AI Air Special and Premium only exist as 2.5 and 3.5 kW, so not for large rooms.',
   },
@@ -197,8 +203,41 @@ export const merkVergelijking: MerkVergelijking[] = [
     vanafPrijs: null,
     sterk: 'Het breedste assortiment, met de fijnste stappen in vermogen en twee designmodellen.',
     sterkEn: 'The widest range, with the finest capacity steps and two design models.',
-    keerzijde: 'Doorgaans de hoogste aanschafprijs van de drie.',
-    keerzijdeEn: 'Usually the highest purchase price of the three.',
+    keerzijde: 'Doorgaans de hoogste aanschafprijs van de vier.',
+    keerzijdeEn: 'Usually the highest purchase price of the four.',
+  },
+  {
+    slug: 'mitsubishi-heavy-industries',
+    naam: 'Mitsubishi Heavy Industries',
+    logo: logoVan('mitsubishi-heavy-industries'),
+    rol: 'Hoogste rendement',
+    rolEn: 'Highest efficiency',
+    modellen: mhiModels.length,
+    uitvoeringen: mhiCaps.length,
+    vermogens: vermogensBereik(mhiSizes.map((s) => s.kw)),
+    seer: bereik(mhiSeer),
+    scop: bereik(mhiScop),
+    seerTop: Math.max(...mhiSeer),
+    scopTop: Math.max(...mhiScop),
+    labelKoelen: besteLabel(mhiSeer, 'koelen'),
+    labelVerwarmen: besteLabel(mhiScop, 'verwarmen'),
+    // Bij MHI dekt de vijf jaar onderdelen; arbeidsloon en voorrijkosten vallen
+    // er na het eerste jaar niet onder. Dat staat er bij, want de rij heet
+    // Fabrieksgarantie en dan zou "5 jaar" te veel beloven.
+    garantie: '5 jaar (onderdelen)',
+    koudemiddel: 'R32',
+    vanafPrijs: null,
+    sterk: `Het hoogste rendement van de vier, met een SEER tot ${komma(
+      Math.max(...mhiSeer),
+    )}. Het topmodel ZSX merkt met een sensor of er iemand in de kamer is en stuurt daarop bij.`,
+    sterkEn: `The highest efficiency of the four, with a SEER up to ${komma(Math.max(...mhiSeer)).replace(
+      ',',
+      '.',
+    )}. The ZSX top model uses a sensor to detect whether anyone is in the room and adjusts accordingly.`,
+    keerzijde:
+      'De vijf jaar dekt onderdelen, niet het arbeidsloon na het eerste jaar; bij LG en Daikin is het volledige fabrieksgarantie. En de ZT leveren wij alleen in mat zwart.',
+    keerzijdeEn:
+      'The five years cover parts, not labour after the first year; with LG and Daikin it is full manufacturer warranty. And we supply the ZT in matte black only.',
   },
 ];
 

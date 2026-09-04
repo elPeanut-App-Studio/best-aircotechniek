@@ -11,10 +11,14 @@
  */
 
 /** Merk-taglines (brands.ts bevat de Nederlandse versie). */
+import { mhiHighlights } from '../data/mhi-products';
+
 export const brandTaglinesEn: Record<string, string> = {
   daikin: 'Global market leader in climate control, known for reliability and efficiency.',
   lg: 'Modern air conditioning with smart controls and a sleek design.',
   aux: 'Plenty of comfort for a sharp price, with an excellent price-quality ratio.',
+  'mitsubishi-heavy-industries':
+    'Japanese engineering with the highest efficiency in our range.',
 };
 
 /** Intro-alinea per merkpagina. */
@@ -23,6 +27,8 @@ export const brandIntroEn: Record<string, string> = {
   lg: 'LG offers four wall-mounted models, from an affordable entry model to the most efficient top model. They all cool and heat, run on R32 and have wifi built in. Below you will find the key features per model.',
   daikin:
     'Daikin offers five wall-mounted models, from the affordable Sensira to the design models Stylish and Emura. They all cool and heat, run on R32 and are controlled with the Onecta app. Below you will find the key features and the available capacities per model.',
+  'mitsubishi-heavy-industries':
+    'Mitsubishi Heavy Industries offers four wall-mounted series: the familiar ZS, the ZT in matte black, the ZR for large rooms and the ZSX top model from the Diamond series. They all cool and heat, run on R32 and have wifi built in for the Smart M-Air app. Below you will find the key features and the available capacities per series.',
 };
 
 /** Kop boven het modeloverzicht per merk. */
@@ -30,6 +36,7 @@ export const brandModelsHeadingEn: Record<string, string> = {
   aux: 'The three AUX series',
   lg: 'The four LG models',
   daikin: 'The five Daikin models',
+  'mitsubishi-heavy-industries': 'The four MHI series',
 };
 
 type ModelText = {
@@ -39,6 +46,8 @@ type ModelText = {
   specs: { label: string; value: string }[];
   /** Drie vergelijkbare kenmerken voor de kaart op de merkpagina. */
   highlights?: string[];
+  /** Kleuren/uitvoeringen; alleen gevuld waar het Nederlandse model dat veld heeft. */
+  uitvoeringen?: string;
 };
 
 export const auxTextEn: Record<string, ModelText> = {
@@ -188,6 +197,73 @@ export const daikinTextEn: Record<string, ModelText> = {
   },
 };
 
+/**
+ * MHI. De labels en de volgorde volgen exact de `specs` in mhi-products.ts,
+ * want de pagina koppelt ze op index. De `highlights` worden AFGELEID met
+ * mhiHighlights, zodat de vier kaarten op dezelfde drie assen staan (bereik,
+ * rendement, uitvoering) en niet uit de pas kunnen lopen met de data.
+ */
+export const mhiTextEn: Record<string, ModelText> = {
+  zt: {
+    tier: 'Matte black',
+    intro:
+      'The black finish from the Premium series, strongest in the cold.',
+    uitvoeringen: 'Matte black only, outside too',
+    highlights: mhiHighlights('zt', 'en', 'Matte black only, outside too'),
+    specs: [
+      { label: 'Air purification', value: 'Allergen Clear Filter and photocatalytic washable deodorising filter' },
+      { label: 'Heating in frost', value: 'Works down to -20 °C, full capacity to -10 °C' },
+      { label: 'Airflow', value: 'Jet Air with a reach of up to 11 metres' },
+      { label: 'Finish', value: 'Matte black RAL 9011, indoor and outdoor unit' },
+      { label: 'Controls', value: 'Remote control and Smart M-Air app, in 0.5 °C steps' },
+    ],
+  },
+  zsx: {
+    tier: 'Top model',
+    intro:
+      'The most efficient unit we supply, with a presence sensor.',
+    uitvoeringen: 'White or titanium',
+    highlights: mhiHighlights('zsx', 'en', 'White or titanium'),
+    specs: [
+      { label: 'Presence sensor', value: 'Adjusts to presence and activity in the room' },
+      { label: 'Saving energy', value: 'Eco Operation and Auto Off' },
+      { label: 'Air purification', value: 'Allergen Clear Filter and photocatalytic washable deodorising filter' },
+      { label: 'Heating in frost', value: 'Works down to -20 °C' },
+      { label: 'Finish', value: 'White or titanium' },
+      { label: 'Controls', value: 'Remote control and Smart M-Air app' },
+    ],
+  },
+  zr: {
+    tier: 'Large rooms',
+    intro:
+      'For large open spaces, shops and business premises.',
+    uitvoeringen: 'White only',
+    highlights: mhiHighlights('zr', 'en', 'White only'),
+    specs: [
+      { label: 'Intended for', value: 'Large open spaces, shops and business premises' },
+      { label: 'Air purification', value: 'Allergen Clear Filter and photocatalytic washable deodorising filter' },
+      { label: 'Heating in frost', value: 'Works down to -20 °C' },
+      { label: 'Airflow', value: '3D Auto Swing from a casing 1197 mm wide' },
+      { label: 'Finish', value: 'White' },
+      { label: 'Controls', value: 'Remote control and Smart M-Air app' },
+    ],
+  },
+  zs: {
+    tier: 'The familiar choice',
+    intro:
+      'The familiar choice: compact, whisper-quiet and Italian in design.',
+    uitvoeringen: 'White, black or titanium',
+    highlights: mhiHighlights('zs', 'en', 'White, black or titanium'),
+    specs: [
+      { label: 'Air purification', value: 'Allergen Clear Filter and photocatalytic washable deodorising filter' },
+      { label: 'Heating in frost', value: 'Works down to -15 °C' },
+      { label: 'Airflow', value: '3D Auto Swing with adjustable vertical vanes' },
+      { label: 'Finish', value: 'White, black or titanium' },
+      { label: 'Controls', value: 'Remote control and Smart M-Air app' },
+    ],
+  },
+};
+
 /** "Standaard bij elke ..."-lijsten per merk. */
 export const sharedEn: Record<string, string[]> = {
   aux: [
@@ -210,6 +286,14 @@ export const sharedEn: Record<string, string[]> = {
     'Also controlled with the Onecta app',
     '5 year manufacturer warranty',
   ],
+  'mitsubishi-heavy-industries': [
+    'Heat pump: cooling and heating',
+    'Efficient, up to label A+++',
+    'Built-in wifi plus Smart M-Air app',
+    'Allergen Clear Filter',
+    'R32 refrigerant',
+    '5 year parts warranty',
+  ],
 };
 
 /** Ruimte-indicatie per vermogen-slug. Gelijk voor alle merken. */
@@ -221,7 +305,10 @@ export const sizeRoomEn: Record<string, string> = {
   '5-0-kw': 'Large living room or open space',
   '6-0-kw': 'Very large or open space',
   '7-0-kw': 'Very large or high-ceilinged room',
+  '6-3-kw': 'Very large or high-ceilinged room',
   '7-1-kw': 'Very large or high-ceilinged room',
+  '8-0-kw': 'Business premises or shop',
+  '10-0-kw': 'Large business premises or open floor',
 };
 
 /**

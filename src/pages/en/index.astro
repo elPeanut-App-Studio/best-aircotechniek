@@ -26,7 +26,7 @@ import { brands } from '../../data/brands';
     <div class="mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8">
       <p class="text-sm font-semibold uppercase tracking-wider text-gold-600">Brands we install</p>
       <h2 class="section-heading mt-2">Air conditioning from reliable brands</h2>
-      <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-3">
+      <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {
           brands.map((b) => (
             <a
@@ -39,7 +39,7 @@ import { brands } from '../../data/brands';
                 width="160"
                 height="48"
                 loading="lazy"
-                class="h-11 w-auto object-contain"
+                class="h-11 w-auto max-w-[10rem] object-contain"
               />
               <span class="text-sm font-semibold text-brand-700 transition group-hover:text-brand-900">
                 View {b.name}
@@ -52,7 +52,7 @@ import { brands } from '../../data/brands';
       <p class="mt-8 text-sm text-slate-600">
         Not sure which brand?{' '}
         <a href="/en/brands/compare/" class="font-semibold text-brand-700 underline decoration-gold-400 decoration-2 underline-offset-4 transition hover:text-brand-900 hover:decoration-gold-500">
-          Put AUX, LG and Daikin side by side
+          Put all four brands side by side
         </a>
       </p>
     </div>

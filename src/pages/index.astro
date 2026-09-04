@@ -27,7 +27,7 @@ import WebsiteSchema from '../components/WebsiteSchema.astro';
     <div class="mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8">
       <p class="text-sm font-semibold uppercase tracking-wider text-gold-600">Merken die wij installeren</p>
       <h2 class="section-heading mt-2">Airconditioning van betrouwbare merken</h2>
-      <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-3">
+      <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {
           brands.map((b) => (
             <a
@@ -40,7 +40,7 @@ import WebsiteSchema from '../components/WebsiteSchema.astro';
                 width="160"
                 height="48"
                 loading="lazy"
-                class="h-11 w-auto object-contain"
+                class="h-11 w-auto max-w-[10rem] object-contain"
               />
               <span class="text-sm font-semibold text-brand-700 transition group-hover:text-brand-900">
                 Bekijk {b.name}
@@ -53,7 +53,7 @@ import WebsiteSchema from '../components/WebsiteSchema.astro';
       <p class="mt-8 text-sm text-slate-600">
         Twijfelt u tussen de merken?{' '}
         <a href="/merken/vergelijken/" class="font-semibold text-brand-700 underline decoration-gold-400 decoration-2 underline-offset-4 transition hover:text-brand-900 hover:decoration-gold-500">
-          Zet AUX, LG en Daikin naast elkaar
+          Zet alle vier de merken naast elkaar
         </a>
       </p>
     </div>

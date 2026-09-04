@@ -4,9 +4,7 @@ import PageHero from '../../components/PageHero.astro';
 import CTASection from '../../components/CTASection.astro';
 import Carousel from '../../components/Carousel.astro';
 import { brands } from '../../data/brands';
-import { auxModels } from '../../data/aux-products';
-import { lgModels } from '../../data/lg-products';
-import { daikinModels } from '../../data/daikin-products';
+import { modelsByBrand } from '../../data/brand-models';
 import heroPhoto from '../../assets/photos/page-hero-woning.jpg';
 import PriceSticker from '../../components/PriceSticker.astro';
 
@@ -15,11 +13,6 @@ export function getStaticPaths() {
 }
 
 const { brand } = Astro.props;
-const modelsByBrand: Record<string, any[]> = {
-  aux: auxModels,
-  lg: lgModels,
-  daikin: daikinModels,
-};
 const models = modelsByBrand[brand.slug] ?? [];
 
 // Welke kenmerken als bullets op de modelkaart komen, per merk (labels verschillen).
@@ -27,6 +20,9 @@ const highlightsByBrand: Record<string, string[]> = {
   aux: ['Luchtstroom & comfort', 'Luchtzuivering', 'Verwarmen bij extreme kou'],
   lg: ['Luchtreiniging', 'Slimme functies', 'Bediening'],
   daikin: ['Uitvoering', 'Beschikbaar in', 'Koudemiddel'],
+  // MHI-series hebben een eigen highlights-lijst, dus deze labels worden daar
+  // niet gebruikt; ze staan er voor het geval die lijst ooit wegvalt.
+  'mitsubishi-heavy-industries': ['Luchtreiniging', 'Verwarmen bij vorst', 'Uitvoering'],
 };
 const highlightLabels = highlightsByBrand[brand.slug] ?? [];
 /**
@@ -53,17 +49,30 @@ const intros: Record<string, string> = {
   lg: 'LG biedt vier wandmodellen, van een voordelig instapmodel tot het zuinigste topmodel. Ze koelen en verwarmen allemaal, werken op R32 en hebben wifi ingebouwd. Hieronder vindt u per model de belangrijkste kenmerken.',
   daikin:
     'Daikin biedt vijf wandmodellen, van het voordelige instapmodel Sensira tot de designmodellen Stylish en Emura. Ze koelen en verwarmen allemaal, werken op R32 en zijn te bedienen met de Onecta-app. Hieronder vindt u per model de belangrijkste kenmerken en de beschikbare vermogens.',
+  'mitsubishi-heavy-industries':
+    'Mitsubishi Heavy Industries biedt vier wandseries: de vertrouwde ZS, de ZT in mat zwart, de ZR voor grote ruimtes en het topmodel ZSX uit de Diamond-serie. Ze koelen en verwarmen allemaal, werken op R32 en hebben wifi ingebouwd voor de Smart M-Air-app. Hieronder vindt u per serie de belangrijkste kenmerken en de beschikbare vermogens.',
 };
 const modelsHeadings: Record<string, string> = {
   aux: 'De drie AUX-series',
   lg: 'De vier LG-modellen',
   daikin: 'De vijf Daikin-modellen',
+  'mitsubishi-heavy-industries': 'De vier MHI-series',
 };
 const modelsHeading = modelsHeadings[brand.slug] ?? `De ${brand.name}-modellen`;
+
+/**
+ * Waar de modelkaart naartoe leidt verschilt per merk: bij LG naar één model,
+ * bij MHI naar een serie met vermogens, bij de rest naar een modelpagina.
+ */
+const kaartLabels: Record<string, string> = {
+  lg: 'Bekijk model',
+  'mitsubishi-heavy-industries': 'Bekijk vermogens',
+};
+const kaartLabel = kaartLabels[brand.slug] ?? 'Bekijk modellen';
 ---
 
 <BaseLayout
-  title={`${brand.name} airco laten installeren | Best Aircotechniek`}
+  title={brand.metaTitel ?? `${brand.name} airco laten installeren | Best Aircotechniek`}
   description={`${brand.name} airconditioning laten installeren in Noord-Brabant. ${brand.tagline}`}
 >
   <PageHero title={`${brand.name} airconditioning`} description={brand.tagline} image={heroPhoto} />
@@ -154,7 +163,7 @@ const modelsHeading = modelsHeadings[brand.slug] ?? `De ${brand.name}-modellen`;
                   ))}
                 </ul>
                 <span class="mt-auto pt-5 text-sm font-semibold text-brand-700 transition group-hover:text-brand-900">
-                  {brand.slug === 'lg' ? 'Bekijk model' : 'Bekijk modellen'}
+                  {kaartLabel}
                   <span aria-hidden="true" class="transition group-hover:translate-x-0.5">&rarr;</span>
                 </span>
               </a>

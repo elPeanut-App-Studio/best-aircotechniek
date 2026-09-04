@@ -1,6 +1,6 @@
 ---
 /**
- * Vergelijkingspagina voor de drie merken.
+ * Vergelijkingspagina voor de vier merken.
  *
  * De tabel en de keuzekaarten zitten in BrandComparison.astro, dat gevuld wordt
  * uit src/data/brand-comparison.ts. Dat bestand berekent de bereiken uit de
@@ -18,39 +18,46 @@ import { merkVergelijking } from '../../data/brand-comparison';
 import { site } from '../../data/site';
 import pageHeroPhoto from '../../assets/photos/page-hero-woning.jpg';
 
-const [aux, lg, daikin] = merkVergelijking;
+const [aux, lg, daikin, mhi] = merkVergelijking;
+/** Bovengrens uit een bereik als "7,0 tot 10,3". */
+const top = (waarde: string) => waarde.split(' tot ')[1] ?? waarde;
 
 const faq = [
   {
     question: 'Welk merk airco is het zuinigst?',
-    answer: `LG haalt in ons aanbod de hoogste rendementen, met een SEER tot ${lg.seer.split(' tot ')[1]} en energielabel tot ${lg.labelKoelen}. Daikin zit daar net onder maar heeft een breder assortiment. AUX is het minst zuinig van de drie, en juist daardoor de goedkoopste in aanschaf. Of dat verschil zich terugverdient hangt af van hoeveel uren per jaar u de airco gebruikt; voor een slaapkamer die alleen in de zomer koelt, weegt de aanschafprijs zwaarder dan het rendement.`,
+    answer: `Mitsubishi Heavy Industries haalt in ons aanbod de hoogste rendementen, met een SEER tot ${top(mhi.seer)} op de ZSX en energielabel tot ${mhi.labelKoelen}. LG zit daar net onder met een SEER tot ${top(lg.seer)}, Daikin volgt met ${top(daikin.seer)} en AUX is met ${top(aux.seer)} het minst zuinig van de vier, en juist daardoor de goedkoopste in aanschaf. Of dat verschil zich terugverdient hangt af van hoeveel uren per jaar u de airco gebruikt; voor een slaapkamer die alleen in de zomer koelt, weegt de aanschafprijs zwaarder dan het rendement.`,
   },
   {
-    question: 'Is een AUX net zo goed als een LG of Daikin?',
-    answer: `Voor de meeste woningen wel. Een AUX werkt met hetzelfde R32-koudemiddel en dezelfde invertertechniek als LG en Daikin, en haalt energielabel ${aux.labelKoelen} voor koelen. Het verschil zit in de top van het rendement en in de garantietermijn: twee jaar fabrieksgarantie tegen vijf bij LG en Daikin. Daarom noemen wij AUX de scherpste prijs-kwaliteitverhouding van de drie, en niet simpelweg de goedkoopste.`,
+    question: 'Wat is het verschil tussen de MHI ZS, ZT, ZR en ZSX?',
+    answer:
+      'De ZS is de vertrouwde Premium-serie: compact, fluisterstil vanaf 19 dB(A) en leverbaar in wit, zwart en titanium. De ZT komt uit datzelfde segment en is bij ons alleen in mat zwart; hij verwarmt door tot -20 °C in plaats van -15 °C en houdt tot -10 °C het volle verwarmingsvermogen vast. De ZR is bedoeld voor grote open ruimtes en loopt van 6,3 tot 10,0 kW, met een bredere behuizing en een krachtiger luchtstroom. De ZSX is het topmodel uit de Diamond-serie, met het hoogste rendement van alles wat wij leveren en een aanwezigheidssensor die merkt of er iemand in de kamer is.',
+  },
+  {
+    question: 'Is een AUX net zo goed als een LG of een Daikin?',
+    answer: `Voor de meeste woningen wel. Een AUX werkt met hetzelfde R32-koudemiddel en dezelfde invertertechniek als de andere merken, en haalt energielabel ${aux.labelKoelen} voor koelen. Het verschil zit in de top van het rendement en in de garantietermijn: twee jaar fabrieksgarantie tegen vijf bij de andere drie. Daarom noemen wij AUX de scherpste prijs-kwaliteitverhouding van de vier, en niet simpelweg de goedkoopste.`,
   },
   {
     question: 'Wat is het verschil in garantie tussen de merken?',
     answer:
-      'LG en Daikin geven vijf jaar fabrieksgarantie, AUX twee jaar. Daar bovenop komt bij ons twee jaar garantie op de montage, ongeacht het merk. Voorwaarde voor de fabrieksgarantie is dat de airco jaarlijks wordt onderhouden door een vakkundig installateur.',
+      'LG en Daikin geven vijf jaar fabrieksgarantie en Mitsubishi Heavy Industries vijf jaar garantie op onderdelen; AUX geeft twee jaar. Daar bovenop komt bij ons twee jaar garantie op de montage, ongeacht het merk. Voorwaarde voor de fabrieksgarantie is dat de airco jaarlijks wordt onderhouden door een vakkundig installateur.',
   },
   {
     question: 'Welk merk past bij een grote of hoge ruimte?',
-    answer: `Daikin heeft de fijnste stappen in vermogen, van ${daikin.vermogens.replace(' tot ', ' tot en met ')}, dus daar is bijna altijd een uitvoering die precies past. AUX en LG gaan tot 7,0 kW. Let bij LG op: de AI Air Special en Premium bestaan alleen als 2,5 en 3,5 kW, dus voor een grote woonkamer blijven daar Standard Plus en Deluxe over.`,
+    answer: `Boven de 7,1 kW is Mitsubishi Heavy Industries de enige keuze: de ZR-serie loopt van 6,3 tot ${top(mhi.vermogens)} en is bedoeld voor grote open ruimtes, winkels en bedrijfsruimtes. Daaronder heeft Daikin de fijnste stappen, van ${daikin.vermogens.replace(' tot ', ' tot en met ')}, dus daar is bijna altijd een uitvoering die precies past. AUX en LG gaan tot 7,0 kW. Let bij LG op: de AI Air Special en Premium bestaan alleen als 2,5 en 3,5 kW, dus voor een grote woonkamer blijven daar Standard Plus en Deluxe over.`,
   },
   {
-    question: 'Waarom staat er geen vanaf-prijs bij LG en Daikin?',
-    answer: `Van AUX hebben wij vaste vanaf-prijzen per model, die beginnen bij ${site.priceFrom} inclusief btw en montage. Voor LG en Daikin hangt de prijs sterker af van het model en de installatiesituatie, en wij zetten liever geen bedrag op de site dat in uw geval niet blijkt te kloppen. U krijgt binnen 24 uur een offerte met een vaste prijs.`,
+    question: 'Waarom staat er geen vanaf-prijs bij LG, Daikin en Mitsubishi Heavy Industries?',
+    answer: `Van AUX hebben wij vaste vanaf-prijzen per model, die beginnen bij ${site.priceFrom} inclusief btw en montage. Bij de andere drie merken hangt de prijs sterker af van het model en de installatiesituatie, en wij zetten liever geen bedrag op de site dat in uw geval niet blijkt te kloppen. U krijgt binnen 24 uur een offerte met een vaste prijs.`,
   },
 ];
 ---
 
 <BaseLayout
-  title="AUX, LG en Daikin vergelijken | Best Aircotechniek"
-  description="AUX, LG en Daikin naast elkaar: vermogens, SEER en SCOP, energielabel, garantie en prijs. Met per merk het sterke punt en de keerzijde."
+  title="Airco-merken vergelijken | Best Aircotechniek"
+  description="AUX, LG, Daikin en Mitsubishi Heavy Industries vergelijken op vermogen, rendement, energielabel, garantie en prijs."
 >
   <PageHero
-    title="AUX, LG en Daikin vergelijken"
+    title="AUX, LG, Daikin en Mitsubishi Heavy Industries vergelijken"
     description="Dezelfde cijfers naast elkaar, zodat u ziet waar de merken echt van elkaar verschillen."
     image={pageHeroPhoto}
   />

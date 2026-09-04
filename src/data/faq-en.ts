@@ -38,7 +38,7 @@ export const generalFaqEn: FaqItem[] = [
   {
     question: 'Which brands do you install?',
     answer:
-      'We install Daikin, LG and AUX. These are reliable brands with a good price-quality ratio and long manufacturer warranties. During the home visit we choose the brand and model that suits your space, wishes and budget together.',
+      'We install Daikin, LG, AUX and Mitsubishi Heavy Industries. These are reliable brands with a good price-quality ratio and long manufacturer warranties. During the home visit we choose the brand and model that suits your space, wishes and budget together.',
   },
   {
     question: 'What warranty do I get?',

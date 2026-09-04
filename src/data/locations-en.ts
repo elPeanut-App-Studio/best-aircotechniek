@@ -144,7 +144,7 @@ export function buildLocationFaqEn(loc: LocationEn): FaqItem[] {
     },
     {
       question: `Which brands do you install in ${loc.city}?`,
-      answer: `We install Daikin, LG and AUX in ${loc.city}: reliable brands with a good price-quality ratio and long manufacturer warranties. Together we choose the model that suits your home best.`,
+      answer: `We install Daikin, LG, AUX and Mitsubishi Heavy Industries in ${loc.city}: reliable brands with a good price-quality ratio and long manufacturer warranties. Together we choose the model that suits your home best.`,
     },
     {
       question: `How quickly can you install a system in ${loc.city}?`,

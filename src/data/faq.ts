@@ -24,7 +24,7 @@ export const generalFaq: FaqItem[] = [
   {
     question: 'Welke merken airco installeren jullie?',
     answer:
-      'Wij installeren airco’s van Daikin, LG en AUX. Dit zijn betrouwbare merken met een goede prijs-kwaliteitverhouding en langdurige garantie. Tijdens het adviesgesprek kiezen we samen het merk en model dat het beste past bij uw ruimte, wensen en budget.',
+      'Wij installeren airco’s van Daikin, LG, AUX en Mitsubishi Heavy Industries. Dit zijn betrouwbare merken met een goede prijs-kwaliteitverhouding en langdurige garantie. Tijdens het adviesgesprek kiezen we samen het merk en model dat het beste past bij uw ruimte, wensen en budget.',
   },
   {
     question: 'Welke garantie krijg ik op mijn airco en de installatie?',
