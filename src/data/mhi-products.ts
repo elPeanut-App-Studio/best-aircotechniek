@@ -86,15 +86,21 @@ export type MhiCapacity = {
 };
 
 export const mhiCapacities: Record<string, Record<string, MhiCapacity>> = {
-  // Premium Series, de huidige generatie. Verwarmen tot -15 °C.
+  // Premium Series. Verwarmen tot -15 °C.
   zs: {
     '2-0-kw': { code: 'SRK20ZS-WF', outdoor: 'SRC20ZS-W',  koel: '2,0', koelMin: '0,9', koelMax: '2,9', verw: '2,7', verwMin: '0,9', verwMax: '4,3', seer: '8,50', scop: '4,60', db: '19' },
     '2-5-kw': { code: 'SRK25ZS-WF', outdoor: 'SRC25ZS-W2', koel: '2,5', koelMin: '0,9', koelMax: '3,1', verw: '3,2', verwMin: '0,9', verwMax: '4,5', seer: '8,50', scop: '4,70', db: '19' },
     '3-5-kw': { code: 'SRK35ZS-WF', outdoor: 'SRC35ZS-W2', koel: '3,5', koelMin: '0,9', koelMax: '4,0', verw: '4,0', verwMin: '0,9', verwMax: '5,0', seer: '8,40', scop: '4,70', db: '19' },
     '5-0-kw': { code: 'SRK50ZS-WF', outdoor: 'SRC50ZS-W',  koel: '5,0', koelMin: '1,3', koelMax: '5,5', verw: '5,8', verwMin: '1,3', verwMax: '6,6', seer: '7,00', scop: '4,60', db: '22' },
   },
-  // Premium Series, nieuwe generatie en opvolger van de ZS. Verwarmen tot -20 °C
-  // en het nominale verwarmingsvermogen blijft tot -10 °C op peil.
+  // Premium Series. Verwarmen tot -20 °C en het nominale verwarmingsvermogen
+  // blijft tot -10 °C op peil.
+  //
+  // NIET positioneren als de opvolger van de ZS. Technisch is het de nieuwere
+  // generatie, maar meerdere leveranciers voeren de ZT uitsluitend in mat
+  // zwart, terwijl de ZS er in wit, zwart én titanium is. "Opvolger" wekt dan
+  // de indruk dat de ZS verdwijnt, precies op het moment dat iemand een kleur
+  // kiest.
   //
   // De codes hier zijn de WFB-uitvoering, mat zwart RAL 9011, want dat is de
   // enige ZT-set die onze leverancier aanbiedt. MHI maakt de ZT óók als -WF
@@ -159,15 +165,38 @@ export type MhiModel = {
 
 export const mhiModels: MhiModel[] = [
   {
+    slug: 'zs',
+    name: 'ZS',
+    serie: 'Premium Series',
+    tier: 'Vertrouwde keuze',
+    intro:
+      'De vertrouwde Premium-serie met Italiaans design: compact, fluisterstil vanaf 19 dB(A) en zuinig tot label A+++.',
+    photo: '/mhi/zs.jpg',
+    highlights: [
+      'Italiaans design, compact',
+      'Fluisterstil vanaf 19 dB(A)',
+      'Wit, zwart of titanium',
+    ],
+    uitvoeringen: 'Pure White, Black & White en Titanium',
+    specs: [
+      { icon: 'luchtzuivering', label: 'Luchtreiniging', value: 'Allergen Clear Filter en fotokatalytisch wasbaar geurfilter' },
+      { icon: 'verwarmen', label: 'Verwarmen bij vorst', value: 'Werkt tot -15 °C' },
+      { icon: 'swing', label: 'Luchtstroom', value: '3D Auto Swing met verstelbare verticale schoepen' },
+      { icon: 'design', label: 'Uitvoering', value: 'Pure White, Black & White of Titanium' },
+      { icon: 'wifi', label: 'Bediening', value: 'Afstandsbediening en Smart M-Air-app' },
+    ],
+  },
+
+  {
     slug: 'zt',
     name: 'ZT',
     serie: 'Premium Series',
-    tier: 'Nieuwste generatie',
+    tier: 'Mat zwart',
     intro:
-      'De opvolger van de ZS, en zuiniger op elk vermogen. Verwarmt door tot -20 °C en houdt tot -10 °C het volle verwarmingsvermogen vast.',
+      'De zwarte uitvoering uit de Premium-serie, en de sterkste in de kou: verwarmt door tot -20 °C en houdt tot -10 °C het volle verwarmingsvermogen vast.',
     photo: '/mhi/zt.jpg',
     highlights: [
-      'Nieuwste generatie, zuiniger dan de ZS',
+      'Mat zwart, ook het buitendeel',
       'Verwarmt door tot -20 °C',
       'Mat zwart (RAL 9011)',
     ],
@@ -178,29 +207,6 @@ export const mhiModels: MhiModel[] = [
       { icon: 'swing', label: 'Luchtstroom', value: 'Jet Air met een worp tot 11 meter' },
       { icon: 'design', label: 'Uitvoering', value: 'Mat zwart, RAL 9011; buitendeel wit of Jet Black' },
       { icon: 'wifi', label: 'Bediening', value: 'Afstandsbediening en Smart M-Air-app, per 0,5 °C' },
-    ],
-  },
-  {
-    slug: 'zsx',
-    name: 'ZSX',
-    serie: 'Diamond Series',
-    tier: 'Topmodel',
-    intro:
-      'Het zuinigste toestel dat wij leveren, met een SEER tot 10,3. Merkt met een aanwezigheidssensor of er iemand in de kamer is en stuurt daarop bij.',
-    photo: '/mhi/zsx.jpg',
-    highlights: [
-      'Aanwezigheidssensor stuurt bij op de kamer',
-      'Hoogste rendement: SEER tot 10,3',
-      'Ook leverbaar als 6,0 kW',
-    ],
-    uitvoeringen: 'Pure White en Titanium',
-    specs: [
-      { icon: 'ruimte', label: 'Aanwezigheidssensor', value: 'Stuurt bij op aanwezigheid en activiteit in de ruimte' },
-      { icon: 'rendement', label: 'Energie besparen', value: 'Eco Operation en Auto Off' },
-      { icon: 'luchtzuivering', label: 'Luchtreiniging', value: 'Allergen Clear Filter en fotokatalytisch wasbaar geurfilter' },
-      { icon: 'verwarmen', label: 'Verwarmen bij vorst', value: 'Werkt tot -20 °C' },
-      { icon: 'design', label: 'Uitvoering', value: 'Pure White of Titanium' },
-      { icon: 'wifi', label: 'Bediening', value: 'Afstandsbediening en Smart M-Air-app' },
     ],
   },
   {
@@ -227,28 +233,28 @@ export const mhiModels: MhiModel[] = [
     ],
   },
   {
-    slug: 'zs',
-    name: 'ZS',
-    serie: 'Premium Series',
-    tier: 'Huidige generatie',
+    slug: 'zsx',
+    name: 'ZSX',
+    serie: 'Diamond Series',
+    tier: 'Topmodel',
     intro:
-      'De vertrouwde Premium-serie met Italiaans design: compact, fluisterstil vanaf 19 dB(A) en zuinig tot label A+++.',
-    photo: '/mhi/zs.jpg',
+      'Het zuinigste toestel dat wij leveren, met een SEER tot 10,3. Merkt met een aanwezigheidssensor of er iemand in de kamer is en stuurt daarop bij.',
+    photo: '/mhi/zsx.jpg',
     highlights: [
-      'Italiaans design, compact',
-      'Fluisterstil vanaf 19 dB(A)',
-      'Wit, zwart of titanium',
+      'Aanwezigheidssensor stuurt bij op de kamer',
+      'Hoogste rendement: SEER tot 10,3',
+      'Ook leverbaar als 6,0 kW',
     ],
-    uitvoeringen: 'Pure White, Black & White en Titanium',
+    uitvoeringen: 'Pure White en Titanium',
     specs: [
+      { icon: 'ruimte', label: 'Aanwezigheidssensor', value: 'Stuurt bij op aanwezigheid en activiteit in de ruimte' },
+      { icon: 'rendement', label: 'Energie besparen', value: 'Eco Operation en Auto Off' },
       { icon: 'luchtzuivering', label: 'Luchtreiniging', value: 'Allergen Clear Filter en fotokatalytisch wasbaar geurfilter' },
-      { icon: 'verwarmen', label: 'Verwarmen bij vorst', value: 'Werkt tot -15 °C' },
-      { icon: 'swing', label: 'Luchtstroom', value: '3D Auto Swing met verstelbare verticale schoepen' },
-      { icon: 'design', label: 'Uitvoering', value: 'Pure White, Black & White of Titanium' },
+      { icon: 'verwarmen', label: 'Verwarmen bij vorst', value: 'Werkt tot -20 °C' },
+      { icon: 'design', label: 'Uitvoering', value: 'Pure White of Titanium' },
       { icon: 'wifi', label: 'Bediening', value: 'Afstandsbediening en Smart M-Air-app' },
     ],
-  },
-];
+  },];
 
 /** Alleen de vermogens die dit model echt heeft. ZSX heeft er vijf, ZS en ZT vier. */
 export function mhiSizesFor(modelSlug: string) {

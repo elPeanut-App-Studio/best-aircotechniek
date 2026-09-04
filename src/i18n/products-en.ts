@@ -26,7 +26,7 @@ export const brandIntroEn: Record<string, string> = {
   daikin:
     'Daikin offers five wall-mounted models, from the affordable Sensira to the design models Stylish and Emura. They all cool and heat, run on R32 and are controlled with the Onecta app. Below you will find the key features and the available capacities per model.',
   'mitsubishi-heavy-industries':
-    'Mitsubishi Heavy Industries offers four wall-mounted series: the new ZT, the ZSX top model, the ZS and the ZR for large rooms. They all cool and heat, run on R32 and have wifi built in for the Smart M-Air app. Below you will find the key features and the available capacities per series.',
+    'Mitsubishi Heavy Industries offers four wall-mounted series: the familiar ZS, the ZT in matte black, the ZR for large rooms and the ZSX top model from the Diamond series. They all cool and heat, run on R32 and have wifi built in for the Smart M-Air app. Below you will find the key features and the available capacities per series.',
 };
 
 /** Kop boven het modeloverzicht per merk. */
@@ -201,11 +201,11 @@ export const daikinTextEn: Record<string, ModelText> = {
  */
 export const mhiTextEn: Record<string, ModelText> = {
   zt: {
-    tier: 'Latest generation',
+    tier: 'Matte black',
     intro:
-      'The successor to the ZS, and more efficient at every capacity. Keeps heating down to -20 °C and holds its full heating capacity down to -10 °C.',
+      'The black finish from the Premium series, and the strongest in the cold: keeps heating down to -20 °C and holds its full heating capacity down to -10 °C.',
     uitvoeringen: 'Matte black (RAL 9011)',
-    highlights: ['Latest generation, more efficient than the ZS', 'Keeps heating down to -20 °C', 'Matte black (RAL 9011)'],
+    highlights: ['Matte black, outdoor unit included', 'Keeps heating down to -20 °C', 'Air throw up to 11 metres'],
     specs: [
       { label: 'Air purification', value: 'Allergen Clear Filter and photocatalytic washable deodorising filter' },
       { label: 'Heating in frost', value: 'Works down to -20 °C, full capacity to -10 °C' },
@@ -245,7 +245,7 @@ export const mhiTextEn: Record<string, ModelText> = {
     ],
   },
   zs: {
-    tier: 'Current generation',
+    tier: 'The familiar choice',
     intro:
       'The familiar Premium series with Italian design: compact, whisper-quiet from 19 dB(A) and efficient up to label A+++.',
     uitvoeringen: 'Pure White, Black & White and Titanium',

@@ -235,9 +235,9 @@ export const merkVergelijking: MerkVergelijking[] = [
       '.',
     )}. The ZSX top model uses a sensor to detect whether anyone is in the room and adjusts accordingly.`,
     keerzijde:
-      'De vijf jaar dekt onderdelen, niet het arbeidsloon na het eerste jaar; bij LG en Daikin is het volledige fabrieksgarantie. En de nieuwe ZT leveren wij alleen in mat zwart.',
+      'De vijf jaar dekt onderdelen, niet het arbeidsloon na het eerste jaar; bij LG en Daikin is het volledige fabrieksgarantie. En de ZT leveren wij alleen in mat zwart.',
     keerzijdeEn:
-      'The five years cover parts, not labour after the first year; with LG and Daikin it is full manufacturer warranty. And we supply the new ZT in matte black only.',
+      'The five years cover parts, not labour after the first year; with LG and Daikin it is full manufacturer warranty. And we supply the ZT in matte black only.',
   },
 ];
 
