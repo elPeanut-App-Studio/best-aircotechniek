@@ -26,7 +26,7 @@ export const brandIntroEn: Record<string, string> = {
   daikin:
     'Daikin offers five wall-mounted models, from the affordable Sensira to the design models Stylish and Emura. They all cool and heat, run on R32 and are controlled with the Onecta app. Below you will find the key features and the available capacities per model.',
   'mitsubishi-heavy-industries':
-    'Mitsubishi Heavy Industries offers three wall-mounted series: the new ZT, the ZSX top model and the ZS. They all cool and heat, run on R32 and have wifi built in for the Smart M-Air app. Below you will find the key features and the available capacities per series.',
+    'Mitsubishi Heavy Industries offers four wall-mounted series: the new ZT, the ZSX top model, the ZS and the ZR for large rooms. They all cool and heat, run on R32 and have wifi built in for the Smart M-Air app. Below you will find the key features and the available capacities per series.',
 };
 
 /** Kop boven het modeloverzicht per merk. */
@@ -34,7 +34,7 @@ export const brandModelsHeadingEn: Record<string, string> = {
   aux: 'The three AUX series',
   lg: 'The four LG models',
   daikin: 'The five Daikin models',
-  'mitsubishi-heavy-industries': 'The three MHI series',
+  'mitsubishi-heavy-industries': 'The four MHI series',
 };
 
 type ModelText = {
@@ -229,6 +229,21 @@ export const mhiTextEn: Record<string, ModelText> = {
       { label: 'Controls', value: 'Remote control and Smart M-Air app' },
     ],
   },
+  zr: {
+    tier: 'Large rooms',
+    intro:
+      'For large open spaces where the other series are too small. A wide casing with a powerful airflow, in four capacities from 6.3 to 10.0 kW.',
+    uitvoeringen: 'Pure White',
+    highlights: ['The largest capacity on this site: up to 10.0 kW', 'Wide casing with a powerful air throw', 'Quiet for its size: from 25 dB(A)'],
+    specs: [
+      { label: 'Intended for', value: 'Large open spaces, shops and business premises' },
+      { label: 'Air purification', value: 'Allergen Clear Filter and photocatalytic washable deodorising filter' },
+      { label: 'Heating in frost', value: 'Works down to -20 °C' },
+      { label: 'Airflow', value: '3D Auto Swing from a casing 1197 mm wide' },
+      { label: 'Finish', value: 'Pure White' },
+      { label: 'Controls', value: 'Remote control and Smart M-Air app' },
+    ],
+  },
   zs: {
     tier: 'Current generation',
     intro:
@@ -286,7 +301,10 @@ export const sizeRoomEn: Record<string, string> = {
   '5-0-kw': 'Large living room or open space',
   '6-0-kw': 'Very large or open space',
   '7-0-kw': 'Very large or high-ceilinged room',
+  '6-3-kw': 'Very large or high-ceilinged room',
   '7-1-kw': 'Very large or high-ceilinged room',
+  '8-0-kw': 'Business premises or shop',
+  '10-0-kw': 'Large business premises or open floor',
 };
 
 /**

@@ -234,12 +234,10 @@ export const merkVergelijking: MerkVergelijking[] = [
       ',',
       '.',
     )}. The ZSX top model uses a sensor to detect whether anyone is in the room and adjusts accordingly.`,
-    keerzijde: `Ons MHI-aanbod stopt bij ${komma(
-      Math.max(...mhiSizes.map((s) => getal(s.kw.replace(/[^\d,.]/g, '')))),
-    )} kW, dus voor een zeer grote ruimte komt u bij Daikin of LG uit. En de nieuwe ZT leveren wij alleen in mat zwart.`,
-    keerzijdeEn: `Our MHI range stops at ${komma(
-      Math.max(...mhiSizes.map((s) => getal(s.kw.replace(/[^\d,.]/g, '')))),
-    ).replace(',', '.')} kW, so for a very large room you end up with Daikin or LG. And we supply the new ZT in matte black only.`,
+    keerzijde:
+      'De vijf jaar dekt onderdelen, niet het arbeidsloon na het eerste jaar; bij LG en Daikin is het volledige fabrieksgarantie. En de nieuwe ZT leveren wij alleen in mat zwart.',
+    keerzijdeEn:
+      'The five years cover parts, not labour after the first year; with LG and Daikin it is full manufacturer warranty. And we supply the new ZT in matte black only.',
   },
 ];
 

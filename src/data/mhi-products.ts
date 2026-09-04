@@ -16,6 +16,8 @@ import { coolingLabel, heatingLabel, bestLabelsFrom } from './energy-labels';
  *   de Nederlandse ZS-brochure. Twee onafhankelijke bronnen die elkaar dekken.
  * - ZSX: de productleaflets per set van Maxi-Trade (maart 2026) voor 2,5 t/m
  *   6,0 kW, en de MHI RAC Catalogue 2026 voor de 2,0 kW.
+ * - ZR: de MHI RAC Catalogue 2026, pagina 34 (capaciteiten en geluidsdruk) en
+ *   pagina 100 (SEER, SCOP en de energielabels).
  *
  * TWEE VALKUILEN DIE HIER BEWUST VERMEDEN ZIJN
  *
@@ -47,6 +49,10 @@ export const mhiSizes = [
   { slug: '3-5-kw', kw: '3,5 kW', volume: '± 120 m³', area: '± 46 m²', room: 'Woonkamer (gemiddeld)' },
   { slug: '5-0-kw', kw: '5,0 kW', volume: '± 180 m³', area: '± 70 m²', room: 'Grote woonkamer of open ruimte' },
   { slug: '6-0-kw', kw: '6,0 kW', volume: '± 215 m³', area: '± 83 m²', room: 'Zeer grote of open ruimte' },
+  { slug: '6-3-kw', kw: '6,3 kW', volume: '± 225 m³', area: '± 87 m²', room: 'Zeer grote of hoge ruimte' },
+  { slug: '7-1-kw', kw: '7,1 kW', volume: '± 245 m³', area: '± 94 m²', room: 'Zeer grote of hoge ruimte' },
+  { slug: '8-0-kw', kw: '8,0 kW', volume: '± 285 m³', area: '± 110 m²', room: 'Bedrijfsruimte of winkel' },
+  { slug: '10-0-kw', kw: '10,0 kW', volume: '± 355 m³', area: '± 137 m²', room: 'Grote bedrijfsruimte of open verdieping' },
 ] as const;
 
 /** Standaard bij élke MHI-wandairco die wij leveren. */
@@ -113,6 +119,16 @@ export const mhiCapacities: Record<string, Record<string, MhiCapacity>> = {
     '5-0-kw': { code: 'SRK50ZSX-WF', outdoor: 'SRC50ZSX-W3', koel: '5,0', koelMin: '1,0', koelMax: '6,2',  verw: '6,0', verwMin: '0,8', verwMax: '8,2', seer: '8,30',  scop: '4,70', db: '22' },
     // De klasse heet 6,0 kW in de handel, het nominale koelvermogen is 6,1 kW.
     '6-0-kw': { code: 'SRK60ZSX-WF', outdoor: 'SRC60ZSX-W3', koel: '6,1', koelMin: '1,0', koelMax: '6,9',  verw: '6,8', verwMin: '0,8', verwMax: '8,8', seer: '7,80',  scop: '4,70', db: '22' },
+  },
+  // Diamond Series voor grote open ruimtes. Brede behuizing (1197 mm) met een
+  // krachtige luchtstroom. Let op de 10,0 kW: die heeft een ander buitendeel
+  // (FDC100VNP-W in plaats van SRC..ZR-W) en 9,6 kW nominaal koelvermogen bij
+  // 10,0 kW verwarmen, waar de klasse zijn naam aan ontleent.
+  zr: {
+    '6-3-kw':  { code: 'SRK63ZR-WF',  outdoor: 'SRC63ZR-W',   koel: '6,3', koelMin: '1,2', koelMax: '7,4', verw: '7,1',  verwMin: '0,8', verwMax: '9,3',  seer: '8,10', scop: '4,70', db: '25' },
+    '7-1-kw':  { code: 'SRK71ZR-WF',  outdoor: 'SRC71ZR-W',   koel: '7,1', koelMin: '2,3', koelMax: '7,8', verw: '8,0',  verwMin: '2,0', verwMax: '10,8', seer: '7,40', scop: '4,50', db: '25' },
+    '8-0-kw':  { code: 'SRK80ZR-WF',  outdoor: 'SRC80ZR-W',   koel: '8,0', koelMin: '2,3', koelMax: '9,7', verw: '9,0',  verwMin: '2,1', verwMax: '11,2', seer: '7,00', scop: '4,40', db: '26' },
+    '10-0-kw': { code: 'SRK100ZR-WF', outdoor: 'FDC100VNP-W', koel: '9,6', koelMin: '2,1', koelMax: '9,6', verw: '10,0', verwMin: '1,7', verwMax: '10,4', seer: '6,11', scop: '4,14', db: '27' },
   },
 };
 
@@ -184,6 +200,29 @@ export const mhiModels: MhiModel[] = [
       { icon: 'luchtzuivering', label: 'Luchtreiniging', value: 'Allergen Clear Filter en fotokatalytisch wasbaar geurfilter' },
       { icon: 'verwarmen', label: 'Verwarmen bij vorst', value: 'Werkt tot -20 °C' },
       { icon: 'design', label: 'Uitvoering', value: 'Pure White of Titanium' },
+      { icon: 'wifi', label: 'Bediening', value: 'Afstandsbediening en Smart M-Air-app' },
+    ],
+  },
+  {
+    slug: 'zr',
+    name: 'ZR',
+    serie: 'Diamond Series',
+    tier: 'Grote ruimtes',
+    intro:
+      'Voor grote open ruimtes waar de andere series te klein zijn. Een brede behuizing met een krachtige luchtstroom, in vier vermogens van 6,3 tot 10,0 kW.',
+    photo: '/mhi/zr.jpg',
+    highlights: [
+      'Het grootste vermogen op deze site: tot 10,0 kW',
+      'Brede behuizing met een krachtige luchtworp',
+      'Stil voor dit formaat: vanaf 25 dB(A)',
+    ],
+    uitvoeringen: 'Pure White',
+    specs: [
+      { icon: 'ruimte', label: 'Bedoeld voor', value: 'Grote open ruimtes, winkels en bedrijfsruimtes' },
+      { icon: 'luchtzuivering', label: 'Luchtreiniging', value: 'Allergen Clear Filter en fotokatalytisch wasbaar geurfilter' },
+      { icon: 'verwarmen', label: 'Verwarmen bij vorst', value: 'Werkt tot -20 °C' },
+      { icon: 'swing', label: 'Luchtstroom', value: '3D Auto Swing uit een behuizing van 1197 mm breed' },
+      { icon: 'design', label: 'Uitvoering', value: 'Pure White' },
       { icon: 'wifi', label: 'Bediening', value: 'Afstandsbediening en Smart M-Air-app' },
     ],
   },
@@ -271,6 +310,12 @@ const gepubliceerdeLabels: Record<string, Record<string, { koelen: string; verwa
     '2-5-kw': { koelen: 'A+++' },
     '3-5-kw': { koelen: 'A+++', verwarmen: 'A++' },
     '5-0-kw': { koelen: 'A++', verwarmen: 'A++' },
+  },
+  zr: {
+    '6-3-kw': { koelen: 'A++', verwarmen: 'A++' },
+    '7-1-kw': { koelen: 'A++', verwarmen: 'A+' },
+    '8-0-kw': { koelen: 'A++', verwarmen: 'A+' },
+    '10-0-kw': { koelen: 'A++', verwarmen: 'A+' },
   },
   zsx: {
     '2-0-kw': { koelen: 'A+++', verwarmen: 'A+++' },
