@@ -15,6 +15,8 @@ export const brandTaglinesEn: Record<string, string> = {
   daikin: 'Global market leader in climate control, known for reliability and efficiency.',
   lg: 'Modern air conditioning with smart controls and a sleek design.',
   aux: 'Plenty of comfort for a sharp price, with an excellent price-quality ratio.',
+  'mitsubishi-heavy-industries':
+    'Japanese engineering with the highest efficiency in our range, up to energy label A+++.',
 };
 
 /** Intro-alinea per merkpagina. */
@@ -23,6 +25,8 @@ export const brandIntroEn: Record<string, string> = {
   lg: 'LG offers four wall-mounted models, from an affordable entry model to the most efficient top model. They all cool and heat, run on R32 and have wifi built in. Below you will find the key features per model.',
   daikin:
     'Daikin offers five wall-mounted models, from the affordable Sensira to the design models Stylish and Emura. They all cool and heat, run on R32 and are controlled with the Onecta app. Below you will find the key features and the available capacities per model.',
+  'mitsubishi-heavy-industries':
+    'Mitsubishi Heavy Industries offers three wall-mounted series: the new ZT, the ZSX top model and the ZS. They all cool and heat, run on R32 and have wifi built in for the Smart M-Air app. Below you will find the key features and the available capacities per series.',
 };
 
 /** Kop boven het modeloverzicht per merk. */
@@ -30,6 +34,7 @@ export const brandModelsHeadingEn: Record<string, string> = {
   aux: 'The three AUX series',
   lg: 'The four LG models',
   daikin: 'The five Daikin models',
+  'mitsubishi-heavy-industries': 'The three MHI series',
 };
 
 type ModelText = {
@@ -39,6 +44,8 @@ type ModelText = {
   specs: { label: string; value: string }[];
   /** Drie vergelijkbare kenmerken voor de kaart op de merkpagina. */
   highlights?: string[];
+  /** Kleuren/uitvoeringen; alleen gevuld waar het Nederlandse model dat veld heeft. */
+  uitvoeringen?: string;
 };
 
 export const auxTextEn: Record<string, ModelText> = {
@@ -188,6 +195,53 @@ export const daikinTextEn: Record<string, ModelText> = {
   },
 };
 
+/**
+ * MHI. De labels en de volgorde volgen exact de `specs` in mhi-products.ts,
+ * want de pagina koppelt ze op index.
+ */
+export const mhiTextEn: Record<string, ModelText> = {
+  zt: {
+    tier: 'Latest generation',
+    intro:
+      'The successor to the ZS, and more efficient at every capacity. Keeps heating down to -20 °C and holds its full heating capacity down to -10 °C.',
+    uitvoeringen: 'Matte black (RAL 9011)',
+    specs: [
+      { label: 'Air purification', value: 'Allergen Clear Filter and photocatalytic washable deodorising filter' },
+      { label: 'Heating in frost', value: 'Works down to -20 °C, full capacity to -10 °C' },
+      { label: 'Airflow', value: 'Jet Air with a reach of up to 11 metres' },
+      { label: 'Finish', value: 'Matte black, RAL 9011; outdoor unit in white or Jet Black' },
+      { label: 'Controls', value: 'Remote control and Smart M-Air app, in 0.5 °C steps' },
+    ],
+  },
+  zsx: {
+    tier: 'Top model',
+    intro:
+      'The most efficient unit we supply, with a SEER of up to 10.3. A presence sensor notices whether anyone is in the room and adjusts accordingly.',
+    uitvoeringen: 'Pure White and Titanium',
+    specs: [
+      { label: 'Presence sensor', value: 'Adjusts to presence and activity in the room' },
+      { label: 'Saving energy', value: 'Eco Operation and Auto Off' },
+      { label: 'Air purification', value: 'Allergen Clear Filter and photocatalytic washable deodorising filter' },
+      { label: 'Heating in frost', value: 'Works down to -20 °C' },
+      { label: 'Finish', value: 'Pure White or Titanium' },
+      { label: 'Controls', value: 'Remote control and Smart M-Air app' },
+    ],
+  },
+  zs: {
+    tier: 'Current generation',
+    intro:
+      'The familiar Premium series with Italian design: compact, whisper-quiet from 19 dB(A) and efficient up to label A+++.',
+    uitvoeringen: 'Pure White, Black & White and Titanium',
+    specs: [
+      { label: 'Air purification', value: 'Allergen Clear Filter and photocatalytic washable deodorising filter' },
+      { label: 'Heating in frost', value: 'Works down to -15 °C' },
+      { label: 'Airflow', value: '3D Auto Swing with adjustable vertical vanes' },
+      { label: 'Finish', value: 'Pure White, Black & White or Titanium' },
+      { label: 'Controls', value: 'Remote control and Smart M-Air app' },
+    ],
+  },
+};
+
 /** "Standaard bij elke ..."-lijsten per merk. */
 export const sharedEn: Record<string, string[]> = {
   aux: [
@@ -209,6 +263,14 @@ export const sharedEn: Record<string, string[]> = {
     'Remote control included',
     'Also controlled with the Onecta app',
     '5 year manufacturer warranty',
+  ],
+  'mitsubishi-heavy-industries': [
+    'Heat pump: cooling and heating',
+    'Efficient, up to label A+++',
+    'Built-in wifi plus Smart M-Air app',
+    'Allergen Clear Filter',
+    'R32 refrigerant',
+    '5 year parts warranty',
   ],
 };
 

@@ -24,4 +24,18 @@ export const brands = [
     brochure: '/aux-airco-brochure.pdf',
     brochureEn: '/aux-airco-brochure-en.pdf',
   },
+  {
+    // Slug met de volledige naam en niet kort 'mitsubishi': Mitsubishi Electric
+    // is een ánder bedrijf dat ook airco's maakt, en die verwarring hoort niet
+    // in een URL. Het is bovendien de zoekterm die mensen intypen.
+    slug: 'mitsubishi-heavy-industries',
+    name: 'Mitsubishi Heavy Industries',
+    logo: '/brands/mitsubishi-heavy-industries.svg',
+    tagline: 'Japanse techniek met het hoogste rendement van ons aanbod, tot energielabel A+++.',
+    // Nog geen brochure: MHI's eigen beeldmateriaal mag niet gepubliceerd
+    // worden en een actuele Nederlandse brochure-PDF met de ZT bestaat niet
+    // publiek. Zodra Coolmark er een met gebruiksrecht levert, kan die hier in.
+    brochure: null,
+    brochureEn: null,
+  },
 ] as const;

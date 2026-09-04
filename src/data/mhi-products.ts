@@ -2,7 +2,7 @@ import { coolingLabel, heatingLabel, bestLabelsFrom } from './energy-labels';
 
 /**
  * Mitsubishi Heavy Industries-productgegevens voor de merkpagina's onder
- * /merken/mitsubishi-heavy.
+ * /merken/mitsubishi-heavy-industries.
  *
  * BRONNEN, alle op 4 september 2026 opgehaald
  * - ZS: de Nederlandse MHI-consumentenbrochure "Consumenten Series", uitgegeven
@@ -39,7 +39,7 @@ import { coolingLabel, heatingLabel, bestLabelsFrom } from './energy-labels';
  * Capaciteit en ruimtegrootte. De volume-, oppervlakte- en ruimte-omschrijving
  * per klasse zijn letterlijk overgenomen uit de roomGuide van daikin-products,
  * zodat een 3,5 kW op de hele site dezelfde ruimte-indicatie krijgt.
- * De slugs vormen de URL: /merken/mitsubishi-heavy/<model>/<slug>
+ * De slugs vormen de URL: /merken/mitsubishi-heavy-industries/<model>/<slug>
  */
 export const mhiSizes = [
   { slug: '2-0-kw', kw: '2,0 kW', volume: '± 70 m³', area: '± 28 m²', room: 'Kleine slaap- of studeerkamer' },
@@ -124,7 +124,13 @@ export type MhiModel = {
   photo: string;
   /** Uitvoeringen met identieke prestaties; alleen de kleur verschilt. */
   uitvoeringen: string;
-  specs: { label: string; value: string }[];
+  /**
+   * Kernkenmerken op modelniveau. Het icoon staat hier bij de spec zelf en niet
+   * in een aparte array op de pagina: bij een positionele array hoort er een
+   * verkeerd plaatje bij zodra iemand de volgorde wijzigt.
+   * Namen komen uit public/spec-icons/.
+   */
+  specs: { label: string; value: string; icon: string }[];
 };
 
 export const mhiModels: MhiModel[] = [
@@ -138,13 +144,11 @@ export const mhiModels: MhiModel[] = [
     photo: '/mhi/zt.jpg',
     uitvoeringen: 'Mat zwart (RAL 9011)',
     specs: [
-      { label: 'Luchtreiniging', value: 'Allergen Clear Filter en fotokatalytisch wasbaar geurfilter' },
-      { label: 'Verwarmen bij vorst', value: 'Werkt tot -20 °C, vol vermogen tot -10 °C' },
-      { label: 'Stille standen', value: 'Silent en Ultra Silent, vanaf 19 dB(A)' },
-      { label: 'Luchtworp', value: 'Tot 11 meter met Jet Air' },
-      { label: 'Uitvoering', value: 'Mat zwart, RAL 9011' },
-      { label: 'Buitendeel', value: 'Wit of Jet Black' },
-      { label: 'Bediening', value: 'Afstandsbediening en Smart M-Air-app, per 0,5 °C' },
+      { icon: 'luchtzuivering', label: 'Luchtreiniging', value: 'Allergen Clear Filter en fotokatalytisch wasbaar geurfilter' },
+      { icon: 'verwarmen', label: 'Verwarmen bij vorst', value: 'Werkt tot -20 °C, vol vermogen tot -10 °C' },
+      { icon: 'swing', label: 'Luchtstroom', value: 'Jet Air met een worp tot 11 meter' },
+      { icon: 'design', label: 'Uitvoering', value: 'Mat zwart, RAL 9011; buitendeel wit of Jet Black' },
+      { icon: 'wifi', label: 'Bediening', value: 'Afstandsbediening en Smart M-Air-app, per 0,5 °C' },
     ],
   },
   {
@@ -157,12 +161,12 @@ export const mhiModels: MhiModel[] = [
     photo: '/mhi/zsx.jpg',
     uitvoeringen: 'Pure White en Titanium',
     specs: [
-      { label: 'Aanwezigheidssensor', value: 'Ja, stuurt bij op aanwezigheid en activiteit' },
-      { label: 'Energie besparen', value: 'Eco Operation en Auto Off' },
-      { label: 'Luchtreiniging', value: 'Allergen Clear Filter en fotokatalytisch wasbaar geurfilter' },
-      { label: 'Verwarmen bij vorst', value: 'Werkt tot -20 °C' },
-      { label: 'Uitvoering', value: 'Pure White of Titanium' },
-      { label: 'Bediening', value: 'Afstandsbediening en Smart M-Air-app' },
+      { icon: 'ruimte', label: 'Aanwezigheidssensor', value: 'Stuurt bij op aanwezigheid en activiteit in de ruimte' },
+      { icon: 'rendement', label: 'Energie besparen', value: 'Eco Operation en Auto Off' },
+      { icon: 'luchtzuivering', label: 'Luchtreiniging', value: 'Allergen Clear Filter en fotokatalytisch wasbaar geurfilter' },
+      { icon: 'verwarmen', label: 'Verwarmen bij vorst', value: 'Werkt tot -20 °C' },
+      { icon: 'design', label: 'Uitvoering', value: 'Pure White of Titanium' },
+      { icon: 'wifi', label: 'Bediening', value: 'Afstandsbediening en Smart M-Air-app' },
     ],
   },
   {
@@ -175,12 +179,11 @@ export const mhiModels: MhiModel[] = [
     photo: '/mhi/zs.jpg',
     uitvoeringen: 'Pure White, Black & White en Titanium',
     specs: [
-      { label: 'Luchtreiniging', value: 'Allergen Clear Filter en fotokatalytisch wasbaar geurfilter' },
-      { label: 'Geluidsniveau', value: 'Vanaf 19 dB(A) in de stilste stand' },
-      { label: 'Verwarmen bij vorst', value: 'Werkt tot -15 °C' },
-      { label: 'Luchtstroom', value: '3D Auto Swing met verstelbare verticale schoepen' },
-      { label: 'Uitvoering', value: 'Pure White, Black & White of Titanium' },
-      { label: 'Bediening', value: 'Afstandsbediening en Smart M-Air-app' },
+      { icon: 'luchtzuivering', label: 'Luchtreiniging', value: 'Allergen Clear Filter en fotokatalytisch wasbaar geurfilter' },
+      { icon: 'verwarmen', label: 'Verwarmen bij vorst', value: 'Werkt tot -15 °C' },
+      { icon: 'swing', label: 'Luchtstroom', value: '3D Auto Swing met verstelbare verticale schoepen' },
+      { icon: 'design', label: 'Uitvoering', value: 'Pure White, Black & White of Titanium' },
+      { icon: 'wifi', label: 'Bediening', value: 'Afstandsbediening en Smart M-Air-app' },
     ],
   },
 ];
@@ -201,6 +204,18 @@ export function getMhiModel(slug: string): MhiModel | undefined {
 /** Beste label over alle uitvoeringen van een model, voor "tot A+++". */
 export function mhiBestLabels(modelSlug: string) {
   return bestLabelsFrom(Object.values(mhiCapacities[modelSlug] ?? {}));
+}
+
+/** Hoogste SEER en SCOP over alle uitvoeringen van een model. */
+export function mhiBestEfficiency(modelSlug: string): { seer: string; scop: string } | null {
+  const caps = mhiCapacities[modelSlug];
+  if (!caps) return null;
+  const getal = (v: string) => Number(v.replace(',', '.'));
+  const top = (pick: (c: MhiCapacity) => string) =>
+    Object.values(caps)
+      .map(pick)
+      .reduce((a, b) => (getal(b) > getal(a) ? b : a));
+  return { seer: top((c) => c.seer), scop: top((c) => c.scop) };
 }
 
 /**
