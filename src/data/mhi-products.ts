@@ -147,10 +147,11 @@ export type MhiModel = {
   intro: string;
   photo: string;
   /**
-   * Beschikbare kleuren in gewone taal, voor de kaart op de merkpagina. De
-   * officiele MHI-namen (Pure White, Black & White, Titanium) staan bij het
-   * kenmerk 'Uitvoering' op de modelpagina; hier gaat het erom dat een klant de
-   * vier series naast elkaar kan leggen.
+   * Beschikbare kleuren, in gewone taal en gezien vanaf de BINNENUNIT. MHI
+   * noemt de zwarte ZS "Black & White" omdat het buitendeel daar wit is, maar
+   * een klant kijkt naar het toestel in zijn kamer; dat heet hier dus gewoon
+   * zwart. Bij de ZT staat het buitendeel er wel bij, want dat is daar ook
+   * zwart en dat is precies het onderscheid.
    */
   uitvoeringen: string;
   /**
@@ -185,7 +186,7 @@ export const mhiModels: MhiModel[] = [
       { icon: 'luchtzuivering', label: 'Luchtreiniging', value: 'Allergen Clear Filter en fotokatalytisch wasbaar geurfilter' },
       { icon: 'verwarmen', label: 'Verwarmen bij vorst', value: 'Werkt tot -15 °C' },
       { icon: 'swing', label: 'Luchtstroom', value: '3D Auto Swing met verstelbare verticale schoepen' },
-      { icon: 'design', label: 'Uitvoering', value: 'Pure White, Black & White of Titanium' },
+      { icon: 'design', label: 'Uitvoering', value: 'Wit, zwart of titanium' },
       { icon: 'wifi', label: 'Bediening', value: 'Afstandsbediening en Smart M-Air-app' },
     ],
   },
@@ -199,12 +200,12 @@ export const mhiModels: MhiModel[] = [
       'De zwarte uitvoering uit de Premium-serie, en de sterkste in de kou.',
     photo: '/mhi/zt.jpg',
     highlights: [],
-    uitvoeringen: 'Alleen mat zwart',
+    uitvoeringen: 'Alleen mat zwart, ook buiten',
     specs: [
       { icon: 'luchtzuivering', label: 'Luchtreiniging', value: 'Allergen Clear Filter en fotokatalytisch wasbaar geurfilter' },
       { icon: 'verwarmen', label: 'Verwarmen bij vorst', value: 'Werkt tot -20 °C, vol vermogen tot -10 °C' },
       { icon: 'swing', label: 'Luchtstroom', value: 'Jet Air met een worp tot 11 meter' },
-      { icon: 'design', label: 'Uitvoering', value: 'Mat zwart RAL 9011, met een Jet Black buitendeel' },
+      { icon: 'design', label: 'Uitvoering', value: 'Mat zwart RAL 9011, binnen- én buitendeel' },
       { icon: 'wifi', label: 'Bediening', value: 'Afstandsbediening en Smart M-Air-app, per 0,5 °C' },
     ],
   },
@@ -223,7 +224,7 @@ export const mhiModels: MhiModel[] = [
       { icon: 'luchtzuivering', label: 'Luchtreiniging', value: 'Allergen Clear Filter en fotokatalytisch wasbaar geurfilter' },
       { icon: 'verwarmen', label: 'Verwarmen bij vorst', value: 'Werkt tot -20 °C' },
       { icon: 'swing', label: 'Luchtstroom', value: '3D Auto Swing uit een behuizing van 1197 mm breed' },
-      { icon: 'design', label: 'Uitvoering', value: 'Pure White' },
+      { icon: 'design', label: 'Uitvoering', value: 'Wit' },
       { icon: 'wifi', label: 'Bediening', value: 'Afstandsbediening en Smart M-Air-app' },
     ],
   },
@@ -242,7 +243,7 @@ export const mhiModels: MhiModel[] = [
       { icon: 'rendement', label: 'Energie besparen', value: 'Eco Operation en Auto Off' },
       { icon: 'luchtzuivering', label: 'Luchtreiniging', value: 'Allergen Clear Filter en fotokatalytisch wasbaar geurfilter' },
       { icon: 'verwarmen', label: 'Verwarmen bij vorst', value: 'Werkt tot -20 °C' },
-      { icon: 'design', label: 'Uitvoering', value: 'Pure White of Titanium' },
+      { icon: 'design', label: 'Uitvoering', value: 'Wit of titanium' },
       { icon: 'wifi', label: 'Bediening', value: 'Afstandsbediening en Smart M-Air-app' },
     ],
   },];
