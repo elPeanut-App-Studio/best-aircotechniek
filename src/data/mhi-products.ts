@@ -1,0 +1,259 @@
+import { coolingLabel, heatingLabel, bestLabelsFrom } from './energy-labels';
+
+/**
+ * Mitsubishi Heavy Industries-productgegevens voor de merkpagina's onder
+ * /merken/mitsubishi-heavy.
+ *
+ * BRONNEN, alle op 4 september 2026 opgehaald
+ * - ZS: de Nederlandse MHI-consumentenbrochure "Consumenten Series", uitgegeven
+ *   door Maxi-Trade (de Nederlandse distributeur), specificatietabel SRK-ZS-WF.
+ *   Bevestigd met de MHI RAC Catalogue 2026, pagina 100 (energielabeldata).
+ * - ZT: het officiële specificatieblad van Maxi-Trade
+ *   (Technische-gegevens-Mitsubishi-SRK-ZT.pdf, maart 2026) voor de capaciteiten
+ *   en typeaanduidingen, en de SRK-ZT-brochure van MHI zelf voor SEER en SCOP.
+ *   Die brochure zet de ZT naast de ZS in een staafdiagram, en de ZS-waarden
+ *   daarin (SEER 8,5/8,5/8,4/7,0 en SCOP 4,6/4,7/4,7/4,6) zijn exact gelijk aan
+ *   de Nederlandse ZS-brochure. Twee onafhankelijke bronnen die elkaar dekken.
+ * - ZSX: de productleaflets per set van Maxi-Trade (maart 2026) voor 2,5 t/m
+ *   6,0 kW, en de MHI RAC Catalogue 2026 voor de 2,0 kW.
+ *
+ * TWEE VALKUILEN DIE HIER BEWUST VERMEDEN ZIJN
+ *
+ * 1. Er bestaan -S, -W en -WF uitvoeringen van dezelfde series, en dat zijn
+ *    VERSCHILLENDE generaties met verschillende cijfers. De MHI-wereldcatalogus
+ *    van 2022 geeft de ZS een SEER van 7,80; de Nederlandse WF-uitvoering haalt
+ *    8,50. Alles hieronder is de -WF-generatie, want dat is wat er in Nederland
+ *    geleverd wordt. Meng er nooit cijfers van een -S- of -W-type door.
+ *
+ * 2. Handelspartijen zetten onder "wandmodel ZS" ook 6,3 tot 10,0 kW. Die
+ *    vermogens bestaan NIET in de ZS-serie; dat is de ZR-serie (SRK63ZR-WF en
+ *    hoger). ZS en ZT stoppen bij 5,0 kW, ZSX bij 6,1 kW.
+ *
+ * De typeaanduidingen zijn niet uit een patroon afgeleid maar per stuk uit een
+ * bron overgenomen. Let op het buitendeel van de ZS: de 2,5 en de 3,5 hebben
+ * een W2-achtervoegsel en de 2,0 en de 5,0 niet. Precies zo'n afwijking maakt
+ * extrapoleren onbetrouwbaar.
+ */
+
+/**
+ * Capaciteit en ruimtegrootte. De volume-, oppervlakte- en ruimte-omschrijving
+ * per klasse zijn letterlijk overgenomen uit de roomGuide van daikin-products,
+ * zodat een 3,5 kW op de hele site dezelfde ruimte-indicatie krijgt.
+ * De slugs vormen de URL: /merken/mitsubishi-heavy/<model>/<slug>
+ */
+export const mhiSizes = [
+  { slug: '2-0-kw', kw: '2,0 kW', volume: '± 70 m³', area: '± 28 m²', room: 'Kleine slaap- of studeerkamer' },
+  { slug: '2-5-kw', kw: '2,5 kW', volume: '± 90 m³', area: '± 35 m²', room: 'Slaapkamer of kleine kamer' },
+  { slug: '3-5-kw', kw: '3,5 kW', volume: '± 120 m³', area: '± 46 m²', room: 'Woonkamer (gemiddeld)' },
+  { slug: '5-0-kw', kw: '5,0 kW', volume: '± 180 m³', area: '± 70 m²', room: 'Grote woonkamer of open ruimte' },
+  { slug: '6-0-kw', kw: '6,0 kW', volume: '± 215 m³', area: '± 83 m²', room: 'Zeer grote of open ruimte' },
+] as const;
+
+/** Standaard bij élke MHI-wandairco die wij leveren. */
+export const mhiShared = [
+  'Warmtepomp: koelen én verwarmen',
+  'Zuinig tot label A+++',
+  'Ingebouwde wifi + Smart M-Air-app',
+  'Allergen Clear Filter',
+  'R32-koudemiddel',
+  '5 jaar garantie op onderdelen',
+] as const;
+
+export type MhiCapacity = {
+  /** Officiële typeaanduiding van de binnenunit, in de witte uitvoering. */
+  code: string;
+  /** Officiële typeaanduiding van de buitenunit. */
+  outdoor: string;
+  /** Nominaal koelvermogen in kW. */
+  koel: string;
+  /** Onder- en bovengrens van het koelvermogen in kW (modulatiebereik). */
+  koelMin: string;
+  koelMax: string;
+  /** Nominaal verwarmingsvermogen in kW. */
+  verw: string;
+  verwMin: string;
+  verwMax: string;
+  seer: string;
+  scop: string;
+  /** Geluidsdruk binnenunit in de stilste stand, dB(A). */
+  db: string;
+};
+
+export const mhiCapacities: Record<string, Record<string, MhiCapacity>> = {
+  // Premium Series, de huidige generatie. Verwarmen tot -15 °C.
+  zs: {
+    '2-0-kw': { code: 'SRK20ZS-WF', outdoor: 'SRC20ZS-W',  koel: '2,0', koelMin: '0,9', koelMax: '2,9', verw: '2,7', verwMin: '0,9', verwMax: '4,3', seer: '8,50', scop: '4,60', db: '19' },
+    '2-5-kw': { code: 'SRK25ZS-WF', outdoor: 'SRC25ZS-W2', koel: '2,5', koelMin: '0,9', koelMax: '3,1', verw: '3,2', verwMin: '0,9', verwMax: '4,5', seer: '8,50', scop: '4,70', db: '19' },
+    '3-5-kw': { code: 'SRK35ZS-WF', outdoor: 'SRC35ZS-W2', koel: '3,5', koelMin: '0,9', koelMax: '4,0', verw: '4,0', verwMin: '0,9', verwMax: '5,0', seer: '8,40', scop: '4,70', db: '19' },
+    '5-0-kw': { code: 'SRK50ZS-WF', outdoor: 'SRC50ZS-W',  koel: '5,0', koelMin: '1,3', koelMax: '5,5', verw: '5,8', verwMin: '1,3', verwMax: '6,6', seer: '7,00', scop: '4,60', db: '22' },
+  },
+  // Premium Series, nieuwe generatie en opvolger van de ZS. Verwarmen tot -20 °C
+  // en het nominale verwarmingsvermogen blijft tot -10 °C op peil.
+  zt: {
+    '2-0-kw': { code: 'SRK20ZT-WF', outdoor: 'SRC20ZT-W', koel: '2,0', koelMin: '0,9', koelMax: '2,9', verw: '2,7', verwMin: '0,9', verwMax: '4,5', seer: '9,50', scop: '5,10', db: '19' },
+    '2-5-kw': { code: 'SRK25ZT-WF', outdoor: 'SRC25ZT-W', koel: '2,5', koelMin: '0,9', koelMax: '3,3', verw: '3,2', verwMin: '0,9', verwMax: '4,7', seer: '9,50', scop: '5,10', db: '19' },
+    '3-5-kw': { code: 'SRK35ZT-WF', outdoor: 'SRC35ZT-W', koel: '3,5', koelMin: '0,9', koelMax: '4,0', verw: '4,0', verwMin: '0,9', verwMax: '5,0', seer: '8,70', scop: '4,90', db: '19' },
+    '5-0-kw': { code: 'SRK50ZT-WF', outdoor: 'SRC50ZT-W', koel: '5,0', koelMin: '1,3', koelMax: '5,4', verw: '5,8', verwMin: '1,3', verwMax: '6,4', seer: '7,50', scop: '4,70', db: '22' },
+  },
+  // Diamond Series, het topsegment. Heeft als enige een aanwezigheidssensor,
+  // Eco Operation en Auto Off. Grotere binnenunit (305x920x220 mm).
+  zsx: {
+    '2-0-kw': { code: 'SRK20ZSX-WF', outdoor: 'SRC20ZSX-W',  koel: '2,0', koelMin: '0,9', koelMax: '3,4',  verw: '2,7', verwMin: '0,8', verwMax: '5,5', seer: '10,00', scop: '5,20', db: '19' },
+    '2-5-kw': { code: 'SRK25ZSX-WF', outdoor: 'SRC25ZSX-W',  koel: '2,5', koelMin: '0,9', koelMax: '3,87', verw: '3,2', verwMin: '0,8', verwMax: '6,0', seer: '10,30', scop: '5,20', db: '19' },
+    '3-5-kw': { code: 'SRK35ZSX-WF', outdoor: 'SRC35ZSX-W',  koel: '3,5', koelMin: '0,9', koelMax: '4,5',  verw: '4,3', verwMin: '0,8', verwMax: '6,8', seer: '9,50',  scop: '5,10', db: '19' },
+    '5-0-kw': { code: 'SRK50ZSX-WF', outdoor: 'SRC50ZSX-W3', koel: '5,0', koelMin: '1,0', koelMax: '6,2',  verw: '6,0', verwMin: '0,8', verwMax: '8,2', seer: '8,30',  scop: '4,70', db: '22' },
+    // De klasse heet 6,0 kW in de handel, het nominale koelvermogen is 6,1 kW.
+    '6-0-kw': { code: 'SRK60ZSX-WF', outdoor: 'SRC60ZSX-W3', koel: '6,1', koelMin: '1,0', koelMax: '6,9',  verw: '6,8', verwMin: '0,8', verwMax: '8,8', seer: '7,80',  scop: '4,70', db: '22' },
+  },
+};
+
+export type MhiModel = {
+  slug: string;
+  name: string;
+  /** De serie zoals MHI die noemt: Diamond of Premium. */
+  serie: string;
+  tier: string;
+  intro: string;
+  photo: string;
+  /** Uitvoeringen met identieke prestaties; alleen de kleur verschilt. */
+  uitvoeringen: string;
+  specs: { label: string; value: string }[];
+};
+
+export const mhiModels: MhiModel[] = [
+  {
+    slug: 'zt',
+    name: 'ZT',
+    serie: 'Premium Series',
+    tier: 'Nieuwste generatie',
+    intro:
+      'De opvolger van de ZS, en zuiniger op elk vermogen. Verwarmt door tot -20 °C en houdt tot -10 °C het volle verwarmingsvermogen vast.',
+    photo: '/mhi/zt.jpg',
+    uitvoeringen: 'Pure White, Black en Titanium & Black',
+    specs: [
+      { label: 'Luchtreiniging', value: 'Allergen Clear Filter en fotokatalytisch wasbaar geurfilter' },
+      { label: 'Verwarmen bij vorst', value: 'Werkt tot -20 °C, vol vermogen tot -10 °C' },
+      { label: 'Stille standen', value: 'Silent en Ultra Silent, vanaf 19 dB(A)' },
+      { label: 'Luchtworp', value: 'Tot 11 meter met Jet Air' },
+      { label: 'Uitvoering', value: 'Pure White, Black of Titanium & Black' },
+      { label: 'Bediening', value: 'Afstandsbediening en Smart M-Air-app, per 0,5 °C' },
+    ],
+  },
+  {
+    slug: 'zsx',
+    name: 'ZSX',
+    serie: 'Diamond Series',
+    tier: 'Topmodel',
+    intro:
+      'Het zuinigste toestel dat wij leveren, met een SEER tot 10,3. Merkt met een aanwezigheidssensor of er iemand in de kamer is en stuurt daarop bij.',
+    photo: '/mhi/zsx.jpg',
+    uitvoeringen: 'Pure White, Black & White en Titanium',
+    specs: [
+      { label: 'Aanwezigheidssensor', value: 'Ja, stuurt bij op aanwezigheid en activiteit' },
+      { label: 'Energie besparen', value: 'Eco Operation en Auto Off' },
+      { label: 'Luchtreiniging', value: 'Allergen Clear Filter en fotokatalytisch wasbaar geurfilter' },
+      { label: 'Verwarmen bij vorst', value: 'Werkt tot -20 °C' },
+      { label: 'Uitvoering', value: 'Pure White, Black & White of Titanium' },
+      { label: 'Bediening', value: 'Afstandsbediening en Smart M-Air-app' },
+    ],
+  },
+  {
+    slug: 'zs',
+    name: 'ZS',
+    serie: 'Premium Series',
+    tier: 'Huidige generatie',
+    intro:
+      'De vertrouwde Premium-serie met Italiaans design: compact, fluisterstil vanaf 19 dB(A) en zuinig tot label A+++.',
+    photo: '/mhi/zs.jpg',
+    uitvoeringen: 'Pure White, Black & White en Titanium',
+    specs: [
+      { label: 'Luchtreiniging', value: 'Allergen Clear Filter en fotokatalytisch wasbaar geurfilter' },
+      { label: 'Geluidsniveau', value: 'Vanaf 19 dB(A) in de stilste stand' },
+      { label: 'Verwarmen bij vorst', value: 'Werkt tot -15 °C' },
+      { label: 'Luchtstroom', value: '3D Auto Swing met verstelbare verticale schoepen' },
+      { label: 'Uitvoering', value: 'Pure White, Black & White of Titanium' },
+      { label: 'Bediening', value: 'Afstandsbediening en Smart M-Air-app' },
+    ],
+  },
+];
+
+/** Alleen de vermogens die dit model echt heeft. ZSX heeft er vijf, ZS en ZT vier. */
+export function mhiSizesFor(modelSlug: string) {
+  return mhiSizes.filter((s) => mhiCapacities[modelSlug]?.[s.slug]);
+}
+
+export function mhiCapacity(modelSlug: string, sizeSlug: string): MhiCapacity | undefined {
+  return mhiCapacities[modelSlug]?.[sizeSlug];
+}
+
+export function getMhiModel(slug: string): MhiModel | undefined {
+  return mhiModels.find((m) => m.slug === slug);
+}
+
+/** Beste label over alle uitvoeringen van een model, voor "tot A+++". */
+export function mhiBestLabels(modelSlug: string) {
+  return bestLabelsFrom(Object.values(mhiCapacities[modelSlug] ?? {}));
+}
+
+/**
+ * BUILDCONTROLE op de energielabels.
+ *
+ * MHI publiceert per type zelf een energielabel. Hieronder staat dat
+ * gepubliceerde label, en de build faalt als onze berekening uit SEER/SCOP er
+ * niet mee overeenkomt. Zo vangen we zowel een typefout in de tabel hierboven
+ * als een toekomstige wijziging in de grenswaarden.
+ *
+ * Twee cellen ontbreken hier bewust, namelijk het verwarmingslabel van de
+ * ZT 2,0 en 2,5 kW. MHI is daar intern niet consistent: de RAC Catalogue 2026
+ * zet er A++ neer, de eigen productpagina's van MHI zetten er A+++. Bij een
+ * SCOP van 5,10 zit het exact op de grens. Wat de catalogus zichzelf
+ * tegenspreekt: de ZSX 3,5 kW heeft óók SCOP 5,10 en krijgt daar wél A+++.
+ * Aangezien het label volgens verordening 626/2011 alleen van de SCOP afhangt,
+ * kunnen die twee niet beide kloppen. Onze berekening geeft A+++, wat
+ * overeenkomt met twee van de drie MHI-bronnen. LAAT DIT BEVESTIGEN DOOR
+ * COOLMARK (de Nederlandse importeur) voordat het in een offerte belandt.
+ */
+const gepubliceerdeLabels: Record<string, Record<string, { koelen: string; verwarmen?: string }>> = {
+  zs: {
+    '2-0-kw': { koelen: 'A+++', verwarmen: 'A++' },
+    '2-5-kw': { koelen: 'A+++', verwarmen: 'A++' },
+    '3-5-kw': { koelen: 'A++', verwarmen: 'A++' },
+    '5-0-kw': { koelen: 'A++', verwarmen: 'A++' },
+  },
+  zt: {
+    '2-0-kw': { koelen: 'A+++' },
+    '2-5-kw': { koelen: 'A+++' },
+    '3-5-kw': { koelen: 'A+++', verwarmen: 'A++' },
+    '5-0-kw': { koelen: 'A++', verwarmen: 'A++' },
+  },
+  zsx: {
+    '2-0-kw': { koelen: 'A+++', verwarmen: 'A+++' },
+    '2-5-kw': { koelen: 'A+++', verwarmen: 'A+++' },
+    '3-5-kw': { koelen: 'A+++', verwarmen: 'A+++' },
+    '5-0-kw': { koelen: 'A++', verwarmen: 'A++' },
+    '6-0-kw': { koelen: 'A++', verwarmen: 'A++' },
+  },
+};
+
+for (const [model, perMaat] of Object.entries(gepubliceerdeLabels)) {
+  for (const [maat, verwacht] of Object.entries(perMaat)) {
+    const cap = mhiCapacities[model]?.[maat];
+    if (!cap) {
+      throw new Error(`mhi-products: ${model} ${maat} staat bij de gepubliceerde labels maar niet in mhiCapacities.`);
+    }
+    const koelen = coolingLabel(cap.seer);
+    if (koelen !== verwacht.koelen) {
+      throw new Error(
+        `mhi-products: ${cap.code} berekent koellabel ${koelen} uit SEER ${cap.seer}, maar MHI publiceert ${verwacht.koelen}.`,
+      );
+    }
+    if (verwacht.verwarmen) {
+      const verwarmen = heatingLabel(cap.scop);
+      if (verwarmen !== verwacht.verwarmen) {
+        throw new Error(
+          `mhi-products: ${cap.code} berekent verwarmingslabel ${verwarmen} uit SCOP ${cap.scop}, maar MHI publiceert ${verwacht.verwarmen}.`,
+        );
+      }
+    }
+  }
+}
