@@ -170,7 +170,7 @@ export const mhiModels: MhiModel[] = [
     serie: 'Premium Series',
     tier: 'Vertrouwde keuze',
     intro:
-      'De vertrouwde Premium-serie met Italiaans design: compact, fluisterstil vanaf 19 dB(A) en zuinig tot label A+++.',
+      'Compact en fluisterstil, met Italiaans design en label tot A+++.',
     photo: '/mhi/zs.jpg',
     highlights: [
       'Italiaans design, compact',
@@ -193,12 +193,12 @@ export const mhiModels: MhiModel[] = [
     serie: 'Premium Series',
     tier: 'Mat zwart',
     intro:
-      'De zwarte uitvoering uit de Premium-serie, en de sterkste in de kou: verwarmt door tot -20 °C en houdt tot -10 °C het volle verwarmingsvermogen vast.',
+      'De zwarte uitvoering uit de Premium-serie, en de sterkste in de kou.',
     photo: '/mhi/zt.jpg',
     highlights: [
-      'Mat zwart, ook het buitendeel',
+      'Mat zwart (RAL 9011), ook het buitendeel',
       'Verwarmt door tot -20 °C',
-      'Mat zwart (RAL 9011)',
+      'Luchtworp tot 11 meter',
     ],
     uitvoeringen: 'Mat zwart (RAL 9011)',
     specs: [
@@ -215,7 +215,7 @@ export const mhiModels: MhiModel[] = [
     serie: 'Diamond Series',
     tier: 'Grote ruimtes',
     intro:
-      'Voor grote open ruimtes waar de andere series te klein zijn. Een brede behuizing met een krachtige luchtstroom, in vier vermogens van 6,3 tot 10,0 kW.',
+      'Voor grote open ruimtes en bedrijfsruimtes, van 6,3 tot 10,0 kW.',
     photo: '/mhi/zr.jpg',
     highlights: [
       'Het grootste vermogen op deze site: tot 10,0 kW',
@@ -238,12 +238,12 @@ export const mhiModels: MhiModel[] = [
     serie: 'Diamond Series',
     tier: 'Topmodel',
     intro:
-      'Het zuinigste toestel dat wij leveren, met een SEER tot 10,3. Merkt met een aanwezigheidssensor of er iemand in de kamer is en stuurt daarop bij.',
+      'Het zuinigste toestel dat wij leveren, met aanwezigheidssensor.',
     photo: '/mhi/zsx.jpg',
     highlights: [
       'Aanwezigheidssensor stuurt bij op de kamer',
       'Hoogste rendement: SEER tot 10,3',
-      'Ook leverbaar als 6,0 kW',
+      'Eco Operation en Auto Off',
     ],
     uitvoeringen: 'Pure White en Titanium',
     specs: [

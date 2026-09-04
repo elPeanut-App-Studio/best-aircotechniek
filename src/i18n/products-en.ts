@@ -203,9 +203,9 @@ export const mhiTextEn: Record<string, ModelText> = {
   zt: {
     tier: 'Matte black',
     intro:
-      'The black finish from the Premium series, and the strongest in the cold: keeps heating down to -20 °C and holds its full heating capacity down to -10 °C.',
+      'The black finish from the Premium series, strongest in the cold.',
     uitvoeringen: 'Matte black (RAL 9011)',
-    highlights: ['Matte black, outdoor unit included', 'Keeps heating down to -20 °C', 'Air throw up to 11 metres'],
+    highlights: ['Matte black (RAL 9011), outdoor unit too', 'Keeps heating down to -20 °C', 'Air throw up to 11 metres'],
     specs: [
       { label: 'Air purification', value: 'Allergen Clear Filter and photocatalytic washable deodorising filter' },
       { label: 'Heating in frost', value: 'Works down to -20 °C, full capacity to -10 °C' },
@@ -217,9 +217,9 @@ export const mhiTextEn: Record<string, ModelText> = {
   zsx: {
     tier: 'Top model',
     intro:
-      'The most efficient unit we supply, with a SEER of up to 10.3. A presence sensor notices whether anyone is in the room and adjusts accordingly.',
+      'The most efficient unit we supply, with a presence sensor.',
     uitvoeringen: 'Pure White and Titanium',
-    highlights: ['Presence sensor adjusts to the room', 'Highest efficiency: SEER up to 10.3', 'Also available as 6.0 kW'],
+    highlights: ['Presence sensor adjusts to the room', 'Highest efficiency: SEER up to 10.3', 'Eco Operation and Auto Off'],
     specs: [
       { label: 'Presence sensor', value: 'Adjusts to presence and activity in the room' },
       { label: 'Saving energy', value: 'Eco Operation and Auto Off' },
@@ -232,7 +232,7 @@ export const mhiTextEn: Record<string, ModelText> = {
   zr: {
     tier: 'Large rooms',
     intro:
-      'For large open spaces where the other series are too small. A wide casing with a powerful airflow, in four capacities from 6.3 to 10.0 kW.',
+      'For large open spaces and business premises, 6.3 to 10.0 kW.',
     uitvoeringen: 'Pure White',
     highlights: ['The largest capacity on this site: up to 10.0 kW', 'Wide casing with a powerful air throw', 'Quiet for its size: from 25 dB(A)'],
     specs: [
@@ -247,7 +247,7 @@ export const mhiTextEn: Record<string, ModelText> = {
   zs: {
     tier: 'The familiar choice',
     intro:
-      'The familiar Premium series with Italian design: compact, whisper-quiet from 19 dB(A) and efficient up to label A+++.',
+      'Compact and whisper-quiet, with Italian design and label up to A+++.',
     uitvoeringen: 'Pure White, Black & White and Titanium',
     highlights: ['Italian design, compact', 'Whisper-quiet from 19 dB(A)', 'White, black or titanium'],
     specs: [
