@@ -41,6 +41,12 @@ export const brands = [
     // bestaande titel, want die pagina's zijn al geïndexeerd.
     metaTitel: 'Mitsubishi Heavy Industries airco | Best Aircotechniek',
     metaTitelEn: 'Mitsubishi Heavy Industries air conditioning | Best Aircotechniek',
+    // Logo van Wikimedia Commons (File:MHI Logo en.svg), auteursrechtelijk
+    // publiek domein met de gebruikelijke merkenrechtelijke aantekening. Zelfde
+    // herkomst als daikin.svg en lg.svg. Een merklogo gebruiken om aan te geven
+    // welke merken wij installeren is verwijzend gebruik (art. 14 lid 1 sub c
+    // UMVo); dat staat los van MHI's productfoto's, die wij niet mogen
+    // publiceren en dus via Coolmark moeten komen.
     logo: '/brands/mitsubishi-heavy-industries.svg',
     tagline: 'Japanse techniek met het hoogste rendement van ons aanbod.',
     // Nog geen brochure: MHI's eigen beeldmateriaal mag niet gepubliceerd
