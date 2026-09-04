@@ -94,13 +94,15 @@ export const mhiCapacities: Record<string, Record<string, MhiCapacity>> = {
   // enige ZT-set die onze leverancier aanbiedt. MHI maakt de ZT óók als -WF
   // (Pure White) en -WFT (Titanium & Black), met identieke prestaties; komt die
   // in het assortiment, dan is dat hier een kwestie van het achtervoegsel
-  // aanpassen. Het buitendeel staat als -W; MHI levert dat desgewenst ook als
-  // -WB in Jet Black.
+  // aanpassen. Het buitendeel staat als -WB, Jet Black: de setfoto van de
+  // leverancier toont een zwart buitendeel bij deze zwarte binnenunit. MHI
+  // levert het buitendeel ook als -W in wit; controleer bij de eerste order
+  // welke van de twee er daadwerkelijk meekomt.
   zt: {
-    '2-0-kw': { code: 'SRK20ZT-WFB', outdoor: 'SRC20ZT-W', koel: '2,0', koelMin: '0,9', koelMax: '2,9', verw: '2,7', verwMin: '0,9', verwMax: '4,5', seer: '9,50', scop: '5,10', db: '19' },
-    '2-5-kw': { code: 'SRK25ZT-WFB', outdoor: 'SRC25ZT-W', koel: '2,5', koelMin: '0,9', koelMax: '3,3', verw: '3,2', verwMin: '0,9', verwMax: '4,7', seer: '9,50', scop: '5,10', db: '19' },
-    '3-5-kw': { code: 'SRK35ZT-WFB', outdoor: 'SRC35ZT-W', koel: '3,5', koelMin: '0,9', koelMax: '4,0', verw: '4,0', verwMin: '0,9', verwMax: '5,0', seer: '8,70', scop: '4,90', db: '19' },
-    '5-0-kw': { code: 'SRK50ZT-WFB', outdoor: 'SRC50ZT-W', koel: '5,0', koelMin: '1,3', koelMax: '5,4', verw: '5,8', verwMin: '1,3', verwMax: '6,4', seer: '7,50', scop: '4,70', db: '22' },
+    '2-0-kw': { code: 'SRK20ZT-WFB', outdoor: 'SRC20ZT-WB', koel: '2,0', koelMin: '0,9', koelMax: '2,9', verw: '2,7', verwMin: '0,9', verwMax: '4,5', seer: '9,50', scop: '5,10', db: '19' },
+    '2-5-kw': { code: 'SRK25ZT-WFB', outdoor: 'SRC25ZT-WB', koel: '2,5', koelMin: '0,9', koelMax: '3,3', verw: '3,2', verwMin: '0,9', verwMax: '4,7', seer: '9,50', scop: '5,10', db: '19' },
+    '3-5-kw': { code: 'SRK35ZT-WFB', outdoor: 'SRC35ZT-WB', koel: '3,5', koelMin: '0,9', koelMax: '4,0', verw: '4,0', verwMin: '0,9', verwMax: '5,0', seer: '8,70', scop: '4,90', db: '19' },
+    '5-0-kw': { code: 'SRK50ZT-WFB', outdoor: 'SRC50ZT-WB', koel: '5,0', koelMin: '1,3', koelMax: '5,4', verw: '5,8', verwMin: '1,3', verwMax: '6,4', seer: '7,50', scop: '4,70', db: '22' },
   },
   // Diamond Series, het topsegment. Heeft als enige een aanwezigheidssensor,
   // Eco Operation en Auto Off. Grotere binnenunit (305x920x220 mm).
