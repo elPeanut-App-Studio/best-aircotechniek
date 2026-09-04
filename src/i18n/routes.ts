@@ -58,6 +58,7 @@ const staticPairs: Record<string, string> = {
   '/airco-onderhoud': '/en/air-conditioning-maintenance',
   '/airco-installatie-noord-brabant': '/en/air-conditioning-installation-noord-brabant',
   '/downloads': '/en/downloads',
+  '/merken/vergelijken': '/en/brands/compare',
 };
 
 /**

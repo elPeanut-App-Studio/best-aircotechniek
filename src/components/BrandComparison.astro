@@ -1,0 +1,305 @@
+---
+/**
+ * De vergelijking van AUX, LG en Daikin: intro, tabel, voetnoot en de drie
+ * keuzekaarten. Staat in één component zodat /merken/vergelijken en
+ * /en/brands/compare niet uit elkaar kunnen lopen; alleen de FAQ en de
+ * paginakop staan per pagina apart.
+ *
+ * Vormgeving: de drie merken zijn drie KOLOMMEN met een eigen kop (logo en de
+ * rol die het merk in dit aanbod speelt), en bij SEER en SCOP staat onder het
+ * getal een staafje op schaal van de hoogste waarde in die rij. Dat staafje
+ * doet het eigenlijke werk: je ziet dat AUX niet ver achterblijft in plaats van
+ * dat wij dat moeten beweren. Bewust GEEN "beste keuze"-badge; er is geen
+ * winnaar en een badge zou de vergelijking tot een verkooppraatje maken.
+ *
+ * Arcering per KOLOM en niet per rij: de bezoeker leest hier vooral verticaal
+ * (één merk van boven naar beneden) en pas daarna horizontaal, en met drie
+ * datakolommen is horizontaal scannen ook zonder rijarcering makkelijk.
+ */
+import { merkVergelijking, naarEngels } from '../data/brand-comparison';
+import { formatPrice } from '../data/site';
+
+type Merk = (typeof merkVergelijking)[number];
+interface Props {
+  lang?: 'nl' | 'en';
+}
+const { lang = 'nl' } = Astro.props;
+const isEn = lang === 'en';
+
+/** Zet een uit de data afgeleid bereik in de notatie van de gekozen taal. */
+const bereik = (waarde: string) => (isEn ? naarEngels(waarde) : waarde);
+const merkUrl = (slug: string) => (isEn ? `/en/brands/${slug}/` : `/merken/${slug}/`);
+
+/**
+ * 'staaf' krijgt een balkje op schaal, 'label' een gekleurde energielabel-chip
+ * in de kleuren van de EU-sticker, 'prijs' extra nadruk omdat dat de enige rij
+ * is waar één merk echt alleen staat. De rest is gewoon tekst.
+ */
+type Rij = {
+  label: string;
+  soort?: 'staaf' | 'label' | 'prijs';
+  waarde: (m: Merk) => string;
+  /** Alleen bij soort 'staaf': de waarde waarop het balkje wordt geschaald. */
+  getal?: (m: Merk) => number;
+  /** Alleen bij soort 'label': welk label de chip moet kleuren. */
+  chip?: (m: Merk) => string;
+};
+
+const rijen: Rij[] = [
+  { label: isEn ? 'Model ranges' : 'Modelseries', waarde: (m) => `${m.modellen}` },
+  { label: isEn ? 'Versions' : 'Uitvoeringen', waarde: (m) => `${m.uitvoeringen}` },
+  { label: isEn ? 'Capacities' : 'Vermogens', waarde: (m) => bereik(m.vermogens) },
+  {
+    label: isEn ? 'SEER (cooling)' : 'SEER (koelen)',
+    soort: 'staaf',
+    waarde: (m) => bereik(m.seer),
+    getal: (m) => m.seerTop,
+  },
+  {
+    label: isEn ? 'SCOP (heating)' : 'SCOP (verwarmen)',
+    soort: 'staaf',
+    waarde: (m) => bereik(m.scop),
+    getal: (m) => m.scopTop,
+  },
+  {
+    label: isEn ? 'Energy label cooling' : 'Energielabel koelen',
+    soort: 'label',
+    waarde: (m) => m.labelKoelen,
+    chip: (m) => m.labelKoelen,
+  },
+  {
+    label: isEn ? 'Energy label heating' : 'Energielabel verwarmen',
+    soort: 'label',
+    waarde: (m) => m.labelVerwarmen,
+    chip: (m) => m.labelVerwarmen,
+  },
+  {
+    label: isEn ? 'Manufacturer warranty' : 'Fabrieksgarantie',
+    waarde: (m) => (isEn ? m.garantie.replace('jaar', 'years') : m.garantie),
+  },
+  { label: isEn ? 'Refrigerant' : 'Koudemiddel', waarde: (m) => m.koudemiddel },
+  {
+    label: isEn ? 'From, installation included' : 'Vanaf, inclusief montage',
+    soort: 'prijs',
+    waarde: (m) => (m.vanafPrijs ? formatPrice(m.vanafPrijs, lang) : isEn ? 'on request' : 'op aanvraag'),
+  },
+];
+
+/** Dezelfde kleuren als de EU-energiesticker, ook gebruikt op de productpagina's. */
+const chipKleur = (label: string) =>
+  label === 'A+++' ? 'bg-[#00a651]' : label === 'A++' ? 'bg-[#2f9e44]' : 'bg-[#94b820]';
+
+/** Breedte van het staafje: aandeel van de hoogste waarde in die rij. */
+function staafBreedte(r: Rij, m: Merk): number {
+  const waarden = merkVergelijking.map((x) => r.getal!(x));
+  return Math.round((r.getal!(m) / Math.max(...waarden)) * 100);
+}
+
+const t = isEn
+  ? {
+      intro:
+        'We install three brands. They overlap a lot, but differ on three points that genuinely matter: efficiency, warranty and purchase price. Below they are side by side, with the same figures as on the product pages themselves.',
+      caption: 'Comparison of AUX, LG and Daikin on capacity, efficiency, warranty and price',
+      kenmerk: 'Feature',
+      tot: 'up to',
+      voetnoot:
+        'SEER and SCOP are the lowest and highest value across every version we supply of that brand; the bar belongs to the highest. The energy labels are calculated from those values using the EU thresholds, so they belong to the most efficient version of the brand and not to every version.',
+      kop: 'Which brand suits you?',
+      bekijk: (naam: string) => `View the ${naam} models`,
+      sterk: (m: Merk) => m.sterkEn,
+      keerzijde: (m: Merk) => m.keerzijdeEn,
+      rol: (m: Merk) => m.rolEn,
+    }
+  : {
+      intro:
+        "Wij installeren drie merken. Ze overlappen sterk, maar verschillen op drie punten die echt uitmaken: het rendement, de garantie en de aanschafprijs. Hieronder staan ze naast elkaar, met dezelfde cijfers als op de productpagina's zelf.",
+      caption: 'Vergelijking van AUX, LG en Daikin op vermogen, rendement, garantie en prijs',
+      kenmerk: 'Kenmerk',
+      tot: 'tot',
+      voetnoot:
+        'SEER en SCOP zijn de laagste en hoogste waarde over alle uitvoeringen die wij van dat merk leveren; het staafje hoort bij de hoogste. De energielabels zijn berekend uit die waarden volgens de EU-grenswaarden, dus ze horen bij de zuinigste uitvoering van het merk en niet bij elke uitvoering.',
+      kop: 'Wanneer kiest u welk merk?',
+      bekijk: (naam: string) => `Bekijk de ${naam}-modellen`,
+      sterk: (m: Merk) => m.sterk,
+      keerzijde: (m: Merk) => m.keerzijde,
+      rol: (m: Merk) => m.rol,
+    };
+---
+
+<p class="max-w-[62ch] text-lg leading-relaxed text-slate-600">{t.intro}</p>
+
+<div class="panel mt-10 overflow-hidden">
+  <div class="staven overflow-x-auto">
+    <script is:inline>
+      /* Zet de staafjes op nul vóór de eerste paint. Staat hier inline en
+         synchroon; een gehoist module-script draait ná de paint en dan zie je
+         de balken eerst vol en dan terugklappen. */
+      document.currentScript.parentElement.classList.add('staven-wacht');
+    </script>
+    <table class="w-full min-w-[34rem] border-collapse text-sm">
+      <caption class="sr-only">{t.caption}</caption>
+      <thead>
+        <tr>
+          <th scope="col" class="w-[11rem] bg-slate-50 p-4 text-left align-bottom sm:w-[13rem]">
+            <span class="sr-only">{t.kenmerk}</span>
+          </th>
+          {
+            merkVergelijking.map((m) => (
+              <th scope="col" class="border-l border-slate-200 p-4 pt-6 text-left align-bottom">
+                <a href={merkUrl(m.slug)} class="group block">
+                  {/* Het logo IS hier de kolomkop, dus de alt-tekst is de merknaam zelf en
+                      niet "<merk> logo": schermlezers en tekstparsers moeten weten welke
+                      kolom bij welk merk hoort. */}
+                  <img
+                    src={m.logo}
+                    alt={m.naam}
+                    width="120"
+                    height="36"
+                    loading="lazy"
+                    class="h-7 w-auto max-w-[6.5rem] object-contain object-left transition group-hover:opacity-70"
+                  />
+                  <span class="mt-3 block text-sm font-bold text-gold-600">{t.rol(m)}</span>
+                </a>
+              </th>
+            ))
+          }
+        </tr>
+        <tr aria-hidden="true">
+          <td class="h-1 bg-slate-50"></td>
+          {merkVergelijking.map(() => <td class="h-1 border-l border-slate-200 bg-gold-500/70"></td>)}
+        </tr>
+      </thead>
+      <tbody>
+        {
+          rijen.map((r) => (
+            <tr class="border-t border-slate-100">
+              <th scope="row" class="bg-slate-50 p-4 text-left align-top font-medium leading-snug text-slate-600">
+                {r.label}
+              </th>
+              {
+                merkVergelijking.map((m, kolom) => (
+                  <td class="border-l border-slate-200 p-4 align-top">
+                    {r.soort === 'staaf' ? (
+                      <>
+                        <span class="block font-semibold tabular-nums text-brand-900">{r.waarde(m)}</span>
+                        <span class="mt-2 block h-1.5 w-full max-w-[7rem] overflow-hidden rounded-full bg-brand-100">
+                          <span
+                            class="staaf block h-full rounded-full bg-gold-500"
+                            style={`--breedte:${staafBreedte(r, m)}%;--vertraging:${kolom * 90}ms`}
+                          />
+                        </span>
+                      </>
+                    ) : r.soort === 'label' ? (
+                      <span class="inline-flex items-baseline gap-2">
+                        <span class="text-slate-500">{t.tot}</span>
+                        <span class={`rounded px-2 py-0.5 text-xs font-bold text-white ${chipKleur(r.chip!(m))}`}>
+                          {r.chip!(m)}
+                        </span>
+                      </span>
+                    ) : r.soort === 'prijs' && m.vanafPrijs ? (
+                      <span class="block text-xl font-extrabold tracking-tight text-brand-900">{r.waarde(m)}</span>
+                    ) : r.soort === 'prijs' ? (
+                      <span class="text-slate-500">{r.waarde(m)}</span>
+                    ) : (
+                      <span class="font-semibold text-brand-900">{r.waarde(m)}</span>
+                    )}
+                  </td>
+                ))
+              }
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+<p class="mt-3 text-sm text-slate-500">{t.voetnoot}</p>
+
+<h2 class="section-heading mt-16">{t.kop}</h2>
+<div class="mt-8 grid gap-6 lg:grid-cols-3">
+  {
+    merkVergelijking.map((m) => (
+      <div class="panel flex flex-col overflow-hidden">
+        <div class="flex items-center justify-between gap-4 border-b border-slate-100 bg-slate-50 px-6 py-5">
+          <img
+            src={m.logo}
+            alt={`${m.naam} logo`}
+            width="120"
+            height="36"
+            loading="lazy"
+            class="h-7 w-auto max-w-[6.5rem] object-contain object-left"
+          />
+          <span class="text-sm font-bold text-gold-600">{t.rol(m)}</span>
+        </div>
+        <div class="flex flex-1 flex-col p-6">
+          <div class="flex gap-3">
+            <span
+              aria-hidden="true"
+              class="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-brand-900 text-xs font-bold text-white"
+            >
+              +
+            </span>
+            <p class="text-sm leading-relaxed text-slate-700">{t.sterk(m)}</p>
+          </div>
+          <div class="mt-4 flex gap-3">
+            <span
+              aria-hidden="true"
+              class="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-slate-200 text-xs font-bold text-slate-600"
+            >
+              &minus;
+            </span>
+            <p class="text-sm leading-relaxed text-slate-600">{t.keerzijde(m)}</p>
+          </div>
+          <a
+            href={merkUrl(m.slug)}
+            class="mt-auto pt-6 text-sm font-semibold text-brand-700 transition hover:text-brand-900"
+          >
+            {t.bekijk(m.naam)}
+            <span aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .staaf {
+    width: var(--breedte);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .staaf {
+      transition: width 900ms cubic-bezier(0.22, 1, 0.36, 1);
+      transition-delay: var(--vertraging, 0ms);
+    }
+    /* Deze klasse wordt weggehaald zodra de tabel in beeld komt. */
+    .staven-wacht .staaf {
+      width: 0;
+    }
+  }
+</style>
+
+<script>
+  // Eén bewegingsmoment op deze pagina: de staafjes groeien als de tabel in
+  // beeld komt. Verder beweegt er niets.
+  const tabel = document.querySelector('.staven');
+  if (tabel) {
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+      const kijker = new IntersectionObserver(
+        (items) => {
+          for (const item of items) {
+            if (item.isIntersecting) {
+              tabel.classList.remove('staven-wacht');
+              kijker.disconnect();
+            }
+          }
+        },
+        { threshold: 0.25 },
+      );
+      kijker.observe(tabel);
+    } else {
+      tabel.classList.remove('staven-wacht');
+    }
+  }
+</script>

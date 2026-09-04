@@ -1,0 +1,77 @@
+---
+/**
+ * Vergelijkingspagina voor de drie merken.
+ *
+ * De tabel en de keuzekaarten zitten in BrandComparison.astro, dat gevuld wordt
+ * uit src/data/brand-comparison.ts. Dat bestand berekent de bereiken uit de
+ * productdata, dus er staan hier geen losse cijfers die kunnen gaan afwijken
+ * van de productpagina's. Alleen de FAQ staat per taal apart, omdat die ook de
+ * FAQPage-structuurdata vult.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import CTASection from '../../components/CTASection.astro';
+import FaqAccordion from '../../components/FaqAccordion.astro';
+import FaqSchema from '../../components/FaqSchema.astro';
+import BrandComparison from '../../components/BrandComparison.astro';
+import { merkVergelijking } from '../../data/brand-comparison';
+import { site } from '../../data/site';
+import pageHeroPhoto from '../../assets/photos/page-hero-woning.jpg';
+
+const [aux, lg, daikin] = merkVergelijking;
+
+const faq = [
+  {
+    question: 'Welk merk airco is het zuinigst?',
+    answer: `LG haalt in ons aanbod de hoogste rendementen, met een SEER tot ${lg.seer.split(' tot ')[1]} en energielabel tot ${lg.labelKoelen}. Daikin zit daar net onder maar heeft een breder assortiment. AUX is het minst zuinig van de drie, en juist daardoor de goedkoopste in aanschaf. Of dat verschil zich terugverdient hangt af van hoeveel uren per jaar u de airco gebruikt; voor een slaapkamer die alleen in de zomer koelt, weegt de aanschafprijs zwaarder dan het rendement.`,
+  },
+  {
+    question: 'Is een AUX net zo goed als een LG of Daikin?',
+    answer: `Voor de meeste woningen wel. Een AUX werkt met hetzelfde R32-koudemiddel en dezelfde invertertechniek als LG en Daikin, en haalt energielabel ${aux.labelKoelen} voor koelen. Het verschil zit in de top van het rendement en in de garantietermijn: twee jaar fabrieksgarantie tegen vijf bij LG en Daikin. Daarom noemen wij AUX de scherpste prijs-kwaliteitverhouding van de drie, en niet simpelweg de goedkoopste.`,
+  },
+  {
+    question: 'Wat is het verschil in garantie tussen de merken?',
+    answer:
+      'LG en Daikin geven vijf jaar fabrieksgarantie, AUX twee jaar. Daar bovenop komt bij ons twee jaar garantie op de montage, ongeacht het merk. Voorwaarde voor de fabrieksgarantie is dat de airco jaarlijks wordt onderhouden door een vakkundig installateur.',
+  },
+  {
+    question: 'Welk merk past bij een grote of hoge ruimte?',
+    answer: `Daikin heeft de fijnste stappen in vermogen, van ${daikin.vermogens.replace(' tot ', ' tot en met ')}, dus daar is bijna altijd een uitvoering die precies past. AUX en LG gaan tot 7,0 kW. Let bij LG op: de AI Air Special en Premium bestaan alleen als 2,5 en 3,5 kW, dus voor een grote woonkamer blijven daar Standard Plus en Deluxe over.`,
+  },
+  {
+    question: 'Waarom staat er geen vanaf-prijs bij LG en Daikin?',
+    answer: `Van AUX hebben wij vaste vanaf-prijzen per model, die beginnen bij ${site.priceFrom} inclusief btw en montage. Voor LG en Daikin hangt de prijs sterker af van het model en de installatiesituatie, en wij zetten liever geen bedrag op de site dat in uw geval niet blijkt te kloppen. U krijgt binnen 24 uur een offerte met een vaste prijs.`,
+  },
+];
+---
+
+<BaseLayout
+  title="AUX, LG en Daikin vergelijken | Best Aircotechniek"
+  description="AUX, LG en Daikin naast elkaar: vermogens, SEER en SCOP, energielabel, garantie en prijs. Met per merk het sterke punt en de keerzijde."
+>
+  <PageHero
+    title="AUX, LG en Daikin vergelijken"
+    description="Dezelfde cijfers naast elkaar, zodat u ziet waar de merken echt van elkaar verschillen."
+    image={pageHeroPhoto}
+  />
+
+  <section class="py-16 sm:py-20">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <BrandComparison />
+
+      <div class="mt-16">
+        <h2 class="section-heading">Veelgestelde vragen over de keuze</h2>
+        <div class="mt-8">
+          <FaqAccordion items={faq} />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <FaqSchema items={faq} />
+
+  <CTASection
+    title="Welk merk past bij uw woning?"
+    description={`Wij komen langs, rekenen de capaciteit voor uw ruimte uit en adviseren eerlijk welk merk past. Een complete installatie start vanaf ${site.priceFrom}.`}
+  />
+</BaseLayout>
