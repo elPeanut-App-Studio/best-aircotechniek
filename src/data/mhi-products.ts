@@ -146,12 +146,19 @@ export type MhiModel = {
   tier: string;
   intro: string;
   photo: string;
-  /** Uitvoeringen met identieke prestaties; alleen de kleur verschilt. */
+  /**
+   * Beschikbare kleuren in gewone taal, voor de kaart op de merkpagina. De
+   * officiele MHI-namen (Pure White, Black & White, Titanium) staan bij het
+   * kenmerk 'Uitvoering' op de modelpagina; hier gaat het erom dat een klant de
+   * vier series naast elkaar kan leggen.
+   */
   uitvoeringen: string;
   /**
-   * Drie onderscheidende regels voor de kaart op de merkpagina. Per serie de
-   * dingen die die serie ECHT anders maken, zodat de drie kaarten op dezelfde
-   * assen te vergelijken zijn.
+   * Drie regels voor de kaart op de merkpagina. Wordt hieronder AFGELEID uit de
+   * data, niet met de hand ingevuld, en voor elke serie op DEZELFDE drie assen:
+   * vermogensbereik, rendement en uitvoering. Eerder stond hier per serie iets
+   * anders (bij de ene het geluidsniveau, bij de andere de luchtworp) en dan
+   * valt er voor een klant niets naast elkaar te leggen.
    */
   highlights: string[];
   /**
@@ -170,14 +177,10 @@ export const mhiModels: MhiModel[] = [
     serie: 'Premium Series',
     tier: 'Vertrouwde keuze',
     intro:
-      'Compact en fluisterstil, met Italiaans design en label tot A+++.',
+      'De vertrouwde keuze: compact, fluisterstil en Italiaans vormgegeven.',
     photo: '/mhi/zs.jpg',
-    highlights: [
-      'Italiaans design, compact',
-      'Fluisterstil vanaf 19 dB(A)',
-      'Wit, zwart of titanium',
-    ],
-    uitvoeringen: 'Pure White, Black & White en Titanium',
+    highlights: [],
+    uitvoeringen: 'Wit, zwart of titanium',
     specs: [
       { icon: 'luchtzuivering', label: 'Luchtreiniging', value: 'Allergen Clear Filter en fotokatalytisch wasbaar geurfilter' },
       { icon: 'verwarmen', label: 'Verwarmen bij vorst', value: 'Werkt tot -15 °C' },
@@ -195,17 +198,13 @@ export const mhiModels: MhiModel[] = [
     intro:
       'De zwarte uitvoering uit de Premium-serie, en de sterkste in de kou.',
     photo: '/mhi/zt.jpg',
-    highlights: [
-      'Mat zwart (RAL 9011), ook het buitendeel',
-      'Verwarmt door tot -20 °C',
-      'Luchtworp tot 11 meter',
-    ],
-    uitvoeringen: 'Mat zwart (RAL 9011)',
+    highlights: [],
+    uitvoeringen: 'Alleen mat zwart',
     specs: [
       { icon: 'luchtzuivering', label: 'Luchtreiniging', value: 'Allergen Clear Filter en fotokatalytisch wasbaar geurfilter' },
       { icon: 'verwarmen', label: 'Verwarmen bij vorst', value: 'Werkt tot -20 °C, vol vermogen tot -10 °C' },
       { icon: 'swing', label: 'Luchtstroom', value: 'Jet Air met een worp tot 11 meter' },
-      { icon: 'design', label: 'Uitvoering', value: 'Mat zwart, RAL 9011; buitendeel wit of Jet Black' },
+      { icon: 'design', label: 'Uitvoering', value: 'Mat zwart RAL 9011, met een Jet Black buitendeel' },
       { icon: 'wifi', label: 'Bediening', value: 'Afstandsbediening en Smart M-Air-app, per 0,5 °C' },
     ],
   },
@@ -215,14 +214,10 @@ export const mhiModels: MhiModel[] = [
     serie: 'Diamond Series',
     tier: 'Grote ruimtes',
     intro:
-      'Voor grote open ruimtes en bedrijfsruimtes, van 6,3 tot 10,0 kW.',
+      'Voor grote open ruimtes, winkels en bedrijfsruimtes.',
     photo: '/mhi/zr.jpg',
-    highlights: [
-      'Het grootste vermogen op deze site: tot 10,0 kW',
-      'Brede behuizing met een krachtige luchtworp',
-      'Stil voor dit formaat: vanaf 25 dB(A)',
-    ],
-    uitvoeringen: 'Pure White',
+    highlights: [],
+    uitvoeringen: 'Alleen wit',
     specs: [
       { icon: 'ruimte', label: 'Bedoeld voor', value: 'Grote open ruimtes, winkels en bedrijfsruimtes' },
       { icon: 'luchtzuivering', label: 'Luchtreiniging', value: 'Allergen Clear Filter en fotokatalytisch wasbaar geurfilter' },
@@ -240,12 +235,8 @@ export const mhiModels: MhiModel[] = [
     intro:
       'Het zuinigste toestel dat wij leveren, met aanwezigheidssensor.',
     photo: '/mhi/zsx.jpg',
-    highlights: [
-      'Aanwezigheidssensor stuurt bij op de kamer',
-      'Hoogste rendement: SEER tot 10,3',
-      'Eco Operation en Auto Off',
-    ],
-    uitvoeringen: 'Pure White en Titanium',
+    highlights: [],
+    uitvoeringen: 'Wit of titanium',
     specs: [
       { icon: 'ruimte', label: 'Aanwezigheidssensor', value: 'Stuurt bij op aanwezigheid en activiteit in de ruimte' },
       { icon: 'rendement', label: 'Energie besparen', value: 'Eco Operation en Auto Off' },
@@ -255,6 +246,29 @@ export const mhiModels: MhiModel[] = [
       { icon: 'wifi', label: 'Bediening', value: 'Afstandsbediening en Smart M-Air-app' },
     ],
   },];
+
+/**
+ * De drie kaartregels per serie, op dezelfde assen zodat ze te vergelijken zijn:
+ * welk bereik aan vermogens, hoe zuinig, en in welke uitvoeringen. Afgeleid uit
+ * dezelfde bron als de rest, dus een correctie in de capaciteiten werkt hier
+ * automatisch door.
+ */
+export function mhiHighlights(modelSlug: string, lang: 'nl' | 'en', uitvoeringen: string): string[] {
+  const maten = mhiSizesFor(modelSlug);
+  const eff = mhiBestEfficiency(modelSlug);
+  const labels = mhiBestLabels(modelSlug);
+  if (maten.length === 0 || !eff || !labels) return [];
+  const punt = (v: string) => (lang === 'en' ? v.replace(/(\d),(\d)/g, '$1.$2') : v);
+  const van = punt(maten[0].kw.replace(' kW', ''));
+  const tot = punt(maten[maten.length - 1].kw);
+  return lang === 'en'
+    ? [`Capacity ${van} to ${tot}`, `SEER up to ${punt(eff.seer)}, label up to ${labels.koelen}`, uitvoeringen]
+    : [`Vermogen ${van} tot ${tot}`, `SEER tot ${eff.seer}, label tot ${labels.koelen}`, uitvoeringen];
+}
+
+for (const model of mhiModels) {
+  model.highlights = mhiHighlights(model.slug, 'nl', model.uitvoeringen);
+}
 
 /** Alleen de vermogens die dit model echt heeft. ZSX heeft er vijf, ZS en ZT vier. */
 export function mhiSizesFor(modelSlug: string) {

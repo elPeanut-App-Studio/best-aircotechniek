@@ -73,7 +73,7 @@ const extra: { label: string; value: string; id?: string }[] = [
   { label: 'Heating capacity (range)', value: `${num(cap.verwMin)} to ${num(cap.verwMax)} kW`, id: 'val-verw-bereik' },
   { label: 'Sound pressure (quietest setting)', value: `${cap.db} dB(A)`, id: 'val-db' },
   { label: 'Typical room', value: roomEn, id: 'val-room' },
-  { label: 'Finish', value: en.uitvoeringen ?? rawModel.uitvoeringen },
+  { label: 'Finish', value: en.specs[rawModel.specs.findIndex((s) => s.icon === 'design')].value },
   { label: 'Refrigerant', value: 'R32' },
   { label: 'Warranty', value: '5 year parts warranty' },
 ];

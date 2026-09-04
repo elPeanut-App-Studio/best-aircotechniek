@@ -11,6 +11,8 @@
  */
 
 /** Merk-taglines (brands.ts bevat de Nederlandse versie). */
+import { mhiHighlights } from '../data/mhi-products';
+
 export const brandTaglinesEn: Record<string, string> = {
   daikin: 'Global market leader in climate control, known for reliability and efficiency.',
   lg: 'Modern air conditioning with smart controls and a sleek design.',
@@ -197,20 +199,22 @@ export const daikinTextEn: Record<string, ModelText> = {
 
 /**
  * MHI. De labels en de volgorde volgen exact de `specs` in mhi-products.ts,
- * want de pagina koppelt ze op index.
+ * want de pagina koppelt ze op index. De `highlights` worden AFGELEID met
+ * mhiHighlights, zodat de vier kaarten op dezelfde drie assen staan (bereik,
+ * rendement, uitvoering) en niet uit de pas kunnen lopen met de data.
  */
 export const mhiTextEn: Record<string, ModelText> = {
   zt: {
     tier: 'Matte black',
     intro:
       'The black finish from the Premium series, strongest in the cold.',
-    uitvoeringen: 'Matte black (RAL 9011)',
-    highlights: ['Matte black (RAL 9011), outdoor unit too', 'Keeps heating down to -20 °C', 'Air throw up to 11 metres'],
+    uitvoeringen: 'Matte black only',
+    highlights: mhiHighlights('zt', 'en', 'Matte black only'),
     specs: [
       { label: 'Air purification', value: 'Allergen Clear Filter and photocatalytic washable deodorising filter' },
       { label: 'Heating in frost', value: 'Works down to -20 °C, full capacity to -10 °C' },
       { label: 'Airflow', value: 'Jet Air with a reach of up to 11 metres' },
-      { label: 'Finish', value: 'Matte black, RAL 9011; outdoor unit in white or Jet Black' },
+      { label: 'Finish', value: 'Matte black RAL 9011, with a Jet Black outdoor unit' },
       { label: 'Controls', value: 'Remote control and Smart M-Air app, in 0.5 °C steps' },
     ],
   },
@@ -218,8 +222,8 @@ export const mhiTextEn: Record<string, ModelText> = {
     tier: 'Top model',
     intro:
       'The most efficient unit we supply, with a presence sensor.',
-    uitvoeringen: 'Pure White and Titanium',
-    highlights: ['Presence sensor adjusts to the room', 'Highest efficiency: SEER up to 10.3', 'Eco Operation and Auto Off'],
+    uitvoeringen: 'White or titanium',
+    highlights: mhiHighlights('zsx', 'en', 'White or titanium'),
     specs: [
       { label: 'Presence sensor', value: 'Adjusts to presence and activity in the room' },
       { label: 'Saving energy', value: 'Eco Operation and Auto Off' },
@@ -232,9 +236,9 @@ export const mhiTextEn: Record<string, ModelText> = {
   zr: {
     tier: 'Large rooms',
     intro:
-      'For large open spaces and business premises, 6.3 to 10.0 kW.',
-    uitvoeringen: 'Pure White',
-    highlights: ['The largest capacity on this site: up to 10.0 kW', 'Wide casing with a powerful air throw', 'Quiet for its size: from 25 dB(A)'],
+      'For large open spaces, shops and business premises.',
+    uitvoeringen: 'White only',
+    highlights: mhiHighlights('zr', 'en', 'White only'),
     specs: [
       { label: 'Intended for', value: 'Large open spaces, shops and business premises' },
       { label: 'Air purification', value: 'Allergen Clear Filter and photocatalytic washable deodorising filter' },
@@ -247,9 +251,9 @@ export const mhiTextEn: Record<string, ModelText> = {
   zs: {
     tier: 'The familiar choice',
     intro:
-      'Compact and whisper-quiet, with Italian design and label up to A+++.',
-    uitvoeringen: 'Pure White, Black & White and Titanium',
-    highlights: ['Italian design, compact', 'Whisper-quiet from 19 dB(A)', 'White, black or titanium'],
+      'The familiar choice: compact, whisper-quiet and Italian in design.',
+    uitvoeringen: 'White, black or titanium',
+    highlights: mhiHighlights('zs', 'en', 'White, black or titanium'),
     specs: [
       { label: 'Air purification', value: 'Allergen Clear Filter and photocatalytic washable deodorising filter' },
       { label: 'Heating in frost', value: 'Works down to -15 °C' },

@@ -72,7 +72,9 @@ const extra: { label: string; value: string; id?: string }[] = [
   { label: 'Verwarmingsvermogen (bereik)', value: `${cap.verwMin} tot ${cap.verwMax} kW`, id: 'val-verw-bereik' },
   { label: 'Geluidsdruk (stilste stand)', value: `${cap.db} dB(A)`, id: 'val-db' },
   { label: 'Typische ruimte', value: size.room, id: 'val-room' },
-  { label: 'Uitvoering', value: model.uitvoeringen },
+  // De officiele MHI-namen; op de merkkaart staat de gewone-taal variant,
+  // want daar moeten de vier series naast elkaar te leggen zijn.
+  { label: 'Uitvoering', value: model.specs.find((s) => s.icon === 'design')!.value },
   { label: 'Koudemiddel', value: 'R32' },
   { label: 'Garantie', value: '5 jaar garantie op onderdelen' },
 ];
