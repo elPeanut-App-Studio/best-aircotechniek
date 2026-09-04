@@ -70,7 +70,7 @@ const tagline = brandTaglinesEn[brand.slug] ?? brand.tagline;
 
 <BaseLayout
   lang="en"
-  title={`${brand.name} air conditioning installed | Best Aircotechniek`}
+  title={brand.metaTitelEn ?? `${brand.name} air conditioning installed | Best Aircotechniek`}
   description={`Have ${brand.name} air conditioning installed in Noord-Brabant, from ${site.priceFromEn}. ${tagline}`}
 >
   <PageHero title={`${brand.name} air conditioning`} description={tagline} image={heroPhoto} />

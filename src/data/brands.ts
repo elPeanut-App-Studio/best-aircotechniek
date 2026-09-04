@@ -2,6 +2,8 @@
 export const brands = [
   {
     slug: 'daikin',
+    metaTitel: null,
+    metaTitelEn: null,
     name: 'Daikin',
     logo: '/brands/daikin.svg',
     tagline: 'Wereldwijd marktleider in klimaatbeheersing, bekend om betrouwbaarheid en zuinigheid.',
@@ -10,6 +12,8 @@ export const brands = [
   },
   {
     slug: 'lg',
+    metaTitel: null,
+    metaTitelEn: null,
     name: 'LG',
     logo: '/brands/lg.svg',
     tagline: 'Moderne airconditioning met slimme bediening en een strak design.',
@@ -18,6 +22,8 @@ export const brands = [
   },
   {
     slug: 'aux',
+    metaTitel: null,
+    metaTitelEn: null,
     name: 'AUX',
     logo: '/brands/aux.png',
     tagline: 'Veel comfort voor een scherpe prijs, met een uitstekende prijs-kwaliteitverhouding.',
@@ -30,8 +36,13 @@ export const brands = [
     // in een URL. Het is bovendien de zoekterm die mensen intypen.
     slug: 'mitsubishi-heavy-industries',
     name: 'Mitsubishi Heavy Industries',
+    // De standaardtitel wordt met deze merknaam 72 tekens en dan kapt Google
+    // hem af. Alleen hier een kortere variant; de andere merken houden hun
+    // bestaande titel, want die pagina's zijn al geïndexeerd.
+    metaTitel: 'Mitsubishi Heavy Industries airco | Best Aircotechniek',
+    metaTitelEn: 'Mitsubishi Heavy Industries air conditioning | Best Aircotechniek',
     logo: '/brands/mitsubishi-heavy-industries.svg',
-    tagline: 'Japanse techniek met het hoogste rendement van ons aanbod, tot energielabel A+++.',
+    tagline: 'Japanse techniek met het hoogste rendement van ons aanbod.',
     // Nog geen brochure: MHI's eigen beeldmateriaal mag niet gepubliceerd
     // worden en een actuele Nederlandse brochure-PDF met de ZT bestaat niet
     // publiek. Zodra Coolmark er een met gebruiksrecht levert, kan die hier in.

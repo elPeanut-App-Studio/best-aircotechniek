@@ -16,40 +16,50 @@ import { merkVergelijking, naarEngels } from '../../../data/brand-comparison';
 import { site } from '../../../data/site';
 import pageHeroPhoto from '../../../assets/photos/page-hero-woning.jpg';
 
-const [aux, lg, daikin] = merkVergelijking;
+const [aux, lg, daikin, mhi] = merkVergelijking;
+/** Bovengrens uit een bereik, in Engelse notatie. */
+const top = (waarde: string) => {
+  const en = naarEngels(waarde);
+  return en.split(' to ')[1] ?? en;
+};
 
 const faq = [
   {
     question: 'Which air conditioning brand is the most efficient?',
-    answer: `LG reaches the highest efficiency in our range, with a SEER up to ${naarEngels(lg.seer).split(' to ')[1]} and an energy label up to ${lg.labelKoelen}. Daikin sits just below that but has a wider range. AUX is the least efficient of the three, and that is exactly why it is the cheapest to buy. Whether that difference pays back depends on how many hours a year you use the unit; for a bedroom that only cools in summer, the purchase price weighs more heavily than the efficiency.`,
+    answer: `Mitsubishi Heavy Industries reaches the highest efficiency in our range, with a SEER up to ${top(mhi.seer)} on the ZSX and an energy label up to ${mhi.labelKoelen}. LG sits just below that with a SEER up to ${top(lg.seer)}, Daikin follows with ${top(daikin.seer)}, and AUX is the least efficient of the four at ${top(aux.seer)}, which is exactly why it is the cheapest to buy. Whether that difference pays back depends on how many hours a year you use the unit; for a bedroom that only cools in summer, the purchase price weighs more heavily than the efficiency.`,
+  },
+  {
+    question: 'What is the difference between the MHI ZS, ZT and ZSX?',
+    answer:
+      'The ZT is the latest generation and the successor to the ZS: more efficient at every capacity, heating down to -20 °C instead of -15 °C, and holding its full heating capacity down to -10 °C. We supply the ZT in matte black. The ZSX is the top model from the Diamond series, with the highest efficiency of anything we supply, a presence sensor that detects whether anyone is in the room, and the only 6.0 kW version. The ZS remains available in white, black and titanium.',
   },
   {
     question: 'Is an AUX as good as an LG or a Daikin?',
-    answer: `For most homes, yes. An AUX runs on the same R32 refrigerant and the same inverter technology as LG and Daikin, and reaches energy label ${aux.labelKoelen} for cooling. The difference is at the top of the efficiency range and in the warranty term: two years of manufacturer warranty against five for LG and Daikin. That is why we call AUX the best value for money of the three, and not simply the cheapest.`,
+    answer: `For most homes, yes. An AUX runs on the same R32 refrigerant and the same inverter technology as the other brands, and reaches energy label ${aux.labelKoelen} for cooling. The difference is at the top of the efficiency range and in the warranty term: two years of manufacturer warranty against five for the other three. That is why we call AUX the best value for money of the four, and not simply the cheapest.`,
   },
   {
     question: 'What is the difference in warranty between the brands?',
     answer:
-      'LG and Daikin give five years of manufacturer warranty, AUX two years. On top of that we give two years of warranty on the installation itself, whatever the brand. The manufacturer warranty requires the unit to be serviced yearly by a qualified installer.',
+      'LG and Daikin give five years of manufacturer warranty and Mitsubishi Heavy Industries gives five years of parts warranty; AUX gives two years. On top of that we give two years of warranty on the installation itself, whatever the brand. The manufacturer warranty requires the unit to be serviced yearly by a qualified installer.',
   },
   {
     question: 'Which brand suits a large or high room?',
-    answer: `Daikin has the finest capacity steps, from ${naarEngels(daikin.vermogens)}, so there is almost always a version that fits exactly. AUX and LG go up to 7.0 kW. Note with LG: the AI Air Special and Premium only exist as 2.5 and 3.5 kW, so for a large living room that leaves Standard Plus and Deluxe.`,
+    answer: `Daikin has the finest capacity steps, from ${naarEngels(daikin.vermogens)}, so there is almost always a version that fits exactly. AUX and LG go up to 7.0 kW, and our MHI range stops at ${top(mhi.vermogens)}. Note with LG: the AI Air Special and Premium only exist as 2.5 and 3.5 kW, so for a large living room that leaves Standard Plus and Deluxe.`,
   },
   {
-    question: 'Why is there no from-price for LG and Daikin?',
-    answer: `For AUX we have fixed from-prices per model, starting at ${site.priceFromEn} including VAT and installation. For LG and Daikin the price depends more on the model and the installation situation, and we would rather not put a figure on the site that turns out not to apply in your case. You receive a quote with a fixed price within 24 hours.`,
+    question: 'Why is there no from-price for LG, Daikin and Mitsubishi Heavy Industries?',
+    answer: `For AUX we have fixed from-prices per model, starting at ${site.priceFromEn} including VAT and installation. For the other three brands the price depends more on the model and the installation situation, and we would rather not put a figure on the site that turns out not to apply in your case. You receive a quote with a fixed price within 24 hours.`,
   },
 ];
 ---
 
 <BaseLayout
   lang="en"
-  title="Compare AUX, LG and Daikin | Best Aircotechniek"
-  description="AUX, LG and Daikin side by side: capacities, SEER and SCOP, energy label, warranty and price. With the strong point and the downside per brand."
+  title="Compare air conditioning brands | Best Aircotechniek"
+  description="Compare AUX, LG, Daikin and Mitsubishi Heavy Industries on capacity, efficiency, energy label, warranty and price."
 >
   <PageHero
-    title="Comparing AUX, LG and Daikin"
+    title="Comparing AUX, LG, Daikin and Mitsubishi Heavy Industries"
     description="The same figures side by side, so you can see where the brands really differ."
     image={pageHeroPhoto}
   />

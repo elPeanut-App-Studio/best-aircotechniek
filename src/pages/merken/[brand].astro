@@ -63,7 +63,7 @@ const modelsHeading = modelsHeadings[brand.slug] ?? `De ${brand.name}-modellen`;
 ---
 
 <BaseLayout
-  title={`${brand.name} airco laten installeren | Best Aircotechniek`}
+  title={brand.metaTitel ?? `${brand.name} airco laten installeren | Best Aircotechniek`}
   description={`${brand.name} airconditioning laten installeren in Noord-Brabant. ${brand.tagline}`}
 >
   <PageHero title={`${brand.name} airconditioning`} description={brand.tagline} image={heroPhoto} />

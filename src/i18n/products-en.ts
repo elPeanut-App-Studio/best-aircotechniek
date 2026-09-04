@@ -16,7 +16,7 @@ export const brandTaglinesEn: Record<string, string> = {
   lg: 'Modern air conditioning with smart controls and a sleek design.',
   aux: 'Plenty of comfort for a sharp price, with an excellent price-quality ratio.',
   'mitsubishi-heavy-industries':
-    'Japanese engineering with the highest efficiency in our range, up to energy label A+++.',
+    'Japanese engineering with the highest efficiency in our range.',
 };
 
 /** Intro-alinea per merkpagina. */

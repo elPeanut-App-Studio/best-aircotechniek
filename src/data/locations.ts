@@ -37,7 +37,7 @@ export const locations: Location[] = [
     ],
     localContent: [
       'Zoekt u een airco in Best? Dan bent u bij ons letterlijk om de hoek. Best Aircotechniek is gevestigd in Best en verzorgt hier dagelijks airco-installaties voor particulieren en bedrijven. Omdat we uit de buurt komen, zijn de lijnen kort: u spreekt direct met de monteur die het werk uitvoert, geen callcenter ertussen.',
-      `Een airco laten installeren in Best doet u bij een lokale specialist die de omgeving kent. Wij plaatsen airco’s van Daikin, LG en AUX, netjes en volgens de regels, met een complete installatie vanaf ${site.priceFrom}. Na de montage blijven wij uw aanspreekpunt voor vragen en jaarlijks onderhoud.`,
+      `Een airco laten installeren in Best doet u bij een lokale specialist die de omgeving kent. Wij plaatsen airco’s van Daikin, LG, AUX en Mitsubishi Heavy Industries, netjes en volgens de regels, met een complete installatie vanaf ${site.priceFrom}. Na de montage blijven wij uw aanspreekpunt voor vragen en jaarlijks onderhoud.`,
     ],
     nearby: ['Heivelden', 'Naastenbest', 'Speelheide', 'Dijkstraten', 'Wilhelminadorp'],
   },
@@ -80,7 +80,7 @@ export const locations: Location[] = [
     ],
     localContent: [
       'Op zoek naar een airco in Oirschot? Best Aircotechniek is uw lokale airco-installateur voor Oirschot, Spoordonk en de Beerzen. Vanuit onze thuisbasis in Best zijn wij zo bij u ter plaatse, en dat merkt u aan de snelle reactie en de persoonlijke aanpak.',
-      `Wij installeren airco’s van Daikin, LG en AUX in Oirschot, met oog voor de karakteristieke panden die het dorp rijk is. Een complete installatie start vanaf ${site.priceFrom}, altijd na een gratis adviesgesprek bij u thuis en een heldere offerte vooraf. Zo weet u precies waar u aan toe bent.`,
+      `Wij installeren airco’s van Daikin, LG, AUX en Mitsubishi Heavy Industries in Oirschot, met oog voor de karakteristieke panden die het dorp rijk is. Een complete installatie start vanaf ${site.priceFrom}, altijd na een gratis adviesgesprek bij u thuis en een heldere offerte vooraf. Zo weet u precies waar u aan toe bent.`,
     ],
     nearby: ['Spoordonk', 'Middelbeers', 'Oostelbeers', 'Best'],
   },
@@ -110,7 +110,7 @@ export const locations: Location[] = [
     ],
     localContent: [
       'Op zoek naar een airco in Son en Breugel? Best Aircotechniek installeert in het hele dorp: van Sonniuspark en De Gentiaan tot het centrum van Son, Breugel en de buurtschappen eromheen. Veel bewoners hier hebben hun woning zelf laten bouwen of grondig verbouwd, en willen dat een airco daar niet uit springt. Daar houden wij rekening mee bij het bepalen van de plek van de binnen- en buitenunit.',
-      `Ook op Ekkersrijt zijn wij actief. Voor een showroom, kantoor of bedrijfsruimte kijken we naar de gebruikstijden en het aantal mensen, want dat vraagt iets anders dan een slaapkamer. Wij installeren Daikin, LG en AUX, en een complete installatie start vanaf ${site.priceFrom} inclusief btw en montage, altijd na een gratis adviesgesprek en een heldere offerte vooraf.`,
+      `Ook op Ekkersrijt zijn wij actief. Voor een showroom, kantoor of bedrijfsruimte kijken we naar de gebruikstijden en het aantal mensen, want dat vraagt iets anders dan een slaapkamer. Wij installeren Daikin, LG, AUX en Mitsubishi Heavy Industries, en een complete installatie start vanaf ${site.priceFrom} inclusief btw en montage, altijd na een gratis adviesgesprek en een heldere offerte vooraf.`,
     ],
     nearby: ['Breugel', 'Sonniuspark', 'Ekkersrijt', 'Best', 'Nuenen'],
   },
@@ -169,15 +169,15 @@ export function buildLocationFaq(loc: Location) {
     },
     {
       question: `Welke merken airco installeren jullie in ${loc.city}?`,
-      answer: `Wij installeren airco's van Daikin, LG en AUX: betrouwbare merken met een goede prijs-kwaliteitverhouding en langdurige garantie. Samen kiezen we het model dat het beste past bij uw woning in ${loc.city}.`,
+      answer: `Wij installeren airco's van Daikin, LG, AUX en Mitsubishi Heavy Industries: betrouwbare merken met een goede prijs-kwaliteitverhouding en langdurige garantie. Samen kiezen we het model dat het beste past bij uw woning in ${loc.city}.`,
     },
     {
       question: `Hoe snel kunnen jullie een airco plaatsen in ${loc.city}?`,
       answer: `Wij reageren binnen 24 uur op uw aanvraag. Na akkoord op de offerte plannen we de montage in ${loc.city} vaak al binnen enkele werkdagen in, op een moment dat u uitkomt. Een standaard installatie is meestal binnen één dag klaar.`,
     },
     {
-      question: `Kan ik een Daikin, LG of AUX airco laten installeren in ${loc.city}?`,
-      answer: `Ja. Wij zijn installateur van Daikin, LG én AUX in ${loc.city}. Tijdens het gratis adviesgesprek bij u thuis kiezen we samen het merk en model dat het beste past bij uw ruimte, wensen en budget.`,
+      question: `Kan ik een Daikin, LG, AUX of Mitsubishi Heavy Industries airco laten installeren in ${loc.city}?`,
+      answer: `Ja. Wij zijn installateur van Daikin, LG, AUX én Mitsubishi Heavy Industries in ${loc.city}. Tijdens het gratis adviesgesprek bij u thuis kiezen we samen het merk en model dat het beste past bij uw ruimte, wensen en budget.`,
     },
   ];
 }
