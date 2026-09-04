@@ -127,6 +127,12 @@ export type MhiModel = {
   /** Uitvoeringen met identieke prestaties; alleen de kleur verschilt. */
   uitvoeringen: string;
   /**
+   * Drie onderscheidende regels voor de kaart op de merkpagina. Per serie de
+   * dingen die die serie ECHT anders maken, zodat de drie kaarten op dezelfde
+   * assen te vergelijken zijn.
+   */
+  highlights: string[];
+  /**
    * Kernkenmerken op modelniveau. Het icoon staat hier bij de spec zelf en niet
    * in een aparte array op de pagina: bij een positionele array hoort er een
    * verkeerd plaatje bij zodra iemand de volgorde wijzigt.
@@ -144,6 +150,11 @@ export const mhiModels: MhiModel[] = [
     intro:
       'De opvolger van de ZS, en zuiniger op elk vermogen. Verwarmt door tot -20 °C en houdt tot -10 °C het volle verwarmingsvermogen vast.',
     photo: '/mhi/zt.jpg',
+    highlights: [
+      'Nieuwste generatie, zuiniger dan de ZS',
+      'Verwarmt door tot -20 °C',
+      'Mat zwart (RAL 9011)',
+    ],
     uitvoeringen: 'Mat zwart (RAL 9011)',
     specs: [
       { icon: 'luchtzuivering', label: 'Luchtreiniging', value: 'Allergen Clear Filter en fotokatalytisch wasbaar geurfilter' },
@@ -161,6 +172,11 @@ export const mhiModels: MhiModel[] = [
     intro:
       'Het zuinigste toestel dat wij leveren, met een SEER tot 10,3. Merkt met een aanwezigheidssensor of er iemand in de kamer is en stuurt daarop bij.',
     photo: '/mhi/zsx.jpg',
+    highlights: [
+      'Aanwezigheidssensor stuurt bij op de kamer',
+      'Hoogste rendement: SEER tot 10,3',
+      'Ook leverbaar als 6,0 kW',
+    ],
     uitvoeringen: 'Pure White en Titanium',
     specs: [
       { icon: 'ruimte', label: 'Aanwezigheidssensor', value: 'Stuurt bij op aanwezigheid en activiteit in de ruimte' },
@@ -179,6 +195,11 @@ export const mhiModels: MhiModel[] = [
     intro:
       'De vertrouwde Premium-serie met Italiaans design: compact, fluisterstil vanaf 19 dB(A) en zuinig tot label A+++.',
     photo: '/mhi/zs.jpg',
+    highlights: [
+      'Italiaans design, compact',
+      'Fluisterstil vanaf 19 dB(A)',
+      'Wit, zwart of titanium',
+    ],
     uitvoeringen: 'Pure White, Black & White en Titanium',
     specs: [
       { icon: 'luchtzuivering', label: 'Luchtreiniging', value: 'Allergen Clear Filter en fotokatalytisch wasbaar geurfilter' },

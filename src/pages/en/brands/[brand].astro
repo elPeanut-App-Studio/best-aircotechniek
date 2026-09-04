@@ -4,9 +4,7 @@ import PageHero from '../../../components/PageHero.astro';
 import CTASection from '../../../components/CTASection.astro';
 import Carousel from '../../../components/Carousel.astro';
 import { brands } from '../../../data/brands';
-import { auxModels } from '../../../data/aux-products';
-import { lgModels } from '../../../data/lg-products';
-import { daikinModels } from '../../../data/daikin-products';
+import { modelsByBrand } from '../../../data/brand-models';
 import {
   brandTaglinesEn,
   brandIntroEn,
@@ -14,6 +12,7 @@ import {
   auxTextEn,
   lgTextEn,
   daikinTextEn,
+  mhiTextEn,
 } from '../../../i18n/products-en';
 import { site } from '../../../data/site';
 import heroPhoto from '../../../assets/photos/page-hero-woning.jpg';
@@ -25,18 +24,15 @@ export function getStaticPaths() {
 
 const { brand } = Astro.props;
 
-const rawByBrand: Record<string, readonly { slug: string; name: string; photo?: string }[]> = {
-  aux: auxModels,
-  lg: lgModels,
-  daikin: daikinModels,
-};
+
 const textByBrand: Record<string, Record<string, { tier: string; intro: string; specs: { label: string; value: string }[] }>> = {
   aux: auxTextEn,
   lg: lgTextEn,
   daikin: daikinTextEn,
+  'mitsubishi-heavy-industries': mhiTextEn,
 };
 
-const raw = rawByBrand[brand.slug] ?? [];
+const raw: readonly { slug: string; name: string; photo?: string }[] = modelsByBrand[brand.slug] ?? [];
 const text = textByBrand[brand.slug] ?? {};
 const models = raw.map((m) => ({ ...m, ...text[m.slug] }));
 

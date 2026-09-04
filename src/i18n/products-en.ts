@@ -205,6 +205,7 @@ export const mhiTextEn: Record<string, ModelText> = {
     intro:
       'The successor to the ZS, and more efficient at every capacity. Keeps heating down to -20 °C and holds its full heating capacity down to -10 °C.',
     uitvoeringen: 'Matte black (RAL 9011)',
+    highlights: ['Latest generation, more efficient than the ZS', 'Keeps heating down to -20 °C', 'Matte black (RAL 9011)'],
     specs: [
       { label: 'Air purification', value: 'Allergen Clear Filter and photocatalytic washable deodorising filter' },
       { label: 'Heating in frost', value: 'Works down to -20 °C, full capacity to -10 °C' },
@@ -218,6 +219,7 @@ export const mhiTextEn: Record<string, ModelText> = {
     intro:
       'The most efficient unit we supply, with a SEER of up to 10.3. A presence sensor notices whether anyone is in the room and adjusts accordingly.',
     uitvoeringen: 'Pure White and Titanium',
+    highlights: ['Presence sensor adjusts to the room', 'Highest efficiency: SEER up to 10.3', 'Also available as 6.0 kW'],
     specs: [
       { label: 'Presence sensor', value: 'Adjusts to presence and activity in the room' },
       { label: 'Saving energy', value: 'Eco Operation and Auto Off' },
@@ -232,6 +234,7 @@ export const mhiTextEn: Record<string, ModelText> = {
     intro:
       'The familiar Premium series with Italian design: compact, whisper-quiet from 19 dB(A) and efficient up to label A+++.',
     uitvoeringen: 'Pure White, Black & White and Titanium',
+    highlights: ['Italian design, compact', 'Whisper-quiet from 19 dB(A)', 'White, black or titanium'],
     specs: [
       { label: 'Air purification', value: 'Allergen Clear Filter and photocatalytic washable deodorising filter' },
       { label: 'Heating in frost', value: 'Works down to -15 °C' },
