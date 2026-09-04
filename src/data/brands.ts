@@ -49,10 +49,7 @@ export const brands = [
     // publiceren en dus via Coolmark moeten komen.
     logo: '/brands/mitsubishi-heavy-industries.svg',
     tagline: 'Japanse techniek met het hoogste rendement van ons aanbod.',
-    // Nog geen brochure: MHI's eigen beeldmateriaal mag niet gepubliceerd
-    // worden en een actuele Nederlandse brochure-PDF met de ZT bestaat niet
-    // publiek. Zodra Coolmark er een met gebruiksrecht levert, kan die hier in.
-    brochure: null,
-    brochureEn: null,
+    brochure: '/mitsubishi-heavy-industries-airco-brochure.pdf',
+    brochureEn: '/mitsubishi-heavy-industries-airco-brochure-en.pdf',
   },
 ] as const;
