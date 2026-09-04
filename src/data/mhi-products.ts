@@ -89,11 +89,18 @@ export const mhiCapacities: Record<string, Record<string, MhiCapacity>> = {
   },
   // Premium Series, nieuwe generatie en opvolger van de ZS. Verwarmen tot -20 °C
   // en het nominale verwarmingsvermogen blijft tot -10 °C op peil.
+  //
+  // De codes hier zijn de WFB-uitvoering, mat zwart RAL 9011, want dat is de
+  // enige ZT-set die onze leverancier aanbiedt. MHI maakt de ZT óók als -WF
+  // (Pure White) en -WFT (Titanium & Black), met identieke prestaties; komt die
+  // in het assortiment, dan is dat hier een kwestie van het achtervoegsel
+  // aanpassen. Het buitendeel staat als -W; MHI levert dat desgewenst ook als
+  // -WB in Jet Black.
   zt: {
-    '2-0-kw': { code: 'SRK20ZT-WF', outdoor: 'SRC20ZT-W', koel: '2,0', koelMin: '0,9', koelMax: '2,9', verw: '2,7', verwMin: '0,9', verwMax: '4,5', seer: '9,50', scop: '5,10', db: '19' },
-    '2-5-kw': { code: 'SRK25ZT-WF', outdoor: 'SRC25ZT-W', koel: '2,5', koelMin: '0,9', koelMax: '3,3', verw: '3,2', verwMin: '0,9', verwMax: '4,7', seer: '9,50', scop: '5,10', db: '19' },
-    '3-5-kw': { code: 'SRK35ZT-WF', outdoor: 'SRC35ZT-W', koel: '3,5', koelMin: '0,9', koelMax: '4,0', verw: '4,0', verwMin: '0,9', verwMax: '5,0', seer: '8,70', scop: '4,90', db: '19' },
-    '5-0-kw': { code: 'SRK50ZT-WF', outdoor: 'SRC50ZT-W', koel: '5,0', koelMin: '1,3', koelMax: '5,4', verw: '5,8', verwMin: '1,3', verwMax: '6,4', seer: '7,50', scop: '4,70', db: '22' },
+    '2-0-kw': { code: 'SRK20ZT-WFB', outdoor: 'SRC20ZT-W', koel: '2,0', koelMin: '0,9', koelMax: '2,9', verw: '2,7', verwMin: '0,9', verwMax: '4,5', seer: '9,50', scop: '5,10', db: '19' },
+    '2-5-kw': { code: 'SRK25ZT-WFB', outdoor: 'SRC25ZT-W', koel: '2,5', koelMin: '0,9', koelMax: '3,3', verw: '3,2', verwMin: '0,9', verwMax: '4,7', seer: '9,50', scop: '5,10', db: '19' },
+    '3-5-kw': { code: 'SRK35ZT-WFB', outdoor: 'SRC35ZT-W', koel: '3,5', koelMin: '0,9', koelMax: '4,0', verw: '4,0', verwMin: '0,9', verwMax: '5,0', seer: '8,70', scop: '4,90', db: '19' },
+    '5-0-kw': { code: 'SRK50ZT-WFB', outdoor: 'SRC50ZT-W', koel: '5,0', koelMin: '1,3', koelMax: '5,4', verw: '5,8', verwMin: '1,3', verwMax: '6,4', seer: '7,50', scop: '4,70', db: '22' },
   },
   // Diamond Series, het topsegment. Heeft als enige een aanwezigheidssensor,
   // Eco Operation en Auto Off. Grotere binnenunit (305x920x220 mm).
@@ -129,13 +136,14 @@ export const mhiModels: MhiModel[] = [
     intro:
       'De opvolger van de ZS, en zuiniger op elk vermogen. Verwarmt door tot -20 °C en houdt tot -10 °C het volle verwarmingsvermogen vast.',
     photo: '/mhi/zt.jpg',
-    uitvoeringen: 'Pure White, Black en Titanium & Black',
+    uitvoeringen: 'Mat zwart (RAL 9011)',
     specs: [
       { label: 'Luchtreiniging', value: 'Allergen Clear Filter en fotokatalytisch wasbaar geurfilter' },
       { label: 'Verwarmen bij vorst', value: 'Werkt tot -20 °C, vol vermogen tot -10 °C' },
       { label: 'Stille standen', value: 'Silent en Ultra Silent, vanaf 19 dB(A)' },
       { label: 'Luchtworp', value: 'Tot 11 meter met Jet Air' },
-      { label: 'Uitvoering', value: 'Pure White, Black of Titanium & Black' },
+      { label: 'Uitvoering', value: 'Mat zwart, RAL 9011' },
+      { label: 'Buitendeel', value: 'Wit of Jet Black' },
       { label: 'Bediening', value: 'Afstandsbediening en Smart M-Air-app, per 0,5 °C' },
     ],
   },
@@ -147,13 +155,13 @@ export const mhiModels: MhiModel[] = [
     intro:
       'Het zuinigste toestel dat wij leveren, met een SEER tot 10,3. Merkt met een aanwezigheidssensor of er iemand in de kamer is en stuurt daarop bij.',
     photo: '/mhi/zsx.jpg',
-    uitvoeringen: 'Pure White, Black & White en Titanium',
+    uitvoeringen: 'Pure White en Titanium',
     specs: [
       { label: 'Aanwezigheidssensor', value: 'Ja, stuurt bij op aanwezigheid en activiteit' },
       { label: 'Energie besparen', value: 'Eco Operation en Auto Off' },
       { label: 'Luchtreiniging', value: 'Allergen Clear Filter en fotokatalytisch wasbaar geurfilter' },
       { label: 'Verwarmen bij vorst', value: 'Werkt tot -20 °C' },
-      { label: 'Uitvoering', value: 'Pure White, Black & White of Titanium' },
+      { label: 'Uitvoering', value: 'Pure White of Titanium' },
       { label: 'Bediening', value: 'Afstandsbediening en Smart M-Air-app' },
     ],
   },
