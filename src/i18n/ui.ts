@@ -150,6 +150,7 @@ export function dienstenNavFor(lang: Lang) {
     return [
       { href: '/en/air-conditioning-installation/', label: 'Air conditioning installation' },
       { href: '/en/air-conditioning-maintenance/', label: 'Air conditioning maintenance' },
+      { href: '/en/brands/compare/', label: 'Compare brands' },
       {
         href: '/en/air-conditioning-installation-noord-brabant/',
         label: 'Service area Noord-Brabant',
@@ -160,6 +161,7 @@ export function dienstenNavFor(lang: Lang) {
   return [
     { href: '/airco-installatie/', label: 'Airco installatie' },
     { href: '/airco-onderhoud/', label: 'Airco onderhoud' },
+    { href: '/merken/vergelijken/', label: 'Merken vergelijken' },
     { href: '/airco-installatie-noord-brabant/', label: 'Werkgebied Noord-Brabant' },
     { href: '/downloads/', label: 'Brochures & downloads' },
   ];
