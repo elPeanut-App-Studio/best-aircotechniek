@@ -3,7 +3,6 @@ import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import PageHero from '../../../../components/PageHero.astro';
 import CTASection from '../../../../components/CTASection.astro';
 import { lgModels, lgSizesFor, lgShared, lgBestLabels, lgBestEfficiency } from '../../../../data/lg-products';
-import { site } from '../../../../data/site';
 import pageHeroPhoto from '../../../../assets/photos/page-hero-woning.jpg';
 import { lgTextEn, sharedEn, sizeRoomEn, num } from '../../../../i18n/products-en';
 import ProductSchema from '../../../../components/ProductSchema.astro';
@@ -34,7 +33,7 @@ const schemaSpecs = acSpecs({
 <BaseLayout
   lang="en"
   title={`LG ${model.name} air conditioner | Best Aircotechniek`}
-  description={`LG ${model.name}: ${model.intro} SEER up to ${num(bestEff?.seer ?? '')}, label up to ${bestLabels?.koelen}. Installed from ${site.priceFromEn}.`}
+  description={`LG ${model.name}: ${model.intro} SEER up to ${num(bestEff?.seer ?? '')}, label up to ${bestLabels?.koelen}. Installed by Best Aircotechniek.`}
 >
   <PageHero title={`LG ${model.name}`} description={model.intro} image={pageHeroPhoto} />
 
@@ -176,7 +175,7 @@ const schemaSpecs = acSpecs({
   <CTASection
     lang="en"
     title={`Have the LG ${model.name} installed`}
-    description={`Best Aircotechniek handles advice, supply and expert installation from ${site.priceFromEn}. Request a free quote with no obligation.`}
+    description={`Best Aircotechniek handles advice, supply and expert installation. Request a free quote and you will know within 24 hours what this model costs in your situation.`}
   />
   <ProductSchema
     lang="en"

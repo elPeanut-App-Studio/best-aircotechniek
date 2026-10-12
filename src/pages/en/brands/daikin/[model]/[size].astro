@@ -2,7 +2,6 @@
 import BaseLayout from '../../../../../layouts/BaseLayout.astro';
 import CTASection from '../../../../../components/CTASection.astro';
 import { daikinModels, daikinEfficiency, coolingLabel, heatingLabel } from '../../../../../data/daikin-products';
-import { site } from '../../../../../data/site';
 import { daikinTextEn, sharedEn, sizeRoomEn, num } from '../../../../../i18n/products-en';
 import ProductSchema from '../../../../../components/ProductSchema.astro';
 import { acSpecs } from '../../../../../lib/schema-specs';
@@ -64,7 +63,7 @@ const schemaSpecs = acSpecs({
 <BaseLayout
   lang="en"
   title={`Daikin ${model.name} ${num(size.kw)} air conditioner | Best Aircotechniek`}
-  description={`Daikin ${model.name} ${num(size.kw)}: suitable for ${roomEn.toLowerCase()} (${num(size.volume)}). Installed from ${site.priceFromEn} by Best Aircotechniek.`}
+  description={`Daikin ${model.name} ${num(size.kw)}: suitable for ${roomEn.toLowerCase()} (${num(size.volume)}). Installed by Best Aircotechniek.`}
 >
   <section class="pt-8 pb-16 sm:pt-10 sm:pb-20">
     <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
@@ -176,7 +175,7 @@ const schemaSpecs = acSpecs({
   <CTASection
     lang="en"
     title={`Have the Daikin ${model.name} installed`}
-    description={`Best Aircotechniek handles advice, supply and expert installation from ${site.priceFromEn}. Request a free quote with no obligation.`}
+    description={`Best Aircotechniek handles advice, supply and expert installation. Request a free quote and you will know within 24 hours what this model costs in your situation.`}
   />
 
   <script

@@ -3,7 +3,6 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import PageHero from '../../../components/PageHero.astro';
 import CTASection from '../../../components/CTASection.astro';
 import { lgModels, lgSizesFor, lgShared, lgBestLabels, lgBestEfficiency } from '../../../data/lg-products';
-import { site } from '../../../data/site';
 import pageHeroPhoto from '../../../assets/photos/page-hero-woning.jpg';
 import ProductSchema from '../../../components/ProductSchema.astro';
 import { acSpecs } from '../../../lib/schema-specs';
@@ -29,7 +28,7 @@ const schemaSpecs = acSpecs({
 
 <BaseLayout
   title={`LG ${model.name} airco laten installeren | Best Aircotechniek`}
-  description={`LG ${model.name}: ${model.intro} SEER tot ${bestEff?.seer}, label tot ${bestLabels?.koelen}. Laten installeren vanaf ${site.priceFrom}.`}
+  description={`LG ${model.name}: ${model.intro} SEER tot ${bestEff?.seer}, label tot ${bestLabels?.koelen}. Laten installeren door Best Aircotechniek.`}
 >
   <PageHero title={`LG ${model.name}`} description={model.intro} image={pageHeroPhoto} />
 
@@ -169,7 +168,7 @@ const schemaSpecs = acSpecs({
 
   <CTASection
     title={`LG ${model.name} laten installeren?`}
-    description={`Best Aircotechniek verzorgt advies, levering en een vakkundige montage vanaf ${site.priceFrom}. Vraag een vrijblijvende offerte aan.`}
+    description={`Best Aircotechniek verzorgt advies, levering en een vakkundige montage. Vraag een vrijblijvende offerte aan, dan weet u binnen 24 uur wat deze uitvoering bij u kost.`}
   />
   <ProductSchema
     name={`LG ${model.name} airconditioner`}
