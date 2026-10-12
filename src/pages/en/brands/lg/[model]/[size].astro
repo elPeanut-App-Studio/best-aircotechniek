@@ -3,7 +3,6 @@ import BaseLayout from '../../../../../layouts/BaseLayout.astro';
 import CTASection from '../../../../../components/CTASection.astro';
 import { lgModels, lgSizesFor, lgCapacity } from '../../../../../data/lg-products';
 import { coolingLabel, heatingLabel } from '../../../../../data/energy-labels';
-import { site } from '../../../../../data/site';
 import { lgTextEn, sharedEn, sizeRoomEn, num } from '../../../../../i18n/products-en';
 import ProductSchema from '../../../../../components/ProductSchema.astro';
 import { acSpecs } from '../../../../../lib/schema-specs';
@@ -75,7 +74,7 @@ const schemaSpecs = acSpecs({
 <BaseLayout
   lang="en"
   title={`LG ${model.name} ${num(size.kw)} air conditioner | Best Aircotechniek`}
-  description={`LG ${model.name} ${num(size.kw)} (${cap.code}): ${num(cap.koel)} kW cooling and ${num(cap.verw)} kW heating, energy label ${labelKoelen}. Installed from ${site.priceFromEn} by Best Aircotechniek.`}
+  description={`LG ${model.name} ${num(size.kw)} (${cap.code}): ${num(cap.koel)} kW cooling and ${num(cap.verw)} kW heating, energy label ${labelKoelen}. Installed by Best Aircotechniek.`}
 >
   <section class="pt-8 pb-16 sm:pt-10 sm:pb-20">
     <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
@@ -187,7 +186,7 @@ const schemaSpecs = acSpecs({
   <CTASection
     lang="en"
     title={`Have the LG ${model.name} installed`}
-    description={`Best Aircotechniek handles advice, supply and expert installation from ${site.priceFromEn}. Request a free quote with no obligation.`}
+    description={`Best Aircotechniek handles advice, supply and expert installation. Request a free quote and you will know within 24 hours what this model costs in your situation.`}
   />
 
   <script

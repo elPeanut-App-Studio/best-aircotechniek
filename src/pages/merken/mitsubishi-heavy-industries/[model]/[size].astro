@@ -10,7 +10,6 @@ import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import CTASection from '../../../../components/CTASection.astro';
 import { mhiModels, mhiSizesFor, mhiCapacity } from '../../../../data/mhi-products';
 import { coolingLabel, heatingLabel } from '../../../../data/energy-labels';
-import { site } from '../../../../data/site';
 import ProductSchema from '../../../../components/ProductSchema.astro';
 import { acSpecs } from '../../../../lib/schema-specs';
 
@@ -91,7 +90,7 @@ const schemaSpecs = acSpecs({
 
 <BaseLayout
   title={`${merk} ${model.name} ${size.kw} | Best Aircotechniek`}
-  description={`${merk} ${model.name} ${size.kw} (${cap.code}): ${cap.koel} kW koelen en ${cap.verw} kW verwarmen, energielabel ${labelKoelen}. Laten installeren vanaf ${site.priceFrom}.`}
+  description={`${merk} ${model.name} ${size.kw} (${cap.code}): ${cap.koel} kW koelen en ${cap.verw} kW verwarmen, energielabel ${labelKoelen}. Laten installeren door Best Aircotechniek.`}
 >
   <section class="pt-8 pb-16 sm:pt-10 sm:pb-20">
     <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
@@ -203,7 +202,7 @@ const schemaSpecs = acSpecs({
 
   <CTASection
     title={`${merk} ${model.name} laten installeren`}
-    description={`Best Aircotechniek verzorgt advies, levering en een vakkundige montage vanaf ${site.priceFrom}. Vraag een vrijblijvende offerte aan.`}
+    description={`Best Aircotechniek verzorgt advies, levering en een vakkundige montage. Vraag een vrijblijvende offerte aan, dan weet u binnen 24 uur wat deze uitvoering bij u kost.`}
   />
 
   <script define:vars={{ sizesData, modelSlug: model.slug, modelName: model.name, merk, basis, btnBase, btnActive, btnInactive }}>

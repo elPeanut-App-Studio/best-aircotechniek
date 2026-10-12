@@ -14,7 +14,6 @@ import {
   daikinTextEn,
   mhiTextEn,
 } from '../../../i18n/products-en';
-import { site } from '../../../data/site';
 import heroPhoto from '../../../assets/photos/page-hero-woning.jpg';
 import PriceSticker from '../../../components/PriceSticker.astro';
 
@@ -67,7 +66,7 @@ const tagline = brandTaglinesEn[brand.slug] ?? brand.tagline;
 <BaseLayout
   lang="en"
   title={brand.metaTitelEn ?? `${brand.name} air conditioning installed | Best Aircotechniek`}
-  description={`Have ${brand.name} air conditioning installed in Noord-Brabant, from ${site.priceFromEn}. ${tagline}`}
+  description={`Have ${brand.name} air conditioning installed in Noord-Brabant. ${tagline}`}
 >
   <PageHero title={`${brand.name} air conditioning`} description={tagline} image={heroPhoto} />
 

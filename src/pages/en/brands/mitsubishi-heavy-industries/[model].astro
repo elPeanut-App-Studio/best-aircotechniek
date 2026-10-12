@@ -16,7 +16,6 @@ import {
   mhiBestLabels,
   mhiBestEfficiency,
 } from '../../../../data/mhi-products';
-import { site } from '../../../../data/site';
 import { mhiTextEn, sharedEn, sizeRoomEn, num } from '../../../../i18n/products-en';
 import pageHeroPhoto from '../../../../assets/photos/page-hero-woning.jpg';
 import ProductSchema from '../../../../components/ProductSchema.astro';
@@ -49,7 +48,7 @@ const schemaSpecs = acSpecs({
 <BaseLayout
   lang="en"
   title={`${merk} ${rawModel.name} | Best Aircotechniek`}
-  description={`${merk} ${rawModel.name}: SEER up to ${num(bestEff?.seer)} and energy label up to ${bestLabels?.koelen}, in ${modelSizes.length} capacities. Installed from ${site.priceFromEn}.`}
+  description={`${merk} ${rawModel.name}: SEER up to ${num(bestEff?.seer)} and energy label up to ${bestLabels?.koelen}, in ${modelSizes.length} capacities. Installed by Best Aircotechniek.`}
 >
   <PageHero title={`${merk} ${rawModel.name}`} description={en.intro} image={pageHeroPhoto} />
 
@@ -184,7 +183,7 @@ const schemaSpecs = acSpecs({
   <CTASection
     lang="en"
     title={`Have the ${merk} ${rawModel.name} installed`}
-    description={`Best Aircotechniek handles advice, supply and expert installation from ${site.priceFromEn}. Request a free quote with no obligation.`}
+    description={`Best Aircotechniek handles advice, supply and expert installation. Request a free quote and you will know within 24 hours what this model costs in your situation.`}
   />
   <ProductSchema
     lang="en"

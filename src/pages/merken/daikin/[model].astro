@@ -3,7 +3,6 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import PageHero from '../../../components/PageHero.astro';
 import CTASection from '../../../components/CTASection.astro';
 import { daikinModels, daikinShared } from '../../../data/daikin-products';
-import { site } from '../../../data/site';
 import pageHeroPhoto from '../../../assets/photos/page-hero-woning.jpg';
 import ProductSchema from '../../../components/ProductSchema.astro';
 import { acSpecs } from '../../../lib/schema-specs';
@@ -23,7 +22,7 @@ const schemaSpecs = acSpecs({
 
 <BaseLayout
   title={`Daikin ${model.name} airco laten installeren | Best Aircotechniek`}
-  description={`Daikin ${model.name} (${model.code}): ${model.intro} SEER tot ${model.seer}. Laten installeren vanaf ${site.priceFrom} inclusief montage.`}
+  description={`Daikin ${model.name} (${model.code}): ${model.intro} SEER tot ${model.seer}. Laten installeren door Best Aircotechniek.`}
 >
   <PageHero title={`Daikin ${model.name}`} description={model.intro} image={pageHeroPhoto} />
 
@@ -146,7 +145,7 @@ const schemaSpecs = acSpecs({
 
   <CTASection
     title={`Daikin ${model.name} laten installeren?`}
-    description={`Best Aircotechniek verzorgt advies, levering en een vakkundige montage vanaf ${site.priceFrom}. Vraag een vrijblijvende offerte aan.`}
+    description={`Best Aircotechniek verzorgt advies, levering en een vakkundige montage. Vraag een vrijblijvende offerte aan, dan weet u binnen 24 uur wat deze uitvoering bij u kost.`}
   />
   <ProductSchema
     name={`Daikin ${model.name} airconditioner`}
